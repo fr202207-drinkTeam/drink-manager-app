@@ -1,11 +1,9 @@
-
 import { Paper } from "@mui/material";
 import { FC, memo, useEffect, useState } from "react";
 import PollCard from "../card/PollCard";
 import { Items } from "../../types/type";
 import ItemCard from "../card/ItemCard";
 
-import { FC, memo } from "react";
 
 
 type Props = {};
