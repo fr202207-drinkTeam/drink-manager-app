@@ -1,0 +1,98 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "firstName": "",
+      "lastName": "",
+      "email": "",
+      "password": "",
+      "isAdmin": "",
+      "authId": "",
+      "polledPopular": "",
+      "polledOther": ""
+    },
+    {
+      "id": 2,
+      "firstName": "",
+      "lastName": "",
+      "email": "",
+      "password": "",
+      "isAdmin": "",
+      "authId": "",
+      "polledPopular": "",
+      "polledOther": ""
+    },
+    {
+      "id": 3,
+      "firstName": "",
+      "lastName": "",
+      "email": "",
+      "password": "",
+      "isAdmin": "",
+      "authId": "",
+      "polledPopular": "",
+      "polledOther": ""
+    }
+  ],
+  "items": [
+    {
+      "id": 1,
+      "name": "ブライトブレンド",
+      "description": "ミディアムローストの豆をブレンドしたブライトブレンドは、キャラメル、ベリー、はちみつのバランスのとれたほんのり甘い香りが楽しめる一杯です。",
+      "image": "",
+      "itemCategory": "",
+      "createdAt": "",
+      "intheOffice": true,
+      "author": ""
+    },
+    {
+      "id": 2,
+      "name": "LAVAZZA CLASSICO",
+      "description": "しっかりとした珈琲感とドライフルーツの風味が特徴のミディアムローストコーヒー。バランスのとれたリッチな味わいがお好みの方へオススメです。",
+      "image": "",
+      "itemCategory": "",
+      "createdAt": "",
+      "intheOffice": true,
+      "author": ""
+    }
+  ],
+  "itemCategory":[
+    {
+      "id":1
+    }
+  ],
+  "questionnaire": [
+    {
+      "id": 1,
+      "name": ""
+    }
+  ],
+  "polls": [
+    {
+      "id": 1,
+      "name": ""
+    }
+  ],
+  "contact": [],
+  "contactCategory": [
+    {
+      "id": 1,
+      "contactKinds": ""
+    }
+  ],
+  "posts": [],
+  "comments": [],
+  "likes": [],
+  "stock":[
+    {
+      "id":1,
+      "contactKinds":""
+    }
+  ],
+  "addition":[
+    {
+      "id":1,
+      "contactKinds":""
+    }
+  ]
+}
