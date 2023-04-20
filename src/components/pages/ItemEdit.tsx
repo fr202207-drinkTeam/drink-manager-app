@@ -2,7 +2,7 @@ import { FC, memo } from "react";
 
 type Props = {};
 
-const PollResult: FC<Props> = memo((props) => {
+const ItemEdit: FC<Props> = memo((props) => {
   return (
     <>
 
@@ -10,4 +10,4 @@ const PollResult: FC<Props> = memo((props) => {
   );
 });
 
-export default PollResult;
+export default ItemEdit;
