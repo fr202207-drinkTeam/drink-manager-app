@@ -1,12 +1,17 @@
+
 import { Paper } from "@mui/material";
 import { FC, memo, useEffect, useState } from "react";
 import PollCard from "../card/PollCard";
 import { Items } from "../../types/type";
 import ItemCard from "../card/ItemCard";
 
+import { FC, memo } from "react";
+
+
 type Props = {};
 
 const Poll: FC<Props> = memo((props) => {
+
   const [items, setItems] = useState<Items[]>([]);
 
   useEffect(() => {
@@ -33,8 +38,11 @@ const Poll: FC<Props> = memo((props) => {
         <PollCard data={items} />
         <ItemCard data={items} />
       </Paper>
+
     </>
   );
 });
 
+
 export default Poll;
+
