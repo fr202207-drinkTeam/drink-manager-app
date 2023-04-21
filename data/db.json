@@ -286,10 +286,14 @@
   "posts": [],
   "comments": [],
   "likes": [],
-  "stock": [
+  "stockhistory": [
     {
       "id": 1,
-      "contactKinds": ""
+      "itemId": 1,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 1
     }
   ],
   "addition": [
