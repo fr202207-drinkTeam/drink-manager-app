@@ -1,7 +1,7 @@
 import { FC, memo } from "react";
 import { useState } from "react";
-import useGetAnItem from "../hooks/useGetAnItem";
-import useGetOfficeItems from "../hooks/useGetOfficeItems";
+import useGetAnItem from "../../hooks/useGetAnItem";
+import useGetOfficeItems from "../../hooks/useGetOfficeItems";
 
 type Props = {
   // itemId: number

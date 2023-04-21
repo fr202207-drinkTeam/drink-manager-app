@@ -5,7 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
-import { PrimaryButton } from "../button/Button";
+import { PrimaryButton } from "../atoms/button/Button";
 import { Box } from "@mui/material";
 import { Items } from "../../types/type";
 

@@ -14,7 +14,7 @@ import { FC, memo, useEffect, useState } from 'react';
 import PollCard from '../card/PollCard';
 import { Items } from '../../types/type';
 import ItemCard from '../card/ItemCard';
-import { PrimaryButton } from '../button/Button';
+import { PrimaryButton } from '../atoms/button/Button';
 
 type Props = {};
 

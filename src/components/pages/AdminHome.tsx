@@ -26,7 +26,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 
 import DefaultLayout from '../layout/DefaultLayout';
-import { PrimaryButton } from '../button/Button';
+import { PrimaryButton } from '../atoms/button/Button';
 import { Title } from '@mui/icons-material';
 
 type Props = {};
