@@ -1,17 +1,20 @@
 import { BrowserRouter } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
-
 import './App.css';
-
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { MainRouter } from './router/MainRouter';
 
 export const App = () => {
+  const apptheme = createTheme({
+    typography: {
+      fontFamily: ['M PLUS 1p', 'sans-serif'].join(','),
+    },
+  });
   return (
-    <RecoilRoot>
+    <ThemeProvider theme={apptheme}>
       <BrowserRouter>
         <MainRouter />
       </BrowserRouter>
-    </RecoilRoot>
+    </ThemeProvider>
   );
 };
 
