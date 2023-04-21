@@ -22,7 +22,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
-import { PrimaryButton } from "../button/Button";
+import { PrimaryButton } from "../atoms/button/Button";
 import AccordionMenu from "../accordion/AccordionMenu";
 import { useState } from "react";
 const Header = () => {

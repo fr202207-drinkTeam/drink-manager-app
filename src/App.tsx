@@ -10,6 +10,7 @@ export const App = () => {
       fontFamily: ['M PLUS 1p', 'sans-serif'].join(','),
     },
   });
+
   return (
     <RecoilRoot>
       <ThemeProvider theme={apptheme}>
