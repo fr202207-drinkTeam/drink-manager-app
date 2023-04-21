@@ -2,7 +2,7 @@ import { Paper, Box } from "@mui/material";
 import { FC, memo } from "react";
 
 //icon
-import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
+import LocalFloristIcon from "@mui/icons-material/LocalFlorist";
 import DottedMemo from "../memo/DottedMemo";
 
 type Props = {};
@@ -11,14 +11,15 @@ const PollResult: FC<Props> = memo((props) => {
   return (
     <>
       <Paper>
-      <Box
+        <Box
           sx={{
             background: "#fff9f5",
             p: 5,
             backgroundImage: "url(/iwai.png)",
-            backgroundSize:"300px",
+            backgroundSize: "250px",
             backgroundRepeat: "no-repeat",
-    backgroundPosition: "left",
+            backgroundPosition: "left",
+            mt:5,
             mb: 5,
           }}
         >
@@ -46,7 +47,14 @@ const PollResult: FC<Props> = memo((props) => {
             開催期間:4月15日〜5月15日まで
           </Box>
         </Box>
-        <DottedMemo text={"たくさんのご投票ありがとうございました!!"} information={""} fontSize={"25px"} maxWidth={700} minWidth={500} margin={1}/>
+        <DottedMemo
+          text={"たくさんのご投票ありがとうございました!!"}
+          information={""}
+          fontSize={"25px"}
+          maxWidth={700}
+          minWidth={500}
+          margin={1}
+        />
         <Box
           sx={{
             display: "flex",
@@ -90,9 +98,9 @@ const PollResult: FC<Props> = memo((props) => {
             <Box sx={{ fontSize: "30px", textAlign: "center" }}>100票</Box>
           </Box>
         </Box>
-          <Box>4位</Box>
-          <Box>5位</Box>
-          <Box>6位</Box>
+        <Box>4位</Box>
+        <Box>5位</Box>
+        <Box>6位</Box>
       </Paper>
     </>
   );

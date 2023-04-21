@@ -1,21 +1,35 @@
 import { Box, Card, List, ListItem, ListItemText, MenuItem, Pagination, Paper, Select, Typography } from "@mui/material";
-import { FC, memo, useEffect, useState } from "react";
+import { FC, memo, useCallback, useEffect, useRef, useState } from "react";
 import PollCard from "../card/PollCard";
-import { Items } from "../../types/type";
+import { Items, Polls } from "../../types/type";
 import ItemCard from "../card/ItemCard";
 import { PrimaryButton } from "../button/Button";
+import PollTitle from "../pollParts/PollTitle";
 
 type Props = {};
 
 const Poll: FC<Props> = memo((props) => {
-
   const [items, setItems] = useState<Items[]>([]);
+  const [popularPolls, setPopularPolls] = useState<Polls[]>([]);
   const [selectedValue, setSelectedValue] = useState("日付を選択してください");
 
+  const refContents = useRef<HTMLDivElement>(null);
+
+  //過去の投票結果までスクロール
+  const scrollToContents = useCallback(() => {
+    if (refContents && refContents.current) {
+    refContents.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });}
+  }, [refContents]);
+
+  //select
   const handleSelectChange = (event:any) => {
     setSelectedValue(event.target.value);
   };
 
+  //全部取得している。あとで共用できたら消す
   useEffect(() => {
     (async () => {
       try {
@@ -31,6 +45,33 @@ const Poll: FC<Props> = memo((props) => {
       }
     })();
   }, []);
+  //全部取得している。あとで共用できたら消す
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await fetch(`http://localhost:8880/questionnaire`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        const filteredData = data.filter((poll:Polls) => poll.category === 1);
+
+        const dateFilteredData = filteredData.map(
+          (poll: Polls) => {
+            return {
+              ...poll,
+              startDate: new Date(poll.startDate),
+              endDate: new Date(poll.endDate),
+            };
+          }
+        );
+        setPopularPolls(dateFilteredData);
+        console.log(popularPolls)
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, [popularPolls]);
 
   console.log(items)
 
@@ -38,10 +79,11 @@ const Poll: FC<Props> = memo((props) => {
     <>
       <Paper sx={{mb:5,width:"100%",minWidth:500,maxWidth:1200}}>
         <PrimaryButton
+          onClick={scrollToContents}
           sx={{
             backgroundColor: "#84b9cb",
             my: 4,
-            p: 3,
+            p: 2,
             ml:80,
             width: 250,
             fontSize: "20px",
@@ -54,39 +96,7 @@ const Poll: FC<Props> = memo((props) => {
         >
           過去の投票結果
         </PrimaryButton>
-        <Box
-          sx={{
-            background: "#fff9f5",
-            p: 5,
-            backgroundImage: "url(/coffee.png)",
-            mb: 5,
-          }}
-        >
-          <Box
-            sx={{
-              fontFamily: "cursive",
-              fontSize: "40px",
-              textAlign: "center",
-              mt: 10,
-              backgroundColor: "white",
-              background:
-                "-webkit-repeating-linear-gradient(-45deg, #6ad1c8, #6ad1c8 2px, #fff 2px, #fff 4px)",
-            }}
-          >
-            社内drink人気投票
-          </Box>
-          <Box
-            sx={{
-              fontFamily: "cursive",
-              fontSize: "20px",
-              textAlign: "center",
-              mt: 5,
-              backgroundColor: "white",
-            }}
-          >
-            開催期間:4月15日〜5月15日まで
-          </Box>
-        </Box>
+        <PollTitle poll={popularPolls}/>
         <Card
           sx={{
             p: 1,
@@ -149,6 +159,7 @@ const Poll: FC<Props> = memo((props) => {
               textAlign: "center",
               mt: 5,
               backgroundColor: "white",
+              fontWeight:"bold"
             }}
           >
             開催期間:4月15日〜5月15日まで
@@ -193,6 +204,7 @@ const Poll: FC<Props> = memo((props) => {
             mt: 5,
             mb: 5,
           }}
+          ref={refContents}
         >
           <Box
             sx={{
