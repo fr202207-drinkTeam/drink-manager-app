@@ -1,9 +1,9 @@
-import { FC, memo } from 'react';
+import { FC, memo, useEffect } from 'react';
 import HistorySharpIcon from '@mui/icons-material/HistorySharp';
 import {
   Box,
   Card,
-  CardMedia,  
+  CardMedia,
   Typography,
   CardActionArea,
   CardContent,
@@ -29,9 +29,16 @@ import DefaultLayout from '../layout/DefaultLayout';
 import { PrimaryButton } from '../atoms/button/Button';
 import { Title } from '@mui/icons-material';
 
+import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
+
+import { useLoginUser } from '../../hooks/useLoginUser';
+
 type Props = {};
 
 const AdminHome: FC<Props> = memo((props) => {
+  const { loginUserInfo } = useLoginUser({ id: 2 });
+
   return (
     <>
       <DefaultLayout>
@@ -56,6 +63,7 @@ const AdminHome: FC<Props> = memo((props) => {
           >
             -管理者MENU-
           </Typography>
+          {loginUserInfo.isAdmin ? <p>管理者です</p> : <p>一般ユーザです</p>}
           <Stack
             direction="row"
             justifyContent="center"

@@ -1,12 +1,12 @@
-import { BrowserRouter } from "react-router-dom";
-import "./App.css";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { MainRouter } from "./router/MainRouter";
+import { BrowserRouter } from 'react-router-dom';
+import './App.css';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { MainRouter } from './router/MainRouter';
 
 export const App = () => {
   const apptheme = createTheme({
     typography: {
-      fontFamily: ["M PLUS 1p", "sans-serif"].join(","),
+      fontFamily: ['M PLUS 1p', 'sans-serif'].join(','),
     },
   });
   return (

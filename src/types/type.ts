@@ -1,13 +1,13 @@
 export type Users = {
-  id: Number;
+  id: Number | null;
   firstName: String;
   lastName: String;
   email: String;
   password: String;
-  isAdmin: Boolean;
+  isAdmin: Boolean | null;
   authId: String;
-  polledPopular: Boolean;
-  polledOther: Boolean;
+  polledPopular: Boolean | null;
+  polledOther: Boolean | null;
 };
 
 export type Items = {
