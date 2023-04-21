@@ -10,7 +10,7 @@ import {
   Stack,
 } from "@mui/material";
 import { FC, memo, useState } from "react";
-import { PrimaryInput } from "../input/Input";
+import { PrimaryInput } from "../atoms/input/Input";
 
 type Props = {};
 

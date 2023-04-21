@@ -12,7 +12,7 @@ import {
 import { CheckCircle } from "@mui/icons-material";
 import { FC, memo, useState } from "react";
 import { Link } from "react-router-dom";
-import { PrimaryInput } from "../input/Input";
+import { PrimaryInput } from "../atoms/input/Input";
 
 type Props = {};
 
