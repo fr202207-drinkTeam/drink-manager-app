@@ -9,23 +9,23 @@ const Timeline: FC<Props> = memo((props) => {
       <ModalWindow
       title="投稿"
       content="投稿します。よろしいですか？"
-      openButtonColor="blue"
-      openButtonSxStyle={{pb: '100px'}}
-      completeButtonColor="blue"
+      openButtonColor="beige"
+      openButtonSxStyle={{pb: '50px'}}
+      completeButtonColor="beige"
       completeButtonName="投稿"
       completeAction={() => {
-        console.log("complete");
+        console.log("complete2");
       }}
-      cancelButtonColor="orange"
+      cancelButtonColor="pink"
     />
     <ModalWindow
       title="投稿削除"
       content="投稿を削除します。よろしいですか？"
       openButtonColor="red"
-      completeButtonColor="blue"
+      completeButtonColor="red"
       completeButtonName="削除"
       completeAction={() => {
-        console.log("delete");
+        console.log("delete2");
       }}
       cancelButtonColor="pink"
     />
