@@ -10,7 +10,7 @@ import Timeline from '../components/pages/Timeline';
 export const UserRouter = [
   { path: '/timeline', element: <Timeline /> },
   { path: '/search', element: <ItemSearch /> },
-  { path: '/search/:id', element: <ItemDetail intheOffice={true} /> }, // 仮で指定
+  { path: '/search/:id', element: <ItemDetail /> },
   { path: '/contact', element: <Contact /> },
   { path: '/guide', element: <Guide /> },
   { path: '/faq', element: <Faq /> },

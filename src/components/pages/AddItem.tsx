@@ -19,7 +19,9 @@ import {
   ActiveDarkBlueButton,
   ActiveRedButton,
 } from "../atoms/button/Button";
-import AdmTitleText from "../atoms/text/AdmTitleText"
+import AdmTitleText from "../atoms/text/AdmTitleText";
+import { PrimaryInput, SecondaryInput } from "../atoms/input/Input";
+import useImgPathConversion from "../../hooks/useImgPathConversion"
 
 type Props = {};
 
@@ -31,6 +33,11 @@ const AddItem: FC<Props> = memo((props) => {
   const [itemImages, setItemImages] = useState<{ id: number; value: string }[]>(
     []
   );
+  const [testImageData, setTestImageData] = useState<any>(null)
+  const { imagePath, loading, isUploaded } = useImgPathConversion({ imgFile: testImageData });
+  const imageData = (e: any) => {
+    setTestImageData(e.target.files[0])
+  }
   const onClickCanselModal = () => {
     const canselOrNotModal = window.confirm(
       "キャンセルすると内容は破棄されますがよろしいですか？"
@@ -65,6 +72,8 @@ const AddItem: FC<Props> = memo((props) => {
     };
   };
 
+
+
   const testFunc = () => {
     console.log("テスト");
   };
@@ -75,23 +84,14 @@ const AddItem: FC<Props> = memo((props) => {
   return (
     <>
       <Paper sx={{ p: 5, width: "80%", m: "auto" }}>
-        {/* <Typography
-          variant="h5"
-          component="div"
-          textAlign="center"
-          sx={{ mb: 8 }}
-        >
-          商品追加
-        </Typography> */}
         <AdmTitleText>商品追加</AdmTitleText>
-        <TextField
+        <SecondaryInput
           id="itemName"
           label="商品名"
-          variant="outlined"
           defaultValue={itemName}
           required
-          onChange={(e) => setItemName(e.target.value)}
-          sx={{ width: 400, mb: 5 }}
+          onChange={(e: any) => setItemName(e.target.value)}
+          sx={{  width: 400, mb: 5 }}
           inputProps={{ maxLength: 20 }}
         />
 
@@ -99,7 +99,6 @@ const AddItem: FC<Props> = memo((props) => {
           商品画像 * 最大3枚まで
         </Typography>
 
-        {/* ファイル選択 */}
         <Box sx={{ display: "flex", mb: 5, width: 800, alignItems: "center" }}>
           {itemImages.map((item, index) => {
             return (
@@ -113,7 +112,7 @@ const AddItem: FC<Props> = memo((props) => {
                   />
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     <label htmlFor={item.id.toString()}>
-                    <Button
+                      <Button
                         style={{
                           background: "none",
                           border: "none",
@@ -129,7 +128,7 @@ const AddItem: FC<Props> = memo((props) => {
                       </Button>
                     </label>
                     <Button
-                    key={item.id.toString()}
+                      key={item.id.toString()}
                       onClick={() => onClickDeleteItemImage(item.id)}
                       style={{
                         background: "none",
@@ -239,13 +238,13 @@ const AddItem: FC<Props> = memo((props) => {
           itemCategory !== 0 &&
           itemImages.length > 0 ? (
             <ActiveOrangeButton
-            event={onClickAddItemData}
-            sxStyle={{
-              my: 2,
-              mr: 3,
-              py: "5px",
-              fontSize: "16px",
-            }}
+              event={onClickAddItemData}
+              sxStyle={{
+                my: 2,
+                mr: 3,
+                py: "5px",
+                fontSize: "16px",
+              }}
             >
               確定
             </ActiveOrangeButton>
@@ -264,6 +263,12 @@ const AddItem: FC<Props> = memo((props) => {
             </>
           )}
         </Box>
+        <input type="file" onChange={imageData} />
+        <div>
+      {loading && <p>Uploading image...</p>}
+      {isUploaded && <p>Image uploaded successfully!</p>}
+      {imagePath && <img src={imagePath} alt="uploaded" />}
+    </div>
       </Paper>
     </>
   );
