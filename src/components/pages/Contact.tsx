@@ -8,7 +8,7 @@ import {
   TextField,
 } from '@mui/material';
 import { FC, memo } from 'react';
-import { PrimaryButton } from '../button/Button';
+import { PrimaryButton } from '../atoms/button/Button';
 
 type Props = {};
 

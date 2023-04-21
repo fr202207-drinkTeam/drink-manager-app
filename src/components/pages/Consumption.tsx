@@ -1,7 +1,7 @@
 import { Box, Button, Modal, Paper, Typography } from '@mui/material';
 import { FC, memo } from 'react';
 import StockCard from '../card/StockCard';
-import { PrimaryButton } from '../button/Button';
+import { PrimaryButton } from '../atoms/button/Button';
 import useGetOfficeItems from '../../hooks/useGetOfficeItems';
 import { useState, useEffect } from 'react';
 
