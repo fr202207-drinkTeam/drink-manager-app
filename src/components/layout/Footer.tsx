@@ -1,32 +1,7 @@
 import React from "react";
-// import { Typography } from "@mui/material";
-// import Paper from "@mui/material/Paper";
-// const Footer = () => {
-//   return (
-//     <Paper
-//       sx={{
-//         display: "flex",
-//         justifyContent: "center",
-//         alignItems: "center",
-//         py: 6,
-//       }}
-//     >
-//       <Typography sx={{ mx: 2 }}>TOP</Typography>
-//       <Typography sx={{ mx: 2 }}>ご利用ガイド</Typography>
-//       <Typography sx={{ mx: 2 }}>お問い合わせ</Typography>
-//       <Typography sx={{ mx: 2 }}>投票</Typography>
-//     </Paper>
-//   );
-// };
-
-// export default Footer;
-
-// import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import { Paper } from "@mui/material";
+import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <>
@@ -40,10 +15,18 @@ const Footer = () => {
           color: "white",
         }}
       >
-        <Typography sx={{ mx: 2 }}>TOP</Typography>
-        <Typography sx={{ mx: 2 }}>ご利用ガイド</Typography>
-        <Typography sx={{ mx: 2 }}>お問い合わせ</Typography>
-        <Typography sx={{ mx: 2 }}>投票</Typography>
+        <Link to="/home">
+          <Typography sx={{ mx: 2 }}>TOP</Typography>
+        </Link>
+        <Link to="/home/guide">
+          <Typography sx={{ mx: 2 }}>ご利用ガイド</Typography>
+        </Link>
+        <Link to="/home/contact">
+          <Typography sx={{ mx: 2 }}>お問い合わせ</Typography>
+        </Link>
+        <Link to="/home/poll">
+          <Typography sx={{ mx: 2 }}>投票</Typography>
+        </Link>
       </Box>
       <Box
         sx={{

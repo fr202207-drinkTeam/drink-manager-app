@@ -9,6 +9,10 @@ body {
   background-color: #f4e9d2;
   font-family: "M PLUS 1p", sans-serif;
 }
+a {
+  text-decoration: none;
+  color: #000;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
