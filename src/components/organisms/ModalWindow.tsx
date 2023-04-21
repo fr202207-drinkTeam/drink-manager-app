@@ -14,7 +14,7 @@ import {
   ActivePinkButton,
   ActiveRedButton,
   InactiveButton,
-} from "../button/Button";
+} from "../atoms/button/Button";
 
 const style = {
   position: "absolute" as "absolute",
