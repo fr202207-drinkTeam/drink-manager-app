@@ -12,25 +12,19 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  TextField,
-} from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import { PrimaryButton } from "../atoms/button/Button";
-import AccordionMenu from "../accordion/AccordionMenu";
+import AccordionMenu from "../atoms/accordion/AccordionMenu";
 import { useState } from "react";
 const Header = () => {
   const pages = [
-    { label: "Top", href: "/" },
-    { label: "ご利用ガイド", href: "/" },
-    { label: "投票", href: "/" },
-    { label: "お問い合わせ", href: "/" },
+    { label: "Top", href: "/home" },
+    { label: "ご利用ガイド", href: "/home/guide" },
+    { label: "投票", href: "/home/poll" },
+    { label: "お問い合わせ", href: "/home/contact" },
   ];
   const settings = ["Profile", "Account", "Dashboard", "Logout"];
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
