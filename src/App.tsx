@@ -1,14 +1,17 @@
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 
-import "./App.css";
+import './App.css';
 
-import { MainRouter } from "./router/MainRouter";
+import { MainRouter } from './router/MainRouter';
 
 export const App = () => {
   return (
-    <BrowserRouter>
-      <MainRouter />
-    </BrowserRouter>
+    <RecoilRoot>
+      <BrowserRouter>
+        <MainRouter />
+      </BrowserRouter>
+    </RecoilRoot>
   );
 };
 
