@@ -1,13 +1,13 @@
 export type Users = {
-  id: Number;
+  id: Number | null;
   firstName: String;
   lastName: String;
   email: String;
   password: String;
-  isAdmin: Boolean;
+  isAdmin: Boolean | null;
   authId: String;
-  polledPopular: Boolean;
-  polledOther: Boolean;
+  polledPopular: Boolean | null;
+  polledOther: Boolean | null;
 };
 
 export type Items = {
@@ -15,8 +15,21 @@ export type Items = {
   name: String;
   description: String;
   image: string;
-  itemCategory: String;
+  itemCategory: Number;
   createdAt: Date;
   intheOffice: Boolean;
   author: String;
+};
+
+export type Polls = {
+  id: Number;
+  name: String;
+  polledItems: [
+    { id: Number; itemId: Number; name: String; detail: String; result: Number }
+  ];
+  createdAt: Date;
+  category: Number;
+  startDate: Date;
+  endDate: Date;
+  author: Number;
 };

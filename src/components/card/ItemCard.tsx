@@ -6,6 +6,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import { Items } from "../../types/type";
+import { Category } from "@mui/icons-material";
 
 type ItemCardProps = {
   data: Items[];
@@ -33,20 +34,33 @@ const ItemCard = ({ data }: ItemCardProps) => {
             }}
           >
             <Typography
-                variant="body2"
-                color="textSecondary"
-                component="p"
-                sx={{
-                  textAlign: "center",
-                  fontSize: "13px",
-                  backgroundColor: "#d6c6af",
-                  width: 80,
-                  p: "3px",
-                  color: "#000",
-                  borderRadius:"3px"
-                }}
+              variant="body2"
+              color="textSecondary"
+              component="p"
+              sx={{
+                textAlign: "center",
+                fontSize: "13px",
+                backgroundColor: "#d6c6af",
+                width: 80,
+                p: "3px",
+                color: "#000",
+                borderRadius: "3px",
+              }}
             >
-              {drink.itemCategory}
+              {(() => {
+                if (
+                  Number(drink.itemCategory) >= 1 &&
+                  Number(drink.itemCategory) <= 4
+                ) {
+                  return "コーヒー";
+                } else if (drink.itemCategory === 5) {
+                  return "ティー";
+                } else if (drink.itemCategory === 6) {
+                  return "ココア";
+                } else {
+                  return "その他";
+                }
+              })()}
             </Typography>
             <CardActionArea>
               <CardMedia
@@ -77,23 +91,29 @@ const ItemCard = ({ data }: ItemCardProps) => {
                       width: 80,
                       p: "3px",
                       color: "#000",
-                      borderRadius:"3px"
+                      borderRadius: "3px",
                     }}
                   >
                     社内あり
                   </Typography>
-                ):<Typography variant="body2"
-                color="textSecondary"
-                component="p"
-                sx={{
-                  textAlign: "center",
-                  fontSize: "13px",
-                  backgroundColor: "#a4c1d7",
-                  width: 80,
-                  p: "3px",
-                  color: "#000",
-                  borderRadius:"3px"
-                }}>社内なし</Typography>}
+                ) : (
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                    sx={{
+                      textAlign: "center",
+                      fontSize: "13px",
+                      backgroundColor: "#a4c1d7",
+                      width: 80,
+                      p: "3px",
+                      color: "#000",
+                      borderRadius: "3px",
+                    }}
+                  >
+                    社内なし
+                  </Typography>
+                )}
                 <Typography
                   gutterBottom
                   sx={{
@@ -101,7 +121,7 @@ const ItemCard = ({ data }: ItemCardProps) => {
                     fontSize: "16px",
                     borderBottom: "double",
                     fontFamily: "Georgia",
-                    fontWeight:"bold"
+                    fontWeight: "bold",
                   }}
                 >
                   {drink.name}

@@ -10,7 +10,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import DefaultLayout from "../layout/DefaultLayout";
-import { PrimaryButton } from "../button/Button";
+import { PrimaryButton } from "../atoms/button/Button";
 import Grid from "@mui/material/Grid";
 
 import Header from "../layout/Header";
