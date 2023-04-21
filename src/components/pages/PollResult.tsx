@@ -2,8 +2,8 @@ import { Paper, Box } from '@mui/material';
 import { FC, memo } from 'react';
 
 //icon
-import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
-import DottedMemo from '../memo/DottedMemo';
+import LocalFloristIcon from "@mui/icons-material/LocalFlorist";
+import DottedMemo from "../memo/DottedMemo";
 
 type Props = {};
 
@@ -15,10 +15,11 @@ const PollResult: FC<Props> = memo((props) => {
           sx={{
             background: '#fff9f5',
             p: 5,
-            backgroundImage: 'url(/iwai.png)',
-            backgroundSize: '300px',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'left',
+            backgroundImage: "url(/iwai.png)",
+            backgroundSize: "250px",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "left",
+            mt:5,
             mb: 5,
           }}
         >
@@ -47,9 +48,9 @@ const PollResult: FC<Props> = memo((props) => {
           </Box>
         </Box>
         <DottedMemo
-          text={'たくさんのご投票ありがとうございました!!'}
-          information={''}
-          fontSize={'25px'}
+          text={"たくさんのご投票ありがとうございました!!"}
+          information={""}
+          fontSize={"25px"}
           maxWidth={700}
           minWidth={500}
           margin={1}
