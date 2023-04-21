@@ -1,5 +1,5 @@
-import { Paper, Box } from "@mui/material";
-import { FC, memo } from "react";
+import { Paper, Box } from '@mui/material';
+import { FC, memo } from 'react';
 
 //icon
 import LocalFloristIcon from "@mui/icons-material/LocalFlorist";
@@ -13,7 +13,7 @@ const PollResult: FC<Props> = memo((props) => {
       <Paper>
         <Box
           sx={{
-            background: "#fff9f5",
+            background: '#fff9f5',
             p: 5,
             backgroundImage: "url(/iwai.png)",
             backgroundSize: "250px",
@@ -25,22 +25,22 @@ const PollResult: FC<Props> = memo((props) => {
         >
           <Box
             sx={{
-              fontFamily: "cursive",
-              fontSize: "40px",
-              textAlign: "center",
+              fontFamily: 'cursive',
+              fontSize: '40px',
+              textAlign: 'center',
               mt: 10,
-              backgroundColor: "white",
+              backgroundColor: 'white',
               background:
-                "-webkit-repeating-linear-gradient(-45deg, #6ad1c8, #6ad1c8 2px, #fff 2px, #fff 4px)",
+                '-webkit-repeating-linear-gradient(-45deg, #6ad1c8, #6ad1c8 2px, #fff 2px, #fff 4px)',
             }}
           >
             3月度社内drink人気投票結果（仮）
           </Box>
           <Box
             sx={{
-              fontFamily: "cursive",
-              fontSize: "20px",
-              textAlign: "center",
+              fontFamily: 'cursive',
+              fontSize: '20px',
+              textAlign: 'center',
               mt: 5,
             }}
           >
@@ -57,9 +57,9 @@ const PollResult: FC<Props> = memo((props) => {
         />
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "space-around",
-            flexWrap: "wrap",
+            display: 'flex',
+            justifyContent: 'space-around',
+            flexWrap: 'wrap',
           }}
         >
           <Box>
@@ -67,35 +67,35 @@ const PollResult: FC<Props> = memo((props) => {
               sx={{
                 mt: 10,
                 pb: 10,
-                backgroundImage: "url(/crown1.png)",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "70px",
-                backgroundPosition: "center",
+                backgroundImage: 'url(/crown1.png)',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: '70px',
+                backgroundPosition: 'center',
               }}
             ></Box>
-            <Box sx={{ fontSize: "30px", textAlign: "center" }}>100票</Box>
+            <Box sx={{ fontSize: '30px', textAlign: 'center' }}>100票</Box>
             <Box
               sx={{
                 mt: 10,
                 pb: 10,
-                backgroundImage: "url(/crown1.png)",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "70px",
-                backgroundPosition: "center",
+                backgroundImage: 'url(/crown1.png)',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: '70px',
+                backgroundPosition: 'center',
               }}
             ></Box>
-            <Box sx={{ fontSize: "30px", textAlign: "center" }}>100票</Box>
+            <Box sx={{ fontSize: '30px', textAlign: 'center' }}>100票</Box>
             <Box
               sx={{
                 mt: 10,
                 pb: 10,
-                backgroundImage: "url(/crown1.png)",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "70px",
-                backgroundPosition: "center",
+                backgroundImage: 'url(/crown1.png)',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: '70px',
+                backgroundPosition: 'center',
               }}
             ></Box>
-            <Box sx={{ fontSize: "30px", textAlign: "center" }}>100票</Box>
+            <Box sx={{ fontSize: '30px', textAlign: 'center' }}>100票</Box>
           </Box>
         </Box>
         <Box>4位</Box>
