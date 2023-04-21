@@ -13,11 +13,11 @@ export const App = () => {
 
   return (
     <RecoilRoot>
-    <ThemeProvider theme={apptheme}>
-      <BrowserRouter>
-        <MainRouter />
-      </BrowserRouter>
-    </ThemeProvider>
+      <ThemeProvider theme={apptheme}>
+        <BrowserRouter>
+          <MainRouter />
+        </BrowserRouter>
+      </ThemeProvider>
     </RecoilRoot>
   );
 };

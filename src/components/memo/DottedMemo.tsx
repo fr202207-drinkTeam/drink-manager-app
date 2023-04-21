@@ -1,6 +1,7 @@
 import { Card, Typography } from '@mui/material'
 import React from 'react'
 
+//text,informationは中のテキスト、それ以外はスタイル
 type DottedMemoProps={
   text:string;
   information?:string;

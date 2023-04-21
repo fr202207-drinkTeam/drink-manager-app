@@ -3,6 +3,10 @@ import { useState } from 'react';
 import useGetAnItem from '../../hooks/useGetAnItem';
 import useGetOfficeItems from '../../hooks/useGetOfficeItems';
 
+type Props = {
+  // itemId: number
+  intheOffice: boolean;
+};
 // type Props = {
 //   // itemId: number
 //   intheOffice: boolean;
@@ -10,7 +14,7 @@ import useGetOfficeItems from '../../hooks/useGetOfficeItems';
 
 const ItemDetail: FC = memo(() => {
   // const itemData = useGetAnItem({ itemId: 1 })
-  const officeItemData = useGetOfficeItems({intheOffice:true});
+  const officeItemData = useGetOfficeItems({ intheOffice: true });
   console.log(officeItemData);
   if (!officeItemData) return <div>Loading...</div>;
   return (

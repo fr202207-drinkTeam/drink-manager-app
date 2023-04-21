@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 type Props = {
   intheOffice: boolean;
@@ -10,7 +10,7 @@ const useGetOfficeItems = (props: Props) => {
   useEffect(() => {
     if (!props) return;
     fetch(`http://localhost:8880/items?intheOffice=${props.intheOffice}`, {
-      method: "GET",
+      method: 'GET',
     })
       .then((res) => res.json())
       .then((data) => {
@@ -21,7 +21,7 @@ const useGetOfficeItems = (props: Props) => {
       });
   }, [props.intheOffice]);
 
-  return itemData;
+  return  itemData ;
 };
 
 export default useGetOfficeItems;

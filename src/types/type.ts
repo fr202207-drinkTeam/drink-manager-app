@@ -12,11 +12,24 @@ export type Users = {
 
 export type Items = {
   id: Number;
-  name: String;
+  name: string;
   description: String;
   image: string;
-  itemCategory: String;
+  itemCategory: Number;
   createdAt: Date;
   intheOffice: Boolean;
   author: String;
+};
+
+export type Polls = {
+  id: Number;
+  name: String;
+  polledItems: [
+    { id: Number; itemId: Number; name: String; detail: String; result: Number }
+  ];
+  createdAt: Date;
+  category: Number;
+  startDate: Date;
+  endDate: Date;
+  author: Number;
 };
