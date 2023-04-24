@@ -1,35 +1,47 @@
 export type Users = {
-  id: Number | null;
-  firstName: String;
-  lastName: String;
-  email: String;
-  password: String;
+  id: number | null;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
   isAdmin: Boolean | null;
-  authId: String;
+  authId: string;
   polledPopular: Boolean | null;
   polledOther: Boolean | null;
 };
 
 export type Items = {
-  id: Number;
-  name: String;
-  description: String;
+  id: number;
+  name: string;
+  description: string;
   image: string;
-  itemCategory: Number;
+  itemCategory: number;
   createdAt: Date;
-  intheOffice: Boolean;
-  author: String;
+  intheOffice: boolean;
+  author: string;
+};
+
+export type Questionnaire = {
+  id: number;
+  name: string;
+  polledItems: [
+    {
+      id: number;
+      itemId?: number;
+      result?: number;
+    }
+  ];
+  createdAt: Date;
+  category: number;
+  startDate: Date;
+  endDate: Date;
+  author?: number;
 };
 
 export type Polls = {
-  id: Number;
-  name: String;
-  polledItems: [
-    { id: Number; itemId: Number; name: String; detail: String; result: Number }
-  ];
+  id: number;
+  questionnaireId: number;
+  userId: number;
+  result: number;
   createdAt: Date;
-  category: Number;
-  startDate: Date;
-  endDate: Date;
-  author: Number;
 };
