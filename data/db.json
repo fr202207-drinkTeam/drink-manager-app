@@ -1,13 +1,13 @@
 {
   "users": [
     {
-      "id": 1111,
-      "firstName": "",
-      "lastName": "",
+      "id": 1,
+      "firstName": "ラクス",
+      "lastName": "太郎",
       "email": "test@test.com",
       "password": "Test1234",
       "isAdmin": false,
-      "authId": "",
+      "authId": "giP7CHKGEuNbsXUemefgUCjtciQ2",
       "polledPopular": false,
       "polledOther": true
     },
