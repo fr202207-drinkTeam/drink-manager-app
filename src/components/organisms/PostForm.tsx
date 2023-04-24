@@ -1,5 +1,6 @@
 import { AddPhotoAlternate, Coffee } from "@mui/icons-material";
 import {
+  Box,
   Button,
   Grid,
   InputLabel,
@@ -9,24 +10,55 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Box } from "@mui/system";
 import { FC, memo, useState } from "react";
 import PreviewImage from "../molecules/PreviewImage";
 
 type Props = {};
 
 const PostForm: FC<Props> = memo((props) => {
-  const [inputImages, setInputImages] = useState<any>([]);
-  const previewImage = (event: any) => {
+  // 入力した画像ファイル格納
+  const [inputImages, setInputImages] = useState<File[]>([]);
+
+  // 入力した画像ファイルのstate管理
+  const previewImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // 入力した画像に重複がないか判別
+    const preventSameImage = inputImages.some(
+      (image: File) => image.name === event.target.files![0].name
+    );
+    // 重複があった場合は処理を終了
+    if (preventSameImage) {
+      return;
+    }
+
+    // 画像ファイルが3つ以上の場合、古い画像を削除して新しい3つを追加
+    if (inputImages.length >= 3) {
+      setInputImages((inputImages: File[]) => {
+        const limitedImages = [...inputImages, event.target.files![0]];
+        limitedImages.shift();
+        return limitedImages;
+      });
+    }
+    // 画像ファイルが３つ未満の場合、通常の画像追加
+    else {
+      setInputImages((inputImages: File[]) => [
+        ...inputImages,
+        event.target.files![0],
+      ]);
+    }
+  };
+
+  // TODO 投稿送信処理
+  const postData = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setInputImages((inputImages: any) => [
-      ...inputImages,
-      event.target.files[0],
-    ]);
   };
 
   return (
-    <Paper component="form" elevation={3} sx={{ mt: 2, mb: 5 }}>
+    <Paper
+      component="form"
+      onSubmit={postData}
+      elevation={3}
+      sx={{ mt: 2, mb: 5 }}
+    >
       <TextField
         fullWidth
         rows={3}
@@ -66,6 +98,16 @@ const PostForm: FC<Props> = memo((props) => {
           ココア
         </MenuItem>
       </Select>
+      {/* 入力した画像ファイルがある場合、プレビューを表示 */}
+      {inputImages.length > 0 && (
+        <PreviewImage
+          inputImages={inputImages}
+          setInputImages={setInputImages}
+          inputLength={inputImages.length}
+          width={"164px"}
+          height={"164px"}
+        />
+      )}
       <Grid container alignItems="center" spacing={5}>
         <Grid item xs={10}>
           <InputLabel
@@ -85,7 +127,6 @@ const PostForm: FC<Props> = memo((props) => {
             size="small"
             onChange={previewImage}
           />
-          {inputImages.length > 0 && <PreviewImage inputImages={inputImages} />}
         </Grid>
 
         <Grid item xs={2}>
