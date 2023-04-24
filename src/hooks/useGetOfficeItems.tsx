@@ -18,7 +18,7 @@ const useGetOfficeItems = (props: Props) => {
         setItemData(data);
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error("Error:", error);
       });
   }, [props.intheOffice]);
 

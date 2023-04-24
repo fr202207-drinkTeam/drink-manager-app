@@ -44,11 +44,11 @@ const Consumption: FC<Props> = memo((props) => {
     >
       {/* <Typography
         sx={{
-          textAlign: 'center',
-          fontFamily: 'Georgia',
-          fontSize: '50px',
-          color: '#024098',
-          mt: '20px',
+          textAlign: "center",
+          fontFamily: "Georgia",
+          fontSize: "50px",
+          color: "#024098",
+          mt: "20px",
         }}
       >
         -消費在庫入力-
@@ -69,16 +69,16 @@ const Consumption: FC<Props> = memo((props) => {
       <div style={{ display: 'inline-flex' }}>
         {/* <Button
           sx={{
-            background: '#024098',
-            color: '#FFF',
-            fontWeight: 'bold',
+            background: "#024098",
+            color: "#FFF",
+            fontWeight: "bold",
             px: 10,
             py: 4,
             my: 5,
             borderRadius: 20,
             fontSize: 20,
-            direction: 'rtl',
-            width: '300px',
+            direction: "rtl",
+            width: "300px",
           }}
         >
           送信
