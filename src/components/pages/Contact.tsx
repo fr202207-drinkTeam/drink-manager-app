@@ -6,9 +6,9 @@ import {
   Stack,
   Box,
   TextField,
-} from '@mui/material';
-import { FC, memo } from 'react';
-import { PrimaryButton } from '../atoms/button/Button';
+} from "@mui/material";
+import { FC, memo } from "react";
+import { PrimaryButton } from "../atoms/button/Button";
 
 type Props = {};
 
@@ -16,7 +16,7 @@ const Contact: FC<Props> = memo((props) => {
   return (
     <Paper
       sx={{
-        padding: '50px 100px',
+        padding: "50px 100px",
       }}
     >
       <Stack
@@ -27,9 +27,9 @@ const Contact: FC<Props> = memo((props) => {
       >
         <Typography
           sx={{
-            fontFamily: 'Georgia',
-            fontSize: '50px',
-            mt: '20px',
+            fontFamily: "Georgia",
+            fontSize: "50px",
+            mt: "20px",
           }}
         >
           Contact
@@ -41,7 +41,7 @@ const Contact: FC<Props> = memo((props) => {
           alignItems="center"
           spacing={10}
         >
-          <Typography sx={{ minWidth: '160px' }}>お問い合わせ種別：</Typography>
+          <Typography sx={{ minWidth: "160px" }}>お問い合わせ種別：</Typography>
           <Input type="text" />
         </Stack>
         <Stack
@@ -50,7 +50,7 @@ const Contact: FC<Props> = memo((props) => {
           alignItems="center"
           spacing={10}
         >
-          <Typography sx={{ minWidth: '160px' }}>お問い合わせ内容：</Typography>
+          <Typography sx={{ minWidth: "160px" }}>お問い合わせ内容：</Typography>
           <Box>
             <TextField
               sx={{ width: 500 }}

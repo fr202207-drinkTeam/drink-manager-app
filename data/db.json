@@ -5,7 +5,7 @@
       "firstName": "",
       "lastName": "",
       "email": "test@test.com",
-      "password": "test1234",
+      "password": "Test1234",
       "isAdmin": false,
       "authId": "",
       "polledPopular": false,
@@ -243,18 +243,8 @@
       "id": 1,
       "name": "社内drink人気投票",
       "polledItems": [
-        {
-          "id": 1,
-          "itemId": 1,
-          "detail": "",
-          "result": ""
-        },
-        {
-          "id": 2,
-          "itemId": 2,
-          "detail": "",
-          "result": ""
-        }
+        { "id": 1, "itemId": 1, "detail": "", "result": "" },
+        { "id": 2, "itemId": 2, "detail": "", "result": "" }
       ],
       "createdAt": "2023-04-1",
       "category": 1,
@@ -265,14 +255,7 @@
     {
       "id": 2,
       "name": "メニューの広がり投票",
-      "polledItems": [
-        {
-          "id": 1,
-          "itemId": 1,
-          "detail": "",
-          "result": ""
-        }
-      ],
+      "polledItems": [{ "id": 1, "itemId": 1, "detail": "", "result": "" }],
       "createdAt": "2023-04-1T02:50:27.944Z",
       "category": 2,
       "startDate": "2023-05-1T02:50:27.944Z",
