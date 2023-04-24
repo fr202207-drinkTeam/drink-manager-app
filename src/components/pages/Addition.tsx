@@ -6,7 +6,7 @@ import useGetOfficeItems from '../../hooks/useGetOfficeItems';
 type Props = {};
 
 const Addition: FC<Props> = memo((props) => {
-  const officeItemData = useGetOfficeItems({ intheOffice: true });
+  const itemData = useGetOfficeItems({ intheOffice: true });
 
   return (
     <Paper
@@ -32,7 +32,7 @@ const Addition: FC<Props> = memo((props) => {
       >
         -補充在庫入力-
       </Typography>
-      <StockCard officeItemData={officeItemData} />
+      {/* <StockCard itemData={itemData} /> */}
       <div style={{ display: 'inline-flex' }}>
         <Button
           sx={{

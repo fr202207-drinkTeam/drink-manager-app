@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Items } from '../types/type';
 
 type Props = {
   intheOffice: boolean;
@@ -21,7 +22,7 @@ const useGetOfficeItems = (props: Props) => {
       });
   }, [props.intheOffice]);
 
-  return  itemData ;
+  return itemData;
 };
 
 export default useGetOfficeItems;

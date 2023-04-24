@@ -1,32 +1,24 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
-import { PrimaryButton } from '../button/Button';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+
 import { Box, TextField } from '@mui/material';
-import Consumption from '../pages/Consumption';
 import { Items } from '../../types/type';
 
 type Props = {
-  officeItemData: Array<Items>;
+  itemData: Array<Items>;
 };
 
 const StockCard: FC<Props> = (props) => {
-  const { officeItemData } = props;
-  console.log(officeItemData);
-  const data = [
-    'コーヒー',
-    'コーヒー',
-    'コーヒー',
-    'コーヒー',
-    'コーヒー',
-    'コーヒー',
-    'コーヒー',
-    'コーヒー',
-  ];
+  const { itemData } = props;
+  // console.log(itemData);
 
   const [errorMessage, setErrorMessage] =
     useState('消費在庫数を入力してください。');
@@ -45,10 +37,9 @@ const StockCard: FC<Props> = (props) => {
           display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'space-around',
-          mt: 5,
         }}
       >
-        {officeItemData?.map((drink, index) => {
+        {itemData?.map((drink, index) => {
           return (
             <Card
               key={index}
@@ -108,8 +99,8 @@ const StockCard: FC<Props> = (props) => {
                   onBlur: (e) => {
                     const inputValue = parseInt(e.target.value, 10); // 第二引数に基数を指定する
                     if (inputValue > 999) {
-                      alert('999以下の数値を入力してください。');
-                      e.target.value = '999'; // 文字列型であるため、値を文字列で設定する必要がある
+                      alert('999以下にしてください');
+                      e.target.value = '0';
                     }
                   },
                 }}

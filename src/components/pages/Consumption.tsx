@@ -1,15 +1,33 @@
-import { Box, Button, Modal, Paper, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Modal,
+  Paper,
+  Typography,
+  Alert,
+  AlertTitle,
+} from '@mui/material';
+
 import { FC, memo } from 'react';
 import StockCard from '../card/StockCard';
-import { PrimaryButton } from '../button/Button';
 import useGetOfficeItems from '../../hooks/useGetOfficeItems';
 import { useState, useEffect } from 'react';
+import { useGetOfficeItems1 } from '../../hooks/useGetOfficeItems1';
+import AdmTitleText from '../atoms/text/AdmTitleText';
+import { ActiveDarkBlueButton } from '../atoms/button/Button';
 
 type Props = {};
 
 const Consumption: FC<Props> = memo((props) => {
-  const officeItemData = useGetOfficeItems({ intheOffice: true });
-  console.log(officeItemData)
+  // const itemData = useGetOfficeItems({ intheOffice: true });
+  const { itemData, loading, error } = useGetOfficeItems1();
+  console.log(itemData);
+
+  const onClickExport = () => {
+    alert('送信しました。');
+  };
+
   return (
     <Paper
       sx={{
@@ -21,9 +39,10 @@ const Consumption: FC<Props> = memo((props) => {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        padding: '50px',
       }}
     >
-      <Typography
+      {/* <Typography
         sx={{
           textAlign: 'center',
           fontFamily: 'Georgia',
@@ -33,10 +52,22 @@ const Consumption: FC<Props> = memo((props) => {
         }}
       >
         -消費在庫入力-
-      </Typography>
-      <StockCard officeItemData={officeItemData} />
+      </Typography> */}
+      <Box sx={{ width: '60%' }}>
+        <AdmTitleText>消費在庫入力</AdmTitleText>
+      </Box>
+      {error ? (
+        <Alert severity="error" sx={{ marginTop: '30px', fontSize: '20px' }}>
+          <AlertTitle>Error</AlertTitle>
+          データが見つかりませんでした。
+        </Alert>
+      ) : loading ? (
+        <CircularProgress sx={{ marginTop: '30px' }} />
+      ) : (
+        <StockCard itemData={itemData} />
+      )}
       <div style={{ display: 'inline-flex' }}>
-        <Button
+        {/* <Button
           sx={{
             background: '#024098',
             color: '#FFF',
@@ -51,7 +82,13 @@ const Consumption: FC<Props> = memo((props) => {
           }}
         >
           送信
-        </Button>
+        </Button> */}
+        <ActiveDarkBlueButton
+          sxStyle={{ px: 10, py: 4, borderRadius: '32px', marginTop: '32px' }}
+          event={() => onClickExport()}
+        >
+          送信
+        </ActiveDarkBlueButton>
       </div>
     </Paper>
   );
