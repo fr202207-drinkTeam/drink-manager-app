@@ -15,7 +15,7 @@ import Grid from "@mui/material/Grid";
 
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
-import AccordionMenu from "../accordion/AccordionMenu";
+import AccordionMenu from "../atoms/accordion/AccordionMenu";
 import { Container } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import PollResult from "./PollResult";
