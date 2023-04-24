@@ -16,10 +16,14 @@ const AccordionMenu = () => {
       {/* アコーディオンメニュー */}
       <div>
         <Box className="productTtl">
-          <Typography variant="h5" textAlign="center">
+          <Typography variant="h5" textAlign="center" sx={{ color: "#ea6f00" }}>
             - PRODUCTS -
           </Typography>
-          <Typography variant="h6" textAlign="center" sx={{ mb: 4 }}>
+          <Typography
+            variant="h6"
+            textAlign="center"
+            sx={{ mb: 4, color: "#ea6f00" }}
+          >
             商品一覧
           </Typography>
         </Box>
@@ -84,7 +88,7 @@ const AccordionMenu = () => {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            ティー・ココア
+            ティー
           </AccordionSummary>
 
           <AccordionSummary
@@ -98,18 +102,13 @@ const AccordionMenu = () => {
           >
             ティー
           </AccordionSummary>
-          <AccordionSummary
-            // expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2a-content"
-            id="panel2a-header"
-            sx={{
-              borderBottom: "2px dashed #ea6f00",
-            }}
-          >
-            その他
-          </AccordionSummary>
         </Accordion>
-
+        <Accordion sx={{ m: 0 }}>
+          <AccordionSummary id="panel1a-header">ココア</AccordionSummary>
+        </Accordion>
+        <Accordion sx={{ m: 0 }}>
+          <AccordionSummary id="panel1a-header">その他</AccordionSummary>
+        </Accordion>
         <Accordion sx={{ m: 0 }}>
           <AccordionSummary id="panel1a-header">すべての商品</AccordionSummary>
         </Accordion>

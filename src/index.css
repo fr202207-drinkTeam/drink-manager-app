@@ -9,8 +9,21 @@ body {
   background-color: #f4e9d2;
   font-family: "M PLUS 1p", sans-serif;
 }
+a {
+  text-decoration: none;
+  color: #000;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+/* スライダー*/
+.itemSwiper .swiper-pagination-bullet-active {
+  background-color: #c0c0c0;
+}
+.itemSwiper .swiper-button-prev,
+.itemSwiper .swiper-button-next {
+  color: #c0c0c0;
 }

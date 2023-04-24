@@ -12,7 +12,7 @@ export type Users = {
 
 export type Items = {
   id: Number;
-  name: String;
+  name: string;
   description: String;
   image: string;
   itemCategory: Number;
