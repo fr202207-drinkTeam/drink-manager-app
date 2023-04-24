@@ -1,16 +1,8 @@
-import { useParams } from "react-router-dom";
 import { FC, memo } from "react";
-import TextField from "@mui/material/TextField";
-import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import Button from "@mui/material/Button";
-import { useNavigate } from "react-router-dom";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import CardMedia from "@mui/material/CardMedia";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import Paper from "@mui/material/Paper";
 import {
   InactiveButton,
@@ -20,32 +12,31 @@ import {
   ActiveRedButton,
 } from "../atoms/button/Button";
 import AdmTitleText from "../atoms/text/AdmTitleText";
-import { PrimaryInput, SecondaryInput } from "../atoms/input/Input";
-import useImgPathConversion from "../../hooks/useImgPathConversion"
+import useImgPathConversion from "../../hooks/useImgPathConversion";
+import ModalWindow from "../organisms/ModalWindow";
+// import useLoginUser from "../../hooks/useLoginUser";
+import ItemForm from "../organisms/ItemForm";
 
 type Props = {};
 
 const AddItem: FC<Props> = memo((props) => {
-  const navigate = useNavigate();
-  const [itemName, setItemName] = useState("");
-  const [itemDescription, setItemDescription] = useState("");
-  const [itemCategory, setItemCategory] = useState(0);
+  const navigate: NavigateFunction = useNavigate();
+  const [itemName, setItemName] = useState<string>("");
+  const [itemDescription, setItemDescription] = useState<string>("");
+  const [itemCategory, setItemCategory] = useState<number>(0);
   const [itemImages, setItemImages] = useState<{ id: number; value: string }[]>(
     []
   );
-  const [testImageData, setTestImageData] = useState<any>(null)
-  const { imagePath, loading, isUploaded } = useImgPathConversion({ imgFile: testImageData });
+  const [testImageData, setTestImageData] = useState<any>(null);
+  const { imagePath, loading, isUploaded } = useImgPathConversion({
+    imgFile: testImageData,
+  });
+
+  // recoilからログインユーザー情報を取得
+
+  // テスト用
   const imageData = (e: any) => {
-    setTestImageData(e.target.files[0])
-  }
-  const onClickCanselModal = () => {
-    const canselOrNotModal = window.confirm(
-      "キャンセルすると内容は破棄されますがよろしいですか？"
-    );
-    if (canselOrNotModal) {
-      navigate(-1);
-      console.log("前ページに戻る");
-    }
+    setTestImageData(e.target.files[0]);
   };
 
   // 画像の削除機能
@@ -55,7 +46,7 @@ const AddItem: FC<Props> = memo((props) => {
     setItemImages(updatedItemImages);
   };
 
-  // プレビュー機能
+  // 画像プレビュー機能
   const addItemImage = (event: any) => {
     const file = event.target.files?.[0];
     if (!file) {
@@ -72,141 +63,49 @@ const AddItem: FC<Props> = memo((props) => {
     };
   };
 
-
-
-  const testFunc = () => {
-    console.log("テスト");
+  // データ追加処理(確定ボタン)
+  const onClickAddItemData: () => Promise<void> = async () => {
+    await fetch("http://localhost:8880/items", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: "test",
+        name: { itemName },
+        description: { itemDescription },
+        image: itemImages,
+        itemCategory: { itemCategory },
+        createdAt: new Date(),
+        inTheOffice: false,
+        author: "test", // recoilから取得
+        otherItem: false,
+      }),
+    })
+      .then((response) => response.json())
+      .then(() => {
+        navigate("/adminhome");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
-  const onClickAddItemData = () => {
-    navigate("/adominhome");
-  };
   return (
     <>
       <Paper sx={{ p: 5, width: "80%", m: "auto" }}>
         <AdmTitleText>商品追加</AdmTitleText>
-        <SecondaryInput
-          id="itemName"
-          label="商品名"
-          defaultValue={itemName}
-          required
-          onChange={(e: any) => setItemName(e.target.value)}
-          sx={{  width: 400, mb: 5 }}
-          inputProps={{ maxLength: 20 }}
+        <ItemForm
+          setItemName={setItemName}
+          setItemDescription={setItemDescription}
+          setItemCategory={setItemCategory}
+          setItemImages={setItemImages}
         />
 
-        <Typography variant="body1" component="p" sx={{ mb: 1 }}>
-          商品画像 * 最大3枚まで
-        </Typography>
-
-        <Box sx={{ display: "flex", mb: 5, width: 800, alignItems: "center" }}>
-          {itemImages.map((item, index) => {
-            return (
-              <>
-                <Box sx={{ width: 300 }} key={index}>
-                  <CardMedia
-                    component="img"
-                    image={item.value}
-                    alt="商品画像"
-                    sx={{ m: "auto", width: 200 }}
-                  />
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    <label htmlFor={item.id.toString()}>
-                      <Button
-                        style={{
-                          background: "none",
-                          border: "none",
-                          margin: "15px 1px",
-                          fontWeight: "bold",
-                          fontSize: "16px",
-                          color: "#000",
-                          fontFamily: "'M PLUS 1p', sans-serif",
-                        }}
-                        onClick={testFunc}
-                      >
-                        変更
-                      </Button>
-                    </label>
-                    <Button
-                      key={item.id.toString()}
-                      onClick={() => onClickDeleteItemImage(item.id)}
-                      style={{
-                        background: "none",
-                        border: "none",
-                        margin: "15px 1px",
-                        fontWeight: "bold",
-                        fontSize: "16px",
-                        color: "#ff0000",
-                        fontFamily: "'M PLUS 1p', sans-serif",
-                      }}
-                    >
-                      削除
-                    </Button>
-                  </div>
-                </Box>
-              </>
-            );
-          })}
-          {itemImages.length < 3 && (
-            <Box sx={{ width: 300, textAlign: "center" }}>
-              <button style={{ background: "none", border: "none" }}>
-                <label htmlFor="itemImageFeild">
-                  <Typography
-                    variant="body2"
-                    component="p"
-                    sx={{ mb: 1, mt: 5 }}
-                  >
-                    追加
-                  </Typography>
-                  <AddCircleOutlineIcon sx={{ fontSize: 30, mb: 5 }} />
-                </label>
-                <input
-                  type="file"
-                  style={{ display: "none" }}
-                  id="itemImageFeild"
-                  onChange={addItemImage}
-                />
-              </button>
-            </Box>
-          )}
-        </Box>
-
-        <TextField
-          multiline
-          aria-label="itemDescription"
-          label="商品説明"
-          sx={{ width: 800, mb: 5 }}
-          inputProps={{ maxLength: 200 }}
-          defaultValue={itemDescription}
-          required
-          onChange={(e) => setItemDescription(e.target.value)}
-          rows={5}
-        />
-
-        <InputLabel id="itemCategoryField" required>
-          商品カテゴリー
-        </InputLabel>
-        <Select
-          labelId="itemCategoryField"
-          id="itemCategoryField"
-          value={itemCategory}
-          label="商品カテゴリー"
-          placeholder="商品カテゴリーを選択して下さい"
-          onChange={(e) => {
-            setItemCategory(Number(e.target.value));
-          }}
-          sx={{ mb: 5 }}
-        >
-          <MenuItem value={0}>商品カテゴリーを選択して下さい</MenuItem>
-          <MenuItem value={1}>コーヒー/ダーク(深煎り)</MenuItem>
-          <MenuItem value={2}>コーヒー/ダーク(中煎り)</MenuItem>
-          <MenuItem value={3}>コーヒー/ライト(浅煎り)</MenuItem>
-          <MenuItem value={4}>コーヒー/カフェインレス</MenuItem>
-          <MenuItem value={5}>ティー、ココア/ティー</MenuItem>
-          <MenuItem value={6}>ティー、ココア/その他</MenuItem>
-        </Select>
-
-        {itemName && itemDescription && itemCategory !== 0 ? (
+        {itemName &&
+        itemDescription &&
+        itemCategory !== 0 &&
+        itemImages.length > 0 ? (
           <></>
         ) : (
           <>
@@ -222,22 +121,28 @@ const AddItem: FC<Props> = memo((props) => {
         )}
 
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <ActiveBlueButton
-            event={onClickCanselModal}
-            sxStyle={{
+          <ModalWindow
+            title="削除"
+            content="内容は破棄されますがよろしいですか？"
+            openButtonColor="red"
+            completeButtonColor="beige"
+            completeButtonName="削除"
+            completeAction={() => {
+              navigate(-1);
+            }}
+            cancelButtonColor="pink"
+            openButtonSxStyle={{
               my: 2,
               mr: 3,
               py: "5px",
               fontSize: "16px",
             }}
-          >
-            キャンセル
-          </ActiveBlueButton>
+          />
           {itemName &&
           itemDescription &&
           itemCategory !== 0 &&
           itemImages.length > 0 ? (
-            <ActiveOrangeButton
+            <ActiveBlueButton
               event={onClickAddItemData}
               sxStyle={{
                 my: 2,
@@ -247,7 +152,7 @@ const AddItem: FC<Props> = memo((props) => {
               }}
             >
               確定
-            </ActiveOrangeButton>
+            </ActiveBlueButton>
           ) : (
             <>
               <InactiveButton
@@ -263,12 +168,13 @@ const AddItem: FC<Props> = memo((props) => {
             </>
           )}
         </Box>
+        <p>テスト</p>
         <input type="file" onChange={imageData} />
         <div>
-      {loading && <p>Uploading image...</p>}
-      {isUploaded && <p>Image uploaded successfully!</p>}
-      {imagePath && <img src={imagePath} alt="uploaded" />}
-    </div>
+          {loading && <p>Uploading image...</p>}
+          {isUploaded && <p>Image uploaded successfully!</p>}
+          {imagePath && <img src={imagePath} alt="uploaded" />}
+        </div>
       </Paper>
     </>
   );

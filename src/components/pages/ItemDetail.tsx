@@ -19,6 +19,7 @@ const ItemDetail: FC = memo(() => {
   if (!officeItemData) return <div>Loading...</div>;
   return (
     <>
+    
       {!officeItemData ? (
         <div>Loading...</div>
       ) : (
