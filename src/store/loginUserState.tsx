@@ -1,17 +1,17 @@
-import { atom } from 'recoil';
-import { Users } from '../types/type';
+import { atom } from "recoil";
+import { Users } from "../types/type";
 
 export const loginUserState = atom<Users>({
-  key: 'loginUserState',
+  key: "loginUserState",
   default: {
     id: null,
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
     isAdmin: null,
     authId: '',
-    polledPopular: null,
-    polledOther: null,
+    polledPopular: false,
+    polledOther: false,
   },
 });

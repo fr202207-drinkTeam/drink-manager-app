@@ -6,7 +6,6 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import { Items } from "../../types/type";
-import { Category } from "@mui/icons-material";
 
 type ItemCardProps = {
   data: Items[];
@@ -23,7 +22,7 @@ const ItemCard = ({ data }: ItemCardProps) => {
           mt: 5,
         }}
       >
-        {data?.map((drink: Items) => (
+        {data?.map((drink: Items,index) => (
           <Card
             sx={{
               width: 270,
@@ -32,6 +31,7 @@ const ItemCard = ({ data }: ItemCardProps) => {
               border: "solid 1px ",
               borderColor: "#bfbec5",
             }}
+            key={index}
           >
             <Typography
               variant="body2"

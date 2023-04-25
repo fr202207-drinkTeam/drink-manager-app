@@ -15,7 +15,7 @@ type Props = {
   setItemName: Dispatch<SetStateAction<string>>;
   setItemDescription: Dispatch<SetStateAction<string>>;
   setItemCategory: Dispatch<SetStateAction<number>>;
-  setItemImages: Dispatch<SetStateAction<{ id: number; value: string }[]>>;
+  setItemImages: Dispatch<SetStateAction<string[]>>;
 };
 
 const ItemForm: FC<Props> = memo((props) => {
@@ -23,9 +23,7 @@ const ItemForm: FC<Props> = memo((props) => {
   const [formItemName, setItemName] = useState<string>("");
   const [formItemDescription, setItemDescription] = useState<string>("");
   const [formItemCategory, setItemCategory] = useState<number>(0);
-  const [formItemImages, setItemImages] = useState<
-    { id: number; value: string }[]
-  >([]);
+  const [formItemImages, setItemImages] = useState<string[]>([]);
 
   // propsの受け渡しの処理
   props.setItemName(formItemName);
@@ -34,7 +32,9 @@ const ItemForm: FC<Props> = memo((props) => {
   props.setItemImages(formItemImages);
 
   // 画像の削除機能
-  const onClickDeleteItemImage: (imageId: number) => void = (imageId: number) => {
+  const onClickDeleteItemImage: (imageId: number) => void = (
+    imageId: number
+  ) => {
     const updatedItemImages = [...formItemImages];
     updatedItemImages.splice(imageId - 1, 1);
     setItemImages(updatedItemImages);
@@ -49,11 +49,8 @@ const ItemForm: FC<Props> = memo((props) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-      const newImage = {
-        id: formItemImages.length + 1,
-        value: reader.result as string,
-      };
-      setItemImages([...formItemImages, newImage]);
+      const newImage = reader.result as string
+      setItemImages([newImage]);
     };
   };
 
@@ -80,12 +77,12 @@ const ItemForm: FC<Props> = memo((props) => {
               <Box sx={{ width: 300 }} key={index}>
                 <CardMedia
                   component="img"
-                  image={item.value}
+                  image={item}
                   alt="商品画像"
                   sx={{ m: "auto", width: 200 }}
                 />
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                  <label htmlFor={item.id.toString()}>
+                  <label htmlFor={item}>
                     <Button
                       style={{
                         background: "none",
@@ -101,8 +98,8 @@ const ItemForm: FC<Props> = memo((props) => {
                     </Button>
                   </label>
                   <Button
-                    key={item.id.toString()}
-                    onClick={() => onClickDeleteItemImage(item.id)}
+                    // key={item.id.toString()}
+                    onClick={() => onClickDeleteItemImage(item)}
                     style={{
                       background: "none",
                       border: "none",

@@ -1,8 +1,8 @@
-import { useRecoilState } from 'recoil';
-import { loginUserState } from '../store/loginUserState';
-import axios from 'axios';
-import { FC, memo, useCallback, useEffect } from 'react';
-import { Users } from '../types/type';
+import { useRecoilState } from "recoil";
+import { loginUserState } from "../store/loginUserState";
+import axios from "axios";
+import { FC, memo, useCallback, useEffect } from "react";
+import { Users } from "../types/type";
 
 type Props = {
   id: number;
