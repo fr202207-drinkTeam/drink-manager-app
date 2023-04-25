@@ -24,9 +24,7 @@ const AddItem: FC<Props> = memo((props) => {
   const [itemName, setItemName] = useState<string>("");
   const [itemDescription, setItemDescription] = useState<string>("");
   const [itemCategory, setItemCategory] = useState<number>(0);
-  const [itemImages, setItemImages] = useState<{ id: number; value: string }[]>(
-    []
-  );
+  const [itemImages, setItemImages] = useState<string[]>([]);
   const [testImageData, setTestImageData] = useState<any>(null);
   const { imagePath, loading, isUploaded } = useImgPathConversion({
     imgFile: testImageData,
@@ -55,11 +53,9 @@ const AddItem: FC<Props> = memo((props) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-      const newImage = {
-        id: itemImages.length + 1,
-        value: reader.result as string,
-      };
-      setItemImages([...itemImages, newImage]);
+      const newImage = reader.result as string;
+
+      setItemImages([newImage]);
     };
   };
 
@@ -74,7 +70,7 @@ const AddItem: FC<Props> = memo((props) => {
         id: "test",
         name: { itemName },
         description: { itemDescription },
-        image: itemImages,
+        image: imagePath,
         itemCategory: { itemCategory },
         createdAt: new Date(),
         inTheOffice: false,
@@ -83,8 +79,9 @@ const AddItem: FC<Props> = memo((props) => {
       }),
     })
       .then((response) => response.json())
-      .then(() => {
-        navigate("/adminhome");
+      .then((res) => {
+        console.log(res);
+        // navigate("/adminhome");
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -168,13 +165,13 @@ const AddItem: FC<Props> = memo((props) => {
             </>
           )}
         </Box>
-        <p>テスト</p>
+        {/* <p>テスト</p>
         <input type="file" onChange={imageData} />
         <div>
           {loading && <p>Uploading image...</p>}
           {isUploaded && <p>Image uploaded successfully!</p>}
           {imagePath && <img src={imagePath} alt="uploaded" />}
-        </div>
+        </div> */}
       </Paper>
     </>
   );
