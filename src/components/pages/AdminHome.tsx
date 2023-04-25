@@ -1,50 +1,20 @@
-import { FC, memo, useEffect } from 'react';
+import { FC, memo } from 'react';
 import { Link } from 'react-router-dom';
-import HistorySharpIcon from '@mui/icons-material/HistorySharp';
-import {
-  Box,
-  Card,
-  CardMedia,
-  Typography,
-  CardActionArea,
-  CardContent,
-  CardActions,
-  Button,
-  CardHeader,
-  Avatar,
-  Paper,
-  Stack,
-  Input,
-  TextField,
-  Hidden,
-} from '@mui/material';
-import { red } from '@mui/material/colors';
-import Inventory2Icon from '@mui/icons-material/Inventory2';
+import { Box, Typography, Paper, Stack } from '@mui/material';
 import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
 import AddBoxIcon from '@mui/icons-material/AddBox';
-import TrendingFlatIcon from '@mui/icons-material/TrendingFlat';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 
 import DefaultLayout from '../layout/DefaultLayout';
-import { PrimaryButton } from '../atoms/button/Button';
-import { Title } from '@mui/icons-material';
 
-import { useRecoilState } from 'recoil';
-import { useRecoilValue } from 'recoil';
-
-import { useLoginUser } from '../../hooks/useLoginUser';
-import useGetAnItem from '../../hooks/useGetAnItem';
 import AdmTitleText from '../atoms/text/AdmTitleText';
 
 type Props = {};
 
 const AdminHome: FC<Props> = memo((props) => {
-  const { loginUserInfo } = useLoginUser({ id: 3 });
-  console.log(loginUserInfo);
   return (
     <>
-      {loginUserInfo.isAdmin ? <p>管理者ユーザです</p> : <p>一般ユーザです</p>}
       <DefaultLayout>
         <Paper
           sx={{
@@ -55,20 +25,7 @@ const AdminHome: FC<Props> = memo((props) => {
             padding: '50px',
           }}
         >
-          {/* <Typography
-            sx={{
-              fontFamily: 'Georgia',
-              fontSize: '50px',
-              color: '#024098',
-              mt: '50px',
-              textAlign: 'center',
-              marginBottom: '10px',
-            }}
-          >
-            -管理者MENU-
-          </Typography> */}
           <AdmTitleText>管理者MENU</AdmTitleText>
-          {/* {loginUserInfo.isAdmin ? <p>管理者です</p> : <p>一般ユーザです</p>} */}
           <Stack
             direction="row"
             justifyContent="center"
@@ -87,7 +44,7 @@ const AdminHome: FC<Props> = memo((props) => {
                   borderRadius: '20px',
                   border: '1px solid',
                   backgroundImage:
-                    'linear-gradient(to bottom, #024098 70%, #fff 30%)', // ここで別の色を指定してください
+                    'linear-gradient(to bottom, #024098 70%, #fff 30%)',
                   '&:hover': {
                     opacity: 0.8,
                     cursor: 'pointer',
@@ -120,7 +77,7 @@ const AdminHome: FC<Props> = memo((props) => {
                   borderRadius: '20px',
                   border: '1px solid',
                   backgroundImage:
-                    'linear-gradient(to bottom, #024098 70%, #fff 30%)', // ここで別の色を指定してください
+                    'linear-gradient(to bottom, #024098 70%, #fff 30%)',
                   '&:hover': {
                     opacity: 0.8,
                     cursor: 'pointer',
@@ -153,7 +110,7 @@ const AdminHome: FC<Props> = memo((props) => {
                   borderRadius: '20px',
                   border: '1px solid',
                   backgroundImage:
-                    'linear-gradient(to bottom, #024098 70%, #fff 30%)', // ここで別の色を指定してください
+                    'linear-gradient(to bottom, #024098 70%, #fff 30%)',
                   '&:hover': {
                     opacity: 0.8,
                     cursor: 'pointer',
@@ -186,7 +143,7 @@ const AdminHome: FC<Props> = memo((props) => {
                   borderRadius: '20px',
                   border: '1px solid',
                   backgroundImage:
-                    'linear-gradient(to bottom, #024098 70%, #fff 30%)', // ここで別の色を指定してください
+                    'linear-gradient(to bottom, #024098 70%, #fff 30%)',
                   '&:hover': {
                     opacity: 0.8,
                     cursor: 'pointer',

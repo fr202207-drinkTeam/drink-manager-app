@@ -9,7 +9,7 @@ export const loginUserState = atom<Users>({
     lastName: '',
     email: '',
     password: '',
-    isAdmin: null,
+    isAdmin: true,
     authId: '',
     polledPopular: null,
     polledOther: null,
