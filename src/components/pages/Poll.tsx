@@ -13,10 +13,11 @@ import { Items, Questionnaire } from "../../types/type";
 import PollTitle from "../pollParts/PollTitle";
 import { ActiveBlueButton } from "../atoms/button/Button";
 import DottedMemo from "../atoms/memo/DottedMemo";
+import useGetPollCategory from "../../hooks/useGetPollCategory";
 
 const Poll = memo(() => {
-  const [popularPolls, setPopularPolls] = useState<Questionnaire[]>([]);
-  const [polls, setPolls] = useState<Questionnaire[]>([]);
+  const [popularPollTitle, setPopularPollTitle] = useState<Questionnaire[]>([]);
+  const [othersPollTitle, setOthersPollTitle] = useState<Questionnaire[]>([]);
   const [selectedBeforeValue, setSelectedBeforeValue] =
     useState("日付を選択してください");
   const [selectedAfterValue, setSelectedAfterValue] =
@@ -24,9 +25,22 @@ const Poll = memo(() => {
   const [items, setItems] = useState<Items[]>([]);
   const [othersItems, setOthersItems] = useState<Items[]>([]);
   const [questionnaire, setQuestionnaire] = useState<Questionnaire[]>([]);
-  const [isVisible, setIsVisible] = useState(true);
+  const [questionnaireCategory, setQuestionnaireCategory] = useState<
+    Questionnaire[]
+  >([]);
+
+  //カスタムフック
+  const PopularitemData= useGetPollCategory(1);
+  const OtheritemData= useGetPollCategory(2);
+  
+  console.log(PopularitemData,233456)
+  console.log(OtheritemData,23456)
+
   //ref
   const refContents = useRef<HTMLDivElement>(null);
+
+//できていない→本当に投票していいですかのモーダル//
+//Selectコンポーネント
 
   //過去の投票結果までスクロールさせる処理
   const scrollToContents = useCallback(() => {
@@ -38,7 +52,7 @@ const Poll = memo(() => {
     }
   }, [refContents]);
 
-  //select
+  //select////////////////////////////
   useEffect(() => {
     //selectedBeforeValueと一致した日付を持ってくる
   }, [selectedBeforeValue]);
@@ -53,27 +67,15 @@ const Poll = memo(() => {
   const handleSelectAfterChange = (e: any) => {
     setSelectedAfterValue(e.target.value);
   };
-
-  const now = new Date();
-  const end = new Date("2023-05-30T09:27:46.692Z");
-  console.log(now);
-  console.log(end);
-
-  const period = questionnaire.map((question) => {
-    return question.endDate;
-  });
-
-  console.log(period);
-
   ////////////////////////////////
 
-  //items全取得
+  //items全取得　後で変更
   useEffect(() => {
     (async () => {
       try {
         const response = await fetch(`http://localhost:8880/items`);
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         setItems(data);
       } catch (error) {
         console.error(error);
@@ -81,7 +83,7 @@ const Poll = memo(() => {
     })();
   }, []);
 
-  //questionnaire取得
+  //questionnaire全取得
   useEffect(() => {
     (async () => {
       try {
@@ -94,39 +96,102 @@ const Poll = memo(() => {
     })();
   }, []);
 
-  //人気投票を取得
+  //period 投票終了している投票はどうする
+  const now = new Date();
+
+  const period = questionnaire.map((question: Questionnaire) => {
+    return {
+      endDate: new Date(question.endDate),
+    };
+  });
+
+  const Categoryperiod = questionnaireCategory.map(
+    (question: Questionnaire) => {
+      return {
+        ...question,
+        endDate: new Date(question.endDate),
+      };
+    }
+  );
+
+  const populerPeriodData = PopularitemData.filter((period:any) => {
+    return period.endDate < now;
+  });
+  const otherPeriodData = OtheritemData.filter((period:any) => {
+    return period.endDate < now;
+  });
+
+  // console.log(populerPeriodData,"oooooooo")
+  // console.log(otherPeriodData,"llllll")
+
+  ///////////////////////////////////////////////
+
+  // // 最新の人気投票の商品を取得
   useEffect(() => {
-    //polledItemsの部分を取り出す
-    const pollItems = questionnaire.map((poll: Questionnaire) => {
-      return poll.polledItems;
-    });
-    //questionereに入っている商品IDを出力
-    const pollitemID = pollItems[0]?.map((poll) => {
+    // カスタムフックでカテゴリーを絞り込みしてから取得
+    const Categoryperiod = PopularitemData.map(
+      (question: Questionnaire) => {
+        const endDate = new Date(question.endDate);
+        const startDate = new Date(question.startDate);
+        //startDateが過去で、endDateが現在以降のものを取ってくる
+        const isValidPeriod = startDate < now && endDate >= now;
+        return {
+          ...question,
+          isValidPeriod: isValidPeriod,
+          endDate: endDate,
+        };
+      }
+    );
+    //最新の投票を持ってくる
+    const sortedData = Categoryperiod.sort(
+      (after: any, before: any) => before.endDate - after.endDate
+    );
+    //アンケートの商品のIDを取得
+    const pollitemID = sortedData[0]?.polledItems.map((poll: { itemId: any; }) => {
       return poll.itemId;
     });
-    //商品IDが一致するものだけカードで表示したい
-    const itemId = items.filter((item) => pollitemID.includes(item.id));
+    //itemsから上記のアンケートIDを含むものを取得
+    const itemId = items.filter((item) => pollitemID?.includes(item.id));
     setItems(itemId);
   }, [questionnaire]);
 
-  //その他投票を取得
+
+  //最新のその他投票の商品を取得
   useEffect(() => {
-    //polledItemsの部分を取り出す
-    const pollItems = questionnaire.map((poll: Questionnaire) => {
-      return poll.polledItems;
-    });
-    //questionereに入っている商品IDを出力
-    const pollitemID = pollItems[1]?.map((poll) => {
+    //// カスタムフックでカテゴリーを絞り込みしてから取得
+    const Categoryperiod = OtheritemData.map(
+      (question: Questionnaire) => {
+        const endDate = new Date(question.endDate);
+        const startDate = new Date(question.startDate);
+        //startDateが過去で、endDateが現在以降のものを取ってくる
+        const isValidPeriod = startDate < now && endDate >= now;
+        return {
+          ...question,
+          isValidPeriod: isValidPeriod,
+          endDate: endDate,
+        };
+      }
+    );
+    // console.log(Categoryperiod,33444)
+    //最新の投票を持ってくる
+    const sortedData = Categoryperiod.sort(
+      (after: any, before: any) => before.endDate - after.endDate
+    );
+    // console.log(sortedData,444)
+    //アンケートの商品のIDを取得
+    const pollitemID = sortedData[0]?.polledItems.map((poll:any) => {
       return poll.itemId;
     });
-    //商品IDが一致するものだけカードで表示
-    const itemId = items.filter((item) => pollitemID.includes(item.id));
+    // console.log(pollitemID,300)
+    //itemsから上記のアンケートIDを含むものを取得
+    const itemId = items.filter((item) => pollitemID?.includes(item.id));
     setOthersItems(itemId);
   }, [questionnaire]);
 
-  console.log(othersItems);
+  // console.log(othersItems,11111111);
+  // console.log(items,11111111)
 
-  //人気投票
+  //人気投票タイトル
   useEffect(() => {
     (async () => {
       try {
@@ -143,17 +208,17 @@ const Poll = memo(() => {
           };
         });
         const sortedData = dateFilteredData.sort(
-          (a: { endDate: number }, b: { endDate: number }) =>
-            b.endDate - a.endDate
+          (after: { endDate: number }, before: { endDate: number }) =>
+            before.endDate - after.endDate
         );
-        setPopularPolls(sortedData);
+        setPopularPollTitle(sortedData);
       } catch (error) {
         console.error(error);
       }
     })();
   }, []);
 
-  //人気投票以外
+  //最新のその他の投票タイトル
   useEffect(() => {
     (async () => {
       try {
@@ -173,14 +238,12 @@ const Poll = memo(() => {
           (a: { endDate: number }, b: { endDate: number }) =>
             b.endDate - a.endDate
         );
-        setPolls(sortedData);
+        setOthersPollTitle(sortedData);
       } catch (error) {
         console.error(error);
       }
     })();
   }, []);
-
-  // console.log(popularPolls[0].id)
 
   return (
     <>
@@ -193,7 +256,7 @@ const Poll = memo(() => {
             過去の投票結果
           </ActiveBlueButton>
         </Box>
-        <PollTitle poll={popularPolls} />
+        <PollTitle poll={popularPollTitle} />
         <DottedMemo
           text={" 一番気になる、好きなドリンクに投票しよう！"}
           information={"※各投票、お一人につき一回まで投票が可能です"}
@@ -203,9 +266,13 @@ const Poll = memo(() => {
           margin={4}
         />
 
-        <PollCard data={items} pollNum={popularPolls[0]?.id} pollCategory={popularPolls[0]?.category}/>
+        <PollCard
+          data={items}
+          pollNum={popularPollTitle[0]?.id}
+          pollCategory={popularPollTitle[0]?.category}
+        />
 
-        <PollTitle poll={polls} />
+        <PollTitle poll={othersPollTitle} />
         <DottedMemo
           text={" みんなの投票で会社に設置してある ドリンクの種類がかわるよ！"}
           information={"※各投票、お一人につき一回まで投票が可能です"}
@@ -214,7 +281,11 @@ const Poll = memo(() => {
           minWidth={500}
           margin={4}
         />
-        <PollCard data={othersItems} pollNum={polls[0]?.id} pollCategory={polls[0]?.category}/>
+        <PollCard
+          data={othersItems}
+          pollNum={othersPollTitle[0]?.id}
+          pollCategory={othersPollTitle[0]?.category}
+        />
         <Box
           sx={{
             background: "#fff9f5",
@@ -241,7 +312,6 @@ const Poll = memo(() => {
         </Box>
         <Box sx={{ ml: 70 }}>
           <Box>
-            {}
             <Select
               sx={{ mb: 3, backgroundColor: "#fffffc" }}
               value={selectedBeforeValue}

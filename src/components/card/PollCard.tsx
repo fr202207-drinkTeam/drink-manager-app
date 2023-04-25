@@ -4,14 +4,18 @@ import CardActionArea from "@mui/material/CardActionArea";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { InactiveButton, PrimaryButton } from "../atoms/button/Button";
+import {
+  ActiveBeigeButton,
+  InactiveButton,
+  PrimaryButton,
+} from "../atoms/button/Button";
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { loginUserState } from "../../store/loginUserState";
 
 //types
-import { Items, Questionnaire } from "../../types/type";
+import { Items, Users } from "../../types/type";
 //icon
 import SearchIcon from "@mui/icons-material/Search";
 import SwitchAccessShortcutAddIcon from "@mui/icons-material/SwitchAccessShortcutAdd";
@@ -22,42 +26,40 @@ type PollCardProps = {
   pollCategory: number;
 };
 
+export const generateUniqueId = async () => {
+  let id = Math.floor(Math.random() * 1000) + 1;
+  const res = await fetch("http://localhost:8880/polls");
+  const data = await res.json();
+  while (data.includes(id)) {
+    id = Math.floor(Math.random() * 1000) + 1;
+  }
+  return id;
+};
+
 const PollCard = ({ data, pollNum, pollCategory }: PollCardProps) => {
   const navigate = useNavigate();
-
+  const [users, setUsers] = useState<Users>();
   //recoil
   const [loginUser, setLoginUser] = useRecoilState(loginUserState);
   const userId = loginUser.id;
-  const polledPopular = loginUser.polledPopular;
-  const polledOther = loginUser.polledOther;
-  console.log(polledOther);
-  console.log(polledPopular);
-  console.log(pollCategory)
 
-  //pollのid取得
-  const generateUniqueId = async () => {
-    let id = Math.floor(Math.random() * 1000) + 1;
-    const res = await fetch("http://localhost:8880/polls");
-    const data = await res.json();
-    while (data.includes(id)) {
-      id = Math.floor(Math.random() * 1000) + 1;
-    }
-    return id;
-  };
+  //ユーザ1を取得(後で消す)
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await fetch(`http://localhost:8880/users/1`); //仮でユーザID1のユーザでテスト中
+        const data = await response.json();
+        console.log(data);
+        setUsers(data);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, []);
 
-  //投票
+  //投票ボタン
   const submitPoll = async (drinkId: number) => {
     try {
-      //テスト用
-      // const existingPoll = await fetch(
-      //   `http://localhost:8880/polls?questionnaireId=${pollNum}&userId=${userId}`
-      // );
-      // const existingPollData = await existingPoll.json();
-      // if (existingPollData.length > 0) {
-      //   alert("既に投票済みです");
-      //   return;
-      // }
-
       const data = {
         id: await generateUniqueId(),
         questionnaireId: pollNum,
@@ -74,16 +76,44 @@ const PollCard = ({ data, pollNum, pollCategory }: PollCardProps) => {
       });
       const responseData = await response.json();
       console.log(responseData);
+      //投票カテゴリは人気投票かどうか。recoilでtruefalse切り替え//後でuser情報入れる
+      //usersの情報を入れる
       if (pollCategory === 1) {
-        setLoginUser((prevLoginUser) => ({
-          ...prevLoginUser,
+        const response = await fetch("http://localhost:8880/users/1", {
+          //後で変更
+          method: "PUT",
+          body: JSON.stringify({
+            ...users,
+            polledPopular: true,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const responseData = await response.json();
+        setUsers((prevUsers:any) => ({
+          ...prevUsers,
           polledPopular: true,
         }));
+        console.log(responseData);
       } else {
-        setLoginUser((prevLoginUser) => ({
-          ...prevLoginUser,
+        const response = await fetch("http://localhost:8880/users/1", {
+          //後で変更
+          method: "PUT",
+          body: JSON.stringify({
+            ...users,
+            polledOther: true,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const responseData = await response.json();
+        setUsers((prevUsers:any) => ({
+          ...prevUsers,
           polledOther: true,
         }));
+        console.log(responseData);
       }
     } catch (err) {
       console.log(err, "エラー");
@@ -219,11 +249,11 @@ const PollCard = ({ data, pollNum, pollCategory }: PollCardProps) => {
                     </CardContent>
                   </CardActionArea>
                 </CardActionArea>
-                <PrimaryButton
+                <ActiveBeigeButton
                   onClick={() => {
                     navigate(`/home/search/${drink.id}`);
                   }}
-                  sx={{
+                  sxStyle={{
                     background: "#C89F81",
                     mb: 1,
                     width: 200,
@@ -231,16 +261,16 @@ const PollCard = ({ data, pollNum, pollCategory }: PollCardProps) => {
                     fontWeight: "bold",
                     ml: 4,
                     border: "double",
-                    ":hover": {
-                      background: "#8d6449",
-                      cursor: "pointer",
-                    },
+                  }}
+                  event={() => {
+                    navigate(`/home/search/${drink.id}`);
                   }}
                 >
                   <SearchIcon />
                   詳細を見る
-                </PrimaryButton>
-                {polledPopular || polledOther ? (
+                </ActiveBeigeButton>
+                {(users?.polledPopular && pollCategory === 1) ||
+                (users?.polledOther && pollCategory === 2) ? (
                   <InactiveButton
                     sx={{
                       background: "#e29399",
