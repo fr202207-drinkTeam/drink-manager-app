@@ -29,7 +29,7 @@ const Poll = memo(() => {
     Questionnaire[]
   >([]);
 
-  //カスタムフック
+  //カスタムフック(人気投票とその他投票の商品データ)
   const PopularitemData= useGetPollCategory(1);
   const OtheritemData= useGetPollCategory(2);
   
@@ -126,71 +126,6 @@ const Poll = memo(() => {
 
   ///////////////////////////////////////////////
 
-  // // 最新の人気投票の商品を取得
-  useEffect(() => {
-    // カスタムフックでカテゴリーを絞り込みしてから取得
-    const Categoryperiod = PopularitemData.map(
-      (question: Questionnaire) => {
-        const endDate = new Date(question.endDate);
-        const startDate = new Date(question.startDate);
-        //startDateが過去で、endDateが現在以降のものを取ってくる
-        const isValidPeriod = startDate < now && endDate >= now;
-        return {
-          ...question,
-          isValidPeriod: isValidPeriod,
-          endDate: endDate,
-        };
-      }
-    );
-    //最新の投票を持ってくる
-    const sortedData = Categoryperiod.sort(
-      (after: any, before: any) => before.endDate - after.endDate
-    );
-    //アンケートの商品のIDを取得
-    const pollitemID = sortedData[0]?.polledItems.map((poll: { itemId: any; }) => {
-      return poll.itemId;
-    });
-    //itemsから上記のアンケートIDを含むものを取得
-    const itemId = items.filter((item) => pollitemID?.includes(item.id));
-    setItems(itemId);
-  }, [questionnaire]);
-
-
-  //最新のその他投票の商品を取得
-  useEffect(() => {
-    //// カスタムフックでカテゴリーを絞り込みしてから取得
-    const Categoryperiod = OtheritemData.map(
-      (question: Questionnaire) => {
-        const endDate = new Date(question.endDate);
-        const startDate = new Date(question.startDate);
-        //startDateが過去で、endDateが現在以降のものを取ってくる
-        const isValidPeriod = startDate < now && endDate >= now;
-        return {
-          ...question,
-          isValidPeriod: isValidPeriod,
-          endDate: endDate,
-        };
-      }
-    );
-    // console.log(Categoryperiod,33444)
-    //最新の投票を持ってくる
-    const sortedData = Categoryperiod.sort(
-      (after: any, before: any) => before.endDate - after.endDate
-    );
-    // console.log(sortedData,444)
-    //アンケートの商品のIDを取得
-    const pollitemID = sortedData[0]?.polledItems.map((poll:any) => {
-      return poll.itemId;
-    });
-    // console.log(pollitemID,300)
-    //itemsから上記のアンケートIDを含むものを取得
-    const itemId = items.filter((item) => pollitemID?.includes(item.id));
-    setOthersItems(itemId);
-  }, [questionnaire]);
-
-  // console.log(othersItems,11111111);
-  // console.log(items,11111111)
-
   //人気投票タイトル
   useEffect(() => {
     (async () => {
@@ -267,7 +202,7 @@ const Poll = memo(() => {
         />
 
         <PollCard
-          data={items}
+          data={PopularitemData}
           pollNum={popularPollTitle[0]?.id}
           pollCategory={popularPollTitle[0]?.category}
         />
@@ -282,7 +217,7 @@ const Poll = memo(() => {
           margin={4}
         />
         <PollCard
-          data={othersItems}
+          data={OtheritemData}
           pollNum={othersPollTitle[0]?.id}
           pollCategory={othersPollTitle[0]?.category}
         />
