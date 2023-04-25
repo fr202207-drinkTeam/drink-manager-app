@@ -5,14 +5,13 @@ import React from 'react'
 type DottedMemoProps={
   text:string;
   information?:string;
-  fontSize?:string;
-  fontSizeInfo?:string;
+  fontSize?:string|number;
   maxWidth?:number;
   minWidth?:number;
   margin?:number;
 }
 
-const DottedMemo = ({text,information,fontSize,fontSizeInfo,maxWidth,minWidth,margin}:DottedMemoProps) => {
+const DottedMemo = ({text,information,fontSize,maxWidth,minWidth,margin}:DottedMemoProps) => {
   return (
     <Card
     sx={{
@@ -41,7 +40,7 @@ const DottedMemo = ({text,information,fontSize,fontSizeInfo,maxWidth,minWidth,ma
       variant="h5"
       component="div"
       textAlign="center"
-      sx={{ margin, color: "#595857", fontSizeInfo }}
+      sx={{ margin, color: "#595857", fontSize:"16px" }}
     >
       {information}
     </Typography>

@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
+import { Link } from "react-router-dom";
 const AccordionMenu = () => {
   const [expanded, setExpanded] = useState(null);
 
@@ -13,9 +13,8 @@ const AccordionMenu = () => {
   };
   return (
     <>
-      {/* アコーディオンメニュー */}
       <div>
-        <Box className="productTtl">
+        <Box>
           <Typography variant="h5" textAlign="center" sx={{ color: "#ea6f00" }}>
             - PRODUCTS -
           </Typography>
@@ -38,80 +37,122 @@ const AccordionMenu = () => {
           >
             コーヒー
           </AccordionSummary>
-          <AccordionSummary
-            aria-controls="panel2a-content"
-            id="panel2a-header"
-            sx={{
-              borderTop: "2px dashed #ea6f00",
-              borderBottom: "2px dashed #ea6f00",
+          <Link
+            to={{
+              pathname: "/home/search",
+              search: `?category=1`,
             }}
           >
-            ダーク（深煎り）
-          </AccordionSummary>
-          <AccordionSummary
-            aria-controls="panel2a-content"
-            id="panel2a-header"
-            sx={{
-              borderBottom: "2px dashed #ea6f00",
+            <AccordionSummary
+              aria-controls="panel2a-content"
+              id="panel2a-header"
+              sx={{
+                borderTop: "2px dashed #ea6f00",
+                borderBottom: "2px dashed #ea6f00",
+              }}
+            >
+              ダーク（深煎り）
+            </AccordionSummary>
+          </Link>
+          <Link
+            to={{
+              pathname: "/home/search",
+              search: `?category=2`,
             }}
           >
-            ミディアム（中煎り）
-          </AccordionSummary>
-          <AccordionSummary
-            aria-controls="panel2a-content"
-            id="panel2a-header"
-            sx={{
-              borderBottom: "2px dashed #ea6f00",
+            <AccordionSummary
+              aria-controls="panel2a-content"
+              id="medium"
+              sx={{
+                borderBottom: "2px dashed #ea6f00",
+              }}
+            >
+              ミディアム（中煎り）
+            </AccordionSummary>
+          </Link>
+          <Link
+            to={{
+              pathname: "/home/search",
+              search: `?category=3`,
             }}
           >
-            ライト（浅煎り）
-          </AccordionSummary>
-          <AccordionSummary
-            aria-controls="panel2a-content"
-            id="panel2a-header"
-            sx={{
-              borderBottom: "2px dashed #ea6f00",
+            <AccordionSummary
+              aria-controls="panel2a-content"
+              id="light"
+              sx={{
+                borderBottom: "2px dashed #ea6f00",
+              }}
+            >
+              ライト（浅煎り）
+            </AccordionSummary>
+          </Link>
+          <Link
+            to={{
+              pathname: "/home/search",
+              search: `?category=4`,
             }}
           >
-            カフェインレス
-          </AccordionSummary>
-          <AccordionSummary id="panel2a-header">
-            すべてのコーヒー
-          </AccordionSummary>
+            <AccordionSummary
+              aria-controls="panel2a-content"
+              id="decaffeinated"
+              sx={{
+                borderBottom: "2px dashed #ea6f00",
+              }}
+            >
+              カフェインレス
+            </AccordionSummary>
+          </Link>
+          <Link
+            to={{
+              pathname: "/home/search",
+              search: `?category=allcoffee`,
+            }}
+          >
+            <AccordionSummary id="allcoffee">すべてのコーヒー</AccordionSummary>
+          </Link>
         </Accordion>
-        <Accordion
-          expanded={expanded === "panel2"}
-          onChange={handleChange("panel2")}
+        <Link
+          to={{
+            pathname: "/home/search",
+            search: `?category=5`,
+          }}
         >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            ティー
-          </AccordionSummary>
-
-          <AccordionSummary
-            // expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2a-content"
-            id="panel2a-header"
-            sx={{
-              borderBottom: "2px dashed #ea6f00",
-              borderTop: "2px dashed #ea6f00",
-            }}
-          >
-            ティー
-          </AccordionSummary>
-        </Accordion>
-        <Accordion sx={{ m: 0 }}>
-          <AccordionSummary id="panel1a-header">ココア</AccordionSummary>
-        </Accordion>
-        <Accordion sx={{ m: 0 }}>
-          <AccordionSummary id="panel1a-header">その他</AccordionSummary>
-        </Accordion>
-        <Accordion sx={{ m: 0 }}>
-          <AccordionSummary id="panel1a-header">すべての商品</AccordionSummary>
-        </Accordion>
+          <Accordion sx={{ m: 0 }}>
+            <AccordionSummary id="tea">ティー</AccordionSummary>
+          </Accordion>
+        </Link>
+        <Link
+          to={{
+            pathname: "/home/search",
+            search: `?category=6`,
+          }}
+        >
+          <Accordion sx={{ m: 0 }}>
+            <AccordionSummary id="cocoa">ココア</AccordionSummary>
+          </Accordion>
+        </Link>
+        <Link
+          to={{
+            pathname: "/home/search",
+            search: `?category=7`,
+          }}
+        >
+          <Accordion sx={{ m: 0 }}>
+            <AccordionSummary id="other">その他</AccordionSummary>
+          </Accordion>
+        </Link>
+        <Link
+          to={{
+            pathname: "/home/search",
+            search: `?category=all`,
+          }}
+        >
+          <Accordion sx={{ m: 0 }}>
+            <AccordionSummary id="panel1a-header">
+              すべての商品
+            </AccordionSummary>
+          </Accordion>
+        </Link>
       </div>
     </>
   );
