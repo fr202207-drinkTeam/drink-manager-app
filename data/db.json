@@ -1,13 +1,13 @@
 {
   "users": [
     {
-      "id": 1111,
-      "firstName": "",
-      "lastName": "",
+      "id": 1,
+      "firstName": "ラクス",
+      "lastName": "太郎",
       "email": "test@test.com",
-      "password": "test1234",
+      "password": "Test1234",
       "isAdmin": false,
-      "authId": "",
+      "authId": "giP7CHKGEuNbsXUemefgUCjtciQ2",
       "polledPopular": false,
       "polledOther": true
     },
@@ -529,10 +529,14 @@
   "posts": [],
   "comments": [],
   "likes": [],
-  "stock": [
+  "stockhistory": [
     {
       "id": 1,
-      "contactKinds": ""
+      "itemId": 1,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 1
     }
   ],
   "addition": [

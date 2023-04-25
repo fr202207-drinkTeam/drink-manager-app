@@ -24,15 +24,36 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import { PrimaryButton } from "../atoms/button/Button";
-import AccordionMenu from "../accordion/AccordionMenu";
+import AccordionMenu from "../atoms/accordion/AccordionMenu";
 import Header from "./Header";
 import Footer from "./Footer";
+import { CardMedia } from "@mui/material";
+import { ActiveOrangeButton } from "../atoms/button/Button";
+import { useLocation } from "react-router-dom";
+import Slider from "../atoms/slider/Slider";
 function DefaultLayout({ children }: { children: any }) {
+  const handleButtonClick = () => {};
+  // パスの取得
+  const location = useLocation();
+  console.log(location.pathname);
+  const images = ["../top.png", "../top.png", "../top.png"];
   return (
     <React.Fragment>
       <Header />
-
-      <Container maxWidth="xl" sx={{ my: 20 }}>
+      {/* ユーザートップページのみスライダーの表示 */}
+      {location.pathname === "/home" ? (
+        <Slider
+          images={images}
+          slidesPerView={1}
+          loop={false}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          navigation={false}
+          // style={style}
+        />
+      ) : (
+        ""
+      )}
+      <Container maxWidth="xl" sx={{ mt: 10, mb: 20 }}>
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <AccordionMenu />
@@ -51,17 +72,12 @@ function DefaultLayout({ children }: { children: any }) {
                 variant="outlined"
                 sx={{ my: 4, width: "100%", backgroundColor: "#fff" }}
               />
-
-              <PrimaryButton
-                sx={{
-                  background: "linear-gradient(95deg, #ffc97a, #ff9900)",
-                  mb: 4,
-                  width: "100%",
-                  fontWeight: "bold",
-                }}
+              <ActiveOrangeButton
+                event={handleButtonClick}
+                sxStyle={{ width: "100%" }} // ここでwidthを指定する
               >
                 検索する
-              </PrimaryButton>
+              </ActiveOrangeButton>
               <Box sx={{ my: 4 }}>
                 <img src="/dummybanner.jpg" style={{ maxWidth: "100%" }} />
               </Box>
@@ -72,29 +88,31 @@ function DefaultLayout({ children }: { children: any }) {
           </Grid>
 
           <Grid item xs={9}>
-            {/* <Item>{children} </Item> */}
             {children}
           </Grid>
         </Grid>
       </Container>
-      {/* チャットボット */}
-      <Box
-        sx={{
-          borderRadius: 20,
-          position: "fixed",
-          bottom: 20,
-          right: 10,
-          zIndex: 1,
-          width: 100,
-          height: 100,
-        }}
-      >
-        <img
-          src="/chatbot.png"
-          style={{ maxWidth: "100%", borderRadius: "20px" }}
-        />
-      </Box>
-
+      {/* チャットボット  /adminhome から始まるパス名の際には非表示*/}
+      {!location.pathname.startsWith("/adminhome") ? (
+        <Box
+          sx={{
+            borderRadius: 20,
+            position: "fixed",
+            bottom: 20,
+            right: 10,
+            zIndex: 1,
+            width: 100,
+            height: 100,
+          }}
+        >
+          <img
+            src="/chatbot.png"
+            style={{ maxWidth: "100%", borderRadius: "20px" }}
+          />
+        </Box>
+      ) : (
+        ""
+      )}
       <Footer />
     </React.Fragment>
   );

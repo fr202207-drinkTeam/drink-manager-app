@@ -1,25 +1,28 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
+import { Items } from '../types/type';
 
 type Props = {
-    intheOffice: boolean
+  intheOffice: boolean;
 };
 
 const useGetOfficeItems = (props: Props) => {
-  const [itemData, setItemData] = useState<any>()
-  
+  const [itemData, setItemData] = useState<any>();
+
   useEffect(() => {
     if (!props) return;
-    fetch(`http://localhost:8880/items?intheOffice=${props.intheOffice}`, {method: 'GET'})
-      .then(res => res.json())
-      .then(data => {
-        setItemData(data)
+    fetch(`http://localhost:8880/items?intheOffice=${props.intheOffice}`, {
+      method: 'GET',
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setItemData(data);
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error("Error:", error);
       });
-  }, [props])
+  }, [props.intheOffice]);
 
-  return itemData
-}
+  return itemData;
+};
 
-export default useGetOfficeItems
+export default useGetOfficeItems;

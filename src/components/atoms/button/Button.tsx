@@ -1,5 +1,5 @@
-import React from "react";
-import Button, { ButtonProps } from "@mui/material/Button";
+import React from 'react';
+import Button, { ButtonProps } from '@mui/material/Button';
 
 interface InactiveButtonProps extends ButtonProps {
   sxStyle?: any;
@@ -28,9 +28,10 @@ const InactiveButton = ({
       variant="contained"
       disabled
       sx={{
-        fontWeight: "bold",
+        fontWeight: 'bold',
         fontFamily: "'M PLUS 1p', sans-serif",
-        ...sxStyle }}
+        ...sxStyle,
+      }}
       {...props}
     >
       {children}
@@ -48,15 +49,17 @@ const ActiveBlueButton = ({
     <Button
       variant="contained"
       onClick={event}
-      sx={{ background: "#8FB8D6",
-      fontWeight: "bold",
-      ":hover": {
-        background: "#8FB8D6",
-        opacity: 0.7,
-        cursor: "pointer",
-      },
-      fontFamily: "'M PLUS 1p', sans-serif",
-      ...sxStyle }}
+      sx={{
+        background: '#8FB8D6',
+        fontWeight: 'bold',
+        ':hover': {
+          background: '#8FB8D6',
+          opacity: 0.7,
+          cursor: 'pointer',
+        },
+        fontFamily: "'M PLUS 1p', sans-serif",
+        ...sxStyle,
+      }}
       {...props}
     >
       {children}
@@ -74,15 +77,17 @@ const ActiveOrangeButton = ({
     <Button
       variant="contained"
       onClick={event}
-      sx={{ background: "#ea6f00",
-      fontWeight: "bold",
-      ":hover": {
-        background: "#ea6f00",
-        opacity: 0.7,
-        cursor: "pointer",
-      },
-      fontFamily: "'M PLUS 1p', sans-serif",
-      ...sxStyle }}
+      sx={{
+        background: '#ea6f00',
+        fontWeight: 'bold',
+        ':hover': {
+          background: '#ea6f00',
+          opacity: 0.7,
+          cursor: 'pointer',
+        },
+        fontFamily: "'M PLUS 1p', sans-serif",
+        ...sxStyle,
+      }}
       {...props}
     >
       {children}
@@ -100,15 +105,17 @@ const ActiveBeigeButton = ({
     <Button
       variant="contained"
       onClick={event}
-      sx={{ background: "#C89F81",
-      fontWeight: "bold",
-      ":hover": {
-        background: "#C89F81",
-        opacity: 0.7,
-        cursor: "pointer",
-      }, 
-      fontFamily: "'M PLUS 1p', sans-serif",
-      ...sxStyle }}
+      sx={{
+        background: '#C89F81',
+        fontWeight: 'bold',
+        ':hover': {
+          background: '#C89F81',
+          opacity: 0.7,
+          cursor: 'pointer',
+        },
+        fontFamily: "'M PLUS 1p', sans-serif",
+        ...sxStyle,
+      }}
       {...props}
     >
       {children}
@@ -126,15 +133,17 @@ const ActivePinkButton = ({
     <Button
       variant="contained"
       onClick={event}
-      sx={{ background: "#e29399",
-      fontWeight: "bold",
-      ":hover": {
-        background: "#e29399",
-        opacity: 0.7,
-        cursor: "pointer",
-      }, 
-      fontFamily: "'M PLUS 1p', sans-serif",
-      ...sxStyle }}
+      sx={{
+        background: '#e29399',
+        fontWeight: 'bold',
+        ':hover': {
+          background: '#e29399',
+          opacity: 0.7,
+          cursor: 'pointer',
+        },
+        fontFamily: "'M PLUS 1p', sans-serif",
+        ...sxStyle,
+      }}
       {...props}
     >
       {children}
@@ -152,15 +161,17 @@ const ActiveDarkBlueButton = ({
     <Button
       variant="contained"
       onClick={event}
-      sx={{ background: "#024098",
-      fontWeight: "bold",
-      ":hover": {
-        background: "#024098",
-        opacity: 0.7,
-        cursor: "pointer",
-      }, 
-      fontFamily: "'M PLUS 1p', sans-serif",
-      ...sxStyle }}
+      sx={{
+        background: '#024098',
+        fontWeight: 'bold',
+        ':hover': {
+          background: '#024098',
+          opacity: 0.7,
+          cursor: 'pointer',
+        },
+        fontFamily: "'M PLUS 1p', sans-serif",
+        ...sxStyle,
+      }}
       {...props}
     >
       {children}
@@ -178,15 +189,17 @@ const ActiveRedButton = ({
     <Button
       variant="contained"
       onClick={event}
-      sx={{ background: "#ff0000",
-      fontWeight: "bold",
-      ":hover": {
-        background: "#ff0000",
-        opacity: 0.7,
-        cursor: "pointer",
-      }, 
-      fontFamily: "'M PLUS 1p', sans-serif",
-      ...sxStyle }}
+      sx={{
+        background: '#ff0000',
+        fontWeight: 'bold',
+        ':hover': {
+          background: '#ff0000',
+          opacity: 0.7,
+          cursor: 'pointer',
+        },
+        fontFamily: "'M PLUS 1p', sans-serif",
+        ...sxStyle,
+      }}
       {...props}
     >
       {children}
@@ -202,5 +215,5 @@ export {
   ActiveBeigeButton,
   ActivePinkButton,
   ActiveDarkBlueButton,
-  ActiveRedButton
+  ActiveRedButton,
 };
