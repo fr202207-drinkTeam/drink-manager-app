@@ -35,16 +35,16 @@ import { useRecoilValue } from "recoil";
 
 import { useLoginUser } from "../../hooks/useLoginUser";
 import useGetAnItem from "../../hooks/useGetAnItem";
-import { loginUserState } from "../../store/loginUserState";
+import AdmTitleText from "../atoms/text/AdmTitleText";
 
 type Props = {};
 
 const AdminHome: FC<Props> = memo((props) => {
-  const loginUser = useRecoilValue(loginUserState);
-  console.log(loginUser);
-
+  const { loginUserInfo } = useLoginUser({ id: 3 });
+  console.log(loginUserInfo);
   return (
     <>
+      {loginUserInfo.isAdmin ? <p>管理者ユーザです</p> : <p>一般ユーザです</p>}
       <DefaultLayout>
         <Paper
           sx={{
@@ -55,7 +55,7 @@ const AdminHome: FC<Props> = memo((props) => {
             padding: "50px",
           }}
         >
-          <Typography
+          {/* <Typography
             sx={{
               fontFamily: "Georgia",
               fontSize: "50px",
@@ -66,7 +66,8 @@ const AdminHome: FC<Props> = memo((props) => {
             }}
           >
             -管理者MENU-
-          </Typography>
+          </Typography> */}
+          <AdmTitleText>管理者MENU</AdmTitleText>
           {/* {loginUserInfo.isAdmin ? <p>管理者です</p> : <p>一般ユーザです</p>} */}
           <Stack
             direction="row"

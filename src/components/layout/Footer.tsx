@@ -16,16 +16,16 @@ const Footer = () => {
         }}
       >
         <Link to="/home">
-          <Typography sx={{ mx: 2 }}>TOP</Typography>
+          <Typography sx={{ mx: 2, color: "white" }}>TOP</Typography>
         </Link>
         <Link to="/home/guide">
-          <Typography sx={{ mx: 2 }}>ご利用ガイド</Typography>
+          <Typography sx={{ mx: 2, color: "white" }}>ご利用ガイド</Typography>
         </Link>
         <Link to="/home/contact">
-          <Typography sx={{ mx: 2 }}>お問い合わせ</Typography>
+          <Typography sx={{ mx: 2, color: "white" }}>お問い合わせ</Typography>
         </Link>
         <Link to="/home/poll">
-          <Typography sx={{ mx: 2 }}>投票</Typography>
+          <Typography sx={{ mx: 2, color: "white" }}>投票</Typography>
         </Link>
       </Box>
       <Box
