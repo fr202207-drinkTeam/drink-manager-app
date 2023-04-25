@@ -4,30 +4,35 @@ import CardActionArea from "@mui/material/CardActionArea";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { PrimaryButton } from "../atoms/button/Button";
+import { InactiveButton, PrimaryButton } from "../atoms/button/Button";
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { loginUserState } from "../../store/loginUserState";
 
 //types
-import { Items, Questionnaire } from '../../types/type';
+import { Items, Questionnaire } from "../../types/type";
 //icon
 import SearchIcon from "@mui/icons-material/Search";
 import SwitchAccessShortcutAddIcon from "@mui/icons-material/SwitchAccessShortcutAdd";
 
 type PollCardProps = {
   data: Items[];
-  pollNum:number;
+  pollNum: number;
+  pollCategory: number;
 };
 
-const PollCard = ({ data,pollNum }: PollCardProps) => {
+const PollCard = ({ data, pollNum, pollCategory }: PollCardProps) => {
   const navigate = useNavigate();
 
   //recoil
   const [loginUser, setLoginUser] = useRecoilState(loginUserState);
   const userId = loginUser.id;
-
+  const polledPopular = loginUser.polledPopular;
+  const polledOther = loginUser.polledOther;
+  console.log(polledOther);
+  console.log(polledPopular);
+  console.log(pollCategory)
 
   //pollのid取得
   const generateUniqueId = async () => {
@@ -43,12 +48,16 @@ const PollCard = ({ data,pollNum }: PollCardProps) => {
   //投票
   const submitPoll = async (drinkId: number) => {
     try {
-      const existingPoll = await fetch(`http://localhost:8880/polls?questionnaireId=${pollNum}&userId=${userId}`);
-      const existingPollData = await existingPoll.json();
-      if (existingPollData.length > 0) {
-        alert("既に投票済みです");
-        return;
-      }
+      //テスト用
+      // const existingPoll = await fetch(
+      //   `http://localhost:8880/polls?questionnaireId=${pollNum}&userId=${userId}`
+      // );
+      // const existingPollData = await existingPoll.json();
+      // if (existingPollData.length > 0) {
+      //   alert("既に投票済みです");
+      //   return;
+      // }
+
       const data = {
         id: await generateUniqueId(),
         questionnaireId: pollNum,
@@ -65,6 +74,17 @@ const PollCard = ({ data,pollNum }: PollCardProps) => {
       });
       const responseData = await response.json();
       console.log(responseData);
+      if (pollCategory === 1) {
+        setLoginUser((prevLoginUser) => ({
+          ...prevLoginUser,
+          polledPopular: true,
+        }));
+      } else {
+        setLoginUser((prevLoginUser) => ({
+          ...prevLoginUser,
+          polledOther: true,
+        }));
+      }
     } catch (err) {
       console.log(err, "エラー");
     }
@@ -220,25 +240,46 @@ const PollCard = ({ data,pollNum }: PollCardProps) => {
                   <SearchIcon />
                   詳細を見る
                 </PrimaryButton>
-                <PrimaryButton
-                  onClick={() => submitPoll(drink.id)}
-                  sx={{
-                    background: "#e29399",
-                    width: 200,
-                    mb: 2,
-                    boxShadow: "none",
-                    border: "double",
-                    fontWeight: "bold",
-                    ml: 4,
-                    ":hover": {
+                {polledPopular || polledOther ? (
+                  <InactiveButton
+                    sx={{
                       background: "#e29399",
-                      cursor: "pointer",
-                    },
-                  }}
-                >
-                  <SwitchAccessShortcutAddIcon />
-                  &nbsp;投票する
-                </PrimaryButton>
+                      width: 200,
+                      mb: 2,
+                      boxShadow: "none",
+                      border: "double",
+                      fontWeight: "bold",
+                      ml: 4,
+                      ":hover": {
+                        background: "#e29399",
+                        cursor: "pointer",
+                      },
+                    }}
+                  >
+                    <SwitchAccessShortcutAddIcon />
+                    &nbsp;投票しました
+                  </InactiveButton>
+                ) : (
+                  <PrimaryButton
+                    onClick={() => submitPoll(drink.id)}
+                    sx={{
+                      background: "#e29399",
+                      width: 200,
+                      mb: 2,
+                      boxShadow: "none",
+                      border: "double",
+                      fontWeight: "bold",
+                      ml: 4,
+                      ":hover": {
+                        background: "#e29399",
+                        cursor: "pointer",
+                      },
+                    }}
+                  >
+                    <SwitchAccessShortcutAddIcon />
+                    &nbsp;投票する
+                  </PrimaryButton>
+                )}
               </Card>
             );
           })}

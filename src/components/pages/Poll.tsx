@@ -203,7 +203,7 @@ const Poll = memo(() => {
           margin={4}
         />
 
-        <PollCard data={items} pollNum={popularPolls[0]?.id} />
+        <PollCard data={items} pollNum={popularPolls[0]?.id} pollCategory={popularPolls[0]?.category}/>
 
         <PollTitle poll={polls} />
         <DottedMemo
@@ -214,7 +214,7 @@ const Poll = memo(() => {
           minWidth={500}
           margin={4}
         />
-        <PollCard data={othersItems} pollNum={polls[0]?.id} />
+        <PollCard data={othersItems} pollNum={polls[0]?.id} pollCategory={polls[0]?.category}/>
         <Box
           sx={{
             background: "#fff9f5",
