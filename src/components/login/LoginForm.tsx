@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { FC } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Box,
@@ -20,7 +20,13 @@ import { auth } from "../../Firebase";
 import { useRecoilState } from "recoil";
 import { loginUserState } from "../../store/loginUserState";
 
-const LoginForm = ({ loginTitle }: any) => {
+type Props = {
+  loginTitle: string;
+};
+
+const LoginForm: FC<Props> = (props) => {
+  const { loginTitle } = props;
+
   const [errorMail, setErrorMail] = useState<boolean>(false);
   const [errorPass, setErrorPass] = useState<boolean>(false);
   const [passText, setPassText] = useState<boolean>(false);
@@ -50,19 +56,7 @@ const LoginForm = ({ loginTitle }: any) => {
     );
   };
 
-  const mailBlur = () => {
-    setErrorMail(true);
-  };
-
-  const passFocus = () => {
-    setPassText(true);
-  };
-
-  const passBlur = () => {
-    setErrorPass(true);
-  };
-
-  const loginSubmit = async (e: any) => {
+  const loginSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       //firebaseでのログイン処理
@@ -71,15 +65,22 @@ const LoginForm = ({ loginTitle }: any) => {
         email,
         password
       );
-      const loginUser = userCredential.user;
+      const loginedUser = userCredential.user;
 
       // JSONサーバーからデータ取得
       const response = await fetch(
-        `http://localhost:8880/users?email=${loginUser.email}`
+        `http://localhost:8880/users?email=${loginedUser.email}`
       );
       const user = await response.json();
-      //Recoil
+      // Recoil
       setLoginUser(user[0]);
+      //cookieをセット
+      if (loginedUser.uid === user[0].authId) {
+        document.cookie = `authId=${loginedUser.uid}; max-age=1800`;
+      } else {
+        alert("ユーザーが存在しません");
+      }
+      //管理者判定
       if (user[0].isAdmin === false) {
         navigate("/home");
       } else {
@@ -91,61 +92,96 @@ const LoginForm = ({ loginTitle }: any) => {
   };
 
   return (
-    <Container
-      maxWidth="sm"
-      onSubmit={loginSubmit}
-      sx={{ alignItems: "center", mt: "80px" }}
-    >
+    <Container maxWidth="sm" sx={{ alignItems: "center", mt: "80px" }}>
       <Box>
         <h1>{loginTitle}</h1>
       </Box>
-      <Box component="form" sx={{ textAlign: "center" }}>
+      <Box component="form" onSubmit={loginSubmit} sx={{ textAlign: "center" }}>
         <PrimaryInput
           type="email"
           label="メールアドレス"
           placeholder="例）example@example.com"
-          helperText={
-            errorMail
-              ? email === ""
-                ? "メールアドレスを入力してください"
-                : errorMail && (!email.includes("@") || email.length > 40)
-                ? "＠を含んだ40文字以内で入力してください"
-                : ""
-              : null
-          }
+          // helperText={
+          //   errorMail
+          //     ? email === ""
+          //       ? "メールアドレスを入力してください"
+          //       : errorMail && (!email.includes("@") || email.length > 40)
+          //       ? "＠を含んだ40文字以内で入力してください"
+          //       : ""
+          //     : null
+          // }
+          helperText={(() => {
+            if (errorMail) {
+              if (email === "") {
+                return "メールアドレスを入力してください";
+              } else if (
+                errorMail &&
+                (!email.includes("@") || email.length > 40)
+              ) {
+                return "＠を含んだ40文字以内で入力してください";
+              } else {
+                return "";
+              }
+            } else {
+              return null;
+            }
+          })()}
           error={
             errorMail &&
             (email === "" || !email.includes("@") || email.length > 40)
               ? errorMail
               : null
           }
-          onBlur={mailBlur}
+          onBlur={() => setErrorMail(true)}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setEmail(e.target.value)
           }
         />
         <PrimaryInput
-          type={showPassword ? "text" : "password"}
+          type={(() => {
+            if (showPassword) {
+              return "text";
+            } else {
+              return "password";
+            }
+          })()}
           label="パスワード"
           placeholder="パスワード"
-          helperText={
-            errorPass
-              ? password === ""
-                ? "パスワードを入力してください"
-                : errorPass &&
-                  isValidPassword(password) &&
-                  (password.length < 8 || password.length < 16)
-                ? ""
-                : "半角英字大文字、小文字、数字の3種類を1つ必ず使用し8文字以上16文字以内"
-              : null
-          }
+          // helperText={
+          //   errorPass
+          //     ? password === ""
+          //       ? "パスワードを入力してください"
+          //       : errorPass &&
+          //         isValidPassword(password) &&
+          //         (password.length < 8 || password.length < 16)
+          //       ? ""
+          //       : "半角英字大文字、小文字、数字の3種類を1つ必ず使用し8文字以上16文字以内"
+          //     : null
+          // }
+          helperText={(() => {
+            if (errorPass) {
+              if (password === "") {
+                return "パスワードを入力してください";
+              } else if (
+                errorPass &&
+                isValidPassword(password) &&
+                (password.length < 8 || password.length < 16)
+              ) {
+                return "";
+              } else {
+                return "半角英字大文字、小文字、数字の3種類を1つ必ず使用し8文字以上16文字以内";
+              }
+            } else {
+              return null;
+            }
+          })()}
           error={
             errorPass && (password === "" || !isValidPassword(password))
               ? errorPass
               : null
           }
-          onFocus={passFocus}
-          onBlur={passBlur}
+          onFocus={() => setPassText(true)}
+          onBlur={() => setErrorPass(true)}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setPassword(e.target.value)
           }
@@ -167,56 +203,64 @@ const LoginForm = ({ loginTitle }: any) => {
             <ListItem>
               <Stack>
                 <ListItemText
-                  primary={
-                    password.length >= 8 && password.length <= 16 ? (
-                      <>
-                        <CheckCircle
-                          style={{
-                            color: "green",
-                            verticalAlign: "middle",
-                            marginRight: "5px",
-                          }}
-                        />
-                        8文字以上16文字以内
-                      </>
-                    ) : (
-                      <>
-                        <CheckCircle
-                          style={{
-                            verticalAlign: "middle",
-                            marginRight: "5px",
-                          }}
-                        />
-                        8文字以上16文字以内
-                      </>
-                    )
-                  }
+                  primary={(() => {
+                    if (password.length >= 8 && password.length <= 16) {
+                      return (
+                        <>
+                          <CheckCircle
+                            style={{
+                              color: "green",
+                              verticalAlign: "middle",
+                              marginRight: "5px",
+                            }}
+                          />
+                          8文字以上16文字以内
+                        </>
+                      );
+                    } else {
+                      return (
+                        <>
+                          <CheckCircle
+                            style={{
+                              verticalAlign: "middle",
+                              marginRight: "5px",
+                            }}
+                          />
+                          8文字以上16文字以内
+                        </>
+                      );
+                    }
+                  })()}
                 />
                 <ListItemText
-                  primary={
-                    isValidPassword(password) ? (
-                      <>
-                        <CheckCircle
-                          style={{
-                            color: "green",
-                            verticalAlign: "middle",
-                            marginRight: "5px",
-                          }}
-                        />
-                        半角英字大文字、小文字、数字の3種類を1つ必ず使用
-                      </>
-                    ) : (
-                      <>
-                        <CheckCircle
-                          style={{
-                            verticalAlign: "middle",
-                            marginRight: "5px",
-                          }}
-                        />
-                        半角英字大文字、小文字、数字の3種類を1つ必ず使用
-                      </>
-                    )
-                  }
+                  primary={(() => {
+                    if (isValidPassword(password)) {
+                      return (
+                        <>
+                          <CheckCircle
+                            style={{
+                              color: "green",
+                              verticalAlign: "middle",
+                              marginRight: "5px",
+                            }}
+                          />
+                          半角英字大文字、小文字、数字の3種類を1つ必ず使用
+                        </>
+                      );
+                    } else {
+                      return (
+                        <>
+                          <CheckCircle
+                            style={{
+                              verticalAlign: "middle",
+                              marginRight: "5px",
+                            }}
+                          />
+                          半角英字大文字、小文字、数字の3種類を1つ必ず使用
+                        </>
+                      );
+                    }
+                  })()}
                 />
               </Stack>
             </ListItem>
@@ -224,17 +268,22 @@ const LoginForm = ({ loginTitle }: any) => {
         ) : (
           ""
         )}
-        {errorUser ? (
-          <p style={{ fontSize: "14px", color: "red" }}>
-            ユーザーが存在しません
-          </p>
-        ) : (
-          <></>
-        )}
+        {(() => {
+          if (errorUser) {
+            return (
+              <p style={{ fontSize: "14px", color: "red" }}>
+                ユーザーが存在しません
+              </p>
+            );
+          } else {
+            <></>;
+          }
+        })()}
         <ActiveOrangeButton
           children="ログイン"
-          event={() => console.log("a")}
+          event={() => loginSubmit}
           type="submit"
+          sxStyle={{ mt: "10px" }}
           disabled={
             password === "" ||
             email === "" ||

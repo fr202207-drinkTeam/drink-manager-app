@@ -11,6 +11,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import DefaultLayout from "../layout/DefaultLayout";
 import Slider from "../atoms/slider/Slider";
+import { useRecoilValue } from "recoil";
+import { loginUserState } from "../../store/loginUserState";
 type Props = {};
 
 const Top: FC<Props> = memo((props) => {
