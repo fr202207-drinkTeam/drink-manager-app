@@ -12,27 +12,24 @@ import {
 import { PrimaryInput, SecondaryInput } from "../atoms/input/Input";
 import { CheckCircle, Visibility, VisibilityOff } from "@mui/icons-material";
 import { ActiveOrangeButton } from "../atoms/button/Button";
-import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
-import Cookies from "js-cookie";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../Firebase";
+import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
 const Register: FC<Props> = memo((props) => {
-  const [passText, setPassText] = useState(false);
-  const [errorId, setErrorId] = useState(false);
-  const [errorFirstName, setErrorFirstName] = useState(false);
-  const [errorLastName, setErrorLastName] = useState(false);
-  const [errorMail, setErrorMail] = useState(false);
-  const [errorPass, setErrorPass] = useState(false);
-  const [errorConfirmPass, setErrorConfirmPass] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfimPassword] = useState(false);
-  const [onBlurEvent, setOnBlurEvent] = useState(false);
+  const navigate = useNavigate();
 
-  //firebase登録データ
-  const [firebaseRegister, setFirebaseRegister] = useState({});
+  const [passText, setPassText] = useState<boolean>(false);
+  const [errorId, setErrorId] = useState<boolean>(false);
+  const [errorFirstName, setErrorFirstName] = useState<boolean>(false);
+  const [errorLastName, setErrorLastName] = useState<boolean>(false);
+  const [errorMail, setErrorMail] = useState<boolean>(false);
+  const [errorPass, setErrorPass] = useState<boolean>(false);
+  const [errorConfirmPass, setErrorConfirmPass] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfimPassword] = useState<boolean>(false);
 
   //入力フォーム
   const [userId, setUserId] = useState<string>("");
@@ -57,9 +54,7 @@ const Register: FC<Props> = memo((props) => {
   };
 
   const onBlur = (e: ChangeEvent<HTMLFormElement>) => {
-    // const value = e.target.value;
     const name = e.target.name;
-    // setOnBlurEvent(true);
 
     if (name === "userId") {
       setErrorId(true);
@@ -81,25 +76,54 @@ const Register: FC<Props> = memo((props) => {
     e.preventDefault();
     try {
       //firebaseでの登録
-      await createUserWithEmailAndPassword(auth, email, password).then(
-        (userCredential) => setFirebaseRegister(userCredential)
+      const authId = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      ).then((userCredential) => userCredential.user.uid);
+      const data = {
+        userId: userId,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+        authId: authId,
+        isAdmin: false,
+        polledPopular: false,
+        polledOther: false,
+      };
+      //JSONServerに登録
+      const response = await fetch(
+        `http://localhost:8880/users?email=${email}`
       );
+      const registeredUser = await response.json();
+      if (registeredUser.length < 1) {
+        const request = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        };
+        await fetch("http://localhost:8880/users", request).then((res) =>
+          res.json()
+        );
+        document.cookie = `authId=${authId}; max-age=86400`;
+        navigate("/home");
+      } else {
+        alert("すでにユーザーが存在しています");
+      }
     } catch (error) {
       alert("失敗しました");
     }
   };
-  console.log(firebaseRegister, 15);
-
-  //ログインデータ取得
-  const authId = Cookies.get("authId")!;
-  const loginUser = useLoginUserFetch({ authId: authId });
-  console.log(loginUser);
 
   return (
     <Container maxWidth="sm" sx={{ alignItems: "center" }}>
       <Box sx={{ textAlign: "center" }}>
         <h1>会員登録</h1>
-        <p>*は必須入力項目です</p>
+        <p style={{ fontSize: "13px" }}>*は必須入力項目です</p>
       </Box>
       <Box
         component="form"
@@ -383,7 +407,7 @@ const Register: FC<Props> = memo((props) => {
             ),
           }}
         />
-        <Box sx={{ textAlign: "center" }}>
+        <Box sx={{ textAlign: "center", m: "10px" }}>
           <ActiveOrangeButton
             children="登録"
             event={() => handleRegister}

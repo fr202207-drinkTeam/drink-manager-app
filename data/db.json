@@ -2,10 +2,12 @@
   "users": [
     {
       "id": 1,
+      "userId": "1111",
       "firstName": "ラクス",
       "lastName": "太郎",
       "email": "test@test.com",
       "password": "Test1234",
+      "confirmPassword": "Test1234",
       "isAdmin": false,
       "authId": "giP7CHKGEuNbsXUemefgUCjtciQ2",
       "polledPopular": false,
@@ -13,25 +15,16 @@
     },
     {
       "id": 2,
-      "firstName": "",
-      "lastName": "",
-      "email": "",
-      "password": "",
-      "isAdmin": true,
-      "authId": "",
-      "polledPopular": "",
-      "polledOther": ""
-    },
-    {
-      "id": 3,
-      "firstName": "",
-      "lastName": "",
-      "email": "",
-      "password": "",
+      "userId": "2222",
+      "firstName": "テスト",
+      "lastName": "テスト",
+      "email": "example@example.com",
+      "password": "Example1",
+      "confirmPassword": "Example1",
+      "authId": "zH28CwVTE8hAQ5DaQSoScaFktOq2",
       "isAdmin": false,
-      "authId": "",
-      "polledPopular": "",
-      "polledOther": ""
+      "polledPopular": false,
+      "polledOther": false
     }
   ],
   "items": [
