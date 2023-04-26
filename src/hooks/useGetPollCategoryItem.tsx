@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Items, Questionnaire } from "../types/type";
-// import { Questionnaire } from '../types/type';
 
-const useGetPollCategory = (id: number) => {
-  // const [questionnaireCategory, setQuestionnaireCategory] = useState<any>([]);
+const useGetPollCategoryItem = (id: number) => {
   const [items, setItems] = useState<Items[]>([]);
   const now = new Date();
- 
+
+  //投票期間中の商品をカテゴリごとに表示するカスタムフック
   useEffect(() => {
     (async () => {
       try {
@@ -14,14 +13,10 @@ const useGetPollCategory = (id: number) => {
         const itemdata = await res.json();
         setItems(itemdata);
 
-        console.log(itemdata,111)
-
         const response = await fetch(
           `http://localhost:8880/questionnaire?category=${Number(id)}`
         );
         const data = await response.json();
-        // setQuestionnaireCategory(data);
-
         const Categoryperiod = data.map((question: Questionnaire) => {
           const endDate = new Date(question.endDate);
           const startDate = new Date(question.startDate);
@@ -32,37 +27,25 @@ const useGetPollCategory = (id: number) => {
             endDate: endDate,
           };
         });
-        
         const sortedData = Categoryperiod.sort(
           (after: any, before: any) => before.endDate - after.endDate
         );
-
         const pollitemID = sortedData[0]?.polledItems.map(
           (poll: { itemId: any }) => {
             return poll.itemId;
           }
         );
-        console.log(pollitemID,999)
-        console.log(items,"ccc")
-
-        const itemId = itemdata.filter((item:Items) =>{
-          console.log(item,"aaa")
-        return  pollitemID?.includes(item.id);
-        })
-        console.log(itemId,777)
+        const itemId = itemdata.filter((item: Items) => {
+          return pollitemID?.includes(item.id);
+        });
         setItems(itemId);
-
       } catch (error) {
         console.error(error);
       }
     })();
   }, [id]);
 
-  
-
   return items;
-
-
 };
 
-export default useGetPollCategory;
+export default useGetPollCategoryItem;

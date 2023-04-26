@@ -533,11 +533,11 @@
       "createdAt": "2023-04-25T07:26:02.679Z"
     },
     {
-      "id": 202,
+      "id": 110,
       "questionnaireId": 1,
       "userId": null,
-      "result": 4,
-      "createdAt": "2023-04-25T13:45:42.313Z"
+      "result": 1,
+      "createdAt": "2023-04-26T01:41:04.962Z"
     }
   ],
   "contact": [],

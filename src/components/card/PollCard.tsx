@@ -19,6 +19,8 @@ import { Items, Users } from "../../types/type";
 //icon
 import SearchIcon from "@mui/icons-material/Search";
 import SwitchAccessShortcutAddIcon from "@mui/icons-material/SwitchAccessShortcutAdd";
+import ModalWindow from "../organisms/ModalWindow";
+import { WidthFull } from "@mui/icons-material";
 
 type PollCardProps = {
   data: Items[];
@@ -49,7 +51,6 @@ const PollCard = ({ data, pollNum, pollCategory }: PollCardProps) => {
       try {
         const response = await fetch(`http://localhost:8880/users/1`); //仮でユーザID1のユーザでテスト中
         const data = await response.json();
-        console.log(data);
         setUsers(data);
       } catch (error) {
         console.error(error);
@@ -60,61 +61,31 @@ const PollCard = ({ data, pollNum, pollCategory }: PollCardProps) => {
   //投票ボタン
   const submitPoll = async (drinkId: number) => {
     try {
+      const id = await generateUniqueId();
       const data = {
-        id: await generateUniqueId(),
+        id,
         questionnaireId: pollNum,
-        userId: userId,
+        userId,
         result: drinkId,
         createdAt: new Date(),
       };
-      const response = await fetch("http://localhost:8880/polls", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const endpoint = pollCategory === 1 ? "polledPopular" : "polledOther";
+      const response = await fetch(`http://localhost:8880/users/1/${endpoint}`, {
+        method: "PUT",
+        body: JSON.stringify({ ...users, [endpoint]: true }),
+        headers: { "Content-Type": "application/json" },
       });
       const responseData = await response.json();
+      setUsers((prevUsers: any) => ({ ...prevUsers, [endpoint]: true }));
       console.log(responseData);
-      //投票カテゴリは人気投票かどうか。recoilでtruefalse切り替え//後でuser情報入れる
-      //usersの情報を入れる
-      if (pollCategory === 1) {
-        const response = await fetch("http://localhost:8880/users/1", {
-          //後で変更
-          method: "PUT",
-          body: JSON.stringify({
-            ...users,
-            polledPopular: true,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        const responseData = await response.json();
-        setUsers((prevUsers:any) => ({
-          ...prevUsers,
-          polledPopular: true,
-        }));
-        console.log(responseData);
-      } else {
-        const response = await fetch("http://localhost:8880/users/1", {
-          //後で変更
-          method: "PUT",
-          body: JSON.stringify({
-            ...users,
-            polledOther: true,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        const responseData = await response.json();
-        setUsers((prevUsers:any) => ({
-          ...prevUsers,
-          polledOther: true,
-        }));
-        console.log(responseData);
-      }
+  
+      const pollResponse = await fetch("http://localhost:8880/polls", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+      });
+      const pollData = await pollResponse.json();
+      console.log(pollData);
     } catch (err) {
       console.log(err, "エラー");
     }
@@ -290,9 +261,15 @@ const PollCard = ({ data, pollNum, pollCategory }: PollCardProps) => {
                     &nbsp;投票しました
                   </InactiveButton>
                 ) : (
-                  <PrimaryButton
-                    onClick={() => submitPoll(drink.id)}
-                    sx={{
+                  <ModalWindow
+                    title={`${drink.name}に投票してもよろしいですか？？`}
+                    content={"⚠️一つの投票につき一回までしか投票できません"}
+                    openButtonColor={"pink"}
+                    completeButtonColor={"blue"}
+                    completeButtonName={`投票する`}
+                    completeAction={() => submitPoll(drink.id)}
+                    cancelButtonColor={"red"}
+                    openButtonSxStyle={{
                       background: "#e29399",
                       width: 200,
                       mb: 2,
@@ -305,10 +282,7 @@ const PollCard = ({ data, pollNum, pollCategory }: PollCardProps) => {
                         cursor: "pointer",
                       },
                     }}
-                  >
-                    <SwitchAccessShortcutAddIcon />
-                    &nbsp;投票する
-                  </PrimaryButton>
+                  />
                 )}
               </Card>
             );
