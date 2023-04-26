@@ -108,7 +108,7 @@ const Register: FC<Props> = memo((props) => {
           onBlur={onBlur}
         />
         <Stack direction="row" sx={{ alignItems: "flex-end" }} spacing={2}>
-          <Box sx={{ flexGrow: 1, height: 64 }}>
+          <Box sx={{ flexGrow: 1 }}>
             <SecondaryInput
               name="firstName"
               type="text"
