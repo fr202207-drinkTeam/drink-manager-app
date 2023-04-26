@@ -32,7 +32,7 @@ const Register: FC<Props> = memo((props) => {
   const [onBlurEvent, setOnBlurEvent] = useState(false);
 
   //入力フォーム
-  const [userId, setUserId] = useState<number>(0);
+  const [userId, setUserId] = useState<string>("");
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -53,43 +53,30 @@ const Register: FC<Props> = memo((props) => {
     );
   };
 
-  const onBlur = (e: any) => {
-    const value = e.target.value;
+  const onBlur = (e: ChangeEvent<HTMLFormElement>) => {
+    // const value = e.target.value;
     const name = e.target.name;
-    setOnBlurEvent(true);
+    // setOnBlurEvent(true);
+
+    if (name === "userId") {
+      setErrorId(true);
+    } else if (name === "firstName") {
+      setErrorFirstName(true);
+    } else if (name === "lastName") {
+      setErrorLastName(true);
+    } else if (name === "email") {
+      setErrorMail(true);
+    } else if (name === "password") {
+      setErrorPass(true);
+    } else if (name === "confirmPassword") {
+      setErrorConfirmPass(true);
+    }
   };
 
-  const passFocus = () => {
-    setPassText(true);
-  };
-
-  const idBlur = () => {
-    setErrorId(true);
-  };
-
-  const firstNameBlur = () => {
-    setErrorFirstName(true);
-  };
-  const lastNameBlur = () => {
-    setErrorLastName(true);
-  };
-
-  const mailBlur = () => {
-    setErrorMail(true);
-  };
-
-  const passBlur = () => {
-    setErrorPass(true);
-  };
-
-  const confirmPassBlur = () => {
-    setErrorConfirmPass(true);
-  };
-
+  //ログインデータ取得
   const authId = Cookies.get("authId")!;
-  useLoginUserFetch({ authId: authId });
-  const loginUser: any = useRecoilValue(loginUserState);
-  console.log(loginUser[0], "loginUserData");
+  const loginUser = useLoginUserFetch({ authId: authId });
+  console.log(loginUser);
 
   return (
     <Container maxWidth="sm" sx={{ alignItems: "center" }}>
@@ -103,27 +90,47 @@ const Register: FC<Props> = memo((props) => {
           type="text"
           label="社員ID*"
           placeholder="例）0000"
-          helperText={errorId ? "社員IDを入力してください" : ""}
+          helperText={(() => {
+            if (errorId) {
+              if (userId === "") {
+                return "社員IDを入力してください！";
+              } else {
+                return "";
+              }
+            } else {
+              return null;
+            }
+          })()}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setUserId(parseInt(e.target.value))
+            setUserId(e.target.value)
           }
-          error={errorId}
-          onBlur={idBlur}
+          error={errorId && userId === ""}
+          onBlur={onBlur}
         />
         <Stack direction="row" sx={{ alignItems: "flex-end" }} spacing={2}>
-          <Box sx={{ flexGrow: 1 }}>
+          <Box sx={{ flexGrow: 1, height: 64 }}>
             <SecondaryInput
               name="firstName"
               type="text"
               label="姓"
               required
-              placeholder="例）ラクス*"
-              helperText={errorFirstName ? "姓を入力してください" : ""}
+              placeholder="例）*"
+              helperText={(() => {
+                if (errorFirstName) {
+                  if (firstName === "") {
+                    return "姓を入力してください";
+                  } else {
+                    return "";
+                  }
+                } else {
+                  return null;
+                }
+              })()}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setFirstName(e.target.value)
               }
-              error={errorFirstName}
-              onBlur={firstNameBlur}
+              error={errorFirstName && firstName === ""}
+              onBlur={onBlur}
               style={{ height: "100%" }}
             />
           </Box>
@@ -134,12 +141,22 @@ const Register: FC<Props> = memo((props) => {
               label="名"
               required
               placeholder="例）太郎"
-              helperText={errorLastName ? "名を入力してください" : ""}
+              helperText={(() => {
+                if (errorLastName) {
+                  if (lastName === "") {
+                    return "名を入力してください";
+                  } else {
+                    return "";
+                  }
+                } else {
+                  return null;
+                }
+              })()}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setLastName(e.target.value)
               }
-              error={errorLastName}
-              onBlur={lastNameBlur}
+              error={errorLastName && lastName === ""}
+              onBlur={onBlur}
               style={{ height: "100%" }}
             />
           </Box>
@@ -172,7 +189,7 @@ const Register: FC<Props> = memo((props) => {
               ? errorMail
               : null
           }
-          onBlur={() => setErrorMail(true)}
+          onBlur={onBlur}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setEmail(e.target.value)
           }
@@ -212,7 +229,7 @@ const Register: FC<Props> = memo((props) => {
               : null
           }
           onFocus={() => setPassText(true)}
-          onBlur={() => setErrorPass(true)}
+          onBlur={onBlur}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setPassword(e.target.value)
           }
@@ -305,14 +322,27 @@ const Register: FC<Props> = memo((props) => {
           label="確認用パスワード"
           required
           placeholder="確認用パスワード"
-          helperText={
-            errorConfirmPass ? "確認用パスワードを入力してください" : ""
-          }
+          helperText={(() => {
+            if (errorConfirmPass) {
+              if (confirmPassword === "") {
+                return "確認用パスワードを入力してください";
+              } else if (password !== confirmPassword) {
+                return "パスワードと確認用パスワードが一致しません";
+              } else {
+                return "";
+              }
+            } else {
+              return null;
+            }
+          })()}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setConfirmPassword(e.target.value)
           }
-          error={errorConfirmPass}
-          onBlur={confirmPassBlur}
+          error={
+            errorConfirmPass &&
+            (confirmPassword === "" || password !== confirmPassword)
+          }
+          onBlur={onBlur}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">

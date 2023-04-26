@@ -10,30 +10,11 @@ type Props = {
 
 export const useLoginUserFetch = (props: Props) => {
   const { authId } = props;
-  const [loginUser, setLoginUser] = useRecoilState(loginUserState);
+  const [loginUser, setLoginUser] = useRecoilState<Users>(loginUserState);
   useEffect(() => {
     fetch(`http://localhost:8880/users?authId=${authId}`)
       .then((response) => response.json())
-      .then((user) => setLoginUser(user));
+      .then((user) => setLoginUser(user[0]));
   }, [authId, setLoginUser]);
-  return { loginUser };
+  return loginUser;
 };
-
-// export const useLoginUserFetch = (props: Props) => {
-//   const { authId } = props;
-//   const [loginUser, setLoginUser] = useRecoilState<Users>(loginUserState);
-//   const [isLoading, setIsLoading] = useState(true);
-
-//   useEffect(() => {
-//     const UserFetch = async () => {
-//       setIsLoading(true);
-//       await fetch(`http://localhost:8880/users?authId=${authId}`)
-//         .then((response) => response.json())
-//         .then((user) => setLoginUser(user));
-//       setIsLoading(false);
-//     };
-//     UserFetch();
-//   }, [authId, setLoginUser]);
-
-//   return isLoading ? undefined : loginUser;
-// };
