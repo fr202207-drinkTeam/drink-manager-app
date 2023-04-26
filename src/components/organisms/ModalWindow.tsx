@@ -6,6 +6,8 @@ import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Unstable_Grid2";
 
+import SwitchAccessShortcutAddIcon from "@mui/icons-material/SwitchAccessShortcutAdd";
+
 import {
   ActiveBeigeButton,
   ActiveBlueButton,
@@ -97,7 +99,8 @@ const ModalWindow: FC<Props> = memo((props: Props) => {
       case "pink":
         return (
           <ActivePinkButton event={action} sxStyle={openButtonSxStyle}>
-            {label}
+            <SwitchAccessShortcutAddIcon />
+            &nbsp;&nbsp;{label}
           </ActivePinkButton>
         );
       case "darkblue":
