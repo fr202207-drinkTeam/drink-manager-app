@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, memo, useEffect, useState } from "react";
+import { ChangeEvent, FC, memo, useState } from "react";
 import {
   Box,
   Container,
@@ -12,11 +12,10 @@ import {
 import { PrimaryInput, SecondaryInput } from "../atoms/input/Input";
 import { CheckCircle, Visibility, VisibilityOff } from "@mui/icons-material";
 import { ActiveOrangeButton } from "../atoms/button/Button";
-import { useRecoilValue } from "recoil";
-import { loginUserState } from "../../store/loginUserState";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 import Cookies from "js-cookie";
-import { Users } from "../../types/type";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../Firebase";
 
 type Props = {};
 
@@ -29,7 +28,11 @@ const Register: FC<Props> = memo((props) => {
   const [errorPass, setErrorPass] = useState(false);
   const [errorConfirmPass, setErrorConfirmPass] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfimPassword] = useState(false);
   const [onBlurEvent, setOnBlurEvent] = useState(false);
+
+  //firebase登録データ
+  const [firebaseRegister, setFirebaseRegister] = useState({});
 
   //入力フォーム
   const [userId, setUserId] = useState<string>("");
@@ -73,6 +76,20 @@ const Register: FC<Props> = memo((props) => {
     }
   };
 
+  //会員登録処理
+  const handleRegister = async (e: ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      //firebaseでの登録
+      await createUserWithEmailAndPassword(auth, email, password).then(
+        (userCredential) => setFirebaseRegister(userCredential)
+      );
+    } catch (error) {
+      alert("失敗しました");
+    }
+  };
+  console.log(firebaseRegister, 15);
+
   //ログインデータ取得
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
@@ -84,7 +101,11 @@ const Register: FC<Props> = memo((props) => {
         <h1>会員登録</h1>
         <p>*は必須入力項目です</p>
       </Box>
-      <Box component="form" sx={{ alignItems: "center" }}>
+      <Box
+        component="form"
+        onSubmit={handleRegister}
+        sx={{ alignItems: "center" }}
+      >
         <SecondaryInput
           name="userId"
           type="text"
@@ -93,7 +114,7 @@ const Register: FC<Props> = memo((props) => {
           helperText={(() => {
             if (errorId) {
               if (userId === "") {
-                return "社員IDを入力してください！";
+                return "社員IDを入力してください";
               } else {
                 return "";
               }
@@ -318,7 +339,13 @@ const Register: FC<Props> = memo((props) => {
         )}
         <PrimaryInput
           name="confirmPassword"
-          type="password"
+          type={(() => {
+            if (showConfirmPassword) {
+              return "text";
+            } else {
+              return "password";
+            }
+          })()}
           label="確認用パスワード"
           required
           placeholder="確認用パスワード"
@@ -348,9 +375,9 @@ const Register: FC<Props> = memo((props) => {
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
-                  onClick={() => setShowPassword(!showPassword)}
+                  onClick={() => setShowConfimPassword(!showConfirmPassword)}
                 >
-                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                  {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
             ),
@@ -359,7 +386,20 @@ const Register: FC<Props> = memo((props) => {
         <Box sx={{ textAlign: "center" }}>
           <ActiveOrangeButton
             children="登録"
-            event={() => alert("会員登録しました")}
+            event={() => handleRegister}
+            type="submit"
+            disabled={
+              userId === "" ||
+              firstName === "" ||
+              lastName === "" ||
+              email === "" ||
+              !isValidPassword(password) ||
+              !email.includes("@") ||
+              email.length > 40 ||
+              password.length < 8 ||
+              password.length > 16 ||
+              password !== confirmPassword
+            }
           />
         </Box>
       </Box>

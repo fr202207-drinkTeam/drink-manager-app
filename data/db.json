@@ -517,6 +517,13 @@
       "userId": 1111,
       "result": 1,
       "createdAt": "2023-04-24T23:59:49.268Z"
+    },
+    {
+      "id": 436,
+      "questionnaireId": 2,
+      "userId": null,
+      "result": 1,
+      "createdAt": "2023-04-26T04:41:50.105Z"
     }
   ],
   "contact": [],
@@ -537,7 +544,7 @@
       "day": "2023-05-2T02:50:27.944Z",
       "incOrDec": true,
       "stockAmount": 1
-    } 
+    }
   ],
   "addition": [
     {
