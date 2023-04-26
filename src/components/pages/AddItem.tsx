@@ -1,4 +1,4 @@
-import { FC, memo } from "react";
+import { Dispatch, FC, SetStateAction, memo, useEffect, useRef } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Box from "@mui/material/Box";
@@ -12,7 +12,7 @@ import {
   ActiveRedButton,
 } from "../atoms/button/Button";
 import AdmTitleText from "../atoms/text/AdmTitleText";
-import useImgPathConversion from "../../hooks/useImgPathConversion";
+import useImgPathConversion from "../../hooks/useImgPathConversion2";
 import ModalWindow from "../organisms/ModalWindow";
 // import useLoginUser from "../../hooks/useLoginUser";
 import ItemForm from "../organisms/ItemForm";
@@ -24,68 +24,54 @@ const AddItem: FC<Props> = memo((props) => {
   const [itemName, setItemName] = useState<string>("");
   const [itemDescription, setItemDescription] = useState<string>("");
   const [itemCategory, setItemCategory] = useState<number>(0);
-  const [itemImages, setItemImages] = useState<string[]>([]);
-  const [testImageData, setTestImageData] = useState<any>(null);
-  const { imagePath, loading, isUploaded } = useImgPathConversion({
-    imgFile: testImageData,
+  const [itemImages, setItemImages] = useState<File[]>([]);
+  const [addItem, setAddItem] = useState<any>(1);
+  const [imagesPathsArr, setImagesPathsArr] = useState<string[]>([]);
+  const isFirstRender = useRef(true);
+
+  const imagePath = useImgPathConversion({
+    imgFiles: itemImages,
+    addItem: addItem,
   });
+
+  // const { imagePath } = useImgPathConversion({
+  //   imgFiles: itemImages,
+  //   addItem: addItem,
+  // });
 
   // recoilからログインユーザー情報を取得
 
-  // テスト用
-  const imageData = (e: any) => {
-    setTestImageData(e.target.files[0]);
-  };
+  // useEffect(() => {
+  //   console.log("imagePath", imagePath)
 
-  // 画像の削除機能
-  const onClickDeleteItemImage = (imageId: number) => {
-    const updatedItemImages = [...itemImages];
-    updatedItemImages.splice(imageId - 1, 1);
-    setItemImages(updatedItemImages);
-  };
+  //   if(isFirstRender.current) {
+  //     isFirstRender.current = false
+  //   }
 
-  // 画像プレビュー機能
-  const addItemImage = (event: any) => {
-    const file = event.target.files?.[0];
-    if (!file) {
-      return;
-    }
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      const newImage = reader.result as string;
-
-      setItemImages([newImage]);
-    };
-  };
+  //   fetch("http://localhost:8880/items", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       name: itemName,
+  //       description: itemDescription,
+  //       image: imagePath,
+  //       itemCategory: itemCategory,
+  //       createdAt: new Date(),
+  //       inTheOffice: false,
+  //       author: "test", // recoilから取得
+  //       otherItem: false,
+  //     }),
+  //   }).then(() => {
+  //     // navigate("/adminhome")
+  //     console.log("success");
+  //   });
+  // }, [imagePath]);
 
   // データ追加処理(確定ボタン)
   const onClickAddItemData: () => Promise<void> = async () => {
-    await fetch("http://localhost:8880/items", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: "test",
-        name: { itemName },
-        description: { itemDescription },
-        image: imagePath,
-        itemCategory: { itemCategory },
-        createdAt: new Date(),
-        inTheOffice: false,
-        author: "test", // recoilから取得
-        otherItem: false,
-      }),
-    })
-      .then((response) => response.json())
-      .then((res) => {
-        console.log(res);
-        // navigate("/adminhome");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    setAddItem(addItem + 1);
   };
 
   return (
@@ -97,6 +83,7 @@ const AddItem: FC<Props> = memo((props) => {
           setItemDescription={setItemDescription}
           setItemCategory={setItemCategory}
           setItemImages={setItemImages}
+          // setImagesPathsArr={setImagesPathsArr}
         />
 
         {itemName &&
@@ -165,13 +152,6 @@ const AddItem: FC<Props> = memo((props) => {
             </>
           )}
         </Box>
-        {/* <p>テスト</p>
-        <input type="file" onChange={imageData} />
-        <div>
-          {loading && <p>Uploading image...</p>}
-          {isUploaded && <p>Image uploaded successfully!</p>}
-          {imagePath && <img src={imagePath} alt="uploaded" />}
-        </div> */}
       </Paper>
     </>
   );

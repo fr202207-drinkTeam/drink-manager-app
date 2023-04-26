@@ -32,7 +32,7 @@ type Props = {};
 
 const ItemDetail: FC = memo(() => {
   const [postData, setPostData] = useState<Posts[]>([]);
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(true)
   // const [itemId, setItemId] = useState()
 
   // 受け手
@@ -46,7 +46,6 @@ const ItemDetail: FC = memo(() => {
 
   // 投稿取得
   useEffect(() => {
-    setLoading(true);
     fetch(`http://localhost:8880/posts?itemId=${itemId}`, {
       method: "GET",
     })
@@ -64,14 +63,11 @@ const ItemDetail: FC = memo(() => {
 
   // 投稿削除処理(削除ボタン)
   const deleteItem = async() => {
-    await fetch("http://localhost:8880/items", {
+    await fetch(`http://localhost:8880/items/${itemId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        id: itemId
-      }),
     }).then(() => {
       navigate(-1);
     })
