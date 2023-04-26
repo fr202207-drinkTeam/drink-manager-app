@@ -11,7 +11,5 @@ export const loginUserState = atom<Users>({
     password: '',
     isAdmin: true,
     authId: '',
-    polledPopular: false,
-    polledOther: false,
   },
 });
