@@ -1,19 +1,38 @@
 import { Box, CircularProgress, Paper, Alert, AlertTitle } from '@mui/material';
 
-import { FC, memo } from 'react';
+import { FC, memo, useEffect, useState } from 'react';
 import StockCard from '../card/StockCard';
 import { useGetOfficeItems1 } from '../../hooks/useGetOfficeItems1';
 import AdmTitleText from '../atoms/text/AdmTitleText';
 import { ActiveDarkBlueButton } from '../atoms/button/Button';
+import axios from 'axios';
 
 type Props = {};
 
 const Consumption: FC<Props> = memo((props) => {
   const { itemData, loading, error } = useGetOfficeItems1();
+  const [latestStockAmount, setLatestStockAmount] = useState<number>();
 
   const onClickExport = () => {
     alert('送信しました。');
   };
+
+  //現在の在庫量を取得
+  const getStockAmount = () => {
+    axios
+      .get(`http://localhost:8880/stockhistory?itemId=2&_sort=id&_order=ask`)
+      .then((res) => {
+        const StockHistory = res.data;
+        setLatestStockAmount(StockHistory[StockHistory.length - 1].stockAmount);
+      })
+      .catch((res) => console.log(res.error));
+  };
+
+  useEffect(() => {
+    getStockAmount();
+  }, []);
+
+  console.log(latestStockAmount);
 
   return (
     <Paper
