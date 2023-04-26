@@ -7,17 +7,16 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
-import { PrimaryButton } from "../atoms/button/Button";
+import { ActiveBlueButton, ActiveDarkBlueButton } from "../atoms/button/Button";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 const Header = () => {
   const pages = [
     { label: "Top", href: "/home" },
@@ -47,11 +46,9 @@ const Header = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
   const styles = {
     appBar: {
       background: "#f3bf88",
-      // background: "linear-gradient(95deg, #ffc97a, #ff9900)",
     },
   };
   const Item = styled(Paper)(({ theme }) => ({
@@ -61,6 +58,7 @@ const Header = () => {
     textAlign: "center",
     color: theme.palette.text.secondary,
   }));
+  const handleButtonClick = () => {};
   return (
     <>
       <Paper
@@ -72,24 +70,21 @@ const Header = () => {
         }}
       >
         <Typography>こんにちは〇〇さん</Typography>
-        <PrimaryButton
-          sx={{
-            background: "linear-gradient(95deg, #ffc97a, #ff9900)",
-            borderRadius: 4,
-            marginLeft: 2,
-          }}
+        <ActiveBlueButton
+          event={handleButtonClick}
+          sxStyle={{ borderRadius: 10, mx: 2 }}
         >
           ログアウト
-        </PrimaryButton>
+        </ActiveBlueButton>
         <div style={{ marginLeft: "auto" }}>
-          <PrimaryButton
-            sx={{
-              background: "linear-gradient(95deg, #ffc97a, #ff9900)",
-              borderRadius: 4,
-            }}
-          >
-            管理者用TOP
-          </PrimaryButton>
+          <Link to="/adminhome">
+            <ActiveDarkBlueButton
+              event={handleButtonClick}
+              sxStyle={{ borderRadius: 10 }}
+            >
+              管理者用TOP
+            </ActiveDarkBlueButton>
+          </Link>
         </div>
       </Paper>
 
@@ -150,9 +145,7 @@ const Header = () => {
                 color: "inherit",
                 textDecoration: "none",
               }}
-            >
-              LOGO
-            </Typography>
+            ></Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
                 <Button

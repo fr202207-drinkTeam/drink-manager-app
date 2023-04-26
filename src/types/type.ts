@@ -6,8 +6,8 @@ export type Users = {
   password: string;
   isAdmin: Boolean | null;
   authId: string;
-  polledPopular: Boolean | null;
-  polledOther: Boolean | null;
+  polledPopular?: Boolean | null;
+  polledOther?: Boolean | null;
 };
 
 export type Items = {
@@ -15,10 +15,10 @@ export type Items = {
   name: string;
   description: string;
   image: string[];
-  itemCategory: number;
-  createdAt: Date;
+  itemCategory?: number|null;
+  createdAt?: Date|null;
   intheOffice: boolean;
-  author: string;
+  author?: string|null;
 };
 
 export type Questionnaire = {
