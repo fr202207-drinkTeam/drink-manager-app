@@ -8,7 +8,6 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import Grid from "@mui/material/Grid";
@@ -17,7 +16,13 @@ import { styled } from "@mui/material/styles";
 import { ActiveBlueButton, ActiveDarkBlueButton } from "../atoms/button/Button";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import ModalWindow from "../organisms/ModalWindow";
+import Cookies from "js-cookie";
+import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
+import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 const Header = () => {
+  const navigate = useNavigate();
   const pages = [
     { label: "Top", href: "/home" },
     { label: "ご利用ガイド", href: "/home/guide" },
@@ -58,7 +63,16 @@ const Header = () => {
     textAlign: "center",
     color: theme.palette.text.secondary,
   }));
-  const handleButtonClick = () => {};
+
+  // ログアウト
+  const authId = Cookies.get("authId")!;
+  const loginUser = useLoginUserFetch({ authId: authId });
+  console.log(loginUser, "user");
+  const onLogoutClick = () => {
+    document.cookie = `authId=; max-age=0`;
+    navigate("/login");
+    alert("ログアウトしました");
+  };
   return (
     <>
       <Paper
@@ -69,23 +83,36 @@ const Header = () => {
           alignItems: "center",
         }}
       >
-        <Typography>こんにちは〇〇さん</Typography>
-        <ActiveBlueButton
-          event={handleButtonClick}
-          sxStyle={{ borderRadius: 10, mx: 2 }}
-        >
-          ログアウト
-        </ActiveBlueButton>
-        <div style={{ marginLeft: "auto" }}>
-          <Link to="/adminhome">
-            <ActiveDarkBlueButton
-              event={handleButtonClick}
-              sxStyle={{ borderRadius: 10 }}
-            >
-              管理者用TOP
-            </ActiveDarkBlueButton>
-          </Link>
-        </div>
+        <Typography>こんにちは {loginUser?.firstName}さん</Typography>
+        <ModalWindow
+          title=""
+          content="本当にログアウトしてもよろしいですか？"
+          openButtonColor="blue"
+          completeButtonColor="blue"
+          completeButtonName="ログアウト"
+          completeAction={onLogoutClick}
+          cancelButtonColor="red"
+          openButtonSxStyle={{
+            mx: 3,
+            py: "5px",
+            fontSize: "16px",
+            borderRadius: 10,
+          }}
+        />
+        {loginUser?.isAdmin ? (
+          <div style={{ marginLeft: "auto" }}>
+            <Link to="/adminhome">
+              <ActiveDarkBlueButton
+                event={onLogoutClick}
+                sxStyle={{ borderRadius: 10 }}
+              >
+                管理者用TOP
+              </ActiveDarkBlueButton>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
       </Paper>
 
       <AppBar position="static" sx={styles.appBar}>
