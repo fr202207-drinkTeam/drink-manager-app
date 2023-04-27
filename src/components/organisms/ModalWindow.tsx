@@ -16,6 +16,7 @@ import {
   ActivePinkButton,
   ActiveRedButton,
   InactiveButton,
+  ActiveGrayButton,
 } from "../atoms/button/Button";
 
 const style = {
@@ -114,6 +115,12 @@ const ModalWindow: FC<Props> = memo((props: Props) => {
           <ActiveRedButton event={action} sxStyle={openButtonSxStyle}>
             {label}
           </ActiveRedButton>
+        );
+      case "gray":
+        return (
+          <ActiveGrayButton event={action} sxStyle={openButtonSxStyle}>
+            {label}
+          </ActiveGrayButton>
         );
       default:
         return <Fragment />;
