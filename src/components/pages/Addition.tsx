@@ -6,7 +6,7 @@ import useGetOfficeItems from '../../hooks/useGetOfficeItems';
 type Props = {};
 
 const Addition: FC<Props> = memo((props) => {
-  const itemData = useGetOfficeItems({ intheOffice: true });
+  // const itemData = useGetOfficeItems({ intheOffice: true });
 
   return (
     <Paper
