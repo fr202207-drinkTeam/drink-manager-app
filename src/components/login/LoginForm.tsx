@@ -76,7 +76,7 @@ const LoginForm: FC<Props> = (props) => {
       setLoginUser(user[0]);
       //cookieをセット
       if (loginedUser.uid === user[0].authId) {
-        document.cookie = `authId=${loginedUser.uid}; max-age=1800`;
+        document.cookie = `authId=${loginedUser.uid}; max-age=86400`;
       } else {
         alert("ユーザーが存在しません");
       }
@@ -101,15 +101,6 @@ const LoginForm: FC<Props> = (props) => {
           type="email"
           label="メールアドレス"
           placeholder="例）example@example.com"
-          // helperText={
-          //   errorMail
-          //     ? email === ""
-          //       ? "メールアドレスを入力してください"
-          //       : errorMail && (!email.includes("@") || email.length > 40)
-          //       ? "＠を含んだ40文字以内で入力してください"
-          //       : ""
-          //     : null
-          // }
           helperText={(() => {
             if (errorMail) {
               if (email === "") {
@@ -147,17 +138,6 @@ const LoginForm: FC<Props> = (props) => {
           })()}
           label="パスワード"
           placeholder="パスワード"
-          // helperText={
-          //   errorPass
-          //     ? password === ""
-          //       ? "パスワードを入力してください"
-          //       : errorPass &&
-          //         isValidPassword(password) &&
-          //         (password.length < 8 || password.length < 16)
-          //       ? ""
-          //       : "半角英字大文字、小文字、数字の3種類を1つ必ず使用し8文字以上16文字以内"
-          //     : null
-          // }
           helperText={(() => {
             if (errorPass) {
               if (password === "") {
