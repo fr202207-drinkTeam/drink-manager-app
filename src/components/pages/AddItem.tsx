@@ -12,7 +12,7 @@ import {
   ActiveRedButton,
 } from "../atoms/button/Button";
 import AdmTitleText from "../atoms/text/AdmTitleText";
-import useImgPathConversion from "../../hooks/useImgPathConversion2";
+import ImgPathConversion from "../../utils/ImgPathConversion2";
 import ModalWindow from "../organisms/ModalWindow";
 // import useLoginUser from "../../hooks/useLoginUser";
 import ItemForm from "../organisms/ItemForm";
@@ -29,49 +29,44 @@ const AddItem: FC<Props> = memo((props) => {
   const [imagesPathsArr, setImagesPathsArr] = useState<string[]>([]);
   const isFirstRender = useRef(true);
 
-  const imagePath = useImgPathConversion({
-    imgFiles: itemImages,
-    addItem: addItem,
-  });
-
-  // const { imagePath } = useImgPathConversion({
-  //   imgFiles: itemImages,
-  //   addItem: addItem,
-  // });
-
   // recoilからログインユーザー情報を取得
 
   // useEffect(() => {
-  //   console.log("imagePath", imagePath)
-
-  //   if(isFirstRender.current) {
-  //     isFirstRender.current = false
-  //   }
-
-  //   fetch("http://localhost:8880/items", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       name: itemName,
-  //       description: itemDescription,
-  //       image: imagePath,
-  //       itemCategory: itemCategory,
-  //       createdAt: new Date(),
-  //       inTheOffice: false,
-  //       author: "test", // recoilから取得
-  //       otherItem: false,
-  //     }),
-  //   }).then(() => {
-  //     // navigate("/adminhome")
-  //     console.log("success");
-  //   });
   // }, [imagePath]);
 
   // データ追加処理(確定ボタン)
   const onClickAddItemData: () => Promise<void> = async () => {
-    setAddItem(addItem + 1);
+    const imagePath = await ImgPathConversion({
+      imgFiles: itemImages,
+      addItem: addItem,
+    });
+
+    console.log(imagePath);
+
+
+    if(isFirstRender.current) {
+      isFirstRender.current = false
+    }
+
+    fetch("http://localhost:8880/items", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: itemName,
+        description: itemDescription,
+        image: imagePath,
+        itemCategory: itemCategory,
+        createdAt: new Date(),
+        inTheOffice: false,
+        author: "test", // recoilから取得
+        otherItem: false,
+      }),
+    }).then(() => {
+      navigate("/adminhome")
+      console.log("success");
+    });
   };
 
   return (
