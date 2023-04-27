@@ -88,10 +88,10 @@ const Header = () => {
           title=""
           content="本当にログアウトしてもよろしいですか？"
           openButtonColor="blue"
-          completeButtonColor="blue"
+          completeButtonColor="darkblue"
           completeButtonName="ログアウト"
           completeAction={onLogoutClick}
-          cancelButtonColor="red"
+          cancelButtonColor="gray"
           openButtonSxStyle={{
             mx: 3,
             py: "5px",

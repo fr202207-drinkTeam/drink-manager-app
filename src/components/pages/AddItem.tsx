@@ -10,6 +10,7 @@ import {
   ActiveOrangeButton,
   ActiveDarkBlueButton,
   ActiveRedButton,
+  ActiveBorderButton,
 } from "../atoms/button/Button";
 import AdmTitleText from "../atoms/text/AdmTitleText";
 import ImgPathConversion from "../../utils/ImgPathConversion2";
@@ -43,9 +44,8 @@ const AddItem: FC<Props> = memo((props) => {
 
     console.log(imagePath);
 
-
-    if(isFirstRender.current) {
-      isFirstRender.current = false
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
     }
 
     fetch("http://localhost:8880/items", {
@@ -64,7 +64,7 @@ const AddItem: FC<Props> = memo((props) => {
         otherItem: false,
       }),
     }).then(() => {
-      navigate("/adminhome")
+      navigate("/adminhome");
       console.log("success");
     });
   };
@@ -104,12 +104,12 @@ const AddItem: FC<Props> = memo((props) => {
             title="削除"
             content="内容は破棄されますがよろしいですか？"
             openButtonColor="red"
-            completeButtonColor="beige"
+            completeButtonColor="red"
             completeButtonName="削除"
             completeAction={() => {
               navigate(-1);
             }}
-            cancelButtonColor="pink"
+            cancelButtonColor="gray"
             openButtonSxStyle={{
               my: 2,
               mr: 3,
@@ -121,7 +121,7 @@ const AddItem: FC<Props> = memo((props) => {
           itemDescription &&
           itemCategory !== 0 &&
           itemImages.length > 0 ? (
-            <ActiveBlueButton
+            <ActiveBorderButton
               event={onClickAddItemData}
               sxStyle={{
                 my: 2,
@@ -131,7 +131,7 @@ const AddItem: FC<Props> = memo((props) => {
               }}
             >
               確定
-            </ActiveBlueButton>
+            </ActiveBorderButton>
           ) : (
             <>
               <InactiveButton
