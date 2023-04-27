@@ -150,7 +150,7 @@ const PollCard = ({ data, pollNum, pollCategory }: PollCardProps) => {
                       alt="商品画像"
                       height="140"
                       width="140"
-                      image={drink.image}
+                      image={drink.image[0]}
                       title="商品名"
                       sx={{
                         display: "block",
