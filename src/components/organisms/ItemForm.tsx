@@ -11,13 +11,14 @@ import {
 import { Box } from "@mui/system";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import PreviewImage from "../molecules/PreviewImage";
+import { useParams } from "react-router";
+import useGetAnItem from "../../hooks/useGetAnItem";
 
 type Props = {
   setItemName: Dispatch<SetStateAction<string>>;
   setItemDescription: Dispatch<SetStateAction<string>>;
   setItemCategory: Dispatch<SetStateAction<number>>;
   setItemImages: Dispatch<SetStateAction<File[]>>;
-  // setImagesPathsArr: Dispatch<SetStateAction<string[]>>;
 };
 
 const ItemForm: FC<Props> = memo((props) => {
@@ -26,14 +27,13 @@ const ItemForm: FC<Props> = memo((props) => {
   const [formItemDescription, setItemDescription] = useState<string>("");
   const [formItemCategory, setItemCategory] = useState<number>(0);
   const [formItemImages, setItemImages] = useState<File[]>([]);
-  // const [imagesPathsArr, setImagesPathsArr] = useState<string[]>([]);
 
   // propsの受け渡しの処理
   props.setItemName(formItemName);
   props.setItemDescription(formItemDescription);
   props.setItemCategory(formItemCategory);
   props.setItemImages(formItemImages);
-  // props.setImagesPathsArr(imagesPathsArr)
+  console.log("set serve props")
 
   // 画像プレビュー機能
   const previewImage = (event: React.ChangeEvent<HTMLInputElement>) => {

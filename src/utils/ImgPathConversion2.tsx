@@ -1,11 +1,9 @@
-import { useState, useEffect, useRef } from "react";
 import { storage } from "../Firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 
 type Props = {
   imgFiles: File[];
-  addItem: number;
 };
 
 const ImgPathConversion = async(props: Props) => {

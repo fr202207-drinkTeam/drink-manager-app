@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, memo, useEffect, useRef } from "react";
+import { FC, memo, useEffect, useRef } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Box from "@mui/material/Box";
@@ -14,38 +14,42 @@ import {
 import AdmTitleText from "../atoms/text/AdmTitleText";
 import ImgPathConversion from "../../utils/ImgPathConversion2";
 import ModalWindow from "../organisms/ModalWindow";
-// import useLoginUser from "../../hooks/useLoginUser";
 import ItemForm from "../organisms/ItemForm";
+import Cookies from "js-cookie";
+import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 
-type Props = {};
-
-const AddItem: FC<Props> = memo((props) => {
+const AddItem: FC = memo(() => {
   const navigate: NavigateFunction = useNavigate();
   const [itemName, setItemName] = useState<string>("");
   const [itemDescription, setItemDescription] = useState<string>("");
   const [itemCategory, setItemCategory] = useState<number>(0);
   const [itemImages, setItemImages] = useState<File[]>([]);
-  const [addItem, setAddItem] = useState<any>(1);
-  const [imagesPathsArr, setImagesPathsArr] = useState<string[]>([]);
   const isFirstRender = useRef(true);
 
   // recoilからログインユーザー情報を取得
-
-  // useEffect(() => {
-  // }, [imagePath]);
+  const authId = Cookies.get("authId")!;
+  const loginUser = useLoginUserFetch({ authId: authId });
+  
+  // ログイン状態でなければログイン画面へ遷移
+  useEffect(() => {
+    if(!authId && !loginUser.isAdmin) {
+      navigate("/login")
+    }
+    console.log("ユーザー情報", loginUser)
+    console.log("authId", typeof !authId)
+    console.log("isAdmin", loginUser.isAdmin)
+  },[authId, loginUser])
 
   // データ追加処理(確定ボタン)
   const onClickAddItemData: () => Promise<void> = async () => {
     const imagePath = await ImgPathConversion({
-      imgFiles: itemImages,
-      addItem: addItem,
+      imgFiles: itemImages
     });
 
     console.log(imagePath);
 
-
-    if(isFirstRender.current) {
-      isFirstRender.current = false
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
     }
 
     fetch("http://localhost:8880/items", {
@@ -60,11 +64,11 @@ const AddItem: FC<Props> = memo((props) => {
         itemCategory: itemCategory,
         createdAt: new Date(),
         inTheOffice: false,
-        author: "test", // recoilから取得
+        author: loginUser.id,
         otherItem: false,
       }),
     }).then(() => {
-      navigate("/adminhome")
+      navigate("/adminhome");
       console.log("success");
     });
   };
@@ -78,7 +82,6 @@ const AddItem: FC<Props> = memo((props) => {
           setItemDescription={setItemDescription}
           setItemCategory={setItemCategory}
           setItemImages={setItemImages}
-          // setImagesPathsArr={setImagesPathsArr}
         />
 
         {itemName &&
