@@ -33,3 +33,13 @@ export type Polls = {
   endDate: Date;
   author: Number;
 };
+
+export type Post = {
+  id: number;
+  userId: number;
+  content: string;
+  itemId: number;
+  postImage: string[];
+  createdAt: Date;
+  updatedAt: Date;
+};

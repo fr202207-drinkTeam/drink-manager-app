@@ -1,9 +1,9 @@
 {
   "users": [
     {
-      "id": 1111,
-      "firstName": "",
-      "lastName": "",
+      "id": 1,
+      "firstName": "first",
+      "lastName": "first",
       "email": "test@test.com",
       "password": "Test1234",
       "isAdmin": false,
@@ -13,8 +13,8 @@
     },
     {
       "id": 2,
-      "firstName": "",
-      "lastName": "",
+      "firstName": "second",
+      "lastName": "second",
       "email": "",
       "password": "",
       "isAdmin": true,
@@ -24,8 +24,8 @@
     },
     {
       "id": 3,
-      "firstName": "",
-      "lastName": "",
+      "firstName": "third",
+      "lastName": "third",
       "email": "",
       "password": "",
       "isAdmin": false,
@@ -243,8 +243,18 @@
       "id": 1,
       "name": "社内drink人気投票",
       "polledItems": [
-        { "id": 1, "itemId": 1, "detail": "", "result": "" },
-        { "id": 2, "itemId": 2, "detail": "", "result": "" }
+        {
+          "id": 1,
+          "itemId": 1,
+          "detail": "",
+          "result": ""
+        },
+        {
+          "id": 2,
+          "itemId": 2,
+          "detail": "",
+          "result": ""
+        }
       ],
       "createdAt": "2023-04-1",
       "category": 1,
@@ -255,7 +265,14 @@
     {
       "id": 2,
       "name": "メニューの広がり投票",
-      "polledItems": [{ "id": 1, "itemId": 1, "detail": "", "result": "" }],
+      "polledItems": [
+        {
+          "id": 1,
+          "itemId": 1,
+          "detail": "",
+          "result": ""
+        }
+      ],
       "createdAt": "2023-04-1T02:50:27.944Z",
       "category": 2,
       "startDate": "2023-05-1T02:50:27.944Z",
@@ -286,7 +303,64 @@
       "contactKinds": ""
     }
   ],
-  "posts": [],
+  "posts": [
+    {
+      "userId": "1",
+      "content": "最初の投稿だよ",
+      "itemId": "1",
+      "postImage": "",
+      "createdAt": "Tue Apr 25 2023 09:27:23 GMT+0900 (日本標準時)",
+      "updatedAt": "Tue Apr 25 2023 09:27:23 GMT+0900 (日本標準時)",
+      "id": 1
+    },
+    {
+      "userId": "2",
+      "content": "ふたつめの投稿だよ",
+      "itemId": "1",
+      "postImage": "",
+      "createdAt": "Tue Apr 25 2023 09:27:23 GMT+0900 (日本標準時)",
+      "updatedAt": "Tue Apr 25 2023 09:27:23 GMT+0900 (日本標準時)",
+      "id": 2
+    },
+    {
+      "userId": "3",
+      "content": "みっつめの投稿だよ",
+      "itemId": "2",
+      "postImage": "",
+      "createdAt": "Tue Apr 25 2023 09:27:23 GMT+0900 (日本標準時)",
+      "updatedAt": "Tue Apr 25 2023 09:27:23 GMT+0900 (日本標準時)",
+      "id": 3
+    },
+    {
+      "userId": "3",
+      "content": "よっつめの投稿だよ",
+      "itemId": "2",
+      "postImage": "",
+      "createdAt": "Tue Apr 25 2023 10:27:23 GMT+0900 (日本標準時)",
+      "updatedAt": "Tue Apr 25 2023 10:27:23 GMT+0900 (日本標準時)",
+      "id": 4
+    },
+    {
+      "userId": "3",
+      "content": "いつつの投稿だよ",
+      "itemId": "2",
+      "postImage": "",
+      "createdAt": "Tue Apr 25 2023 10:27:23 GMT+0900 (日本標準時)",
+      "updatedAt": "Tue Apr 25 2023 10:27:23 GMT+0900 (日本標準時)",
+      "id": 5
+    },
+    {
+      "userId": 3,
+      "content": "テスト投稿だよ",
+      "itemId": 2,
+      "postImag": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/0.0729062062940462?alt=media&token=a2226b8d-0348-430c-a6b6-e66e3fd9765b"
+      ],
+      "createdAt": "2023-04-26T10:45:46.542Z",
+      "updatedAt": "2023-04-26T10:45:46.542Z",
+      "id": 6
+    }
+  ],
   "comments": [],
   "likes": [],
   "stockhistory": [
