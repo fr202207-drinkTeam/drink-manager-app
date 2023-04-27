@@ -14,6 +14,7 @@ type Props = {
   height: string;
 };
 
+// 投稿、商品追加時の画像プレビューコンポーネント
 const PreviewImage: FC<Props> = memo((props) => {
   let { inputImages, setInputImages, inputLength, width, height } = props;
 
@@ -28,7 +29,7 @@ const PreviewImage: FC<Props> = memo((props) => {
     };
 
     return (
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ textAlign: "center" }}>
         <IconButton
           onClick={deleteImage}
           sx={{
@@ -46,11 +47,18 @@ const PreviewImage: FC<Props> = memo((props) => {
   return (
     <>
       <Typography variant="body2">{`画像数：(${inputLength}/3)`}</Typography>
-      <ImageList sx={{ width: "auto", height: 200 }} cols={3} rowHeight={164}>
+      <ImageList sx={{ width: "auto", height: 230 }} cols={3} rowHeight={164}>
         {inputImages.map((item: File, index: number) => {
           const itemUrl = URL.createObjectURL(item);
           return (
-            <Box key={itemUrl}>
+            <Box
+              key={itemUrl}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
               <ImageListItem>
                 <img
                   src={itemUrl}
@@ -64,8 +72,7 @@ const PreviewImage: FC<Props> = memo((props) => {
                 />
               </ImageListItem>
               <ImageListItemBar
-                actionIcon={<DeleteButton imageIndex={index} />}
-                actionPosition="left"
+                title={<DeleteButton imageIndex={index} />}
                 position="below"
               />
             </Box>

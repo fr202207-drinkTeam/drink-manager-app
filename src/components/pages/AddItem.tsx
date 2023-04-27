@@ -10,6 +10,7 @@ import {
   ActiveOrangeButton,
   ActiveDarkBlueButton,
   ActiveRedButton,
+  ActiveBorderButton,
 } from "../atoms/button/Button";
 import AdmTitleText from "../atoms/text/AdmTitleText";
 import ImgPathConversion from "../../utils/ImgPathConversion2";
@@ -107,12 +108,12 @@ const AddItem: FC = memo(() => {
             title="削除"
             content="内容は破棄されますがよろしいですか？"
             openButtonColor="red"
-            completeButtonColor="beige"
+            completeButtonColor="red"
             completeButtonName="削除"
             completeAction={() => {
               navigate(-1);
             }}
-            cancelButtonColor="pink"
+            cancelButtonColor="gray"
             openButtonSxStyle={{
               my: 2,
               mr: 3,
@@ -124,7 +125,7 @@ const AddItem: FC = memo(() => {
           itemDescription &&
           itemCategory !== 0 &&
           itemImages.length > 0 ? (
-            <ActiveBlueButton
+            <ActiveBorderButton
               event={onClickAddItemData}
               sxStyle={{
                 my: 2,
@@ -134,7 +135,7 @@ const AddItem: FC = memo(() => {
               }}
             >
               確定
-            </ActiveBlueButton>
+            </ActiveBorderButton>
           ) : (
             <>
               <InactiveButton
