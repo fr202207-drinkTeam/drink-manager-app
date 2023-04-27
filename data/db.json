@@ -8,10 +8,8 @@
       "email": "test@test.com",
       "password": "Test1234",
       "confirmPassword": "Test1234",
-      "isAdmin": false,
-      "authId": "giP7CHKGEuNbsXUemefgUCjtciQ2",
-      "polledPopular": false,
-      "polledOther": false
+      "isAdmin": true,
+      "authId": "giP7CHKGEuNbsXUemefgUCjtciQ2"
     },
     {
       "id": 2,
@@ -22,9 +20,7 @@
       "password": "Example1",
       "confirmPassword": "Example1",
       "authId": "zH28CwVTE8hAQ5DaQSoScaFktOq2",
-      "isAdmin": false,
-      "polledPopular": false,
-      "polledOther": false
+      "isAdmin": false
     }
   ],
   "items": [
