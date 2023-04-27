@@ -1,206 +1,195 @@
-import { Box, Card, List, ListItem, ListItemText, MenuItem, Pagination, Paper, Select, Typography } from "@mui/material";
-import { FC, memo, useCallback, useEffect, useRef, useState } from "react";
-import PollCard from "../card/PollCard";
-import { Items, Polls } from "../../types/type";
-import ItemCard from "../card/ItemCard";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
+//mui
+import {
+  Box,
+  InputLabel,
+  List,
+  ListItem,
+  ListItemText,
+  MenuItem,
+  Paper,
+  Select,
+  TextField,
+} from "@mui/material";
+import { ActiveBlueButton } from "../atoms/button/Button";
+//type
+import { Items, Questionnaire } from "../../types/type";
+//com
 import PollTitle from "../pollParts/PollTitle";
-import { PrimaryButton } from '../atoms/button/Button';
+import PollCard from "../card/PollCard";
+import DottedMemo from "../atoms/memo/DottedMemo";
+//hooks
+import useGetPollCategoryItem from "../../hooks/useGetPollCategoryItem";
+import useGetPollCategoryPeriod from "../../hooks/useGetPollCategoryPeriod";
+import { PrimaryDateInput } from "../atoms/input/dateInput";
 
-type Props = {};
+//できていない→ユーザにつき一回づつの投票
 
-const Poll: FC<Props> = memo((props) => {
-  const [items, setItems] = useState<Items[]>([]);
-  const [popularPolls, setPopularPolls] = useState<Polls[]>([]);
-  const [selectedValue, setSelectedValue] = useState("日付を選択してください");
+//Selectコンポーネント
+const Poll = memo(() => {
+  const [popularPollTitle, setPopularPollTitle] = useState<Questionnaire[]>([]);
+  const [othersPollTitle, setOthersPollTitle] = useState<Questionnaire[]>([]);
+  const [pollTitle, setPollTitle] = useState<Questionnaire[]>([]);
 
+  const [selectedValue, setSelectedValue] =
+    useState("投票の種類を選択してください");
+
+  //カスタムフック(投票中の人気投票とその他投票の商品データ)
+  const PopularitemData: Items[] = useGetPollCategoryItem(1);
+  const OtheritemData: Items[] = useGetPollCategoryItem(2);
+  //カスタムフック（投票中のカテゴリ別投票データ→投票終了したデータに後で変えたい）
+  const PopularPeriodData: Questionnaire[] = useGetPollCategoryPeriod(1);
+  const OthersPeriodData: Questionnaire[] = useGetPollCategoryPeriod(2);
+
+  //ref
   const refContents = useRef<HTMLDivElement>(null);
 
-  //過去の投票結果までスクロール
+  //過去の投票結果までスクロールさせる処理
   const scrollToContents = useCallback(() => {
     if (refContents && refContents.current) {
-    refContents.current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });}
+      refContents.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
   }, [refContents]);
+  const now = new Date();
 
-  //select
-  const handleSelectChange = (event:any) => {
-    setSelectedValue(event.target.value);
+  //人気投票かその他の投票か////////////////////////////
+  const handleSelectChange = (e: any) => {
+    setSelectedValue(e.target.value);
   };
+  useEffect(() => {
+    if (selectedValue === "人気投票") {
+      console.log("p");
+      const populerPeriodData = PopularPeriodData.filter((period: any) => {
+        return period.endDate < now;
+      });
+      setPollTitle(populerPeriodData);
+    } else if (selectedValue === "その他の投票") {
+      console.log("o");
+      const otherPeriodData = OthersPeriodData.filter((period: any) => {
+        return period.endDate < now;
+      });
+      setPollTitle(otherPeriodData);
+    }
+  }, [selectedValue]);
+  ////////////////////////////////
 
-  //全部取得している。あとで共用できたら消す
+  //投票終了している投票→下のリンクに表示
+  // 人気
+  const populerPeriodData = PopularPeriodData.filter((period: any) => {
+    return period.endDate < now;
+  });
+  console.log(populerPeriodData, "per1");
+  // その他
+  const otherPeriodData = OthersPeriodData.filter((period: any) => {
+    return period.endDate < now;
+  });
+  console.log(otherPeriodData, "per2");
+
+  ///////////////////////////////////////////////
+
+  //人気投票タイトル（後でカスタムフック化）
   useEffect(() => {
     (async () => {
       try {
-        const response = await fetch(`http://localhost:8880/items`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        const response = await fetch(`http://localhost:8880/questionnaire`);
         const data = await response.json();
-        console.log(data);
-        setItems(data);
+        const filteredData = data.filter(
+          (poll: Questionnaire) => poll.category === 1
+        );
+        const dateFilteredData = filteredData.map((poll: Questionnaire) => {
+          return {
+            ...poll,
+            startDate: new Date(poll.startDate),
+            endDate: new Date(poll.endDate),
+          };
+        });
+        const sortedData = dateFilteredData.sort(
+          (after: { endDate: number }, before: { endDate: number }) =>
+            before.endDate - after.endDate
+        );
+        setPopularPollTitle(sortedData);
       } catch (error) {
         console.error(error);
       }
     })();
   }, []);
-  //全部取得している。あとで共用できたら消す
+
+  //最新のその他の投票タイトル
   useEffect(() => {
     (async () => {
       try {
         const response = await fetch(`http://localhost:8880/questionnaire`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
         const data = await response.json();
-        const filteredData = data.filter((poll:Polls) => poll.category === 1);
-
-        const dateFilteredData = filteredData.map(
-          (poll: Polls) => {
-            return {
-              ...poll,
-              startDate: new Date(poll.startDate),
-              endDate: new Date(poll.endDate),
-            };
-          }
+        const filteredData = data.filter(
+          (poll: Questionnaire) => poll.category !== 1
         );
-        setPopularPolls(dateFilteredData);
-        console.log(popularPolls)
+        const dateFilteredData = filteredData.map((poll: Questionnaire) => {
+          return {
+            ...poll,
+            startDate: new Date(poll.startDate),
+            endDate: new Date(poll.endDate),
+          };
+        });
+        const sortedData = dateFilteredData.sort(
+          (a: { endDate: number }, b: { endDate: number }) =>
+            b.endDate - a.endDate
+        );
+        setOthersPollTitle(sortedData);
       } catch (error) {
         console.error(error);
       }
     })();
-  }, [popularPolls]);
-
-  console.log(items);
+  }, []);
 
   return (
     <>
-      <Paper sx={{ mb: 5, width: '100%', minWidth: 500, maxWidth: 1200 }}>
-        <PrimaryButton
-          onClick={scrollToContents}
-          sx={{
-            backgroundColor: '#84b9cb',
-            my: 4,
-            p: 2,
-            ml:80,
-            width: 250,
-            fontSize: '20px',
-            fontWeight: 'bold',
-            ':hover': {
-              background: '#5f9ea0',
-              cursor: 'pointer',
-            },
-          }}
-        >
-          過去の投票結果
-        </PrimaryButton>
-        <PollTitle poll={popularPolls}/>
-        <Card
-          sx={{
-            p: 1,
-            mb: 5,
-            backgroundColor: '#ffdead',
-            border: '2px dashed #fff ',
-            boxShadow: ' 0 0 0 8px #ffdead',
-            width: '100%',
-            maxWidth: 700,
-            minWidth: 500,
-            m: 'auto',
-          }}
-        >
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            textAlign="center"
-            sx={{ m: 4, color: '#595857', fontSize: '25px' }}
+      <Paper sx={{ mb: 5, width: "100%", minWidth: 500, maxWidth: 1200 }}>
+        <Box sx={{ textAlign: "right", p: 2 }}>
+          <ActiveBlueButton
+            event={scrollToContents}
+            style={{ padding: 15, width: 200 }}
           >
-            一番気になる、好きなドリンクに投票しよう！
-          </Typography>
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            textAlign="center"
-            sx={{ m: 4, color: '#595857', fontSize: '20px' }}
-          >
-            ※各投票、お一人につき一回まで投票が可能です
-          </Typography>
-        </Card>
-        <PollCard data={items} />
-        <Box
-          sx={{
-            background: '#fff9f5',
-            p: 5,
-            backgroundImage: 'url(/coffee.png)',
-            mt: 5,
-            mb: 5,
-          }}
-        >
-          <Box
-            sx={{
-              fontFamily: 'cursive',
-              fontSize: '40px',
-              textAlign: 'center',
-              mt: 10,
-              backgroundColor: 'white',
-              background:
-                '-webkit-repeating-linear-gradient(-45deg, #d4acad, #d4acad 2px, #fff 2px, #fff 4px)',
-            }}
-          >
-            drink入れ替え投票
-          </Box>
-          <Box
-            sx={{
-              fontFamily: 'cursive',
-              fontSize: '20px',
-              textAlign: 'center',
-              mt: 5,
-              backgroundColor: "white",
-              fontWeight:"bold"
-            }}
-          >
-            開催期間:4月15日〜5月15日まで
-          </Box>
+            過去の投票結果
+          </ActiveBlueButton>
         </Box>
-        <Card
-          sx={{
-            p: 1,
-            mb: 5,
-            backgroundColor: '#ffdead',
-            border: '2px dashed #fff ',
-            boxShadow: ' 0 0 0 8px #ffdead',
-            width: 800,
-            m: 'auto',
-          }}
-        >
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            textAlign="center"
-            sx={{ m: 4, color: '#595857', fontSize: '25px' }}
-          >
-            みんなの投票で会社に設置してある ドリンクの種類がかわるよ！
-          </Typography>
+        <PollTitle poll={popularPollTitle} />
+        <DottedMemo
+          text={" 一番気になる、好きなドリンクに投票しよう！"}
+          information={"※各投票、お一人につき一回まで投票が可能です"}
+          fontSize={"20px"}
+          maxWidth={700}
+          minWidth={500}
+          margin={4}
+        />
 
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            textAlign="center"
-            sx={{ m: 4, color: '#595857', fontSize: '20px' }}
-          >
-            ※各投票、お一人につき一回まで投票が可能です
-          </Typography>
-        </Card>
+        <PollCard
+          data={PopularitemData}
+          pollNum={popularPollTitle[0]?.id}
+          pollCategory={popularPollTitle[0]?.category}
+        />
+
+        <PollTitle poll={othersPollTitle} />
+        <DottedMemo
+          text={" みんなの投票で会社に設置してある ドリンクの種類がかわるよ！"}
+          information={"※各投票、お一人につき一回まで投票が可能です"}
+          fontSize={"20px"}
+          maxWidth={700}
+          minWidth={500}
+          margin={4}
+        />
+        <PollCard
+          data={OtheritemData}
+          pollNum={othersPollTitle[0]?.id}
+          pollCategory={othersPollTitle[0]?.category}
+        />
         <Box
           sx={{
-            background: '#fff9f5',
+            background: "#fff9f5",
             p: 5,
-            backgroundImage: 'url(/coffee.png)',
+            backgroundImage: "url(/coffee.png)",
             mt: 5,
             mb: 5,
           }}
@@ -208,13 +197,13 @@ const Poll: FC<Props> = memo((props) => {
         >
           <Box
             sx={{
-              fontFamily: 'cursive',
-              fontSize: '40px',
-              textAlign: 'center',
+              fontFamily: "cursive",
+              fontSize: "40px",
+              textAlign: "center",
               mt: 10,
-              backgroundColor: 'white',
+              backgroundColor: "white",
               background:
-                '-webkit-repeating-linear-gradient(-45deg, #9acd32, #d4acad 2px, #fff 2px, #fff 4px)',
+                "-webkit-repeating-linear-gradient(-45deg, #9acd32, #d4acad 2px, #fff 2px, #fff 4px)",
             }}
           >
             過去の投票結果
@@ -222,59 +211,58 @@ const Poll: FC<Props> = memo((props) => {
         </Box>
         <Box sx={{ ml: 70 }}>
           <Box>
-            <Select
-              id="condition"
-              sx={{ mb: 3, backgroundColor: '#fffffc' }}
-              aria-labelledby="days-label"
-              defaultValue={selectedValue}
-              onChange={handleSelectChange}
+            <InputLabel id="brand-label" sx={{ mt: 2, fontWeight: "bold" }}>
+              期間
+            </InputLabel>
+            <TextField
+              type="date"
+              variant="standard"
+              sx={{ width: "200px", mb: 5 }}
+            />
+            <span
+              style={{
+                fontSize: "1.5rem",
+                marginLeft: "10px",
+                marginRight: "10px",
+              }}
             >
-              <MenuItem value="日付を選択してください">
-                日付を選択してください
-              </MenuItem>
-              <MenuItem value="2023年1月">2023年1月</MenuItem>
-              <MenuItem value="2023年2月">2023年2月</MenuItem>
-              <MenuItem value="2023年3月">2023年3月</MenuItem>
-            </Select>
-            〜
-            <Select
-              id="condition"
-              sx={{ mb: 3, backgroundColor: '#fffffc' }}
-              aria-labelledby="days-label"
-              defaultValue={selectedValue}
-              onChange={handleSelectChange}
-            >
-              <MenuItem value="日付を選択してください">
-                日付を選択してください
-              </MenuItem>
-              <MenuItem value="2023年1月">2023年1月</MenuItem>
-              <MenuItem value="2023年2月">2023年2月</MenuItem>
-              <MenuItem value="2023年3月">2023年3月</MenuItem>
-            </Select>
+              〜
+            </span>
+            <TextField
+              type="date"
+              variant="standard"
+              sx={{ width: "200px", mb: 5 }}
+            />
           </Box>
-          <Box>※期間で絞り込みができます。</Box>
+          <Select
+            sx={{ mb: 3, backgroundColor: "#fffffc" }}
+            value={selectedValue}
+            variant="standard"
+            onChange={handleSelectChange}
+          >
+            <MenuItem value="投票の種類を選択してください">
+              投票の種類を選択してください
+            </MenuItem>
+            <MenuItem value="人気投票">人気投票</MenuItem>
+            <MenuItem value="その他の投票">その他の投票</MenuItem>
+          </Select>
         </Box>
-
-        <List sx={{ textAlign: 'center', fontSize: '25px', color: '1e90ff' }}>
-          <ListItem sx={{ textAlign: 'center' }} button component="a" href="#">
-            <ListItemText
-              primaryTypographyProps={{ fontSize: '25px' }}
-              primary="・1月の人気投票結果発表"
-            />
-          </ListItem>
-          <ListItem sx={{ textAlign: 'center' }} button component="a" href="#">
-            <ListItemText
-              primaryTypographyProps={{ fontSize: '25px' }}
-              primary="・2月の人気投票結果発表"
-            />
-          </ListItem>
-          <ListItem sx={{ textAlign: 'center' }} button component="a" href="#">
-            <ListItemText
-              primaryTypographyProps={{ fontSize: '25px' }}
-              primary="・3月の人気投票結果発表"
-            />
-          </ListItem>
-        </List>
+        {pollTitle &&
+          pollTitle.map((data) => (
+            <List
+              sx={{ textAlign: "center", fontSize: "25px", color: "1e90ff" }}
+            >
+              <ListItem
+                sx={{ textAlign: "center" }}
+                component="a"
+                href={`/home/poll/${data.id}`}
+              >
+                <ListItemText primaryTypographyProps={{ fontSize: "25px" }}>
+                  {data.name}
+                </ListItemText>
+              </ListItem>
+            </List>
+          ))}
       </Paper>
     </>
   );

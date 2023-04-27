@@ -4,18 +4,23 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
+import { useNavigate } from "react-router-dom";
 const AccordionMenu = () => {
+  const navigate = useNavigate();
   const [expanded, setExpanded] = useState(null);
 
-  const handleChange = (panel: any) => (event: any, newExpanded: any) => {
-    setExpanded(newExpanded ? panel : false);
+  const handleChange =
+    (panel: any) => (event: React.SyntheticEvent, newExpanded: boolean) => {
+      setExpanded(newExpanded ? panel : false);
+    };
+  const handleAccordionClick = (category: string | number) => {
+    navigate(`/home/search?category=${category}`);
   };
+
   return (
     <>
-      {/* アコーディオンメニュー */}
       <div>
-        <Box className="productTtl">
+        <Box>
           <Typography variant="h5" textAlign="center" sx={{ color: "#ea6f00" }}>
             - PRODUCTS -
           </Typography>
@@ -42,79 +47,64 @@ const AccordionMenu = () => {
             aria-controls="panel2a-content"
             id="panel2a-header"
             sx={{
-              borderTop: "2px dashed #ea6f00",
-              borderBottom: "2px dashed #ea6f00",
+              borderTop: "2px dashed #e3e4e5",
+              borderBottom: "2px dashed #e3e4e5",
             }}
+            onClick={() => handleAccordionClick("1")}
           >
-            ダーク（深煎り）
+            └ダーク（深煎り）
           </AccordionSummary>
           <AccordionSummary
             aria-controls="panel2a-content"
-            id="panel2a-header"
+            id="medium"
             sx={{
-              borderBottom: "2px dashed #ea6f00",
+              borderBottom: "2px dashed #e3e4e5",
             }}
+            onClick={() => handleAccordionClick("2")}
           >
-            ミディアム（中煎り）
+            └ミディアム（中煎り）
           </AccordionSummary>
           <AccordionSummary
             aria-controls="panel2a-content"
-            id="panel2a-header"
+            id="light"
             sx={{
-              borderBottom: "2px dashed #ea6f00",
+              borderBottom: "2px dashed #e3e4e5",
             }}
+            onClick={() => handleAccordionClick("3")}
           >
-            ライト（浅煎り）
+            └ライト（浅煎り）
           </AccordionSummary>
           <AccordionSummary
             aria-controls="panel2a-content"
-            id="panel2a-header"
+            id="decaffeinated"
             sx={{
-              borderBottom: "2px dashed #ea6f00",
+              borderBottom: "2px dashed #e3e4e5",
             }}
+            onClick={() => handleAccordionClick("4")}
           >
-            カフェインレス
+            └カフェインレス
           </AccordionSummary>
-          <AccordionSummary id="panel2a-header">
-            すべてのコーヒー
-          </AccordionSummary>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel2"}
-          onChange={handleChange("panel2")}
-        >
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
+            id="allcoffee"
+            onClick={() => handleAccordionClick("allcoffee")}
           >
-            ティー
-          </AccordionSummary>
-
-          <AccordionSummary
-            // expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2a-content"
-            id="panel2a-header"
-            sx={{
-              borderBottom: "2px dashed #ea6f00",
-              borderTop: "2px dashed #ea6f00",
-            }}
-          >
-            ティー
+            └すべてのコーヒー
           </AccordionSummary>
         </Accordion>
-        <Accordion sx={{ m: 0 }}>
-          <AccordionSummary id="panel1a-header">ココア</AccordionSummary>
+        <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("5")}>
+          <AccordionSummary id="tea">ティー</AccordionSummary>
         </Accordion>
-        <Accordion sx={{ m: 0 }}>
-          <AccordionSummary id="panel1a-header">その他</AccordionSummary>
+        <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("6")}>
+          <AccordionSummary id="tea">ココア</AccordionSummary>
         </Accordion>
-        <Accordion sx={{ m: 0 }}>
-          <AccordionSummary id="panel1a-header">すべての商品</AccordionSummary>
+        <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("7")}>
+          <AccordionSummary id="tea">その他</AccordionSummary>
+        </Accordion>
+        <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("all")}>
+          <AccordionSummary id="tea">すべて</AccordionSummary>
         </Accordion>
       </div>
     </>
   );
 };
-
 export default AccordionMenu;

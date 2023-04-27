@@ -1,13 +1,45 @@
 import { Paper, Box } from '@mui/material';
-import { FC, memo } from 'react';
+import { FC, memo, useEffect, useState } from 'react';
 
 //icon
-import LocalFloristIcon from "@mui/icons-material/LocalFlorist";
-import DottedMemo from "../memo/DottedMemo";
+import DottedMemo from "../atoms/memo/DottedMemo";
+import { Polls} from '../../types/type';
+import { useParams } from 'react-router-dom';
 
 type Props = {};
 
 const PollResult: FC<Props> = memo((props) => {
+  const {id}=useParams()
+  const [polls,setPolls]=useState<Polls[]>([])
+
+//poll取得
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await fetch(`http://localhost:8880/polls`);
+        const data = await response.json();
+        setPolls(data);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, []);
+
+//投票結果集計
+  const counts:any= {};
+polls.forEach((item) => {
+  if (item.questionnaireId === Number(id)) {
+    if (counts[item.result]) {
+      counts[item.result]++;
+    } else {
+      counts[item.result] = 1;
+    }
+  }
+});
+console.log(counts[1]);
+console.log(counts[2]);
+console.log(counts);
+
   return (
     <>
       <Paper>

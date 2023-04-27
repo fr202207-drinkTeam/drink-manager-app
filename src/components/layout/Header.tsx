@@ -7,18 +7,22 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
-import { PrimaryButton } from "../atoms/button/Button";
+import { ActiveBlueButton, ActiveDarkBlueButton } from "../atoms/button/Button";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import ModalWindow from "../organisms/ModalWindow";
+import Cookies from "js-cookie";
+import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
+import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 const Header = () => {
+  const navigate = useNavigate();
   const pages = [
     { label: "Top", href: "/home" },
     { label: "ご利用ガイド", href: "/home/guide" },
@@ -47,11 +51,9 @@ const Header = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
   const styles = {
     appBar: {
       background: "#f3bf88",
-      // background: "linear-gradient(95deg, #ffc97a, #ff9900)",
     },
   };
   const Item = styled(Paper)(({ theme }) => ({
@@ -61,6 +63,16 @@ const Header = () => {
     textAlign: "center",
     color: theme.palette.text.secondary,
   }));
+
+  // ログアウト
+  const authId = Cookies.get("authId")!;
+  const loginUser = useLoginUserFetch({ authId: authId });
+  console.log(loginUser, "user");
+  const onLogoutClick = () => {
+    document.cookie = `authId=; max-age=0`;
+    navigate("/login");
+    alert("ログアウトしました");
+  };
   return (
     <>
       <Paper
@@ -71,26 +83,36 @@ const Header = () => {
           alignItems: "center",
         }}
       >
-        <Typography>こんにちは〇〇さん</Typography>
-        <PrimaryButton
-          sx={{
-            background: "linear-gradient(95deg, #ffc97a, #ff9900)",
-            borderRadius: 4,
-            marginLeft: 2,
+        <Typography>こんにちは {loginUser?.firstName}さん</Typography>
+        <ModalWindow
+          title=""
+          content="本当にログアウトしてもよろしいですか？"
+          openButtonColor="blue"
+          completeButtonColor="darkblue"
+          completeButtonName="ログアウト"
+          completeAction={onLogoutClick}
+          cancelButtonColor="gray"
+          openButtonSxStyle={{
+            mx: 3,
+            py: "5px",
+            fontSize: "16px",
+            borderRadius: 10,
           }}
-        >
-          ログアウト
-        </PrimaryButton>
-        <div style={{ marginLeft: "auto" }}>
-          <PrimaryButton
-            sx={{
-              background: "linear-gradient(95deg, #ffc97a, #ff9900)",
-              borderRadius: 4,
-            }}
-          >
-            管理者用TOP
-          </PrimaryButton>
-        </div>
+        />
+        {loginUser?.isAdmin ? (
+          <div style={{ marginLeft: "auto" }}>
+            <Link to="/adminhome">
+              <ActiveDarkBlueButton
+                event={onLogoutClick}
+                sxStyle={{ borderRadius: 10 }}
+              >
+                管理者用TOP
+              </ActiveDarkBlueButton>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
       </Paper>
 
       <AppBar position="static" sx={styles.appBar}>
@@ -150,9 +172,7 @@ const Header = () => {
                 color: "inherit",
                 textDecoration: "none",
               }}
-            >
-              LOGO
-            </Typography>
+            ></Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
                 <Button

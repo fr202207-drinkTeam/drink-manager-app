@@ -29,7 +29,7 @@ const Slider = (props: Props) => {
     >
       {images.map((image: string, index: any) => (
         <SwiperSlide key={index}>
-          <img src={image} alt="" style={{ width: "100%" }} />
+          <img src={image} alt="商品画像" style={{ width: "100%" }} />
         </SwiperSlide>
       ))}
     </Swiper>

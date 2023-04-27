@@ -6,6 +6,8 @@ import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Unstable_Grid2";
 
+import SwitchAccessShortcutAddIcon from "@mui/icons-material/SwitchAccessShortcutAdd";
+
 import {
   ActiveBeigeButton,
   ActiveBlueButton,
@@ -14,6 +16,8 @@ import {
   ActivePinkButton,
   ActiveRedButton,
   InactiveButton,
+  ActiveGrayButton,
+  ActiveBorderButton,
 } from "../atoms/button/Button";
 
 const style = {
@@ -97,7 +101,8 @@ const ModalWindow: FC<Props> = memo((props: Props) => {
       case "pink":
         return (
           <ActivePinkButton event={action} sxStyle={openButtonSxStyle}>
-            {label}
+            <SwitchAccessShortcutAddIcon />
+            &nbsp;&nbsp;{label}
           </ActivePinkButton>
         );
       case "darkblue":
@@ -111,6 +116,18 @@ const ModalWindow: FC<Props> = memo((props: Props) => {
           <ActiveRedButton event={action} sxStyle={openButtonSxStyle}>
             {label}
           </ActiveRedButton>
+        );
+      case "gray":
+        return (
+          <ActiveGrayButton event={action} sxStyle={openButtonSxStyle}>
+            {label}
+          </ActiveGrayButton>
+        );
+      case "borderRed":
+        return (
+          <ActiveBorderButton event={action} sxStyle={openButtonSxStyle}>
+            {label}
+          </ActiveBorderButton>
         );
       default:
         return <Fragment />;
