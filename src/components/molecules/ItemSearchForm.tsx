@@ -30,9 +30,9 @@ const ItemSearchForm: React.FC<Props> = ({ searchWord, setSearchWord }) => {
         variant="outlined"
         sx={{ my: 4, width: "100%", backgroundColor: "#fff" }}
         value={searchWord}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          setSearchWord(e.target.value);
-        }}
+        // onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+        //   setSearchWord(e.target.value);
+        // }}
       />
       <ActiveOrangeButton
         event={onSearchButtonClick}

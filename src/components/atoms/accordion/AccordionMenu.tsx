@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useNavigate } from "react-router-dom";
+import { Paper } from "@mui/material";
 const AccordionMenu = () => {
   const navigate = useNavigate();
   const [expanded, setExpanded] = useState(null);
@@ -14,7 +15,7 @@ const AccordionMenu = () => {
       setExpanded(newExpanded ? panel : false);
     };
   const handleAccordionClick = (category: string | number) => {
-    navigate(`/home/search?category=${category}`);
+    navigate(`/home/search?category=${category}&page=1`);
   };
 
   return (
@@ -84,25 +85,28 @@ const AccordionMenu = () => {
           >
             └カフェインレス
           </AccordionSummary>
-          <AccordionSummary
+          {/* <AccordionSummary
             id="allcoffee"
             onClick={() => handleAccordionClick("allcoffee")}
           >
             └すべてのコーヒー
-          </AccordionSummary>
+          </AccordionSummary> */}
         </Accordion>
-        <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("5")}>
+        <Paper sx={{ m: 0 }} onClick={() => handleAccordionClick("5")}>
           <AccordionSummary id="tea">ティー</AccordionSummary>
-        </Accordion>
-        <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("6")}>
+        </Paper>
+        <Paper sx={{ m: 0 }} onClick={() => handleAccordionClick("6")}>
           <AccordionSummary id="tea">ココア</AccordionSummary>
-        </Accordion>
-        <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("7")}>
+        </Paper>
+        <Paper sx={{ m: 0 }} onClick={() => handleAccordionClick("7")}>
           <AccordionSummary id="tea">その他</AccordionSummary>
-        </Accordion>
-        <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("all")}>
+        </Paper>
+        <Paper sx={{ m: 0 }} onClick={() => handleAccordionClick("all")}>
           <AccordionSummary id="tea">すべて</AccordionSummary>
-        </Accordion>
+        </Paper>
+        <Paper sx={{ m: 0 }} onClick={() => handleAccordionClick("5")}>
+          <AccordionSummary id="tea">ティー</AccordionSummary>
+        </Paper>
       </div>
     </>
   );
