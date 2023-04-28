@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardMedia from "@mui/material/CardMedia";
@@ -11,14 +11,13 @@ import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 //cookie
 import Cookies from "js-cookie";
 //types
-import { Items, Polls, Questionnaire } from "../../types/type";
+import { Items, Polls } from "../../types/type";
 //icon
 import SearchIcon from "@mui/icons-material/Search";
 import SwitchAccessShortcutAddIcon from "@mui/icons-material/SwitchAccessShortcutAdd";
 import ModalWindow from "../organisms/ModalWindow";
 
 import useGetPollCategoryData from "../../hooks/useGetPollCategoryData";
-import useGetPollCategoryPeriod from "../../hooks/useGetPollCategoryPeriod copy";
 
 type PollCardProps = {
   data: Items[];
@@ -28,7 +27,6 @@ type PollCardProps = {
 
 const PollCard = ({ data, pollNum, pollCategory }: PollCardProps) => {
   const navigate = useNavigate();
-  const [pollData, setPollData] = useState<Polls[]>([]);
   //login
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
@@ -43,6 +41,9 @@ const PollCard = ({ data, pollNum, pollCategory }: PollCardProps) => {
   const othersData = OthersPollData?.filter((other) => {
     return other.userId === loginUser.id;
   });
+
+  // console.log(popularData,"popularData")
+  // console.log(othersData,"othersData")
 
   //投票ボタン
   const submitPoll = async (drinkId: number) => {

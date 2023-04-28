@@ -1,7 +1,7 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 //mui
 import { Box, Link, List, ListItem, ListItemText, Paper } from "@mui/material";
-import { ActiveBeigeButton, ActiveBlueButton } from "../atoms/button/Button";
+import { ActiveBeigeButton } from "../atoms/button/Button";
 //type
 import { Items, Questionnaire } from "../../types/type";
 //com
@@ -51,7 +51,7 @@ const Poll = memo(() => {
   };
 
   useEffect(() => {
-    //startdataが超えていたら
+    //startdateが超えていたら
     (async () => {
       const response = await fetch(`http://localhost:8880/questionnaire`);
       const data = await response.json();
@@ -69,9 +69,6 @@ const Poll = memo(() => {
       const validPeriodData = period.filter((question: any) => {
         return question.isValidPeriod;
       });
-      const endData = validPeriodData.map((data: Questionnaire) => {
-        return data.endDate;
-      });
       if (startPeriodDate !== "" && endPeriodDate !== "") {
         const periodData = validPeriodData.filter((date: Questionnaire) => {
           return (
@@ -82,7 +79,7 @@ const Poll = memo(() => {
         setPollTitle(periodData);
       }
     })();
-  }, [startPeriodDate, endPeriodDate]);
+  }, [startPeriodDate, endPeriodDate, now]);
 
   //人気投票タイトル（後でカスタムフック化）
   useEffect(() => {
