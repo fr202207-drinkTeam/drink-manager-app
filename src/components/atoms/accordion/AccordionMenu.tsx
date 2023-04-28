@@ -85,28 +85,22 @@ const AccordionMenu = () => {
           >
             └カフェインレス
           </AccordionSummary>
-          {/* <AccordionSummary
-            id="allcoffee"
-            onClick={() => handleAccordionClick("allcoffee")}
-          >
-            └すべてのコーヒー
-          </AccordionSummary> */}
         </Accordion>
-        <Paper sx={{ m: 0 }} onClick={() => handleAccordionClick("5")}>
+        <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("5")}>
           <AccordionSummary id="tea">ティー</AccordionSummary>
-        </Paper>
-        <Paper sx={{ m: 0 }} onClick={() => handleAccordionClick("6")}>
+        </Accordion>
+        <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("6")}>
           <AccordionSummary id="tea">ココア</AccordionSummary>
-        </Paper>
-        <Paper sx={{ m: 0 }} onClick={() => handleAccordionClick("7")}>
+        </Accordion>
+        <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("7")}>
           <AccordionSummary id="tea">その他</AccordionSummary>
-        </Paper>
-        <Paper sx={{ m: 0 }} onClick={() => handleAccordionClick("all")}>
+        </Accordion>
+        <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("all")}>
           <AccordionSummary id="tea">すべて</AccordionSummary>
-        </Paper>
-        <Paper sx={{ m: 0 }} onClick={() => handleAccordionClick("5")}>
+        </Accordion>
+        <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("5")}>
           <AccordionSummary id="tea">ティー</AccordionSummary>
-        </Paper>
+        </Accordion>
       </div>
     </>
   );
