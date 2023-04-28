@@ -1,4 +1,4 @@
-import { FC, memo } from "react";
+import { FC, memo, useRef } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Box from "@mui/material/Box";
@@ -6,89 +6,58 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import {
   InactiveButton,
-  ActiveBlueButton,
-  ActiveOrangeButton,
-  ActiveDarkBlueButton,
-  ActiveRedButton,
+  ActiveBorderButton,
 } from "../atoms/button/Button";
 import AdmTitleText from "../atoms/text/AdmTitleText";
-import useImgPathConversion from "../../hooks/useImgPathConversion";
+import ImgPathConversion from "../../utils/ImgPathConversion2";
 import ModalWindow from "../organisms/ModalWindow";
-// import useLoginUser from "../../hooks/useLoginUser";
 import ItemForm from "../organisms/ItemForm";
+import Cookies from "js-cookie";
+import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 
-type Props = {};
-
-const AddItem: FC<Props> = memo((props) => {
+const AddItem: FC = memo(() => {
   const navigate: NavigateFunction = useNavigate();
   const [itemName, setItemName] = useState<string>("");
   const [itemDescription, setItemDescription] = useState<string>("");
   const [itemCategory, setItemCategory] = useState<number>(0);
-  const [itemImages, setItemImages] = useState<{ id: number; value: string }[]>(
-    []
-  );
-  const [testImageData, setTestImageData] = useState<any>(null);
-  const { imagePath, loading, isUploaded } = useImgPathConversion({
-    imgFile: testImageData,
-  });
+  const [itemImages, setItemImages] = useState<File[]>([]);
+  const isFirstRender = useRef(true);
 
   // recoilからログインユーザー情報を取得
-
-  // テスト用
-  const imageData = (e: any) => {
-    setTestImageData(e.target.files[0]);
-  };
-
-  // 画像の削除機能
-  const onClickDeleteItemImage = (imageId: number) => {
-    const updatedItemImages = [...itemImages];
-    updatedItemImages.splice(imageId - 1, 1);
-    setItemImages(updatedItemImages);
-  };
-
-  // 画像プレビュー機能
-  const addItemImage = (event: any) => {
-    const file = event.target.files?.[0];
-    if (!file) {
-      return;
-    }
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      const newImage = {
-        id: itemImages.length + 1,
-        value: reader.result as string,
-      };
-      setItemImages([...itemImages, newImage]);
-    };
-  };
+  const authId = Cookies.get("authId")!;
+  const loginUser = useLoginUserFetch({ authId: authId });
 
   // データ追加処理(確定ボタン)
   const onClickAddItemData: () => Promise<void> = async () => {
-    await fetch("http://localhost:8880/items", {
+    const imagePath = await ImgPathConversion({
+      imgFiles: itemImages
+    });
+
+    console.log(imagePath);
+
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+    }
+
+    fetch("http://localhost:8880/items", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: "test",
-        name: { itemName },
-        description: { itemDescription },
-        image: itemImages,
-        itemCategory: { itemCategory },
+        name: itemName,
+        description: itemDescription,
+        image: imagePath,
+        itemCategory: itemCategory,
         createdAt: new Date(),
         inTheOffice: false,
-        author: "test", // recoilから取得
+        author: loginUser.id,
         otherItem: false,
       }),
-    })
-      .then((response) => response.json())
-      .then(() => {
-        navigate("/adminhome");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    }).then(() => {
+      navigate("/adminhome");
+      console.log("success");
+    });
   };
 
   return (
@@ -122,15 +91,15 @@ const AddItem: FC<Props> = memo((props) => {
 
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <ModalWindow
-            title="削除"
+            title=""
             content="内容は破棄されますがよろしいですか？"
             openButtonColor="red"
-            completeButtonColor="beige"
+            completeButtonColor="red"
             completeButtonName="削除"
             completeAction={() => {
               navigate(-1);
             }}
-            cancelButtonColor="pink"
+            cancelButtonColor="gray"
             openButtonSxStyle={{
               my: 2,
               mr: 3,
@@ -142,7 +111,7 @@ const AddItem: FC<Props> = memo((props) => {
           itemDescription &&
           itemCategory !== 0 &&
           itemImages.length > 0 ? (
-            <ActiveBlueButton
+            <ActiveBorderButton
               event={onClickAddItemData}
               sxStyle={{
                 my: 2,
@@ -152,7 +121,7 @@ const AddItem: FC<Props> = memo((props) => {
               }}
             >
               確定
-            </ActiveBlueButton>
+            </ActiveBorderButton>
           ) : (
             <>
               <InactiveButton
@@ -168,13 +137,6 @@ const AddItem: FC<Props> = memo((props) => {
             </>
           )}
         </Box>
-        <p>テスト</p>
-        <input type="file" onChange={imageData} />
-        <div>
-          {loading && <p>Uploading image...</p>}
-          {isUploaded && <p>Image uploaded successfully!</p>}
-          {imagePath && <img src={imagePath} alt="uploaded" />}
-        </div>
       </Paper>
     </>
   );

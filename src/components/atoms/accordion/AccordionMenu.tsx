@@ -4,13 +4,20 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Paper } from "@mui/material";
 const AccordionMenu = () => {
+  const navigate = useNavigate();
   const [expanded, setExpanded] = useState(null);
 
-  const handleChange = (panel: any) => (event: any, newExpanded: any) => {
-    setExpanded(newExpanded ? panel : false);
+  const handleChange =
+    (panel: any) => (event: React.SyntheticEvent, newExpanded: boolean) => {
+      setExpanded(newExpanded ? panel : false);
+    };
+  const handleAccordionClick = (category: string | number) => {
+    navigate(`/home/search?category=${category}&page=1`);
   };
+
   return (
     <>
       <div>
@@ -37,125 +44,65 @@ const AccordionMenu = () => {
           >
             コーヒー
           </AccordionSummary>
-          <Link
-            to={{
-              pathname: "/home/search",
-              search: `?category=1`,
+          <AccordionSummary
+            aria-controls="panel2a-content"
+            id="panel2a-header"
+            sx={{
+              borderTop: "2px dashed #e3e4e5",
+              borderBottom: "2px dashed #e3e4e5",
             }}
+            onClick={() => handleAccordionClick("1")}
           >
-            <AccordionSummary
-              aria-controls="panel2a-content"
-              id="panel2a-header"
-              sx={{
-                borderTop: "2px dashed #ea6f00",
-                borderBottom: "2px dashed #ea6f00",
-              }}
-            >
-              ダーク（深煎り）
-            </AccordionSummary>
-          </Link>
-          <Link
-            to={{
-              pathname: "/home/search",
-              search: `?category=2`,
+            └ダーク（深煎り）
+          </AccordionSummary>
+          <AccordionSummary
+            aria-controls="panel2a-content"
+            id="medium"
+            sx={{
+              borderBottom: "2px dashed #e3e4e5",
             }}
+            onClick={() => handleAccordionClick("2")}
           >
-            <AccordionSummary
-              aria-controls="panel2a-content"
-              id="medium"
-              sx={{
-                borderBottom: "2px dashed #ea6f00",
-              }}
-            >
-              ミディアム（中煎り）
-            </AccordionSummary>
-          </Link>
-          <Link
-            to={{
-              pathname: "/home/search",
-              search: `?category=3`,
+            └ミディアム（中煎り）
+          </AccordionSummary>
+          <AccordionSummary
+            aria-controls="panel2a-content"
+            id="light"
+            sx={{
+              borderBottom: "2px dashed #e3e4e5",
             }}
+            onClick={() => handleAccordionClick("3")}
           >
-            <AccordionSummary
-              aria-controls="panel2a-content"
-              id="light"
-              sx={{
-                borderBottom: "2px dashed #ea6f00",
-              }}
-            >
-              ライト（浅煎り）
-            </AccordionSummary>
-          </Link>
-          <Link
-            to={{
-              pathname: "/home/search",
-              search: `?category=4`,
+            └ライト（浅煎り）
+          </AccordionSummary>
+          <AccordionSummary
+            aria-controls="panel2a-content"
+            id="decaffeinated"
+            sx={{
+              borderBottom: "2px dashed #e3e4e5",
             }}
+            onClick={() => handleAccordionClick("4")}
           >
-            <AccordionSummary
-              aria-controls="panel2a-content"
-              id="decaffeinated"
-              sx={{
-                borderBottom: "2px dashed #ea6f00",
-              }}
-            >
-              カフェインレス
-            </AccordionSummary>
-          </Link>
-          <Link
-            to={{
-              pathname: "/home/search",
-              search: `?category=allcoffee`,
-            }}
-          >
-            <AccordionSummary id="allcoffee">すべてのコーヒー</AccordionSummary>
-          </Link>
+            └カフェインレス
+          </AccordionSummary>
         </Accordion>
-        <Link
-          to={{
-            pathname: "/home/search",
-            search: `?category=5`,
-          }}
-        >
-          <Accordion sx={{ m: 0 }}>
-            <AccordionSummary id="tea">ティー</AccordionSummary>
-          </Accordion>
-        </Link>
-        <Link
-          to={{
-            pathname: "/home/search",
-            search: `?category=6`,
-          }}
-        >
-          <Accordion sx={{ m: 0 }}>
-            <AccordionSummary id="cocoa">ココア</AccordionSummary>
-          </Accordion>
-        </Link>
-        <Link
-          to={{
-            pathname: "/home/search",
-            search: `?category=7`,
-          }}
-        >
-          <Accordion sx={{ m: 0 }}>
-            <AccordionSummary id="other">その他</AccordionSummary>
-          </Accordion>
-        </Link>
-        <Link
-          to={{
-            pathname: "/home/search",
-            search: `?category=all`,
-          }}
-        >
-          <Accordion sx={{ m: 0 }}>
-            <AccordionSummary id="panel1a-header">
-              すべての商品
-            </AccordionSummary>
-          </Accordion>
-        </Link>
+        <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("5")}>
+          <AccordionSummary id="tea">ティー</AccordionSummary>
+        </Accordion>
+        <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("6")}>
+          <AccordionSummary id="tea">ココア</AccordionSummary>
+        </Accordion>
+        <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("7")}>
+          <AccordionSummary id="tea">その他</AccordionSummary>
+        </Accordion>
+        <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("all")}>
+          <AccordionSummary id="tea">すべて</AccordionSummary>
+        </Accordion>
+        <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("5")}>
+          <AccordionSummary id="tea">ティー</AccordionSummary>
+        </Accordion>
       </div>
     </>
   );
 };
-
 export default AccordionMenu;

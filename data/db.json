@@ -39,7 +39,7 @@
       "id": 1,
       "name": "ブライトブレンド",
       "description": "ミディアムローストの豆をブレンドしたブライトブレンドは、キャラメル、ベリー、はちみつのバランスのとれたほんのり甘い香りが楽しめる一杯です。",
-      "image": "/item.png",
+      "image": ["/item.png", "/item.png", "/item.png"],
       "itemCategory": 2,
       "createdAt": "",
       "intheOffice": true,
@@ -50,7 +50,7 @@
       "id": 2,
       "name": "LAVAZZA CLASSICO",
       "description": "しっかりとした珈琲感とドライフルーツの風味が特徴のミディアムローストコーヒー。バランスのとれたリッチな味わいがお好みの方へオススメです。",
-      "image": "/item.png",
+      "image": ["/item.png", "/coffee.png"],
       "itemCategory": 2,
       "createdAt": "",
       "intheOffice": true,
@@ -61,7 +61,7 @@
       "id": 3,
       "name": "LAVAZZA INTENSO",
       "description": "スモーキーで香ばしい力強いフレーバーのダークローストコーヒー。キャラメリゼしたような風味と濃厚な味わいはリアルミルクフロスとも相性抜群です。",
-      "image": "/item.png",
+      "image": ["/item.png", "dummybanner.jpg"],
       "itemCategory": 1,
       "createdAt": "",
       "intheOffice": true,
@@ -72,7 +72,7 @@
       "id": 4,
       "name": "プレミアム スムースロースト",
       "description": "ほど良いコクと軽やかで優しいアフターテイスト。一日のどんな気分にも寄り添う、プレミアムにスムーズな一杯です。",
-      "image": "/item.png",
+      "image": ["/item.png", "s4.png"],
       "itemCategory": 3,
       "createdAt": "",
       "intheOffice": true,
@@ -83,7 +83,7 @@
       "id": 5,
       "name": "アメリカンロースト",
       "description": "口当たりの良い さわやかな酸味。ほのかな甘いノートが最後に残ります。",
-      "image": "/item.png",
+      "image": ["/item.png"],
       "itemCategory": 3,
       "createdAt": "",
       "intheOffice": true,
@@ -94,7 +94,7 @@
       "id": 6,
       "name": "コロンビア",
       "description": "100%南米コロンビア産の生豆使用。香ばしい香りと酸味・甘味・コクのバランスはマイルドそのものです。",
-      "image": "/item.png",
+      "image": ["/item.png"],
       "itemCategory": 2,
       "createdAt": "",
       "intheOffice": true,
@@ -105,7 +105,7 @@
       "id": 7,
       "name": "スマトラ",
       "description": "100%スマトラ島産アラビカ豆。火山性土で育った豆からの力強い個性的なアロマは、複雑で深いコク、そしてほのかな甘みへと続きます。",
-      "image": "/item.png",
+      "image": ["/item.png"],
       "itemCategory": 1,
       "createdAt": "",
       "intheOffice": true,
@@ -116,7 +116,7 @@
       "id": 8,
       "name": "プレミアスムースデカフ",
       "description": "市場のニーズが高まっているデカフェコーヒー。フルーティーな軽さの中に程よいコクがアフターテイストを満たします。",
-      "image": "/item.png",
+      "image": ["/item.png"],
       "itemCategory": 4,
       "createdAt": "",
       "intheOffice": true,
@@ -127,7 +127,7 @@
       "id": 9,
       "name": "イングリッシュ ブレックファースト",
       "description": "バランスのよい渋味。しっかりとした味わい豊かな紅茶。",
-      "image": "/item.png",
+      "image": ["/item.png"],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
@@ -138,7 +138,7 @@
       "id": 10,
       "name": "アールグレイ",
       "description": "爽やかなベルガモットの香りとほどよい風味が特徴的なお茶。シトラスとフルーツの香りとほのかに感じるスモーキーな香りのブレンドを楽しんでいただけます。",
-      "image": "/item.png",
+      "image": ["/item.png"],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
@@ -149,7 +149,7 @@
       "id": 11,
       "name": "レモンハーブ",
       "description": "軽やかなレモンと柑橘系の香りに、フローラルなハチミツの風味が華を添えるノンカフェインのハーブティーです。",
-      "image": "/item.png",
+      "image": ["/item.png"],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
@@ -160,7 +160,7 @@
       "id": 12,
       "name": "ジャスミン茶",
       "description": "ジャスミンの芳香を採りいれた渋みの少ないさっぱりとした緑茶です。",
-      "image": "/item.png",
+      "image": ["/item.png"],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
@@ -171,7 +171,7 @@
       "id": 13,
       "name": "緑茶",
       "description": "豊かな香りとコク、まろやかな風味。深蒸し煎茶から引き出される ほど良い渋味と旨味は日本人の好みにぴったり。 国産茶葉100%使用。",
-      "image": "/item.png",
+      "image": ["/item.png"],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
@@ -182,7 +182,7 @@
       "id": 14,
       "name": "ホットココア",
       "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）",
-      "image": "/item.png",
+      "image": ["/item.png"],
       "itemCategory": 6,
       "createdAt": "",
       "intheOffice": true,
@@ -190,15 +190,87 @@
       "otherItem": false
     },
     {
-      "id": 15,
-      "name": "リアルミルクフロス",
-      "description": "原材料牛乳100%。砂糖や香料不使用のラテ用ミルクパウダーです。ミルク風味豊かでふわふわのカフェラテ・ティーラテ・チャイラテ・ココアラテがお楽しみいただけます。",
-      "image": "/item.png",
-      "itemCategory": 7,
-      "createdAt": "",
-      "intheOffice": true,
-      "author": "",
-      "otherItem": false
+      "name": "ねぎ",
+      "description": "テストテストテストテストテスト",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/ce213123-2491-4dd1-8c1e-f05c105bda49?alt=media&token=fc3f8a6f-bbd4-4508-8b7d-5471ab90b053",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/919f2cfa-fb77-4d30-8d07-820a4fda7dad?alt=media&token=ada209d6-f721-46ad-b7a3-edb9e1e33159"
+      ],
+      "itemCategory": 4,
+      "createdAt": "2023-04-26T18:14:45.200Z",
+      "inTheOffice": false,
+      "author": "test",
+      "otherItem": false,
+      "id": 15
+    },
+    {
+      "name": "ねぎ",
+      "description": "テストテストテストテストテスト",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/66d1dfde-4d3a-4c53-a2bb-15cd7c5526e3?alt=media&token=56d29929-d25b-46db-a789-bbc8943c4aa8",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/c7555dc8-b20f-4f98-9249-1a8cd923e3c8?alt=media&token=07ef0b7a-a2ae-47d0-a1a6-d030b7dc4fdf"
+      ],
+      "itemCategory": 4,
+      "createdAt": "2023-04-26T18:14:50.739Z",
+      "inTheOffice": false,
+      "author": "test",
+      "otherItem": false,
+      "id": 16
+    },
+    {
+      "name": "テストテストテスト",
+      "description": "テストテストテストテストテストテストテスト",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/409d25a4-ec60-4fbc-95bf-cf9b6c468b3c?alt=media&token=38c0ad41-f549-415d-a76d-6793666a8d24",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/7c64b716-7090-41c8-b3d2-d7acc24a8e96?alt=media&token=d9b9dd49-25c9-49e3-b060-a960e8444a10",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/dae9c010-072b-4bb5-be3a-3f22fc021121?alt=media&token=ee489961-ca6e-477c-88a2-d7bf44695cf9"
+      ],
+      "itemCategory": 2,
+      "createdAt": "2023-04-26T18:16:49.922Z",
+      "inTheOffice": false,
+      "author": "test",
+      "otherItem": false,
+      "id": 17
+    },
+    {
+      "name": "テストテストテストテスト",
+      "description": "テストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテスト",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/a4008021-79d4-48f4-b3bf-d4b23d5b2113?alt=media&token=e141730c-2d46-4953-bd6e-fa8db00bdf57"
+      ],
+      "itemCategory": 4,
+      "createdAt": "2023-04-26T18:18:59.369Z",
+      "inTheOffice": false,
+      "author": "test",
+      "otherItem": false,
+      "id": 18
+    },
+    {
+      "name": "19",
+      "description": "19",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/ddbb9546-be39-4916-89b8-092eb1e67cd5?alt=media&token=948b2678-ef93-44e7-88c1-fdaea026738b",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/c5efa6ec-927d-4f6f-9c9c-cc2f6bdc3325?alt=media&token=bcfa0b15-864d-4dd5-a539-5f056e76bc86"
+      ],
+      "itemCategory": 1,
+      "createdAt": "2023-04-27T00:05:34.340Z",
+      "inTheOffice": false,
+      "author": "test",
+      "otherItem": false,
+      "id": 19
+    },
+    {
+      "name": "商品",
+      "description": "商品",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/45e05d2f-180d-465a-bca5-b1e0fb45b477?alt=media&token=d0fb0a3a-8c29-4129-932f-e6c577371da8"
+      ],
+      "itemCategory": 3,
+      "createdAt": "2023-04-27T01:48:29.461Z",
+      "inTheOffice": false,
+      "author": 1,
+      "otherItem": false,
+      "id": 20
     }
   ],
   "itemCategory": [
@@ -554,9 +626,83 @@
       "contactKinds": ""
     }
   ],
-  "posts": [],
+  "posts": [
+    {
+      "id": 1,
+      "userId": "1111",
+      "content": "私は最近紅茶にハマってます！香りが良くてとても美味しいので皆さんも是非飲んでみてください！",
+      "itemId": 10,
+      "postImage": ["/item.png"],
+      "createdAt": "2023-05-3T02:50:27.944Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 2,
+      "userId": "1114",
+      "content": "最近あったかくなってきたので、ホットコーヒーからアイスコーヒーに変えて飲んでいます。そんな私のおすすめはブライトブレンド！",
+      "itemId": 2,
+      "postImage": ["/item.png", "/item.png"],
+      "createdAt": "2023-04-3T02:50:27.944Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 3,
+      "userId": "1112",
+      "content": "LAVAZZA CLASSICOめちゃうまです！",
+      "itemId": 1,
+      "postImage": ["/coffee.png", "/item.png"],
+      "createdAt": "2023-03-3T02:50:27.944Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 4,
+      "userId": "1118",
+      "content": "緑茶より断然ジャスミン茶派です",
+      "itemId": 12,
+      "postImage": ["/item.png", "/coffee.png", "/s4.png"],
+      "createdAt": "2023-02-3T02:50:27.944Z",
+      "updatedAt": ""
+    }
+  ],
   "comments": [],
-  "likes": [],
+  "likes": [
+    {
+      "id": 1,
+      "postId": 1,
+      "userId": 1,
+      "time": "2023-02-3T02:50:27.944Z"
+    },
+    {
+      "id": 2,
+      "postId": 1,
+      "userId": 2,
+      "time": "2023-02-3T02:50:27.944Z"
+    },
+    {
+      "id": 3,
+      "postId": 1,
+      "userId": 3,
+      "time": "2023-02-3T02:50:27.944Z"
+    },
+    {
+      "id": 4,
+      "postId": 2,
+      "userId": 1,
+      "time": "2023-02-3T02:50:27.944Z"
+    },
+    {
+      "id": 5,
+      "postId": 2,
+      "userId": 2,
+      "time": "2023-02-3T02:50:27.944Z"
+    },
+    {
+      "id": 6,
+      "postId": 3,
+      "userId": 1,
+      "time": "2023-02-3T02:50:27.944Z"
+    }
+  ],
   "stockhistory": [
     {
       "id": 1,
