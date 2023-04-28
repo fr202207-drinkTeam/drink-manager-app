@@ -50,9 +50,11 @@ const MainRoute = [
 
 export const MainRouter = () => {
   //Cookie
+
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   return (
     <>
@@ -66,7 +68,9 @@ export const MainRouter = () => {
             key={index}
             path={`/adminhome${route.path}`}
             element={
-              authId && loginUser.isAdmin ? (
+              loginUser?.firstName === "" ? (
+                <></>
+              ) : authId && loginUser.isAdmin ? (
                 <DefaultLayout>{route.element}</DefaultLayout>
               ) : (
                 <Navigate to="/login" replace />
@@ -80,7 +84,9 @@ export const MainRouter = () => {
             key={index}
             path={`/home${route.path}`}
             element={
-              authId ? (
+              loginUser?.firstName === "" ? (
+                <></>
+              ) : authId ? (
                 <DefaultLayout>{route.element}</DefaultLayout>
               ) : (
                 <Navigate to="/login" replace />

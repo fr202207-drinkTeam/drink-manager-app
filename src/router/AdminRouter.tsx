@@ -13,5 +13,5 @@ export const AdminRouter = [
   { path: "/additem", element: <AddItem /> },
   { path: "/addpoll", element: <AddPoll /> },
   { path: "/itemedit/:id", element: <ItemEdit /> },
-  { path: "/", element: <AdminHome /> },
+  { path: "/adminhome", element: <AdminHome /> },
 ];

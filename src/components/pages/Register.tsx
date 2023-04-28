@@ -17,6 +17,8 @@ import { auth } from "../../Firebase";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { loginUserState } from "../../store/loginUserState";
+import Cookies from "js-cookie";
+import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 
 type Props = {};
 
@@ -133,6 +135,12 @@ const Register: FC<Props> = memo((props) => {
       }
     }
   };
+  const authId = Cookies.get("authId")!;
+  const loginUsers = useLoginUserFetch({ authId: authId });
+  if (!loginUser) {
+    return <div>Loading...</div>;
+  }
+  console.log(loginUsers, 111);
 
   return (
     <Container maxWidth="sm" sx={{ alignItems: "center" }}>
