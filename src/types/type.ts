@@ -55,3 +55,13 @@ export type Posts = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type Post = {
+  id: number;
+  userId: number;
+  content: string;
+  itemId: number;
+  postImage: string[];
+  createdAt: Date;
+  updatedAt: Date;
+};

@@ -12,6 +12,8 @@ import Top from "../components/pages/Top";
 import DefaultLayout from "../components/layout/DefaultLayout";
 // ヘッダー不必要のため仮置
 import Faq from "../components/pages/Faq";
+import Cookies from "js-cookie";
+import { useLoginUserFetch } from "../hooks/useLoginUserFetch";
 
 const MainRoute = [
   // {
@@ -46,6 +48,10 @@ const MainRoute = [
 ];
 
 export const MainRouter = () => {
+
+    // recoilからログインユーザー情報を取得
+    const authId = Cookies.get("authId")!;
+    const loginUser = useLoginUserFetch({ authId: authId });
   return (
     <>
       <Routes>

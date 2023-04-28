@@ -8,7 +8,7 @@
       "email": "test@test.com",
       "password": "Test1234",
       "confirmPassword": "Test1234",
-      "isAdmin": false,
+      "isAdmin": true,
       "authId": "giP7CHKGEuNbsXUemefgUCjtciQ2",
       "polledPopular": false,
       "polledOther": false
@@ -284,6 +284,19 @@
       "author": "test",
       "otherItem": false,
       "id": 19
+    },
+    {
+      "name": "商品",
+      "description": "商品",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/45e05d2f-180d-465a-bca5-b1e0fb45b477?alt=media&token=d0fb0a3a-8c29-4129-932f-e6c577371da8"
+      ],
+      "itemCategory": 3,
+      "createdAt": "2023-04-27T01:48:29.461Z",
+      "inTheOffice": false,
+      "author": 1,
+      "otherItem": false,
+      "id": 20
     }
   ],
   "itemCategory": [
