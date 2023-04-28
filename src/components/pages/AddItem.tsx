@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useRef } from "react";
+import { FC, memo, useRef } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Box from "@mui/material/Box";
@@ -6,10 +6,6 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import {
   InactiveButton,
-  ActiveBlueButton,
-  ActiveOrangeButton,
-  ActiveDarkBlueButton,
-  ActiveRedButton,
   ActiveBorderButton,
 } from "../atoms/button/Button";
 import AdmTitleText from "../atoms/text/AdmTitleText";
@@ -30,16 +26,6 @@ const AddItem: FC = memo(() => {
   // recoilからログインユーザー情報を取得
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
-  
-  // ログイン状態でなければログイン画面へ遷移
-  useEffect(() => {
-    if(!authId && !loginUser.isAdmin) {
-      navigate("/login")
-    }
-    console.log("ユーザー情報", loginUser)
-    console.log("authId", typeof !authId)
-    console.log("isAdmin", loginUser.isAdmin)
-  },[authId, loginUser])
 
   // データ追加処理(確定ボタン)
   const onClickAddItemData: () => Promise<void> = async () => {
@@ -105,7 +91,7 @@ const AddItem: FC = memo(() => {
 
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <ModalWindow
-            title="削除"
+            title=""
             content="内容は破棄されますがよろしいですか？"
             openButtonColor="red"
             completeButtonColor="red"

@@ -33,9 +33,9 @@ const ItemEdit: FC<Props> = memo((props) => {
   
   useEffect(() => {
     // ログイン状態でなければログイン画面へ遷移
-    if(!authId && !loginUser.isAdmin) {
-      navigate("/login")
-    }
+    // if(!authId && !loginUser.isAdmin) {
+    //   navigate("/login")
+    // }
     // console.log("ユーザー情報", loginUser)
     // console.log("authId", typeof !authId)
     // console.log("isAdmin", loginUser.isAdmin)

@@ -13,6 +13,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import PreviewImage from "../molecules/PreviewImage";
 import { useParams } from "react-router";
 import useGetAnItem from "../../hooks/useGetAnItem";
+import previewImages from "../../utils/previewImages";
 
 type Props = {
   setItemName: Dispatch<SetStateAction<string>>;
@@ -35,33 +36,6 @@ const ItemForm: FC<Props> = memo((props) => {
   props.setItemImages(formItemImages);
   console.log("set serve props")
 
-  // 画像プレビュー機能
-  const previewImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // 入力した画像に重複がないか判別
-    const preventSameImage = formItemImages.some(
-      (image: File) => image.name === event.target.files![0].name
-    );
-    // 重複があった場合は処理を終了
-    if (preventSameImage) {
-      return;
-    }
-
-    // 画像ファイルが3つ以上の場合、古い画像を削除して新しい3つを追加
-    if (formItemImages.length >= 3) {
-      setItemImages((inputImages: File[]) => {
-        const limitedImages = [...inputImages, event.target.files![0]];
-        limitedImages.shift();
-        return limitedImages;
-      });
-    }
-    // 画像ファイルが３つ未満の場合、通常の画像追加
-    else {
-      setItemImages((inputImages: File[]) => [
-        ...inputImages,
-        event.target.files![0],
-      ]);
-    }
-  };
 
   return (
     <>
@@ -102,7 +76,9 @@ const ItemForm: FC<Props> = memo((props) => {
                 type="file"
                 style={{ display: "none" }}
                 id="itemImageFeild"
-                onChange={previewImage}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  previewImages(event, formItemImages, setItemImages);
+                }}
               />
             </button>
           </Box>
