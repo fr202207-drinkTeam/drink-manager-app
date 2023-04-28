@@ -9,10 +9,11 @@ const useGetPollCategoryItem = (id: number) => {
   useEffect(() => {
     (async () => {
       try {
+        //アイテム取得
         const res = await fetch(`http://localhost:8880/items`);
         const itemdata = await res.json();
         setItems(itemdata);
-
+        //投票のカテゴリ取得
         const response = await fetch(
           `http://localhost:8880/questionnaire?category=${Number(id)}`
         );
@@ -25,6 +26,7 @@ const useGetPollCategoryItem = (id: number) => {
             ...question,
             isValidPeriod: isValidPeriod,
             endDate: endDate,
+            startDate:startDate
           };
         });
         const sortedData = Categoryperiod.sort(

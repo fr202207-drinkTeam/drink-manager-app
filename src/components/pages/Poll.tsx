@@ -1,45 +1,32 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 //mui
-import {
-  Box,
-  InputLabel,
-  List,
-  ListItem,
-  ListItemText,
-  MenuItem,
-  Paper,
-  Select,
-  TextField,
-} from "@mui/material";
-import { ActiveBlueButton } from "../atoms/button/Button";
+import { Box, Link, List, ListItem, ListItemText, Paper } from "@mui/material";
+import { ActiveBeigeButton, ActiveBlueButton } from "../atoms/button/Button";
 //type
 import { Items, Questionnaire } from "../../types/type";
 //com
 import PollTitle from "../pollParts/PollTitle";
 import PollCard from "../card/PollCard";
 import DottedMemo from "../atoms/memo/DottedMemo";
+import { PrimaryDateInput } from "../atoms/input/dateInput";
 //hooks
 import useGetPollCategoryItem from "../../hooks/useGetPollCategoryItem";
-import useGetPollCategoryPeriod from "../../hooks/useGetPollCategoryPeriod";
-import { PrimaryDateInput } from "../atoms/input/dateInput";
+// icon
+import CheckIcon from "@mui/icons-material/Check";
+import AdsClickIcon from "@mui/icons-material/AdsClick";
+import LooksOneIcon from "@mui/icons-material/LooksOne";
+import LooksTwoIcon from "@mui/icons-material/LooksTwo";
 
-//できていない→ユーザにつき一回づつの投票
-
-//Selectコンポーネント
 const Poll = memo(() => {
   const [popularPollTitle, setPopularPollTitle] = useState<Questionnaire[]>([]);
   const [othersPollTitle, setOthersPollTitle] = useState<Questionnaire[]>([]);
   const [pollTitle, setPollTitle] = useState<Questionnaire[]>([]);
-
-  const [selectedValue, setSelectedValue] =
-    useState("投票の種類を選択してください");
+  const [startPeriodDate, setStartPeriodDate] = useState("");
+  const [endPeriodDate, setEndPeriodDate] = useState("");
 
   //カスタムフック(投票中の人気投票とその他投票の商品データ)
   const PopularitemData: Items[] = useGetPollCategoryItem(1);
   const OtheritemData: Items[] = useGetPollCategoryItem(2);
-  //カスタムフック（投票中のカテゴリ別投票データ→投票終了したデータに後で変えたい）
-  const PopularPeriodData: Questionnaire[] = useGetPollCategoryPeriod(1);
-  const OthersPeriodData: Questionnaire[] = useGetPollCategoryPeriod(2);
 
   //ref
   const refContents = useRef<HTMLDivElement>(null);
@@ -53,42 +40,49 @@ const Poll = memo(() => {
       });
     }
   }, [refContents]);
+
   const now = new Date();
 
-  //人気投票かその他の投票か////////////////////////////
-  const handleSelectChange = (e: any) => {
-    setSelectedValue(e.target.value);
+  const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setStartPeriodDate(e.target.value);
   };
+  const handleEndDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEndPeriodDate(e.target.value);
+  };
+
   useEffect(() => {
-    if (selectedValue === "人気投票") {
-      console.log("p");
-      const populerPeriodData = PopularPeriodData.filter((period: any) => {
-        return period.endDate < now;
+    //startdataが超えていたら
+    (async () => {
+      const response = await fetch(`http://localhost:8880/questionnaire`);
+      const data = await response.json();
+      const period = data.map((question: Questionnaire) => {
+        const endDate = new Date(question.endDate);
+        const startDate = new Date(question.startDate);
+        const isValidPeriod = endDate < now;
+        return {
+          ...question,
+          isValidPeriod: isValidPeriod,
+          endDate: endDate,
+          startDate: startDate,
+        };
       });
-      setPollTitle(populerPeriodData);
-    } else if (selectedValue === "その他の投票") {
-      console.log("o");
-      const otherPeriodData = OthersPeriodData.filter((period: any) => {
-        return period.endDate < now;
+      const validPeriodData = period.filter((question: any) => {
+        return question.isValidPeriod;
       });
-      setPollTitle(otherPeriodData);
-    }
-  }, [selectedValue]);
-  ////////////////////////////////
-
-  //投票終了している投票→下のリンクに表示
-  // 人気
-  const populerPeriodData = PopularPeriodData.filter((period: any) => {
-    return period.endDate < now;
-  });
-  console.log(populerPeriodData, "per1");
-  // その他
-  const otherPeriodData = OthersPeriodData.filter((period: any) => {
-    return period.endDate < now;
-  });
-  console.log(otherPeriodData, "per2");
-
-  ///////////////////////////////////////////////
+      const endData = validPeriodData.map((data: Questionnaire) => {
+        return data.endDate;
+      });
+      if (startPeriodDate !== "" && endPeriodDate !== "") {
+        const periodData = validPeriodData.filter((date: Questionnaire) => {
+          return (
+            date.startDate >= new Date(startPeriodDate) &&
+            date.endDate <= new Date(endPeriodDate)
+          );
+        });
+        setPollTitle(periodData);
+      }
+    })();
+  }, [startPeriodDate, endPeriodDate]);
 
   //人気投票タイトル（後でカスタムフック化）
   useEffect(() => {
@@ -147,44 +141,201 @@ const Poll = memo(() => {
   return (
     <>
       <Paper sx={{ mb: 5, width: "100%", minWidth: 500, maxWidth: 1200 }}>
+        <div id="top"></div>
         <Box sx={{ textAlign: "right", p: 2 }}>
-          <ActiveBlueButton
+          <ActiveBeigeButton
             event={scrollToContents}
             style={{ padding: 15, width: 200 }}
           >
-            過去の投票結果
-          </ActiveBlueButton>
+            過去の投票結果を見る
+          </ActiveBeigeButton>
         </Box>
-        <PollTitle poll={popularPollTitle} />
-        <DottedMemo
-          text={" 一番気になる、好きなドリンクに投票しよう！"}
-          information={"※各投票、お一人につき一回まで投票が可能です"}
-          fontSize={"20px"}
-          maxWidth={700}
-          minWidth={500}
-          margin={4}
-        />
+        <Box
+          sx={{
+            textAlign: "center",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            backgroundImage: "url(/coffeebeens.jpeg)",
+            backgroundSize: "200px",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition:  "-50px top",
+          }}
+        >
+          <Box sx={{ textAlign: "left", fontSize: "27px", mx: 5, mt: 10 }}>
+            ＼現在開催中の投票はこちら／
+          </Box>
+          <List sx={{ textAlign: "center", mb: 17 }}>
+            {!(popularPollTitle[0]?.endDate <= now) ? (
+              <Box sx={{ textAlign: "center" }}>
+                <ListItem
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    p: 2,
+                    borderBottom: 2,
+                    width: 500,
+                    mb:3,
+                    mt:3,
+                    ml:5
+                  }}
+                  button
+                  component="a"
+                  href={`#popular`}
+                >
+                  <ListItemText
+                    primaryTypographyProps={{
+                      textAlign: "left",
+                      fontSize: "23px",
+                      fontWeight: "bold",
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    <LooksOneIcon sx={{ fontSize: "35px", color: "gray" }} />
+                    &nbsp;&nbsp;&nbsp;{popularPollTitle[0]?.name}
+                  </ListItemText>
+                </ListItem>
+              </Box>
+            ) : (
+              <Box></Box>
+            )}
 
-        <PollCard
-          data={PopularitemData}
-          pollNum={popularPollTitle[0]?.id}
-          pollCategory={popularPollTitle[0]?.category}
-        />
-
-        <PollTitle poll={othersPollTitle} />
-        <DottedMemo
-          text={" みんなの投票で会社に設置してある ドリンクの種類がかわるよ！"}
-          information={"※各投票、お一人につき一回まで投票が可能です"}
-          fontSize={"20px"}
-          maxWidth={700}
-          minWidth={500}
-          margin={4}
-        />
-        <PollCard
-          data={OtheritemData}
-          pollNum={othersPollTitle[0]?.id}
-          pollCategory={othersPollTitle[0]?.category}
-        />
+            {!(othersPollTitle[0]?.endDate <= now) ? (
+              <ListItem
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  p: 2,
+                  borderBottom: 2,
+                  width: 500,
+                  ml:5
+                }}
+                button
+                component="a"
+                href={`#others`}
+              >
+                <ListItemText
+                  primaryTypographyProps={{
+                    fontSize: "23px",
+                    fontWeight: "bold",
+                    lineHeight: 1.2,
+                    textAlign: "left",
+                  }}
+                >
+                  <LooksTwoIcon sx={{ fontSize: "35px", color: "gray" }} />
+                  &nbsp;&nbsp;&nbsp;{othersPollTitle[0]?.name}
+                </ListItemText>
+              </ListItem>
+            ) : (
+              <Box></Box>
+            )}
+          </List>
+        </Box>
+        {!(popularPollTitle[0]?.endDate <= now) ? (
+          <>
+            <div id="popular"></div>
+            <PollTitle poll={popularPollTitle} />
+            <DottedMemo
+              text={" 一番気になる、好きなドリンクに投票しよう！"}
+              information={"※各投票、お一人につき一回まで投票が可能です"}
+              fontSize={"20px"}
+              maxWidth={700}
+              minWidth={500}
+              margin={4}
+            />
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-around",
+                alignItems: "center",
+              }}
+            >
+              <Box
+                sx={{
+                  textAlign: "center",
+                  fontSize: "30px",
+                  my: 5,
+                  background: "linear-gradient(transparent 70%, #fffacd 70%)",
+                  width: "700px",
+                  ml: 2,
+                }}
+              >
+                {" "}
+                <AdsClickIcon sx={{ mr: 2, fontSize: "40px" }} />
+                気になる商品をクリックして投票しよう!
+              </Box>
+              <Box sx={{ fontSize: "23px" }}>
+                投票商品数
+                <span style={{ fontSize: "30px" }}>
+                  {PopularitemData.length}
+                </span>
+                種類
+              </Box>
+            </Box>
+            <PollCard
+              data={PopularitemData}
+              pollNum={popularPollTitle[0]?.id}
+              pollCategory={popularPollTitle[0]?.category}
+            />
+          </>
+        ) : (
+          <></>
+        )}
+        {!(othersPollTitle[0]?.endDate <= now) ? (
+          <>
+            <div id="others"></div>
+            <PollTitle poll={othersPollTitle} />
+            <Link href="#top" sx={{ ml: 2 }}>
+              ページTOPへ
+            </Link>
+            <DottedMemo
+              text={
+                " みんなの投票で会社に設置してある ドリンクの種類がかわるよ！"
+              }
+              information={"※各投票、お一人につき一回まで投票が可能です"}
+              fontSize={"20px"}
+              maxWidth={700}
+              minWidth={500}
+              margin={4}
+            />
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-around",
+                alignItems: "center",
+              }}
+            >
+              <Box
+                sx={{
+                  textAlign: "center",
+                  fontSize: "30px",
+                  my: 5,
+                  background: "linear-gradient(transparent 70%, #fffacd 70%)",
+                  width: "700px",
+                  ml: 2,
+                }}
+              >
+                {" "}
+                <AdsClickIcon sx={{ mr: 2, fontSize: "40px" }} />
+                気になる商品をクリックして投票しよう!
+              </Box>
+              <Box sx={{ fontSize: "23px" }}>
+                投票商品数
+                <span style={{ fontSize: "30px" }}>{OtheritemData.length}</span>
+                種類
+              </Box>
+            </Box>
+            <PollCard
+              data={OtheritemData}
+              pollNum={othersPollTitle[0]?.id}
+              pollCategory={othersPollTitle[0]?.category}
+            />
+          </>
+        ) : (
+          <Box>現在投票は行なっておりません</Box>
+        )}
         <Box
           sx={{
             background: "#fff9f5",
@@ -209,59 +360,72 @@ const Poll = memo(() => {
             過去の投票結果
           </Box>
         </Box>
-        <Box sx={{ ml: 70 }}>
-          <Box>
-            <InputLabel id="brand-label" sx={{ mt: 2, fontWeight: "bold" }}>
-              期間
-            </InputLabel>
-            <TextField
-              type="date"
-              variant="standard"
-              sx={{ width: "200px", mb: 5 }}
-            />
-            <span
-              style={{
-                fontSize: "1.5rem",
-                marginLeft: "10px",
-                marginRight: "10px",
-              }}
-            >
-              〜
-            </span>
-            <TextField
-              type="date"
-              variant="standard"
-              sx={{ width: "200px", mb: 5 }}
-            />
+        <Link href="#top" sx={{ ml: 2 }}>
+          ページTOPへ
+        </Link>
+        <Box sx={{ ml: 60 }}>
+          <Box sx={{ p: 2, mb: 3, fontSize: "25px" }}>
+            <CheckIcon sx={{ fontSize: "30px", mr: 2 }} />
+            投票期間を選択してください
           </Box>
-          <Select
-            sx={{ mb: 3, backgroundColor: "#fffffc" }}
-            value={selectedValue}
-            variant="standard"
-            onChange={handleSelectChange}
-          >
-            <MenuItem value="投票の種類を選択してください">
-              投票の種類を選択してください
-            </MenuItem>
-            <MenuItem value="人気投票">人気投票</MenuItem>
-            <MenuItem value="その他の投票">その他の投票</MenuItem>
-          </Select>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Box>
+              <PrimaryDateInput
+                name="startdate"
+                value={startPeriodDate}
+                onChange={handleStartDateChange}
+              />
+              <span
+                style={{
+                  fontSize: "1.5rem",
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                }}
+              >
+                〜
+              </span>
+            </Box>
+            <Box>
+              <PrimaryDateInput
+                name="enddate"
+                value={endPeriodDate}
+                onChange={handleEndDateChange}
+              />
+            </Box>
+          </Box>
         </Box>
         {pollTitle &&
-          pollTitle.map((data) => (
-            <List
-              sx={{ textAlign: "center", fontSize: "25px", color: "1e90ff" }}
+          pollTitle.map((data, index) => (
+            <Box
+              sx={{ textAlign: "center" }}
+              key={index}
+              mb={2}
+              bgcolor="#f5f5f5"
             >
-              <ListItem
-                sx={{ textAlign: "center" }}
-                component="a"
-                href={`/home/poll/${data.id}`}
-              >
-                <ListItemText primaryTypographyProps={{ fontSize: "25px" }}>
-                  {data.name}
-                </ListItemText>
-              </ListItem>
-            </List>
+              <List sx={{ fontSize: "25px", p: 0 }}>
+                <ListItem
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    p: 2,
+                  }}
+                  button
+                  component="a"
+                  href={`/home/poll/${data.id}`}
+                >
+                  <AdsClickIcon sx={{ mr: 2, fontSize: "20px" }} />
+                  <ListItemText
+                    primaryTypographyProps={{
+                      fontSize: "25px",
+                      fontWeight: "bold",
+                      lineHeight: 1.2,
+                    }}
+                    primary={data.name}
+                  />
+                </ListItem>
+              </List>
+            </Box>
           ))}
       </Paper>
     </>

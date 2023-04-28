@@ -1,91 +1,69 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import {
-  ActiveBeigeButton,
-  InactiveButton,
-  PrimaryButton,
-} from "../atoms/button/Button";
+import { ActiveBeigeButton, InactiveButton } from "../atoms/button/Button";
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { loginUserState } from "../../store/loginUserState";
-
+import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
+//cookie
+import Cookies from "js-cookie";
 //types
-import { Items, Users } from "../../types/type";
+import { Items, Polls, Questionnaire } from "../../types/type";
 //icon
 import SearchIcon from "@mui/icons-material/Search";
 import SwitchAccessShortcutAddIcon from "@mui/icons-material/SwitchAccessShortcutAdd";
 import ModalWindow from "../organisms/ModalWindow";
-import { WidthFull } from "@mui/icons-material";
+
+import useGetPollCategoryData from "../../hooks/useGetPollCategoryData";
+import useGetPollCategoryPeriod from "../../hooks/useGetPollCategoryPeriod copy";
 
 type PollCardProps = {
   data: Items[];
-  pollNum: number;
   pollCategory: number;
-};
-
-export const generateUniqueId = async () => {
-  let id = Math.floor(Math.random() * 1000) + 1;
-  const res = await fetch("http://localhost:8880/polls");
-  const data = await res.json();
-  while (data.includes(id)) {
-    id = Math.floor(Math.random() * 1000) + 1;
-  }
-  return id;
+  pollNum?: number;
 };
 
 const PollCard = ({ data, pollNum, pollCategory }: PollCardProps) => {
   const navigate = useNavigate();
-  const [users, setUsers] = useState<Users>();
-  //recoil
-  const [loginUser, setLoginUser] = useRecoilState(loginUserState);
-  const userId = loginUser.id;
+  const [pollData, setPollData] = useState<Polls[]>([]);
+  //login
+  const authId = Cookies.get("authId")!;
+  const loginUser = useLoginUserFetch({ authId: authId });
 
-  //ユーザ1を取得(後で消す)
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await fetch(`http://localhost:8880/users/1`); //仮でユーザID1のユーザでテスト中
-        const data = await response.json();
-        setUsers(data);
-      } catch (error) {
-        console.error(error);
-      }
-    })();
-  }, []);
+  const PopularPollData: Polls[] = useGetPollCategoryData(1);
+  const OthersPollData: Polls[] = useGetPollCategoryData(2);
+
+  //userIdがログインユーザと一致しているかしていないか
+  const popularData = PopularPollData?.filter((pop) => {
+    return pop.userId === loginUser.id;
+  });
+  const othersData = OthersPollData?.filter((other) => {
+    return other.userId === loginUser.id;
+  });
 
   //投票ボタン
   const submitPoll = async (drinkId: number) => {
     try {
-      const id = await generateUniqueId();
       const data = {
-        id,
         questionnaireId: pollNum,
-        userId,
+        userId: loginUser.id,
+        category: pollCategory,
         result: drinkId,
         createdAt: new Date(),
       };
-      const endpoint = pollCategory === 1 ? "polledPopular" : "polledOther";
-      const response = await fetch(`http://localhost:8880/users/1/${endpoint}`, {
-        method: "PUT",
-        body: JSON.stringify({ ...users, [endpoint]: true }),
-        headers: { "Content-Type": "application/json" },
-      });
-      const responseData = await response.json();
-      setUsers((prevUsers: any) => ({ ...prevUsers, [endpoint]: true }));
-      console.log(responseData);
-  
-      const pollResponse = await fetch("http://localhost:8880/polls", {
+      const response = await fetch("http://localhost:8880/polls", {
         method: "POST",
         body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
-      const pollData = await pollResponse.json();
-      console.log(pollData);
+      const responseData = await response.json();
+      console.log(responseData);
+      window.location.reload()
     } catch (err) {
       console.log(err, "エラー");
     }
@@ -238,10 +216,18 @@ const PollCard = ({ data, pollNum, pollCategory }: PollCardProps) => {
                   }}
                 >
                   <SearchIcon />
-                  詳細を見る
+                  気になる
                 </ActiveBeigeButton>
-                {(users?.polledPopular && pollCategory === 1) ||
-                (users?.polledOther && pollCategory === 2) ? (
+                {(popularData.length >= 1 &&
+                  pollCategory === 1 &&
+                  PopularPollData.some(
+                    (data) => data.questionnaireId === pollNum
+                  )) ||
+                (othersData.length >= 1 &&
+                  pollCategory === 2 &&
+                  OthersPollData.some(
+                    (data) => data.questionnaireId === pollNum
+                  )) ? (
                   <InactiveButton
                     sx={{
                       background: "#e29399",

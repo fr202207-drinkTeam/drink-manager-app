@@ -76,7 +76,7 @@ const LoginForm: FC<Props> = (props) => {
       setLoginUser(user[0]);
       //cookieをセット
       if (loginedUser.uid === user[0].authId) {
-        document.cookie = `authId=${loginedUser.uid}; max-age=1800`;
+        document.cookie = `authId=${loginedUser.uid}; max-age=18000000000`;
       } else {
         alert("ユーザーが存在しません");
       }
