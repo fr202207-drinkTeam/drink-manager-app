@@ -31,6 +31,7 @@ import { CardMedia } from "@mui/material";
 import { ActiveOrangeButton } from "../atoms/button/Button";
 import { useLocation } from "react-router-dom";
 import Slider from "../atoms/slider/Slider";
+import ItemSearchForm from "../molecules/ItemSearchForm";
 function DefaultLayout({ children }: { children: any }) {
   const handleButtonClick = () => {};
   // パスの取得
@@ -67,7 +68,7 @@ function DefaultLayout({ children }: { children: any }) {
               - キーワードで探す -
             </Typography>
             <Box sx={{ mb: 10 }}>
-              <TextField
+              {/* <TextField
                 id="outlined-basic"
                 variant="outlined"
                 sx={{ my: 4, width: "100%", backgroundColor: "#fff" }}
@@ -77,7 +78,15 @@ function DefaultLayout({ children }: { children: any }) {
                 sxStyle={{ width: "100%" }} // ここでwidthを指定する
               >
                 検索する
-              </ActiveOrangeButton>
+              </ActiveOrangeButton> */}
+              <ItemSearchForm
+                searchWord={""}
+                setSearchWord={function (
+                  value: React.SetStateAction<string>
+                ): void {
+                  throw new Error("Function not implemented.");
+                }}
+              />
               <Box sx={{ my: 4 }}>
                 <img src="/dummybanner.jpg" style={{ maxWidth: "100%" }} />
               </Box>

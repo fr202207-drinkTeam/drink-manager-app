@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useNavigate } from "react-router-dom";
+import { Paper } from "@mui/material";
 const AccordionMenu = () => {
   const navigate = useNavigate();
   const [expanded, setExpanded] = useState(null);
@@ -14,7 +15,7 @@ const AccordionMenu = () => {
       setExpanded(newExpanded ? panel : false);
     };
   const handleAccordionClick = (category: string | number) => {
-    navigate(`/home/search?category=${category}`);
+    navigate(`/home/search?category=${category}&page=1`);
   };
 
   return (
@@ -84,12 +85,6 @@ const AccordionMenu = () => {
           >
             └カフェインレス
           </AccordionSummary>
-          <AccordionSummary
-            id="allcoffee"
-            onClick={() => handleAccordionClick("allcoffee")}
-          >
-            └すべてのコーヒー
-          </AccordionSummary>
         </Accordion>
         <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("5")}>
           <AccordionSummary id="tea">ティー</AccordionSummary>
@@ -102,6 +97,9 @@ const AccordionMenu = () => {
         </Accordion>
         <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("all")}>
           <AccordionSummary id="tea">すべて</AccordionSummary>
+        </Accordion>
+        <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("5")}>
+          <AccordionSummary id="tea">ティー</AccordionSummary>
         </Accordion>
       </div>
     </>
