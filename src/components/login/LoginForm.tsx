@@ -32,6 +32,7 @@ const LoginForm: FC<Props> = (props) => {
   const [passText, setPassText] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [errorUser, setErrorUser] = useState<boolean>(false);
+  const [errorAdminCheck, setErrorAdminCheck] = useState<boolean>(false);
 
   //入力フォーム
   const [email, setEmail] = useState<string>("");
@@ -75,22 +76,30 @@ const LoginForm: FC<Props> = (props) => {
       const user = await response.json();
       // Recoil
       setLoginUser(user[0]);
-      //cookieをセット
-      if (loginedUser.uid === user[0].authId) {
+      //管理者判定しcookieセット
+      if (
+        currentLocation.startsWith("/adminlogin") &&
+        loginedUser.uid === user[0].authId &&
+        user[0].isAdmin === true
+      ) {
         document.cookie = `authId=${loginedUser.uid}; max-age=86400`;
-      } else {
-        setErrorUser(true);
-      }
-      //管理者判定
-      if (user[0].isAdmin === false) {
+        navigate("/adminhome");
+      } else if (
+        currentLocation.startsWith("/login") &&
+        loginedUser.uid === user[0].authId &&
+        user[0].isAdmin === false
+      ) {
+        document.cookie = `authId=${loginedUser.uid}; max-age=86400`;
         navigate("/home");
       } else {
-        navigate("/adminhome");
+        setErrorUser(true);
       }
     } catch (error) {
       setErrorUser(true);
     }
   };
+
+  console.log(errorAdminCheck);
 
   return (
     <Container maxWidth="sm" sx={{ alignItems: "center", mt: "80px" }}>

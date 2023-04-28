@@ -63,15 +63,20 @@ const Register: FC<Props> = memo((props) => {
 
     if (name === "userId") {
       setErrorId(true);
-    } else if (name === "firstName") {
+    }
+    if (name === "firstName") {
       setErrorFirstName(true);
-    } else if (name === "lastName") {
+    }
+    if (name === "lastName") {
       setErrorLastName(true);
-    } else if (name === "email") {
+    }
+    if (name === "email") {
       setErrorMail(true);
-    } else if (name === "password") {
+    }
+    if (name === "password") {
       setErrorPass(true);
-    } else if (name === "confirmPassword") {
+    }
+    if (name === "confirmPassword") {
       setErrorConfirmPass(true);
     }
   };
@@ -123,8 +128,8 @@ const Register: FC<Props> = memo((props) => {
     } catch (error: any) {
       if (error.code === "auth/email-already-in-use") {
         setErrorFraudEmail("メールアドレスが既に存在しています");
-      } else if (error.code === "auth/invalid-email") {
-        setErrorFraudEmail("不正なメールアドレスです");
+      } else {
+        setErrorFraudEmail("未知のエラーです");
       }
     }
   };
