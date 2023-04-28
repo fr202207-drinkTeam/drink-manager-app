@@ -15,7 +15,7 @@ export type Items = {
   id: number;
   name: string;
   description: string;
-  image: string;
+  image: string[];
   itemCategory?: number|null;
   createdAt?: Date|null;
   intheOffice: boolean;
@@ -46,4 +46,24 @@ export type Polls = {
   result: number;
   createdAt: Date;
   category:number;
+};
+
+export type Posts = {
+  id: number;
+  userId: number;
+  content: string;
+  itemId: number;
+  postImage: string[];
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type Post = {
+  id: number;
+  userId: number;
+  content: string;
+  itemId: number;
+  postImage: string[];
+  createdAt: Date;
+  updatedAt: Date;
 };

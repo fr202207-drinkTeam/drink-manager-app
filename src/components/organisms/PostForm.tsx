@@ -12,50 +12,39 @@ import {
 } from "@mui/material";
 import { FC, memo, useState } from "react";
 import PreviewImage from "../molecules/PreviewImage";
+import getImagePaths from "../../utils/getImagePaths";
+import previewImages from "../../utils/previewImages";
 
-type Props = {};
-
-const PostForm: FC<Props> = memo((props) => {
+const PostForm: FC = memo(() => {
   // 入力した画像ファイル格納
   const [inputImages, setInputImages] = useState<File[]>([]);
 
-  // 入力した画像ファイルのstate管理
-  const previewImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // 入力した画像に重複がないか判別
-    const preventSameImage = inputImages.some(
-      (image: File) => image.name === event.target.files![0].name
-    );
-    // 重複があった場合は処理を終了
-    if (preventSameImage) {
-      return;
-    }
-
-    // 画像ファイルが3つ以上の場合、古い画像を削除して新しい3つを追加
-    if (inputImages.length >= 3) {
-      setInputImages((inputImages: File[]) => {
-        const limitedImages = [...inputImages, event.target.files![0]];
-        limitedImages.shift();
-        return limitedImages;
-      });
-    }
-    // 画像ファイルが３つ未満の場合、通常の画像追加
-    else {
-      setInputImages((inputImages: File[]) => [
-        ...inputImages,
-        event.target.files![0],
-      ]);
-    }
-  };
-
   // TODO 投稿送信処理
-  const postData = (event: React.FormEvent<HTMLFormElement>) => {
+  const fetchPostData = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const imagePaths = await getImagePaths(inputImages);
+    console.log(imagePaths);
+
+    fetch("http://localhost:8880/posts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: 3,
+        content: "テスト投稿だよ",
+        itemId: 2,
+        postImag: imagePaths,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }),
+    }).then(() => {
+      console.log("success");
+    });
   };
 
   return (
     <Paper
       component="form"
-      onSubmit={postData}
+      onSubmit={fetchPostData}
       elevation={3}
       sx={{ mt: 2, mb: 5 }}
     >
@@ -125,7 +114,9 @@ const PostForm: FC<Props> = memo((props) => {
             type="file"
             sx={{ p: "0", display: "none" }}
             size="small"
-            onChange={previewImage}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              previewImages(event, inputImages, setInputImages);
+            }}
           />
         </Grid>
 
