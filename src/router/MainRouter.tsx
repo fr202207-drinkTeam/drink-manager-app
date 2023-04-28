@@ -57,44 +57,69 @@ export const MainRouter = () => {
   const [loading, setLoading] = useState(true);
 
   return (
-    <>
-      <Routes>
-        {MainRoute.map((route, index) => (
-          <Route key={index} path={route.path} element={route.element} />
-        ))}
-        {/* adminhome配下のルーティング */}
-        {AdminRouter.map((route, index) => (
-          <Route
-            key={index}
-            path={`/adminhome${route.path}`}
-            element={
-              loginUser?.firstName === "" ? (
-                <></>
-              ) : authId && loginUser.isAdmin ? (
-                <DefaultLayout>{route.element}</DefaultLayout>
-              ) : (
-                <Navigate to="/login" replace />
-              )
-            }
-          />
-        ))}
-        {/* home配下のルーティング */}
-        {UserRouter.map((route, index) => (
-          <Route
-            key={index}
-            path={`/home${route.path}`}
-            element={
-              loginUser?.firstName === "" ? (
-                <></>
-              ) : authId ? (
-                <DefaultLayout>{route.element}</DefaultLayout>
-              ) : (
-                <Navigate to="/login" replace />
-              )
-            }
-          />
-        ))}
-      </Routes>
-    </>
+    <Routes>
+      {MainRoute.map((route, index) => (
+        <Route key={index} path={route.path} element={route.element} />
+      ))}
+      {/* adminhome配下のルーティング */}
+      {AdminRouter.map((route, index) => (
+        <Route
+          key={index}
+          path={`/adminhome${route.path}`}
+          element={<DefaultLayout>{route.element}</DefaultLayout>}
+        />
+      ))}
+      {/* home配下のルーティング */}
+      {UserRouter.map((route, index) => (
+        <Route
+          key={index}
+          path={`/home${route.path}`}
+          element={<DefaultLayout>{route.element}</DefaultLayout>}
+        />
+      ))}
+    </Routes>
   );
+
+  //修正中
+  // return (
+  //   <>
+  //     <Routes>
+  //       {MainRoute.map((route, index) => (
+  //         <Route key={index} path={route.path} element={route.element} />
+  //       ))}
+  //       {/* adminhome配下のルーティング */}
+  //       {AdminRouter.map((route, index) => (
+  //         <Route
+  //           key={index}
+  //           path={`/adminhome${route.path}`}
+  //           element={
+  //             loginUser?.firstName === "" ? (
+  //               <></>
+  //             ) : authId && loginUser.isAdmin ? (
+  //               <DefaultLayout>{route.element}</DefaultLayout>
+  //             ) : (
+  //               <Navigate to="/login" replace />
+  //             )
+  //           }
+  //         />
+  //       ))}
+  //       {/* home配下のルーティング */}
+  //       {UserRouter.map((route, index) => (
+  //         <Route
+  //           key={index}
+  //           path={`/home${route.path}`}
+  //           element={
+  //             loginUser?.firstName === "" ? (
+  //               <></>
+  //             ) : authId ? (
+  //               <DefaultLayout>{route.element}</DefaultLayout>
+  //             ) : (
+  //               <Navigate to="/login" replace />
+  //             )
+  //           }
+  //         />
+  //       ))}
+  //     </Routes>
+  //   </>
+  // );
 };
