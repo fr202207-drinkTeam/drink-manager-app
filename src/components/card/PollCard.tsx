@@ -77,6 +77,7 @@ const PollCard = ({ data, pollNum, pollCategory }: PollCardProps) => {
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "space-around",
+          flex:"end",
           mt: 5,
         }}
       >

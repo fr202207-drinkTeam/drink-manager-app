@@ -137,7 +137,7 @@ const Poll = memo(() => {
 
   return (
     <>
-      <Paper sx={{ mb: 5, width: "100%", minWidth: 500, maxWidth: 1200 }}>
+      <Paper sx={{ mb: 5, width: "100%", minWidth: 500, maxWidth: 1200 ,pb:13}}>
         <div id="top"></div>
         <Box sx={{ textAlign: "right", p: 2 }}>
           <ActiveBeigeButton
@@ -349,6 +349,7 @@ const Poll = memo(() => {
               fontSize: "40px",
               textAlign: "center",
               mt: 10,
+              mb:3,
               backgroundColor: "white",
               background:
                 "-webkit-repeating-linear-gradient(-45deg, #9acd32, #d4acad 2px, #fff 2px, #fff 4px)",
@@ -360,8 +361,8 @@ const Poll = memo(() => {
         <Link href="#top" sx={{ ml: 2 }}>
           ページTOPへ
         </Link>
-        <Box sx={{ ml: 60 }}>
-          <Box sx={{ p: 2, mb: 3, fontSize: "25px" }}>
+        <Box sx={{ ml: 60 ,}}>
+          <Box sx={{ p: 2, mb: 3, fontSize: "25px"}}>
             <CheckIcon sx={{ fontSize: "30px", mr: 2 }} />
             投票期間を選択してください
           </Box>
@@ -399,7 +400,7 @@ const Poll = memo(() => {
               mb={2}
               bgcolor="#f5f5f5"
             >
-              <List sx={{ fontSize: "25px", p: 0 }}>
+              <List sx={{ fontSize: "25px", p: 0}}>
                 <ListItem
                   sx={{
                     display: "flex",

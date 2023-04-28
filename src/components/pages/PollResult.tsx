@@ -86,18 +86,20 @@ console.log(pollResult,"pollresult")
 
   //questionnerに登録されているpolledItemsのidを取得
   useEffect(() => {
-    //商品ID投票されている商品ID
-    const polllCountItems = items.filter((item: Items) => {
-      return pollResult.includes(item.id);
-    });
-    polllCountItems.sort((a: Items, b: Items) => {
-      const aCount = pollCounts[a.id];
-      const bCount = pollCounts[b.id];
-      return bCount - aCount;
-    });
-    setPollCounts(polllCountItems);
-    console.log(polllCountItems,"polllCountItems")
-  }, [id, items, pollCounts, pollResult]);
+    if (polls.length > 0 && questionnaire && items.length > 0) {
+      //商品ID投票されている商品ID
+      const polllCountItems = items.filter((item: Items) => {
+        return pollResult.includes(item.id);
+      });
+      polllCountItems.sort((a: Items, b: Items) => {
+        const aCount = pollCounts[a.id];
+        const bCount = pollCounts[b.id];
+        return bCount - aCount;
+      });
+      setPollCounts(polllCountItems);
+      console.log(polllCountItems,"polllCountItems")
+    }
+  }, [id, questionnaire]);
 
   return (
     <>
