@@ -10,7 +10,6 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import { ActiveBlueButton, ActiveDarkBlueButton } from "../atoms/button/Button";
@@ -70,8 +69,12 @@ const Header = () => {
   console.log(loginUser, "user");
   const onLogoutClick = () => {
     document.cookie = `authId=; max-age=0`;
-    navigate("/login");
-    alert("ログアウトしました");
+    // ログアウト時の画面遷移の分岐
+    if (loginUser?.isAdmin) {
+      navigate("/adminlogin");
+    } else {
+      navigate("/login");
+    }
   };
   return (
     <>
@@ -83,7 +86,12 @@ const Header = () => {
           alignItems: "center",
         }}
       >
-        <Typography>こんにちは {loginUser?.firstName}さん</Typography>
+        {loginUser?.isAdmin ? (
+          <Typography>こんにちは管理者さん</Typography>
+        ) : (
+          <Typography>こんにちは {loginUser?.firstName}さん</Typography>
+        )}
+
         <ModalWindow
           title=""
           content="本当にログアウトしてもよろしいですか？"
