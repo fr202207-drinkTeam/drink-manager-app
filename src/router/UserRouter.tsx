@@ -17,5 +17,5 @@ export const UserRouter = [
   { path: "/faq", element: <Faq /> },
   { path: "/poll", element: <Poll /> },
   { path: "/poll/:id", element: <PollResult /> },
-  { path: "/", element: <Top /> },
+  // { path: "/", element: <Top /> },
 ];
