@@ -711,6 +711,38 @@
       "day": "2023-05-2T02:50:27.944Z",
       "incOrDec": true,
       "stockAmount": 1
+    },
+    {
+      "id": 2,
+      "itemId": 2,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 1
+    },
+    {
+      "id": 3,
+      "itemId": 2,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 1
+    },
+    {
+      "id": 4,
+      "itemId": 2,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 1
+    },
+    {
+      "id": 5,
+      "itemId": 2,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 1
     }
   ],
   "addition": [
