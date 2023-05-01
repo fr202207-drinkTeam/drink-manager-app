@@ -81,15 +81,25 @@ const ItemDetail: FC = memo(() => {
   }, [itemId]);
 
   // 投稿削除処理(削除ボタン)
-  const deleteItem = async () => {
-    await fetch(`http://localhost:8880/items/${itemId}`, {
+  const onClickdeleteItem = async () => {
+    fetch(`http://localhost:8880/addition`, {
       method: "DELETE",
+      mode: 'no-cors',
       headers: {
         "Content-Type": "application/json",
       },
-    }).then(() => {
-      navigate(-1);
-    });
+    }).then((response) => {
+      console.log(response);
+      if(!response.ok) {
+          console.log('Delete error!');
+          throw new Error('error');
+      } 
+  }).then(() => {
+      // navigate(-1);
+      console.log("delete ok")
+    }).catch(errObj => {
+      console.log("err", errObj)
+  });
   };
 
   console.log(postData);
@@ -172,9 +182,9 @@ const ItemDetail: FC = memo(() => {
                   <Card
                     sx={{
                       p: 1,
-                      backgroundColor: "#ffdead",
+                      backgroundColor: "#f3bf88",
                       border: "2px dashed #fff ",
-                      boxShadow: " 0 0 0 8px #ffdead",
+                      boxShadow: " 0 0 0 8px #f3bf88",
                       maxWidth: 500,
                       minWidth: 100,
                       display: "flex",
@@ -284,13 +294,13 @@ const ItemDetail: FC = memo(() => {
             商品を削除
           </ActiveRedButton> */}
                 <ModalWindow
-                  title="削除"
+                  title=""
                   content="商品データを本当に削除しますか？"
                   openButtonColor="red"
-                  completeButtonColor="beige"
+                  completeButtonColor="red"
                   completeButtonName="削除"
-                  completeAction={deleteItem}
-                  cancelButtonColor="pink"
+                  completeAction={onClickdeleteItem}
+                  cancelButtonColor="gray"
                   openButtonSxStyle={{
                     my: 2,
                   }}

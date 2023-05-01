@@ -100,23 +100,7 @@ const AddItem: FC<Props> = memo((props) => {
         )}
 
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <ModalWindow
-            title="削除"
-            content="内容は破棄されますがよろしいですか？"
-            openButtonColor="red"
-            completeButtonColor="red"
-            completeButtonName="削除"
-            completeAction={() => {
-              navigate(-1);
-            }}
-            cancelButtonColor="gray"
-            openButtonSxStyle={{
-              my: 2,
-              mr: 3,
-              py: "5px",
-              fontSize: "16px",
-            }}
-          />
+          
           {itemName &&
           itemDescription &&
           itemCategory !== 0 &&
@@ -146,6 +130,23 @@ const AddItem: FC<Props> = memo((props) => {
               </InactiveButton>
             </>
           )}
+          <ModalWindow
+            title="削除"
+            content="内容は破棄されますがよろしいですか？"
+            openButtonColor="red"
+            completeButtonColor="red"
+            completeButtonName="削除"
+            completeAction={() => {
+              navigate(-1);
+            }}
+            cancelButtonColor="gray"
+            openButtonSxStyle={{
+              my: 2,
+              mr: 3,
+              py: "5px",
+              fontSize: "16px",
+            }}
+          />
         </Box>
       </Paper>
     </>
