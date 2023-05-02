@@ -18,15 +18,14 @@ import { Link } from "react-router-dom";
 import ModalWindow from "../organisms/ModalWindow";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
-import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { loginUserState } from "../../store/loginUserState";
 import { Users } from "../../types/type";
-
+import { getAuth, signOut } from "firebase/auth";
 const Header = () => {
   const navigate = useNavigate();
-  const [loginUser, setLoginUser] = useRecoilState<Users>(loginUserState);
+
   const pages = [
     { label: "Top", href: "/home" },
     { label: "ご利用ガイド", href: "/home/guide" },
@@ -69,17 +68,26 @@ const Header = () => {
   }));
 
   // ログアウト
-  // const authId = Cookies.get("authId")!;
-  // const loginUser = useLoginUserFetch({ authId: authId });
+  const auth = getAuth();
+  console.log(auth, "auth");
+  const authId = Cookies.get("authId")!;
+  const loginUser = useLoginUserFetch({ authId: authId });
   console.log(loginUser, "user");
   const onLogoutClick = () => {
-    document.cookie = `authId=; max-age=0`;
-    // ログアウト時の画面遷移の分岐
-    if (loginUser?.isAdmin) {
-      navigate("/adminlogin");
-    } else {
-      navigate("/login");
-    }
+    signOut(auth)
+      .then(() => {
+        document.cookie = `authId=; max-age=0`;
+        alert("seikou ");
+        // ログアウト時の画面遷移の分岐
+        if (loginUser?.isAdmin) {
+          navigate("/adminlogin");
+        } else {
+          navigate("/login");
+        }
+      })
+      .catch((error) => {
+        // An error happened.
+      });
   };
   return (
     <>
@@ -115,7 +123,7 @@ const Header = () => {
             }}
           />
         </div>
-        {loginUser?.firstName === "" ? (
+        {/* {loginUser?.firstName === "" ? (
           <></>
         ) : loginUser?.isAdmin ? (
           <div style={{ marginLeft: "auto" }}>
@@ -130,9 +138,8 @@ const Header = () => {
           </div>
         ) : (
           ""
-        )}
-        {/* {loginUser
-        ?.isAdmin ? (
+        )} */}
+        {loginUser?.isAdmin ? (
           <div style={{ marginLeft: "auto" }}>
             <Link to="/adminhome">
               <ActiveDarkBlueButton
@@ -145,7 +152,7 @@ const Header = () => {
           </div>
         ) : (
           ""
-        )} */}
+        )}
       </Paper>
 
       <AppBar position="static" sx={styles.appBar}>
@@ -214,9 +221,8 @@ const Header = () => {
             ></Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
-                <Link to={page.href}>
+                <Link to={page.href} key={page.label}>
                   <Button
-                    key={page.label}
                     onClick={handleCloseNavMenu}
                     sx={{
                       my: 2,
