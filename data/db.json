@@ -725,7 +725,7 @@
       "itemId": 2,
       "quantity": 1,
       "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
+      "incOrDec": false,
       "stockAmount": 1
     },
     {

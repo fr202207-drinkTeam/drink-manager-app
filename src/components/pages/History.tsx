@@ -22,9 +22,10 @@ import { Items } from "../../types/type";
 type Props = {};
 
 const History: FC<Props> = memo((props) => {
-  const [itemName, setItemName] = useState<string[]>([]);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [originalItemName, setOriginalItemName] = useState<any[]>([]);
+  const [filterItemName, setFilterItemName] = useState<any[]>([]);
+  const [startDate, setStartDate] = useState<any>("");
+  const [endDate, setEndDate] = useState<any>("");
   const [selectItem, setSelectItem] = useState("");
 
   useEffect(() => {
@@ -43,20 +44,46 @@ const History: FC<Props> = memo((props) => {
         return items ? { ...history, name: items.name } : history;
       });
 
-      const originalDate = "2023-05-2T02:50:27.944Z";
-      const dateOnly = originalDate.split("T")[0];
-
       //日付文字列を置き換え
-      const modifiedMergeObj = mergeObj.map((item: Items) => {
-        return {
-          ...item,
-          day: dateOnly,
-        };
-      });
-      setItemName(modifiedMergeObj);
+      // const modifiedMergeObj = mergeObj.map((item: any) => {
+      //   const dateOnly = item.day?.split("T")[0];
+      //   return {
+      //     ...item,
+      //     day: dateOnly,
+      //   };
+      // });
+      setOriginalItemName(mergeObj);
+      setFilterItemName(mergeObj);
     };
     historyDataFetch();
   }, []);
+
+  const searchHistory = () => {
+    //商品検索
+    // const result = originalItemName.filter((item) => item.name === selectItem);
+    // console.log(result);
+    // setFilterItemName(result);
+
+    const formattedStartDate = new Date(startDate).toISOString();
+    const formattedEndDate = new Date(endDate).toISOString();
+
+    console.log(formattedStartDate, formattedEndDate);
+    console.log(originalItemName);
+
+    const filteredItems = originalItemName.filter((item) => {
+      const dateString = item.day.split("T")[0]; // 日付部分のみ抽出
+      const itemDate = new Date(dateString);
+      console.log(itemDate, 81);
+      return (
+        itemDate >= new Date(formattedStartDate) &&
+        itemDate <= new Date(formattedEndDate)
+      );
+    });
+
+    console.log(filteredItems, 90);
+
+    // console.log(filteredItems);
+  };
 
   return (
     <>
@@ -112,15 +139,21 @@ const History: FC<Props> = memo((props) => {
                     sx={{ width: "200px" }}
                     onChange={(e: any) => setSelectItem(e.target.value)}
                   >
-                    <MenuItem value="coffee">コーヒー</MenuItem>
-                    <MenuItem value="cocoa">ココア</MenuItem>
-                    <MenuItem value="tea">紅茶</MenuItem>
+                    <MenuItem value="コーヒー">コーヒー</MenuItem>
+                    <MenuItem value="ココア">ココア</MenuItem>
+                    <MenuItem value="紅茶">紅茶</MenuItem>
+                    <MenuItem value="ブライトブレンド">
+                      ブライトブレンド
+                    </MenuItem>
+                    <MenuItem value="LAVAZZA CLASSICO">
+                      LAVAZZA CLASSICO
+                    </MenuItem>
                   </Select>
                 </Box>
                 <Box>
                   <ActiveDarkBlueButton
                     children="履歴検索"
-                    event={() => alert("履歴検索")}
+                    event={searchHistory}
                   />
                 </Box>
               </Stack>
@@ -131,15 +164,21 @@ const History: FC<Props> = memo((props) => {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow sx={{ backgroundColor: "#C0C0C0", fontWeight: "bold" }}>
-                <TableCell>商品名</TableCell>
+                <TableCell sx={{ width: "150px" }}>商品名</TableCell>
                 <TableCell align="right">登録日</TableCell>
-                <TableCell align="right">消費数</TableCell>
-                <TableCell align="right">補充数</TableCell>
-                <TableCell align="right">在庫合計</TableCell>
+                <TableCell align="right" sx={{ width: "150px" }}>
+                  消費数
+                </TableCell>
+                <TableCell align="right" sx={{ width: "150px" }}>
+                  補充数
+                </TableCell>
+                <TableCell align="right" sx={{ width: "150px" }}>
+                  在庫合計
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {itemName.map((history: any) => {
+              {filterItemName.map((history: any) => {
                 return (
                   <TableRow
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -149,14 +188,28 @@ const History: FC<Props> = memo((props) => {
                       {history.name}
                     </TableCell>
 
-                    <TableCell align="right">{history.day}</TableCell>
-                    <TableCell align="right">{history.quantity}</TableCell>
-                    <TableCell align="right">{history.quantity}</TableCell>
+                    <TableCell align="right">
+                      {history.day.split("T")[0]}
+                    </TableCell>
+                    <TableCell align="right">
+                      {history.incOrDec ? 0 : history.quantity}
+                    </TableCell>
+                    <TableCell align="right">
+                      {history.incOrDec ? history.quantity : 0}
+                    </TableCell>
                     <TableCell align="right">100</TableCell>
                   </TableRow>
                 );
               })}
             </TableBody>
+            {filterItemName.length === 0 &&
+              (startDate || endDate || selectItem) && (
+                <TableRow>
+                  <TableCell colSpan={5} align="center">
+                    <p style={{ marginLeft: "20px" }}>検索結果がありません</p>
+                  </TableCell>
+                </TableRow>
+              )}
           </Table>
         </TableContainer>
         <Box sx={{ display: "flex", justifyContent: "center", m: "20px" }}>
