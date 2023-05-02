@@ -77,7 +77,6 @@ const Header = () => {
     signOut(auth)
       .then(() => {
         document.cookie = `authId=; max-age=0`;
-        alert("seikou ");
         // ログアウト時の画面遷移の分岐
         if (loginUser?.isAdmin) {
           navigate("/adminlogin");

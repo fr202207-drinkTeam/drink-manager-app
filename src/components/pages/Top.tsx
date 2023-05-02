@@ -213,10 +213,10 @@ const Top: FC<Props> = memo((props) => {
           </Typography>
         </Card>
         <Grid container spacing={2}>
-          {postData && postData.length > 0 && (
-            <>
-              {/* 仮置 */}
-              {postData.map((postData: any) => (
+          {/* {postData && postData.length > 0 && (
+            <> */}
+          {/* 仮置 */}
+          {/* {postData.map((postData: any) => (
                 <Grid item xs={12} sm={6} md={4}>
                   <PostsData
                     key={postData.id}
@@ -225,9 +225,9 @@ const Top: FC<Props> = memo((props) => {
                   />
                 </Grid>
               ))}
-              <Box sx={{ mt: "20px" }}></Box>
-            </>
-          )}
+              <Box sx={{ mt: "20px" }}></Box> */}
+          {/* </>
+          )} */}
         </Grid>
 
         <Box sx={{ textAlign: "center" }}>
