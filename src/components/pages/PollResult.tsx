@@ -1,15 +1,16 @@
-import { Paper, Box } from "@mui/material";
 import { FC, memo, useEffect, useState } from "react";
-
-//icon
-import DottedMemo from "../atoms/memo/DottedMemo";
-import { Items, Polls, Questionnaire } from "../../types/type";
 import { useParams } from "react-router-dom";
+//mui
+import { Paper, Box } from "@mui/material";
+
+//com
+import DottedMemo from "../atoms/memo/DottedMemo";
 import ItemCard from "../card/ItemCard";
 
-type Props = {};
+// types
+import { Items, Polls, Questionnaire } from "../../types/type";
 
-const PollResult: FC<Props> = memo((props) => {
+const PollResult = memo(() => {
   const { id } = useParams();
   const [polls, setPolls] = useState<Polls[]>([]);
   const [pollCount, setPollCounts] = useState<Items[]>([]);
@@ -29,13 +30,15 @@ const PollResult: FC<Props> = memo((props) => {
   });
 
   //票の大きい商品順で並び替え
-  const sortedPolls = Object.entries(pollCounts).sort((a:any, b:any) => b[1] - a[1]);
-  console.log(sortedPolls,"sorr")
+  const sortedPolls = Object.entries(pollCounts).sort(
+    (a: any, b: any) => b[1] - a[1]
+  );
+  console.log(sortedPolls, "sorr");
   const result = sortedPolls.map((subArr) => {
     return subArr[0];
   });
-const pollResult=result.map(Number)
-console.log(pollResult,"pollresult")
+  const pollResult = result.map(Number);
+  console.log(pollResult, "pollresult");
 
   //value票の数を多い順に並び替え
   const values = Object.values(pollCounts).map(Number);
@@ -97,7 +100,7 @@ console.log(pollResult,"pollresult")
         return bCount - aCount;
       });
       setPollCounts(polllCountItems);
-      console.log(polllCountItems,"polllCountItems")
+      console.log(polllCountItems, "polllCountItems");
     }
   }, [id, questionnaire]);
 
@@ -177,9 +180,6 @@ console.log(pollResult,"pollresult")
           ))}
         </Box>
         {pollCount.length > 0 && <ItemCard data={pollCount} />}
-        <Box sx={{ mb: 3, fontSize: "30px" }}>4位</Box>
-        <Box sx={{ mb: 3, fontSize: "30px" }}>5位</Box>
-        <Box sx={{ mb: 6, fontSize: "30px" }}>6位</Box>
       </Paper>
     </>
   );

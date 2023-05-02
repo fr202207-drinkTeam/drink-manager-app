@@ -16,7 +16,7 @@ import { Items, Polls } from "../../types/type";
 import SearchIcon from "@mui/icons-material/Search";
 import SwitchAccessShortcutAddIcon from "@mui/icons-material/SwitchAccessShortcutAdd";
 import ModalWindow from "../organisms/ModalWindow";
-
+//hooks
 import useGetPollCategoryData from "../../hooks/useGetPollCategoryData";
 
 type PollCardProps = {
