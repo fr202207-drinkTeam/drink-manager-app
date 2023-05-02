@@ -15,7 +15,7 @@ import Faq from "../components/pages/Faq";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../hooks/useLoginUserFetch";
 import { useEffect, useState } from "react";
-
+import ScrollTop from "../components/atoms/ScrollTop";
 const MainRoute = [
   // {
   //   path: "/main",
@@ -57,27 +57,30 @@ export const MainRouter = () => {
   const [loading, setLoading] = useState(true);
 
   return (
-    <Routes>
-      {MainRoute.map((route, index) => (
-        <Route key={index} path={route.path} element={route.element} />
-      ))}
-      {/* adminhome配下のルーティング */}
-      {AdminRouter.map((route, index) => (
-        <Route
-          key={index}
-          path={`/adminhome${route.path}`}
-          element={<DefaultLayout>{route.element}</DefaultLayout>}
-        />
-      ))}
-      {/* home配下のルーティング */}
-      {UserRouter.map((route, index) => (
-        <Route
-          key={index}
-          path={`/home${route.path}`}
-          element={<DefaultLayout>{route.element}</DefaultLayout>}
-        />
-      ))}
-    </Routes>
+    <>
+      <ScrollTop />
+      <Routes>
+        {MainRoute.map((route, index) => (
+          <Route key={index} path={route.path} element={route.element} />
+        ))}
+        {/* adminhome配下のルーティング */}
+        {AdminRouter.map((route, index) => (
+          <Route
+            key={index}
+            path={`/adminhome${route.path}`}
+            element={<DefaultLayout>{route.element}</DefaultLayout>}
+          />
+        ))}
+        {/* home配下のルーティング */}
+        {UserRouter.map((route, index) => (
+          <Route
+            key={index}
+            path={`/home${route.path}`}
+            element={<DefaultLayout>{route.element}</DefaultLayout>}
+          />
+        ))}
+      </Routes>
+    </>
   );
 
   //修正中
