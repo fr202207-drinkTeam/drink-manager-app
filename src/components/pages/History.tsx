@@ -60,29 +60,25 @@ const History: FC<Props> = memo((props) => {
 
   const searchHistory = () => {
     //商品検索
-    // const result = originalItemName.filter((item) => item.name === selectItem);
-    // console.log(result);
-    // setFilterItemName(result);
+    const result = originalItemName.filter((item) => item.name === selectItem);
+    console.log(result);
+    setFilterItemName(result);
 
-    const formattedStartDate = new Date(startDate).toISOString();
-    const formattedEndDate = new Date(endDate).toISOString();
+    // const formattedStartDate = new Date(startDate).toISOString();
+    // const formattedEndDate = new Date(endDate).toISOString();
 
-    console.log(formattedStartDate, formattedEndDate);
-    console.log(originalItemName);
+    // console.log(formattedStartDate, formattedEndDate);
+    // console.log(originalItemName);
 
-    const filteredItems = originalItemName.filter((item) => {
-      const dateString = item.day.split("T")[0]; // 日付部分のみ抽出
-      const itemDate = new Date(dateString);
-      console.log(itemDate, 81);
-      return (
-        itemDate >= new Date(formattedStartDate) &&
-        itemDate <= new Date(formattedEndDate)
-      );
-    });
-
-    console.log(filteredItems, 90);
-
-    // console.log(filteredItems);
+    // const filteredItems = originalItemName.filter((item) => {
+    //   const dateString = item.day.split("T")[0]; // 日付部分のみ抽出
+    //   const itemDate = new Date(dateString);
+    //   console.log(itemDate, 81);
+    //   return (
+    //     itemDate >= new Date(formattedStartDate) &&
+    //     itemDate <= new Date(formattedEndDate)
+    //   );
+    // });
   };
 
   return (

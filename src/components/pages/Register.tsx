@@ -26,6 +26,7 @@ const Register: FC<Props> = memo((props) => {
   const navigate = useNavigate();
 
   const [passText, setPassText] = useState<boolean>(false);
+  const [emailText, setEmailText] = useState<boolean>(false);
   const [errorId, setErrorId] = useState<boolean>(false);
   const [errorFirstName, setErrorFirstName] = useState<boolean>(false);
   const [errorLastName, setErrorLastName] = useState<boolean>(false);
@@ -58,6 +59,12 @@ const Register: FC<Props> = memo((props) => {
       inputCheckBig.test(password) &&
       inputCheckNumber.test(password)
     );
+  };
+
+  //メールアドレスの入力チェック
+  const emailRegex = /^[^\s@]+@rakus-partners\.co\.jp$/;
+  const isValidEmail = (email: string) => {
+    return emailRegex.test(email);
   };
 
   const onBlur = (e: ChangeEvent<HTMLFormElement>) => {
@@ -180,7 +187,8 @@ const Register: FC<Props> = memo((props) => {
               helperText={(() => {
                 if (errorFirstName && firstName === "") {
                   return "姓を入力してください";
-                } else if (
+                }
+                if (
                   (!errorFirstName && errorLastName && lastName === "") ||
                   (errorFirstName &&
                     errorLastName &&
@@ -208,7 +216,8 @@ const Register: FC<Props> = memo((props) => {
               helperText={(() => {
                 if (errorLastName && lastName === "") {
                   return "名を入力してください";
-                } else if (
+                }
+                if (
                   (!errorLastName && errorFirstName && firstName === "") ||
                   (errorLastName &&
                     errorFirstName &&
@@ -236,24 +245,72 @@ const Register: FC<Props> = memo((props) => {
           helperText={(() => {
             if (errorMail && email === "") {
               return "メールアドレスを入力してください";
-            } else if (
-              (errorMail && !email.includes("@")) ||
+            }
+            if (
+              // (errorMail && !email.includes("@")) ||
+              // email.length > 40
+              (errorMail && !isValidEmail(email)) ||
               email.length > 40
             ) {
-              return "＠を含んだ40文字以内で入力してください";
+              // return "＠を含んだ40文字以内で入力してください";
+              return "40文字以内かつ指定のドメインで入力してください";
             }
           })()}
           error={
             errorMail &&
-            (email === "" || !email.includes("@") || email.length > 40)
+            // (email === "" || !email.includes("@") || email.length > 40)
+            (email === "" || !isValidEmail(email) || email.length > 40)
               ? errorMail
               : null
           }
           onBlur={onBlur}
+          onFocus={() => setEmailText(true)}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setEmail(e.target.value)
           }
         />
+        {(() => {
+          if (emailText) {
+            return (
+              <List>
+                <ListItem>
+                  <ListItemText
+                    primary={(() => {
+                      if (isValidEmail(email)) {
+                        return (
+                          <>
+                            <CheckCircle
+                              style={{
+                                color: "green",
+                                verticalAlign: "middle",
+                                marginRight: "5px",
+                              }}
+                            />
+                            @rakus-partners.co.jpの固定ドメイン
+                          </>
+                        );
+                      } else {
+                        return (
+                          <>
+                            <CheckCircle
+                              style={{
+                                verticalAlign: "middle",
+                                marginRight: "5px",
+                              }}
+                            />
+                            @rakus-partners.co.jpの固定ドメイン
+                          </>
+                        );
+                      }
+                    })()}
+                  />
+                </ListItem>
+              </List>
+            );
+          } else {
+            return "";
+          }
+        })()}
         <PrimaryInput
           name="password"
           type={(() => {
@@ -269,7 +326,8 @@ const Register: FC<Props> = memo((props) => {
           helperText={(() => {
             if (errorPass && password === "") {
               return "パスワードを入力してください";
-            } else if (
+            }
+            if (
               errorPass &&
               (!isValidPassword(password) ||
                 password.length < 8 ||
@@ -390,7 +448,8 @@ const Register: FC<Props> = memo((props) => {
           helperText={(() => {
             if (errorConfirmPass && confirmPassword === "") {
               return "確認用パスワードを入力してください";
-            } else if (errorConfirmPass && password !== confirmPassword) {
+            }
+            if (errorConfirmPass && password !== confirmPassword) {
               return "パスワードと確認用パスワードが一致しません";
             }
           })()}
@@ -415,11 +474,9 @@ const Register: FC<Props> = memo((props) => {
             ),
           }}
         />
-
         <p style={{ fontSize: "14px", color: "red", textAlign: "center" }}>
           {errorFraudEmail}
         </p>
-
         <Box sx={{ textAlign: "center", m: "10px" }}>
           <ActiveOrangeButton
             children="登録"
@@ -431,7 +488,8 @@ const Register: FC<Props> = memo((props) => {
               lastName === "" ||
               email === "" ||
               !isValidPassword(password) ||
-              !email.includes("@") ||
+              // !email.includes("@") ||
+              !isValidEmail(email) ||
               email.length > 40 ||
               password.length < 8 ||
               password.length > 16 ||
