@@ -181,8 +181,15 @@ const PollResult = memo(() => {
               )
           )}
         </Box>
-
-        {pollCount.length > 0 && <ItemCard data={pollCount.slice(0, 3)} />}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-around",
+            flexWrap: "wrap",
+          }}
+        >
+        {pollCount.length > 0 && <ItemCard data={pollCount.slice(0, 3)} sxStyle={{ maxWidth: 260, minWidth:260,mx:5, mb:5 }} />}
+        </Box>
         {values.length >= 4 && (
           <Box
             sx={{

@@ -32,7 +32,7 @@ const ItemCard = ({ data, sxStyle }: ItemCardProps) => {
         sx={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "space-around",
+          justifyContent: "flex-start",
           flex: "end",
           mt: 5,
         }}
