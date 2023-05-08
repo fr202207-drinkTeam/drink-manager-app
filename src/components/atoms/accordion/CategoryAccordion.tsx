@@ -2,19 +2,21 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
-import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
+import { Accordion, AccordionSummary } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useNavigate } from "react-router-dom";
-const AccordionMenu = () => {
+const CategoryAccordion = () => {
   const navigate = useNavigate();
   const [expanded, setExpanded] = useState(null);
 
-  const handleChange =
-    (panel: any) => (event: React.SyntheticEvent, newExpanded: boolean) => {
-      setExpanded(newExpanded ? panel : false);
-    };
+  const handleChange = (panel: any) => (
+    event: React.SyntheticEvent,
+    newExpanded: boolean
+  ) => {
+    setExpanded(newExpanded ? panel : false);
+  };
   const handleAccordionClick = (category: string | number) => {
-    navigate(`/home/search?category=${category}`);
+    navigate(`/home/search?category=${category}&page=1`);
   };
 
   return (
@@ -84,27 +86,43 @@ const AccordionMenu = () => {
           >
             └カフェインレス
           </AccordionSummary>
-          <AccordionSummary
-            id="allcoffee"
-            onClick={() => handleAccordionClick("allcoffee")}
-          >
-            └すべてのコーヒー
-          </AccordionSummary>
         </Accordion>
-        <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("5")}>
+        <Accordion
+          disableGutters
+          onClick={() => handleAccordionClick("5")}
+          sx={{ m: 0, "&.Mui-expanded::before": { opacity: "1 !important" } }}
+        >
           <AccordionSummary id="tea">ティー</AccordionSummary>
         </Accordion>
-        <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("6")}>
-          <AccordionSummary id="tea">ココア</AccordionSummary>
+        <Accordion
+          sx={{ m: 0, "&.Mui-expanded::before": { opacity: "1 !important" } }}
+          disableGutters
+          onClick={() => handleAccordionClick("6")}
+        >
+          <AccordionSummary id="cocoa">ココア</AccordionSummary>
         </Accordion>
-        <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("7")}>
-          <AccordionSummary id="tea">その他</AccordionSummary>
+        <Accordion
+          sx={{
+            m: 0,
+            "&.Mui-expanded::before": { opacity: "1 !important" },
+          }}
+          disableGutters
+          onClick={() => handleAccordionClick("7")}
+        >
+          <AccordionSummary id="other">その他</AccordionSummary>
         </Accordion>
-        <Accordion sx={{ m: 0 }} onClick={() => handleAccordionClick("all")}>
-          <AccordionSummary id="tea">すべて</AccordionSummary>
+        <Accordion
+          sx={{
+            m: 0,
+            "&.Mui-expanded::before": { opacity: "1 !important" },
+          }}
+          disableGutters
+          onClick={() => handleAccordionClick("all")}
+        >
+          <AccordionSummary id="all">すべて</AccordionSummary>
         </Accordion>
       </div>
     </>
   );
 };
-export default AccordionMenu;
+export default CategoryAccordion;

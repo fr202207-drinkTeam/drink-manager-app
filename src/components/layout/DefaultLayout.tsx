@@ -1,42 +1,26 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import { useState } from "react";
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  TextField,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
-import { PrimaryButton } from "../atoms/button/Button";
-import AccordionMenu from "../atoms/accordion/AccordionMenu";
+import CategoryAccordion from "../atoms/accordion/CategoryAccordion";
 import Header from "./Header";
 import Footer from "./Footer";
-import { CardMedia } from "@mui/material";
-import { ActiveOrangeButton } from "../atoms/button/Button";
 import { useLocation } from "react-router-dom";
 import Slider from "../atoms/slider/Slider";
+import ItemSearchForm from "../molecules/ItemSearchForm";
+import { Items } from "../../types/type";
 function DefaultLayout({ children }: { children: any }) {
   const handleButtonClick = () => {};
   // パスの取得
   const location = useLocation();
   console.log(location.pathname);
   const images = ["../top.png", "../top.png", "../top.png"];
+  const [searchWord, setSearchWord] = useState("");
+  const [searchResults, setSearchResults] = useState<Items[]>();
   return (
     <React.Fragment>
       <Header />
@@ -53,10 +37,10 @@ function DefaultLayout({ children }: { children: any }) {
       ) : (
         ""
       )}
-      <Container maxWidth="xl" sx={{ mt: 10, mb: 20 }}>
+      <Container maxWidth="xl" sx={{ mt: 10, mb: 10 }}>
         <Grid container spacing={2}>
           <Grid item xs={3}>
-            <AccordionMenu />
+            <CategoryAccordion />
             {/* 検索ボタン */}
 
             <Typography
@@ -67,17 +51,12 @@ function DefaultLayout({ children }: { children: any }) {
               - キーワードで探す -
             </Typography>
             <Box sx={{ mb: 10 }}>
-              <TextField
-                id="outlined-basic"
-                variant="outlined"
-                sx={{ my: 4, width: "100%", backgroundColor: "#fff" }}
+              <ItemSearchForm
+                searchWord={searchWord}
+                setSearchWord={setSearchWord}
+                searchResults={searchResults}
+                setSearchResults={setSearchResults}
               />
-              <ActiveOrangeButton
-                event={handleButtonClick}
-                sxStyle={{ width: "100%" }} // ここでwidthを指定する
-              >
-                検索する
-              </ActiveOrangeButton>
               <Box sx={{ my: 4 }}>
                 <img src="/dummybanner.jpg" style={{ maxWidth: "100%" }} />
               </Box>

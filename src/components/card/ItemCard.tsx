@@ -6,7 +6,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import { Items } from "../../types/type";
-
+import { Link } from "react-router-dom";
 type ItemCardProps = {
   data: Items[];
   sxStyle?:any;
@@ -19,7 +19,7 @@ const ItemCard = ({ data,sxStyle }: ItemCardProps) => {
         sx={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "space-around",
+          justifyContent: "flex-start",
           mt: 5,
         }}
       >
@@ -31,24 +31,10 @@ const ItemCard = ({ data,sxStyle }: ItemCardProps) => {
               boxShadow: "none",
               border: "solid 1px ",
               borderColor: "#bfbec5",
-              ...sxStyle
+              ...sxStyle,
             }}
             key={index}
           >
-            <Typography
-              variant="body2"
-              color="textSecondary"
-              component="p"
-              sx={{
-                textAlign: "center",
-                fontSize: "13px",
-                backgroundColor: "#d6c6af",
-                width: 80,
-                p: "3px",
-                color: "#000",
-                borderRadius: "3px",
-              }}
-            >
               {(() => {
                 if (
                   Number(drink.itemCategory) >= 1 &&
@@ -63,7 +49,6 @@ const ItemCard = ({ data,sxStyle }: ItemCardProps) => {
                   return "その他";
                 }
               })()}
-            </Typography>
             <CardActionArea component="a" href={`/home/search/${drink.id}`}>
               <CardMedia
                 component="img"
@@ -73,11 +58,13 @@ const ItemCard = ({ data,sxStyle }: ItemCardProps) => {
                 image={drink.image[0]}
                 title="商品名"
                 sx={{
-                  display: "block",
-                  width: 200,
-                  height: 200,
-                  objectFit: "cover",
-                  m: "auto",
+                  textAlign: "center",
+                  fontSize: "13px",
+                  backgroundColor: "#d6c6af",
+                  width: 80,
+                  p: "3px",
+                  color: "#000",
+                  borderRadius: "3px",
                 }}
               />
               <CardContent sx={{height:200}}>

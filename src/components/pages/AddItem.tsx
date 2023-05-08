@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, memo, useEffect, useRef } from "react";
+import { FC, memo, useRef } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Box from "@mui/material/Box";
@@ -6,17 +6,14 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import {
   InactiveButton,
-  ActiveBlueButton,
-  ActiveOrangeButton,
-  ActiveDarkBlueButton,
-  ActiveRedButton,
   ActiveBorderButton,
 } from "../atoms/button/Button";
 import AdmTitleText from "../atoms/text/AdmTitleText";
 import ImgPathConversion from "../../utils/ImgPathConversion2";
 import ModalWindow from "../organisms/ModalWindow";
-// import useLoginUser from "../../hooks/useLoginUser";
 import ItemForm from "../organisms/ItemForm";
+import Cookies from "js-cookie";
+import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 
 type Props = {
   //投票から商品追加したかどうか
@@ -38,15 +35,13 @@ const AddItem: FC<Props> = memo(({pollFlag,setPollFlag,handleClose}) => {
   const isFirstRender = useRef(true);
 
   // recoilからログインユーザー情報を取得
-
-  // useEffect(() => {
-  // }, [imagePath]);
+  const authId = Cookies.get("authId")!;
+  const loginUser = useLoginUserFetch({ authId: authId });
 
   // データ追加処理(確定ボタン)
   const onClickAddItemData: () => Promise<void> = async () => {
     const imagePath = await ImgPathConversion({
-      imgFiles: itemImages,
-      addItem: addItem,
+      imgFiles: itemImages
     });
     
     
@@ -68,7 +63,7 @@ const AddItem: FC<Props> = memo(({pollFlag,setPollFlag,handleClose}) => {
         itemCategory: itemCategory,
         createdAt: new Date(),
         inTheOffice: false,
-        author: "test", // recoilから取得
+        author: loginUser.id,
         otherItem: false,
       }),
     }).then(() => {
@@ -94,7 +89,6 @@ const AddItem: FC<Props> = memo(({pollFlag,setPollFlag,handleClose}) => {
           setItemDescription={setItemDescription}
           setItemCategory={setItemCategory}
           setItemImages={setItemImages}
-          // setImagesPathsArr={setImagesPathsArr}
         />
 
         {itemName &&
@@ -117,7 +111,7 @@ const AddItem: FC<Props> = memo(({pollFlag,setPollFlag,handleClose}) => {
 
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <ModalWindow
-            title="削除"
+            title=""
             content="内容は破棄されますがよろしいですか？"
             openButtonColor="red"
             completeButtonColor="red"

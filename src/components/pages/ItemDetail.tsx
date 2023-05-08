@@ -37,7 +37,7 @@ const ItemDetail: FC = memo(() => {
 
   // 受け手
   // const location = useLocation();
-  // const { postid, userid } = location.state as State;
+  // const { itemId } = location.state as State;
 
   const paramsData = useParams();
   const itemId = Number(paramsData.id);

@@ -27,3 +27,9 @@ code {
 .itemSwiper .swiper-button-next {
   color: #c0c0c0;
 }
+.css-1elwnq4-MuiPaper-root-MuiAccordion-root.Mui-expanded {
+  margin: 0 !important;
+}
+.css-1bxy6bd-MuiPaper-root-MuiAccordion-root.Mui-expanded {
+  margin: 0 !important;
+}
