@@ -1,3 +1,4 @@
+
 export type Users = {
   id: number | null;
   firstName: string;
@@ -44,6 +45,7 @@ export type Polls = {
   userId: number;
   result: number;
   createdAt: Date;
+  category:number;
 };
 
 export type Posts = {
