@@ -23,9 +23,10 @@ type PollCardProps = {
   data: Items[];
   pollCategory: number;
   pollNum?: number;
+  sxStyle?:any
 };
 
-const PollCard = ({ data, pollNum, pollCategory }: PollCardProps) => {
+const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
   const navigate = useNavigate();
   //login
   const authId = Cookies.get("authId")!;
@@ -41,9 +42,6 @@ const PollCard = ({ data, pollNum, pollCategory }: PollCardProps) => {
   const othersData = OthersPollData?.filter((other) => {
     return other.userId === loginUser.id;
   });
-
-  // console.log(popularData,"popularData")
-  // console.log(othersData,"othersData")
 
   //投票ボタン
   const submitPoll = async (drinkId: number) => {
@@ -91,6 +89,7 @@ const PollCard = ({ data, pollNum, pollCategory }: PollCardProps) => {
                   boxShadow: "none",
                   border: "solid 1px ",
                   borderColor: "#bfbec5",
+                  ...sxStyle
                 }}
                 key={index}
               >

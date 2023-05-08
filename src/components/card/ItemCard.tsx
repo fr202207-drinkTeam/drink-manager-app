@@ -9,9 +9,10 @@ import { Items } from "../../types/type";
 
 type ItemCardProps = {
   data: Items[];
+  sxStyle?:any;
 };
 
-const ItemCard = ({ data }: ItemCardProps) => {
+const ItemCard = ({ data,sxStyle }: ItemCardProps) => {
   return (
     <>
       <Box
@@ -30,6 +31,7 @@ const ItemCard = ({ data }: ItemCardProps) => {
               boxShadow: "none",
               border: "solid 1px ",
               borderColor: "#bfbec5",
+              ...sxStyle
             }}
             key={index}
           >
@@ -62,7 +64,7 @@ const ItemCard = ({ data }: ItemCardProps) => {
                 }
               })()}
             </Typography>
-            <CardActionArea>
+            <CardActionArea component="a" href={`/home/search/${drink.id}`}>
               <CardMedia
                 component="img"
                 alt="商品画像"
@@ -78,7 +80,7 @@ const ItemCard = ({ data }: ItemCardProps) => {
                   m: "auto",
                 }}
               />
-              <CardContent>
+              <CardContent sx={{height:200}}>
                 {drink.intheOffice ? (
                   <Typography
                     variant="body2"
@@ -122,6 +124,7 @@ const ItemCard = ({ data }: ItemCardProps) => {
                     borderBottom: "double",
                     fontFamily: "Georgia",
                     fontWeight: "bold",
+                    height: "200",
                   }}
                 >
                   {drink.name}
@@ -134,7 +137,7 @@ const ItemCard = ({ data }: ItemCardProps) => {
                 >
                   {drink.description}
                 </Typography>
-              </CardContent>
+                </CardContent>
             </CardActionArea>
           </Card>
         ))}

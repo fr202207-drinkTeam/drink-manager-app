@@ -28,6 +28,7 @@ const PollResult = memo(() => {
       }
     }
   });
+  console.log(Object.keys(pollCounts).length>=1,"pollcounts")
 
   //票の大きい商品順で並び替え
   const sortedPolls = Object.entries(pollCounts).sort(
@@ -112,9 +113,9 @@ const PollResult = memo(() => {
             background: "#fff9f5",
             p: 5,
             backgroundImage: "url(/iwai.png)",
-            backgroundSize: "250px",
+            backgroundSize: "200px",
             backgroundRepeat: "no-repeat",
-            backgroundPosition: "left",
+            backgroundPosition: "left ",
             mt: 5,
             mb: 5,
           }}
@@ -125,9 +126,6 @@ const PollResult = memo(() => {
               textAlign: "center",
               mt: 10,
               fontWeight: "bold",
-              backgroundColor: "white",
-              background:
-                "-webkit-repeating-linear-gradient(-45deg, #6ad1c8, #6ad1c8 2px, #fff 2px, #fff 4px)",
             }}
           >
             {questionnaire?.name}&nbsp;投票結果
@@ -144,6 +142,8 @@ const PollResult = memo(() => {
             {questionnaire?.endDate.toLocaleString()}
           </Box>
         </Box>
+        {Object.keys(pollCounts).length >=1 ?
+         <>
         <DottedMemo
           text={"たくさんのご投票ありがとうございました!!"}
           information={""}
@@ -159,27 +159,69 @@ const PollResult = memo(() => {
             flexWrap: "wrap",
           }}
         >
-          {values.map((data, index) => (
-            <>
-              <Box key={index}>
-                <Box
-                  sx={{
-                    mt: 10,
-                    p: 10,
-                    backgroundImage: `url(/crown${index + 1}.png)`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "70px",
-                    backgroundPosition: "center",
-                  }}
-                ></Box>
-                <Box sx={{ fontSize: "30px", textAlign: "center" }}>
-                  {values[index]}票
+          {values.slice(0, 3).map(
+            (data, index) =>
+              // インデックスが3未満の場合にのみBox要素を描画（３位まで）
+              index < 3 && (
+                <Box key={index}>
+                  <Box
+                    sx={{
+                      mt: 10,
+                      p: 10,
+                      backgroundImage: `url(/crown${index + 1}.png)`,
+                      backgroundRepeat: "no-repeat",
+                      backgroundSize: "70px",
+                      backgroundPosition: "center",
+                    }}
+                  ></Box>
+                  <Box sx={{ fontSize: "30px", textAlign: "center" }}>
+                    {values[index]}票
+                  </Box>
                 </Box>
-              </Box>
-            </>
-          ))}
+              )
+          )}
         </Box>
-        {pollCount.length > 0 && <ItemCard data={pollCount} />}
+
+        {pollCount.length > 0 && <ItemCard data={pollCount.slice(0, 3)} />}
+        {values.length >= 4 && (
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent:"space-around",
+            }}
+          >
+            {values.map((data, index) => {
+              if (index >= 3 && index <= 5) {
+                return (
+                  <Box key={index} sx={{ width: "30%", mt: 5, }}>
+                    <Box sx={{ fontSize: "22px", py: 3, textAlign: "center",fontWeight:"bold" }}>
+                      {index + 1}位
+                    </Box>
+                    <Box sx={{ fontSize: "18px", textAlign: "center" }}>
+                      {values[index]}票
+                    </Box>
+                  </Box>
+                );
+              }
+            })}
+          </Box>
+        )}
+        {pollCount.length > 0 && (
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "space-around",
+            }}
+          >
+            <ItemCard data={pollCount.slice(3)} sxStyle={{ maxWidth: 250, minWidth:250,mx:5, mb:10 }} />
+          </Box>
+        )}
+        </>
+        :
+        <Box sx={{textAlign:"center",fontSize:"30px", py:10}}>今回の投票結果はありませんでした。</Box>
+        }
       </Paper>
     </>
   );

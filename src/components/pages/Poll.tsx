@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 //mui
-import { Box, Link, List, ListItem, ListItemText, Paper } from "@mui/material";
+import { Box, Link, List, ListItem, ListItemText, Paper,} from "@mui/material";
 import { ActiveBeigeButton } from "../atoms/button/Button";
 //type
 import { Items, Questionnaire } from "../../types/type";
@@ -16,6 +16,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import AdsClickIcon from "@mui/icons-material/AdsClick";
 import LooksOneIcon from "@mui/icons-material/LooksOne";
 import LooksTwoIcon from "@mui/icons-material/LooksTwo";
+import { useNavigate } from "react-router-dom";
 
 const Poll = memo(() => {
   const [popularPollTitle, setPopularPollTitle] = useState<Questionnaire[]>([]);
@@ -23,6 +24,7 @@ const Poll = memo(() => {
   const [pollTitle, setPollTitle] = useState<Questionnaire[]>([]);
   const [startPeriodDate, setStartPeriodDate] = useState("");
   const [endPeriodDate, setEndPeriodDate] = useState("");
+  // const navigate =useNavigate();
 
   //カスタムフック(投票中の人気投票とその他投票の商品データ)
   const PopularitemData: Items[] = useGetPollCategoryItem(1);
@@ -331,7 +333,7 @@ const Poll = memo(() => {
             />
           </>
         ) : (
-          <Box sx={{textAlign:"center",fontSize:"25px",mb:30,border:1}}>現在開催中の投票はありません。</Box>
+          <Box sx={{textAlign:"center",fontSize:"25px",mb:10,border:1}}>現在開催中の投票はありません。</Box>
         )}
         <Box
           sx={{
@@ -395,12 +397,12 @@ const Poll = memo(() => {
         {pollTitle &&
           pollTitle.map((data, index) => (
             <Box
-              sx={{ textAlign: "center" }}
+              sx={{ textAlign: "center" ,m:1}}
               key={index}
-              mb={2}
+              mb={1}
               bgcolor="#f5f5f5"
             >
-              <List sx={{ fontSize: "25px", p: 0}}>
+              <List sx={{ fontSize: "25px", p: 0,m:1}}>
                 <ListItem
                   sx={{
                     display: "flex",

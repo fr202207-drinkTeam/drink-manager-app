@@ -789,7 +789,7 @@
     },
     {
       "id": 7,
-      "name": "推しドリンクを追加しよう！",
+      "name": "5月推しドリンクを追加しよう！",
       "polledItems": [
         {
           "id": 1,
@@ -941,6 +941,54 @@
       "result": 1,
       "createdAt": "2023-04-28T01:59:00.194Z",
       "id": 9
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 9,
+      "category": 3,
+      "result": 5,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 7
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 10,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 7
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 11,
+      "category": 3,
+      "result": 7,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 7
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 12,
+      "category": 3,
+      "result": 7,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 7
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 13,
+      "category": 3,
+      "result": 8,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 7
+    },
+    {
+      "questionnaireId": 6,
+      "userId": 1,
+      "category": 1,
+      "result": 8,
+      "createdAt": "2023-05-04T05:47:49.540Z",
+      "id": 10
     }
   ],
   "contact": [],
