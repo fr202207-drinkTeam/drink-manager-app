@@ -39,7 +39,11 @@
       "id": 1,
       "name": "ブライトブレンド",
       "description": "ミディアムローストの豆をブレンドしたブライトブレンドは、キャラメル、ベリー、はちみつのバランスのとれたほんのり甘い香りが楽しめる一杯です。",
-      "image": ["/item.png", "/item.png", "/item.png"],
+      "image": [
+        "/item.png",
+        "/item.png",
+        "/item.png"
+      ],
       "itemCategory": 2,
       "createdAt": "",
       "intheOffice": true,
@@ -50,7 +54,10 @@
       "id": 2,
       "name": "LAVAZZA CLASSICO",
       "description": "しっかりとした珈琲感とドライフルーツの風味が特徴のミディアムローストコーヒー。バランスのとれたリッチな味わいがお好みの方へオススメです。",
-      "image": ["/item.png", "/coffee.png"],
+      "image": [
+        "/item.png",
+        "/coffee.png"
+      ],
       "itemCategory": 2,
       "createdAt": "",
       "intheOffice": true,
@@ -61,7 +68,10 @@
       "id": 3,
       "name": "LAVAZZA INTENSO",
       "description": "スモーキーで香ばしい力強いフレーバーのダークローストコーヒー。キャラメリゼしたような風味と濃厚な味わいはリアルミルクフロスとも相性抜群です。",
-      "image": ["/item.png", "dummybanner.jpg"],
+      "image": [
+        "/item.png",
+        "dummybanner.jpg"
+      ],
       "itemCategory": 1,
       "createdAt": "",
       "intheOffice": true,
@@ -72,7 +82,10 @@
       "id": 4,
       "name": "プレミアム スムースロースト",
       "description": "ほど良いコクと軽やかで優しいアフターテイスト。一日のどんな気分にも寄り添う、プレミアムにスムーズな一杯です。",
-      "image": ["/item.png", "s4.png"],
+      "image": [
+        "/item.png",
+        "s4.png"
+      ],
       "itemCategory": 3,
       "createdAt": "",
       "intheOffice": true,
@@ -83,7 +96,9 @@
       "id": 5,
       "name": "アメリカンロースト",
       "description": "口当たりの良い さわやかな酸味。ほのかな甘いノートが最後に残ります。",
-      "image": ["/item.png"],
+      "image": [
+        "/item.png"
+      ],
       "itemCategory": 3,
       "createdAt": "",
       "intheOffice": true,
@@ -94,7 +109,9 @@
       "id": 6,
       "name": "コロンビア",
       "description": "100%南米コロンビア産の生豆使用。香ばしい香りと酸味・甘味・コクのバランスはマイルドそのものです。",
-      "image": ["/item.png"],
+      "image": [
+        "/item.png"
+      ],
       "itemCategory": 2,
       "createdAt": "",
       "intheOffice": true,
@@ -105,7 +122,9 @@
       "id": 7,
       "name": "スマトラ",
       "description": "100%スマトラ島産アラビカ豆。火山性土で育った豆からの力強い個性的なアロマは、複雑で深いコク、そしてほのかな甘みへと続きます。",
-      "image": ["/item.png"],
+      "image": [
+        "/item.png"
+      ],
       "itemCategory": 1,
       "createdAt": "",
       "intheOffice": true,
@@ -116,7 +135,9 @@
       "id": 8,
       "name": "プレミアスムースデカフ",
       "description": "市場のニーズが高まっているデカフェコーヒー。フルーティーな軽さの中に程よいコクがアフターテイストを満たします。",
-      "image": ["/item.png"],
+      "image": [
+        "/item.png"
+      ],
       "itemCategory": 4,
       "createdAt": "",
       "intheOffice": true,
@@ -127,7 +148,9 @@
       "id": 9,
       "name": "イングリッシュ ブレックファースト",
       "description": "バランスのよい渋味。しっかりとした味わい豊かな紅茶。",
-      "image": ["/item.png"],
+      "image": [
+        "/item.png"
+      ],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
@@ -138,7 +161,9 @@
       "id": 10,
       "name": "アールグレイ",
       "description": "爽やかなベルガモットの香りとほどよい風味が特徴的なお茶。シトラスとフルーツの香りとほのかに感じるスモーキーな香りのブレンドを楽しんでいただけます。",
-      "image": ["/item.png"],
+      "image": [
+        "/item.png"
+      ],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
@@ -149,7 +174,9 @@
       "id": 11,
       "name": "レモンハーブ",
       "description": "軽やかなレモンと柑橘系の香りに、フローラルなハチミツの風味が華を添えるノンカフェインのハーブティーです。",
-      "image": ["/item.png"],
+      "image": [
+        "/item.png"
+      ],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
@@ -160,7 +187,9 @@
       "id": 12,
       "name": "ジャスミン茶",
       "description": "ジャスミンの芳香を採りいれた渋みの少ないさっぱりとした緑茶です。",
-      "image": ["/item.png"],
+      "image": [
+        "/item.png"
+      ],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
@@ -171,7 +200,9 @@
       "id": 13,
       "name": "緑茶",
       "description": "豊かな香りとコク、まろやかな風味。深蒸し煎茶から引き出される ほど良い渋味と旨味は日本人の好みにぴったり。 国産茶葉100%使用。",
-      "image": ["/item.png"],
+      "image": [
+        "/item.png"
+      ],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
@@ -182,7 +213,9 @@
       "id": 14,
       "name": "ホットココア",
       "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）",
-      "image": ["/item.png"],
+      "image": [
+        "/item.png"
+      ],
       "itemCategory": 6,
       "createdAt": "",
       "intheOffice": true,
@@ -201,8 +234,7 @@
       "intheOffice": true,
       "author": "",
       "otherItem": false
-    }
-    ,
+    },
     {
       "id": 16,
       "name": "ホットココア",
@@ -247,6 +279,7 @@
       "name": "ホットココア",
       "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）",
       "image": [
+        "/item.png",
         "/item.png"
       ],
       "itemCategory": 6,
@@ -254,6 +287,21 @@
       "intheOffice": true,
       "author": "",
       "otherItem": false
+    },
+    {
+      "name": "5858",
+      "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）5858",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/f8775a2e-a13d-4ac8-9e32-773b99585bfb?alt=media&token=34062896-73cd-4144-9371-8c5e55d9cc3f",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/6e74e587-f7e4-4b94-8c92-a66f555bd8a7?alt=media&token=886d6cab-3372-4ba3-bda4-ff811ee02f98",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/7bb4256c-e6c6-418d-b79b-b61ed403dd72?alt=media&token=08a55931-4801-49f4-83a0-75a8deb87fde"
+      ],
+      "itemCategory": 2,
+      "createdAt": "2023-05-08T05:48:56.528Z",
+      "inTheOffice": false,
+      "author": "user1",
+      "otherItem": false,
+      "id": 20
     }
   ],
   "itemCategory": [
@@ -615,7 +663,9 @@
       "userId": "1111",
       "content": "私は最近紅茶にハマってます！香りが良くてとても美味しいので皆さんも是非飲んでみてください！",
       "itemId": 10,
-      "postImage": ["/item.png"],
+      "postImage": [
+        "/item.png"
+      ],
       "createdAt": "2023-05-3T02:50:27.944Z",
       "updatedAt": ""
     },
@@ -624,7 +674,10 @@
       "userId": "1114",
       "content": "最近あったかくなってきたので、ホットコーヒーからアイスコーヒーに変えて飲んでいます。そんな私のおすすめはブライトブレンド！",
       "itemId": 2,
-      "postImage": ["/item.png", "/item.png"],
+      "postImage": [
+        "/item.png",
+        "/item.png"
+      ],
       "createdAt": "2023-04-3T02:50:27.944Z",
       "updatedAt": ""
     },
@@ -633,7 +686,10 @@
       "userId": "1112",
       "content": "LAVAZZA CLASSICOめちゃうまです！",
       "itemId": 1,
-      "postImage": ["/coffee.png", "/item.png"],
+      "postImage": [
+        "/coffee.png",
+        "/item.png"
+      ],
       "createdAt": "2023-03-3T02:50:27.944Z",
       "updatedAt": ""
     },
@@ -642,7 +698,11 @@
       "userId": "1118",
       "content": "緑茶より断然ジャスミン茶派です",
       "itemId": 12,
-      "postImage": ["/item.png", "/coffee.png", "/s4.png"],
+      "postImage": [
+        "/item.png",
+        "/coffee.png",
+        "/s4.png"
+      ],
       "createdAt": "2023-02-3T02:50:27.944Z",
       "updatedAt": ""
     }

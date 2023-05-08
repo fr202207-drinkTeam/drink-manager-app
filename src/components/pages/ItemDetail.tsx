@@ -82,24 +82,21 @@ const ItemDetail: FC = memo(() => {
 
   // 投稿削除処理(削除ボタン)
   const onClickdeleteItem = async () => {
-    fetch(`http://localhost:8880/addition`, {
-      method: "DELETE",
-      mode: 'no-cors',
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((response) => {
-      console.log(response);
-      if(!response.ok) {
-          console.log('Delete error!');
-          throw new Error('error');
-      } 
-  }).then(() => {
+    try {
+      const response = await fetch(`http://localhost:8880/items/${itemId}`, {
+        method: "DELETE",
+      });
+  
+      if (!response.ok) {
+        console.log("Delete error!");
+        throw new Error("HTTP error " + response.status);
+      }
+  
+      console.log("Delete success!");
       // navigate(-1);
-      console.log("delete ok")
-    }).catch(errObj => {
-      console.log("err", errObj)
-  });
+    } catch (error) {
+      console.error("Error occurred:", error);
+    }
   };
 
   console.log(postData);

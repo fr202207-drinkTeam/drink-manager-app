@@ -4,12 +4,9 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import {
-  InactiveButton,
-  ActiveBorderButton,
-} from "../atoms/button/Button";
+import { InactiveButton, ActiveBorderButton } from "../atoms/button/Button";
 import AdmTitleText from "../atoms/text/AdmTitleText";
-import ImgPathConversion from "../../utils/ImgPathConversion2";
+import ImgPathConversion from ".././../utils/ImgPathConversion";
 import ModalWindow from "../organisms/ModalWindow";
 import ItemForm from "../organisms/ItemForm";
 import Cookies from "js-cookie";
@@ -26,11 +23,12 @@ const AddItem: FC = memo(() => {
   // recoilからログインユーザー情報を取得
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
+  console.log(loginUser)
 
   // データ追加処理(確定ボタン)
   const onClickAddItemData: () => Promise<void> = async () => {
     const imagePath = await ImgPathConversion({
-      imgFiles: itemImages
+      imgFiles: itemImages,
     });
 
     console.log(imagePath);
@@ -90,23 +88,6 @@ const AddItem: FC = memo(() => {
         )}
 
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <ModalWindow
-            title=""
-            content="内容は破棄されますがよろしいですか？"
-            openButtonColor="red"
-            completeButtonColor="red"
-            completeButtonName="削除"
-            completeAction={() => {
-              navigate(-1);
-            }}
-            cancelButtonColor="gray"
-            openButtonSxStyle={{
-              my: 2,
-              mr: 3,
-              py: "5px",
-              fontSize: "16px",
-            }}
-          />
           {itemName &&
           itemDescription &&
           itemCategory !== 0 &&
