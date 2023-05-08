@@ -96,7 +96,8 @@
       "isAdmin": false,
       "polledPopular": false,
       "polledOther": false,
-      "id": 8}
+      "id": 8
+    }
   ],
   "items": [
     {
@@ -366,6 +367,76 @@
       "author": "user1",
       "otherItem": false,
       "id": 20
+    },
+    {
+      "name": "新商品A",
+      "description": "新商品Aの説明",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/664554ff-dc10-415a-bbb4-228ef2bd034d?alt=media&token=b4a39318-64bf-4831-b859-210b0fd9e1dd",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/bab923a3-92a5-4e87-a78f-5c1694b37692?alt=media&token=8050bbad-1830-4018-81d2-0e1406a0524c"
+      ],
+      "itemCategory": 5,
+      "createdAt": "2023-05-08T06:53:19.228Z",
+      "inTheOffice": false,
+      "author": 2,
+      "otherItem": false,
+      "id": 21
+    },
+    {
+      "name": "新商品C",
+      "description": "新商品Cの説明",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/9d7ba785-8010-4e02-9fb9-c4304c9fb079?alt=media&token=10b56dff-a272-40ab-9cdf-f95771f120ce",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/ae6ec8f2-7b86-4d91-b405-96221ecd76e9?alt=media&token=5231ff05-6078-4266-8a60-ed2c09d83633"
+      ],
+      "itemCategory": 3,
+      "createdAt": "2023-05-08T06:58:11.064Z",
+      "inTheOffice": false,
+      "author": 2,
+      "otherItem": false,
+      "id": 22
+    },
+    {
+      "name": "新商品D",
+      "description": "新商品Dの説明",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/8f86ae5f-b6eb-423d-b2da-388c336a87ce?alt=media&token=bbfb1e53-b172-4879-87b4-4764e5417736",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/ed434583-4f3a-46f4-bd44-28dcd694f708?alt=media&token=976a494f-16e1-4041-b153-b7f1b072b63e"
+      ],
+      "itemCategory": 3,
+      "createdAt": "2023-05-08T06:59:26.038Z",
+      "inTheOffice": false,
+      "author": 2,
+      "otherItem": false,
+      "id": 23
+    },
+    {
+      "name": "商品A",
+      "description": "説明",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/40ea4d2a-44cc-4043-bcb9-ca3f77335e19?alt=media&token=1453599b-ad4f-40c8-b186-55ae1e77d7f7",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/b3c3e8b2-25bb-4f6c-8bad-ee6b59930af2?alt=media&token=5e970d56-61c2-4948-aa02-adf1d5e10bab"
+      ],
+      "itemCategory": 2,
+      "createdAt": "2023-05-08T07:35:19.856Z",
+      "inTheOffice": false,
+      "author": 1,
+      "otherItem": false,
+      "id": 24
+    },
+    {
+      "name": "あああ",
+      "description": "ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/11ae2ce3-3e52-4b4c-b777-7e98c83f75e9?alt=media&token=c1332a3d-4432-4ff5-ad28-eeb14e901a89",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/19271b4a-5433-43da-80ab-0debb1152a28?alt=media&token=2e70d680-6fcb-4265-9b7b-23d5239ee83d"
+      ],
+      "itemCategory": 1,
+      "createdAt": "2023-05-08T07:41:03.621Z",
+      "inTheOffice": false,
+      "author": 1,
+      "otherItem": false,
+      "id": 25
     }
   ],
   "itemCategory": [

@@ -1,4 +1,5 @@
 import {
+  CircularProgress,
   IconButton,
   ImageList,
   ImageListItem,
@@ -13,7 +14,11 @@ import { FC, memo, useEffect, useRef, useState } from "react";
 import AdmTitleText from "../atoms/text/AdmTitleText";
 import { Box } from "@mui/system";
 import ModalWindow from "../organisms/ModalWindow";
-import { ActiveBlueButton, InactiveButton } from "../atoms/button/Button";
+import {
+  ActiveBlueButton,
+  ActiveBorderButton,
+  InactiveButton,
+} from "../atoms/button/Button";
 import { NavigateFunction, useNavigate, useParams } from "react-router";
 import useGetAnItem from "../../hooks/useGetAnItem";
 import { PrimaryInput, SecondaryInput } from "../atoms/input/Input";
@@ -23,7 +28,8 @@ import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
 import { storage } from "../../Firebase";
 import { DeleteForever } from "@mui/icons-material";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
-import previewImages from "../../utils/previewImages";
+import Cookies from "js-cookie";
+import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 
 type Props = {};
 
@@ -40,6 +46,7 @@ const ItemEdit: FC<Props> = memo(() => {
   const [itemCategory, setItemCategory] = useState<number>(0);
   const isFirstRender = useRef(true);
   const [images, setImages] = useState<Image[]>([]);
+  const [updating, setUpdating] = useState<boolean>(false);
 
   // パラメーターのitemIdを元にデータ取得
   const paramsData = useParams();
@@ -47,8 +54,8 @@ const ItemEdit: FC<Props> = memo(() => {
   const itemData = useGetAnItem({ itemId: itemId });
 
   // recoilからログインユーザー情報を取得
-  // const authId = Cookies.get("authId")!;
-  // const loginUser = useLoginUserFetch({ authId: authId });
+  const authId = Cookies.get("authId")!;
+  const loginUser = useLoginUserFetch({ authId: authId });
 
   useEffect(() => {
     if (itemData) {
@@ -68,6 +75,7 @@ const ItemEdit: FC<Props> = memo(() => {
 
   // データ追加処理(確定ボタン)
   const onClickEditItemData: () => Promise<void> = async () => {
+    setUpdating(true);
     if (isFirstRender.current) {
       isFirstRender.current = false;
     }
@@ -115,12 +123,12 @@ const ItemEdit: FC<Props> = memo(() => {
         itemCategory: itemCategory,
         createdAt: new Date(),
         inTheOffice: false,
-        author: "user1",
+        author: loginUser.id,
         otherItem: false,
       }),
     }).then(() => {
-      // navigate("/adminhome");
-      console.log("success");
+      setUpdating(false);
+      navigate("/adminhome");
     });
   };
 
@@ -209,203 +217,207 @@ const ItemEdit: FC<Props> = memo(() => {
     <>
       <Paper sx={{ p: 5, width: "80%", m: "auto" }}>
         <AdmTitleText>商品編集</AdmTitleText>
-        {itemName !== "" && (
-          <SecondaryInput
-            id="itemName"
-            label="商品名"
-            defaultValue={itemName}
-            required
-            onChange={(e: any) => setItemName(e.target.value)}
-            sx={{ width: 400, mb: 5 }}
-            inputProps={{ maxLength: 20 }}
-          />
-        )}
-
-        <Typography variant="body1" component="p" sx={{ mb: 1 }}>
-          商品画像
-        </Typography>
-
-        <Box
-          sx={{
-            mb: 5,
-            width: "100%",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          {/* 画像表示 */}
-          <Typography variant="body2">{`画像数：(${images.length}/3)`}</Typography>
-          <ImageList
-            sx={{ width: "auto", height: 230 }}
-            cols={3}
-            rowHeight={164}
-          >
-            {images.length > 0 && (
-                images.map((image) => (
-                  <>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        flexDirection: "column",
-                      }}
-                    >
-                      <ImageListItem>
-                        <img
-                          key={image.id}
-                          src={image.url}
-                          id={`img${image.id}`}
-                          alt="商品画像"
-                          style={{
-                            width: "100%",
-                            height: "150px",
-                            objectFit: "contain",
-                          }}
-                        />
-                      </ImageListItem>
-                      <Box sx={{ display: "flex" }}>
-                        <ImageListItemBar
-                          title={<ImgChangeButton imageIndex={image.id} />}
-                          position="below"
-                        />
-                        <ImageListItemBar
-                          title={<DeleteButton imageIndex={image.id} />}
-                          position="below"
-                        />
-                      </Box>
-                    </Box>
-                  </>
-                ))
-            )}
-          </ImageList>
-          {images.length < 3 && (
-            <Box sx={{ width: "100%", textAlign: "center" }}>
-              <button style={{ background: "none", border: "none" }}>
-                <label htmlFor="newImage">
-                  <Typography variant="body2" component="p">
-                    追加
-                  </Typography>
-                  <AddCircleOutlineIcon sx={{ fontSize: 30, mb: 5 }} />
-                </label>
-                <input
-                  type="file"
-                  style={{ display: "none" }}
-                  id={`newImage`}
-                  onChange={onChangePreview}
-                />
-              </button>
-            </Box>
-          )}
-        </Box>
-
-        {itemDescription !== "" && (
-          <PrimaryInput
-            multiline
-            aria-label="itemDescription"
-            label="商品説明"
-            sx={{ width: "100%", mb: 5 }}
-            inputProps={{ maxLength: 200 }}
-            defaultValue={itemDescription}
-            required
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setItemDescription(e.target.value)
-            }
-            rows={5}
-          />
-        )}
-
-        <InputLabel id="itemCategoryField" required>
-          商品カテゴリー
-        </InputLabel>
-        {itemCategory !== 0 && (
-          <Select
-            labelId="itemCategoryField"
-            id="itemCategoryField"
-            value={itemCategory}
-            label="商品カテゴリー"
-            placeholder="商品カテゴリーを選択して下さい"
-            onChange={(e) => {
-              setItemCategory(Number(e.target.value));
-            }}
-            sx={{ mb: 5 }}
-          >
-            <MenuItem value={0}>商品カテゴリーを選択して下さい</MenuItem>
-            <MenuItem value={1}>コーヒー/ダーク(深煎り)</MenuItem>
-            <MenuItem value={2}>コーヒー/ダーク(中煎り)</MenuItem>
-            <MenuItem value={3}>コーヒー/ライト(浅煎り)</MenuItem>
-            <MenuItem value={4}>コーヒー/カフェインレス</MenuItem>
-            <MenuItem value={5}>ティー</MenuItem>
-            <MenuItem value={6}>ココア</MenuItem>
-            <MenuItem value={6}>その他</MenuItem>
-          </Select>
-        )}
-
-        {itemName &&
-        itemDescription &&
-        itemCategory !== 0 &&
-        images.length > 0 ? (
-          <></>
+        {updating ? (
+          <div style={{ margin: "200px", textAlign: "center"}}>
+            <p>更新中</p>
+          <CircularProgress />
+          </div>
         ) : (
           <>
-            <Typography
-              variant="body1"
-              component="div"
-              textAlign="center"
-              sx={{ mb: 1, mt: 3, color: "red" }}
-            >
-              全ての項目を入力、または選択して下さい
+            {itemName !== "" && (
+              <SecondaryInput
+                id="itemName"
+                label="商品名"
+                defaultValue={itemName}
+                required
+                onChange={(e: any) => setItemName(e.target.value)}
+                sx={{ width: 400, mb: 5 }}
+                inputProps={{ maxLength: 20 }}
+              />
+            )}
+            <Typography variant="body1" component="p" sx={{ mb: 1 }}>
+              商品画像
             </Typography>
-          </>
-        )}
 
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <ModalWindow
-            title="削除"
-            content="内容は破棄されますがよろしいですか？"
-            openButtonColor="red"
-            completeButtonColor="beige"
-            completeButtonName="削除"
-            completeAction={() => {
-              navigate(-1);
-            }}
-            cancelButtonColor="pink"
-            openButtonSxStyle={{
-              my: 2,
-              mr: 3,
-              py: "5px",
-              fontSize: "16px",
-            }}
-          />
-          {itemName &&
-          itemDescription &&
-          itemCategory !== 0 &&
-          images.length > 0 ? (
-            <ActiveBlueButton
-              event={onClickEditItemData}
-              sxStyle={{
-                my: 2,
-                mr: 3,
-                py: "5px",
-                fontSize: "16px",
+            <Box
+              sx={{
+                mb: 5,
+                width: "100%",
+                alignItems: "center",
+                justifyContent: "space-between",
               }}
             >
-              確定
-            </ActiveBlueButton>
-          ) : (
-            <>
-              <InactiveButton
-                sxStyle={{
+              {/* 画像表示 */}
+              <Typography variant="body2">{`画像数：(${images.length}/3)`}</Typography>
+              <ImageList
+                sx={{ width: "auto", height: 230 }}
+                cols={3}
+                rowHeight={164}
+              >
+                {images.length > 0 &&
+                  images.map((image) => (
+                    <>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          flexDirection: "column",
+                        }}
+                      >
+                        <ImageListItem>
+                          <img
+                            key={image.id}
+                            src={image.url}
+                            id={`img${image.id}`}
+                            alt="商品画像"
+                            style={{
+                              width: "100%",
+                              height: "150px",
+                              objectFit: "contain",
+                            }}
+                          />
+                        </ImageListItem>
+                        <Box sx={{ display: "flex" }}>
+                          <ImageListItemBar
+                            title={<ImgChangeButton imageIndex={image.id} />}
+                            position="below"
+                          />
+                          <ImageListItemBar
+                            title={<DeleteButton imageIndex={image.id} />}
+                            position="below"
+                          />
+                        </Box>
+                      </Box>
+                    </>
+                  ))}
+              </ImageList>
+              {images.length < 3 && (
+                <Box sx={{ width: "100%", textAlign: "center" }}>
+                  <button style={{ background: "none", border: "none" }}>
+                    <label htmlFor="newImage">
+                      <Typography variant="body2" component="p">
+                        追加
+                      </Typography>
+                      <AddCircleOutlineIcon sx={{ fontSize: 30, mb: 5 }} />
+                    </label>
+                    <input
+                      type="file"
+                      style={{ display: "none" }}
+                      id={`newImage`}
+                      onChange={onChangePreview}
+                    />
+                  </button>
+                </Box>
+              )}
+            </Box>
+            {itemDescription !== "" && (
+              <PrimaryInput
+                multiline
+                aria-label="itemDescription"
+                label="商品説明"
+                sx={{ width: "100%", mb: 5 }}
+                inputProps={{ maxLength: 200 }}
+                defaultValue={itemDescription}
+                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setItemDescription(e.target.value)
+                }
+                rows={4}
+              />
+            )}
+            <InputLabel id="itemCategoryField" required>
+              商品カテゴリー
+            </InputLabel>
+            {itemCategory !== 0 && (
+              <Select
+                labelId="itemCategoryField"
+                id="itemCategoryField"
+                value={itemCategory}
+                label="商品カテゴリー"
+                placeholder="商品カテゴリーを選択して下さい"
+                onChange={(e) => {
+                  setItemCategory(Number(e.target.value));
+                }}
+                sx={{ mb: 5 }}
+              >
+                <MenuItem value={0}>商品カテゴリーを選択して下さい</MenuItem>
+                <MenuItem value={1}>コーヒー/ダーク(深煎り)</MenuItem>
+                <MenuItem value={2}>コーヒー/ダーク(中煎り)</MenuItem>
+                <MenuItem value={3}>コーヒー/ライト(浅煎り)</MenuItem>
+                <MenuItem value={4}>コーヒー/カフェインレス</MenuItem>
+                <MenuItem value={5}>ティー</MenuItem>
+                <MenuItem value={6}>ココア</MenuItem>
+                <MenuItem value={6}>その他</MenuItem>
+              </Select>
+            )}
+            {itemName &&
+            itemDescription &&
+            itemCategory !== 0 &&
+            images.length > 0 ? (
+              <></>
+            ) : (
+              <>
+                <Typography
+                  variant="body1"
+                  component="div"
+                  textAlign="center"
+                  sx={{ mb: 1, mt: 3, color: "red" }}
+                >
+                  全ての項目を入力、または選択して下さい
+                </Typography>
+              </>
+            )}
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <ModalWindow
+                title=""
+                content="内容は破棄されますがよろしいですか？"
+                openButtonColor="red"
+                completeButtonColor="red"
+                completeButtonName="OK"
+                buttonName="変更内容を破棄"
+                completeAction={() => {
+                  navigate(-1);
+                }}
+                cancelButtonColor="gray"
+                openButtonSxStyle={{
                   my: 2,
                   mr: 3,
                   py: "5px",
                   fontSize: "16px",
                 }}
-              >
-                確定
-              </InactiveButton>
-            </>
-          )}
-        </Box>
+              />
+              {itemName &&
+              itemDescription &&
+              itemCategory !== 0 &&
+              images.length > 0 ? (
+                <ActiveBorderButton
+                  event={onClickEditItemData}
+                  sxStyle={{
+                    my: 2,
+                    mr: 3,
+                    py: "5px",
+                    fontSize: "16px",
+                  }}
+                >
+                  確定
+                </ActiveBorderButton>
+              ) : (
+                <>
+                  <InactiveButton
+                    sxStyle={{
+                      my: 2,
+                      mr: 3,
+                      py: "5px",
+                      fontSize: "16px",
+                    }}
+                  >
+                    確定
+                  </InactiveButton>
+                </>
+              )}
+            </Box>
+          </>
+        )}
       </Paper>
     </>
   );
