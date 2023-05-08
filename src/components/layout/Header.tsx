@@ -98,9 +98,7 @@ const Header = () => {
           alignItems: "center",
         }}
       >
-        {loginUser?.firstName === "" ? (
-          <></>
-        ) : loginUser?.isAdmin ? (
+        {loginUser?.isAdmin ? (
           <Typography>こんにちは管理者さん</Typography>
         ) : (
           <Typography>こんにちは {loginUser?.firstName}さん</Typography>
@@ -122,28 +120,12 @@ const Header = () => {
             }}
           />
         </div>
-        {/* {loginUser?.firstName === "" ? (
-          <></>
-        ) : loginUser?.isAdmin ? (
-          <div style={{ marginLeft: "auto" }}>
-            <Link to="/adminhome">
-              <ActiveDarkBlueButton
-                event={onLogoutClick}
-                sxStyle={{ borderRadius: 10 }}
-              >
-                管理者用TOP
-              </ActiveDarkBlueButton>
-            </Link>
-          </div>
-        ) : (
-          ""
-        )} */}
         {loginUser?.isAdmin ? (
           <div style={{ marginLeft: "auto" }}>
             <Link to="/adminhome">
               <ActiveDarkBlueButton
-                event={onLogoutClick}
                 sxStyle={{ borderRadius: 10 }}
+                event={function(): void {}}
               >
                 管理者用TOP
               </ActiveDarkBlueButton>

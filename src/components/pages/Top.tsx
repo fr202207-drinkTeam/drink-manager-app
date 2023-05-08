@@ -48,7 +48,7 @@ const Top: FC<Props> = memo((props) => {
         console.error("Error:", error);
       });
   }, []);
-  const onSearchButtonClick = () => {};
+
   return (
     <>
       <DefaultLayout>
@@ -95,7 +95,9 @@ const Top: FC<Props> = memo((props) => {
         </Box>
         <Box sx={{ textAlign: "center" }}>
           <ActivePinkButton
-            event={onSearchButtonClick}
+            event={() => {
+              navigate("/home/poll");
+            }}
             sxStyle={{ width: "30%", py: 2, my: 10, borderRadius: 20 }}
           >
             投票する
@@ -180,7 +182,9 @@ const Top: FC<Props> = memo((props) => {
         </Grid>
         <Box sx={{ textAlign: "center" }}>
           <ActivePinkButton
-            event={onSearchButtonClick}
+            event={() => {
+              navigate("/home/poll");
+            }}
             sxStyle={{ width: "30%", py: 2, my: 10, borderRadius: 20 }}
           >
             過去の投票結果を見る
@@ -212,23 +216,7 @@ const Top: FC<Props> = memo((props) => {
             ラクスパートナーズのみんなの投稿がとどいてるよ !
           </Typography>
         </Card>
-        <Grid container spacing={2}>
-          {/* {postData && postData.length > 0 && (
-            <> */}
-          {/* 仮置 */}
-          {/* {postData.map((postData: any) => (
-                <Grid item xs={12} sm={6} md={4}>
-                  <PostsData
-                    key={postData.id}
-                    postData={postData}
-                    isComment={false}
-                  />
-                </Grid>
-              ))}
-              <Box sx={{ mt: "20px" }}></Box> */}
-          {/* </>
-          )} */}
-        </Grid>
+        <Grid container spacing={2}></Grid>
 
         <Box sx={{ textAlign: "center" }}>
           <ActiveBeigeButton
