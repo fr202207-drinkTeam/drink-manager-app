@@ -14,17 +14,17 @@ const PollTitle = ({ poll }: PollTitleProps) => {
           background: "#fff9f5",
           p: 5,
           backgroundImage: "url(/coffee.png)",
-          backgroundSize: 100,
+          backgroundSize: 170,
           opacity: 0.8,
           mb: 5,
           mt: 5,
+          fontWeight:"bold"
         }}
       >
         <Box
           sx={{
             fontSize: "40px",
             textAlign: "center",
-            fontFamily: "cursive",
             mt: 10,
             backgroundColor: "white",
             background:

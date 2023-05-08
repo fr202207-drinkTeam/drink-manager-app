@@ -12,12 +12,23 @@ import ItemForm from "../organisms/ItemForm";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 
-const AddItem: FC = memo(() => {
+type Props = {
+  //投票から商品追加したかどうか
+  pollFlag?:boolean;
+  setPollFlag?:React.Dispatch<React.SetStateAction<boolean>>;
+  handleClose?:any;
+};
+
+const AddItem: FC<Props> = memo(({pollFlag,setPollFlag,handleClose}) => {
   const navigate: NavigateFunction = useNavigate();
   const [itemName, setItemName] = useState<string>("");
   const [itemDescription, setItemDescription] = useState<string>("");
   const [itemCategory, setItemCategory] = useState<number>(0);
   const [itemImages, setItemImages] = useState<File[]>([]);
+  const [addItem, setAddItem] = useState<any>(1);
+  const [imagesPathsArr, setImagesPathsArr] = useState<string[]>([]);
+
+
   const isFirstRender = useRef(true);
 
   // recoilからログインユーザー情報を取得
@@ -30,13 +41,14 @@ const AddItem: FC = memo(() => {
     const imagePath = await ImgPathConversion({
       imgFiles: itemImages,
     });
-
+    
+    
     console.log(imagePath);
-
+    
     if (isFirstRender.current) {
       isFirstRender.current = false;
     }
-
+    
     fetch("http://localhost:8880/items", {
       method: "POST",
       headers: {
@@ -58,6 +70,14 @@ const AddItem: FC = memo(() => {
     });
   };
 
+  //投票から削除押した場合
+  const handleDelete = () => {
+    if(pollFlag){
+      handleClose()
+    }else{
+      navigate(-1);
+    }
+  };
   return (
     <>
       <Paper sx={{ p: 5, width: "80%", m: "auto" }}>
@@ -88,6 +108,21 @@ const AddItem: FC = memo(() => {
         )}
 
         <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <ModalWindow
+            title=""
+            content="内容は破棄されますがよろしいですか？"
+            openButtonColor="red"
+            completeButtonColor="red"
+            completeButtonName="削除"
+            completeAction={handleDelete}
+            cancelButtonColor="gray"
+            openButtonSxStyle={{
+              my: 2,
+              mr: 3,
+              py: "5px",
+              fontSize: "16px",
+            }}
+          />
           {itemName &&
           itemDescription &&
           itemCategory !== 0 &&
