@@ -58,7 +58,7 @@ const AddItem: FC<Props> = memo(({ pollFlag, setPollFlag, handleClose }) => {
         createdAt: new Date(),
         inTheOffice: false,
         author: loginUser.id,
-        otherItem: false,
+        otherItem: pollFlag?true:false,
       }),
     }).then(() => {
       setAdding(false)

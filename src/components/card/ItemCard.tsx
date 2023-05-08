@@ -10,9 +10,10 @@ import { Link } from "react-router-dom";
 type ItemCardProps = {
   data: Items[];
   sxStyle?:any;
+  sxBox?:any;
 };
 
-const ItemCard = ({ data,sxStyle }: ItemCardProps) => {
+const ItemCard = ({ data,sxStyle,sxBox }: ItemCardProps) => {
   return (
     <>
       <Box
@@ -20,7 +21,8 @@ const ItemCard = ({ data,sxStyle }: ItemCardProps) => {
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "flex-start",
-          mt: 5,
+          mt: 2,
+          ...sxBox,
         }}
       >
         {data?.map((drink: Items,index) => (
@@ -77,6 +79,7 @@ const ItemCard = ({ data,sxStyle }: ItemCardProps) => {
                     display: "block",
                     width: 200,
                     height: 200,
+                    p:1,
                     objectFit: "cover",
                     m: "auto",
                   }}

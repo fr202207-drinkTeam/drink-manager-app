@@ -25,6 +25,7 @@ import {
 import { useState, useEffect } from "react";
 import PostsData from "../organisms/PostData ";
 import { useNavigate } from "react-router-dom";
+import PollRanking from "../organisms/PollRanking";
 type Props = {};
 
 const Top: FC<Props> = memo((props) => {
@@ -93,6 +94,7 @@ const Top: FC<Props> = memo((props) => {
             </Typography>
           </Card>
         </Box>
+        <PollRanking/>
         <Box sx={{ textAlign: "center" }}>
           <ActivePinkButton
             event={onSearchButtonClick}
