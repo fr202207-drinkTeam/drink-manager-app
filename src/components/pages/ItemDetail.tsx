@@ -1,12 +1,7 @@
 import { FC, memo, useEffect } from "react";
 import { useState } from "react";
 import useGetAnItem from "../../hooks/useGetAnItem";
-import {
-  NavigateFunction,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router";
+import { NavigateFunction, useNavigate, useParams } from "react-router";
 import { Box } from "@mui/system";
 import {
   Button,
@@ -15,20 +10,12 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import AdmTitleText from "../atoms/text/AdmTitleText";
-import {
-  ActiveBlueButton,
-  ActiveDarkBlueButton,
-  ActiveRedButton,
-} from "../atoms/button/Button";
+import { ActiveDarkBlueButton } from "../atoms/button/Button";
 import Slider from "../atoms/slider/Slider";
 import FreeBreakfastIcon from "@mui/icons-material/FreeBreakfast";
 import type { Posts } from "../../types/type";
-import { State } from "@popperjs/core";
 import { Link } from "react-router-dom";
 import ModalWindow from "../organisms/ModalWindow";
-
-type Props = {};
 
 const ItemDetail: FC = memo(() => {
   const [postData, setPostData] = useState<Posts[]>([]);
@@ -61,35 +48,41 @@ const ItemDetail: FC = memo(() => {
         console.error("Error:", error);
       });
 
-      postData.map((post) => {
-        // 投稿のいいねを取得
-    fetch(`http://localhost:8880/likes?postId=${post.id}?`, {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setPostData(data);
+    postData.map((post) => {
+      // 投稿のいいねを取得
+      fetch(`http://localhost:8880/likes?postId=${post.id}?`, {
+        method: "GET",
       })
-      .then(() => {
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-      })
-    
+        .then((res) => res.json())
+        .then((data) => {
+          setPostData(data);
+        })
+        .then(() => {
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    });
   }, [itemId]);
 
   // 投稿削除処理(削除ボタン)
-  const deleteItem = async () => {
-    await fetch(`http://localhost:8880/items/${itemId}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then(() => {
-      navigate(-1);
-    });
+  const onClickdeleteItem = async () => {
+    try {
+      const response = await fetch(`http://localhost:8880/items/${itemId}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        console.log("Delete error!");
+        throw new Error("HTTP error " + response.status);
+      }
+
+      console.log("Delete success!");
+      // navigate(-1);
+    } catch (error) {
+      console.error("Error occurred:", error);
+    }
   };
 
   console.log(postData);
@@ -118,11 +111,6 @@ const ItemDetail: FC = memo(() => {
                 }}
               >
                 <Box>
-                  {/* <p style={{ fontSize: "50px" }}>&lt;</p>
-              <CardMedia component="img" image="/item.png" alt="商品画像" />
-              <p style={{ fontSize: "50px" }}>&gt;</p> */}
-
-                  {/* </Box> */}
                   <Box
                     sx={{
                       mr: 10,
@@ -130,20 +118,14 @@ const ItemDetail: FC = memo(() => {
                       display: "flex",
                       ml: 10,
                       alignItems: "center",
-                      //  スライダーの大きさの調整のため自由に変更お願いします!
                       width: 400,
                     }}
                   >
                     <Slider
-                      // 画像　<Slider>コンポーネントにてmapで回している
                       images={itemData.image}
-                      // 何枚画像を表示させるか
                       slidesPerView={1}
-                      // 画像ループさせるか(最後の画像までいったら自動的に1枚目に戻る)
                       loop={true}
-                      // 矢印の表示
                       navigation={true}
-                      // 矢印を押下せずに自動的にループさせるか
                       autoplay={false}
                     />
                   </Box>
@@ -172,9 +154,9 @@ const ItemDetail: FC = memo(() => {
                   <Card
                     sx={{
                       p: 1,
-                      backgroundColor: "#ffdead",
+                      backgroundColor: "#f3bf88",
                       border: "2px dashed #fff ",
-                      boxShadow: " 0 0 0 8px #ffdead",
+                      boxShadow: " 0 0 0 8px #f3bf88",
                       maxWidth: 500,
                       minWidth: 100,
                       display: "flex",
@@ -284,13 +266,13 @@ const ItemDetail: FC = memo(() => {
             商品を削除
           </ActiveRedButton> */}
                 <ModalWindow
-                  title="削除"
+                  title=""
                   content="商品データを本当に削除しますか？"
                   openButtonColor="red"
-                  completeButtonColor="beige"
+                  completeButtonColor="red"
                   completeButtonName="削除"
-                  completeAction={deleteItem}
-                  cancelButtonColor="pink"
+                  completeAction={onClickdeleteItem}
+                  cancelButtonColor="gray"
                   openButtonSxStyle={{
                     my: 2,
                   }}
