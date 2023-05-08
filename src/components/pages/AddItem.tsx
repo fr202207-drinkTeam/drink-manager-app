@@ -18,9 +18,14 @@ import ModalWindow from "../organisms/ModalWindow";
 // import useLoginUser from "../../hooks/useLoginUser";
 import ItemForm from "../organisms/ItemForm";
 
-type Props = {};
+type Props = {
+  //投票から商品追加したかどうか
+  pollFlag?:boolean;
+  setPollFlag?:React.Dispatch<React.SetStateAction<boolean>>;
+  handleClose?:any;
+};
 
-const AddItem: FC<Props> = memo((props) => {
+const AddItem: FC<Props> = memo(({pollFlag,setPollFlag,handleClose}) => {
   const navigate: NavigateFunction = useNavigate();
   const [itemName, setItemName] = useState<string>("");
   const [itemDescription, setItemDescription] = useState<string>("");
@@ -28,6 +33,8 @@ const AddItem: FC<Props> = memo((props) => {
   const [itemImages, setItemImages] = useState<File[]>([]);
   const [addItem, setAddItem] = useState<any>(1);
   const [imagesPathsArr, setImagesPathsArr] = useState<string[]>([]);
+
+
   const isFirstRender = useRef(true);
 
   // recoilからログインユーザー情報を取得
@@ -41,13 +48,14 @@ const AddItem: FC<Props> = memo((props) => {
       imgFiles: itemImages,
       addItem: addItem,
     });
-
+    
+    
     console.log(imagePath);
-
+    
     if (isFirstRender.current) {
       isFirstRender.current = false;
     }
-
+    
     fetch("http://localhost:8880/items", {
       method: "POST",
       headers: {
@@ -69,6 +77,14 @@ const AddItem: FC<Props> = memo((props) => {
     });
   };
 
+  //投票から削除押した場合
+  const handleDelete = () => {
+    if(pollFlag){
+      handleClose()
+    }else{
+      navigate(-1);
+    }
+  };
   return (
     <>
       <Paper sx={{ p: 5, width: "80%", m: "auto" }}>
@@ -106,9 +122,7 @@ const AddItem: FC<Props> = memo((props) => {
             openButtonColor="red"
             completeButtonColor="red"
             completeButtonName="削除"
-            completeAction={() => {
-              navigate(-1);
-            }}
+            completeAction={handleDelete}
             cancelButtonColor="gray"
             openButtonSxStyle={{
               my: 2,

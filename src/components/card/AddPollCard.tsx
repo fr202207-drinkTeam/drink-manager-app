@@ -5,9 +5,9 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import { Items } from "../../types/type";
-import { useNavigate } from "react-router-dom";
-import { ActiveDarkBlueButton, InactiveButton } from "../atoms/button/Button";
+import { ActiveBorderButton, ActiveDarkBlueButton, ActiveGrayButton, InactiveButton } from "../atoms/button/Button";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import CheckIcon from '@mui/icons-material/Check';
 
 type ItemCardProps = {
   data: Items[];
@@ -21,6 +21,8 @@ const ItemCard = ({ data, sxStyle }: ItemCardProps) => {
   const handleClick = async (id: number) => {
     if (!selectedItems.includes(id)) {
       setSelectedItems([...selectedItems, id]);
+    } else {
+      setSelectedItems(selectedItems.filter(item => item !== id));
     }
   };
 
@@ -153,23 +155,20 @@ const ItemCard = ({ data, sxStyle }: ItemCardProps) => {
                   </Typography>
                 </CardContent>
                 {selectedItems.includes(drink.id) ? (
-                  <InactiveButton
-                    sx={{
-                      background: "#e29399",
+                  <ActiveBorderButton
+                    sxStyle={{
                       width: 200,
                       mb: 2,
                       boxShadow: "none",
                       border: "double",
                       fontWeight: "bold",
                       ml: 4,
-                      ":hover": {
-                        background: "#e29399",
-                        cursor: "pointer",
-                      },
                     }}
-                  >
-                    &nbsp;投票に追加しました
-                  </InactiveButton>
+                     event={() => {
+                      handleClick(drink.id);
+                    } }                  >
+                    <CheckIcon/>&nbsp;追加されました
+                  </ActiveBorderButton>
                 ) : (
                   <ActiveDarkBlueButton
                     sxStyle={{
