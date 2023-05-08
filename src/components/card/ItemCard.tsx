@@ -35,28 +35,10 @@ const ItemCard = ({ data,sxStyle }: ItemCardProps) => {
             }}
             key={index}
           >
-              {(() => {
-                if (
-                  Number(drink.itemCategory) >= 1 &&
-                  Number(drink.itemCategory) <= 4
-                ) {
-                  return "コーヒー";
-                } else if (drink.itemCategory === 5) {
-                  return "ティー";
-                } else if (drink.itemCategory === 6) {
-                  return "ココア";
-                } else {
-                  return "その他";
-                }
-              })()}
-            <CardActionArea component="a" href={`/home/search/${drink.id}`}>
-              <CardMedia
-                component="img"
-                alt="商品画像"
-                height="140"
-                width="140"
-                image={drink.image[0]}
-                title="商品名"
+            <Typography
+                variant="body2"
+                color="textSecondary"
+                component="p"
                 sx={{
                   textAlign: "center",
                   fontSize: "13px",
@@ -66,6 +48,38 @@ const ItemCard = ({ data,sxStyle }: ItemCardProps) => {
                   color: "#000",
                   borderRadius: "3px",
                 }}
+              >
+
+              {(() => {
+                if (
+                  Number(drink.itemCategory) >= 1 &&
+                  Number(drink.itemCategory) <= 4
+                  ) {
+                    return "コーヒー";
+                  } else if (drink.itemCategory === 5) {
+                    return "ティー";
+                  } else if (drink.itemCategory === 6) {
+                    return "ココア";
+                  } else {
+                    return "その他";
+                  }
+                })()}
+                </Typography>
+            <CardActionArea component="a" href={`/home/search/${drink.id}`}>
+              <CardMedia
+                component="img"
+                alt="商品画像"
+                height="140"
+                width="140"
+                image={drink.image[0]}
+                title="商品名"
+                  sx={{
+                    display: "block",
+                    width: 200,
+                    height: 200,
+                    objectFit: "cover",
+                    m: "auto",
+                  }}
               />
               <CardContent sx={{height:200}}>
                 {drink.intheOffice ? (
