@@ -12,7 +12,7 @@ import { Box } from "@mui/system";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import PreviewImage from "../molecules/PreviewImage";
 import { useParams } from "react-router";
-import useGetAnItem from "../../hooks/useGetAnItem";
+import useGetAnItem from "../../hooks/useGetAnItems";
 import previewImages from "../../utils/previewImages";
 
 type Props = {
@@ -34,8 +34,7 @@ const ItemForm: FC<Props> = memo((props) => {
   props.setItemDescription(formItemDescription);
   props.setItemCategory(formItemCategory);
   props.setItemImages(formItemImages);
-  console.log("set serve props")
-
+  console.log("set serve props");
 
   return (
     <>
@@ -53,7 +52,14 @@ const ItemForm: FC<Props> = memo((props) => {
         商品画像
       </Typography>
 
-      <Box sx={{ mb: 5, width: "100%", alignItems: "center", justifyContent: "space-between" }}>
+      <Box
+        sx={{
+          mb: 5,
+          width: "100%",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
         {formItemImages.length > 0 && (
           <PreviewImage
             inputImages={formItemImages}

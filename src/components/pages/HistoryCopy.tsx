@@ -13,23 +13,27 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from "@mui/material";
 import { ChangeEvent, FC, memo, useEffect, useState } from "react";
+import useGetItems from "../../hooks/useGetAnItems";
+import { Items } from "../../types/type";
 import { ActiveDarkBlueButton } from "../atoms/button/Button";
 import { SecondaryInput } from "../atoms/input/Input";
 import AdmTitleText from "../atoms/text/AdmTitleText";
 
 type Props = {
-  id: number;
   itemId: number;
-  quantity: number;
   day: string;
-  incOrDec: boolean;
+  id: number;
+  incOrDecTrue: number;
+  inc0rDecFalse: number;
   name: string;
   stockAmount: number;
 };
 
 const History: FC = memo(() => {
+  const [itemDatas, setItemDatas] = useState<Items[]>([]);
   const [originalItemName, setOriginalItemName] = useState<Props[]>([]);
   const [filterItemName, setFilterItemName] = useState<Props[]>([]);
   const [startDate, setStartDate] = useState<string>("");
@@ -43,6 +47,7 @@ const History: FC = memo(() => {
 
       const itemResponse = await fetch("http://localhost:8880/items");
       const itemData = await itemResponse.json();
+      setItemDatas(itemData);
 
       //商品名入りのオブジェクト作成
       const mergeObj = historyData.map((history: { itemId: number }) => {
@@ -53,31 +58,57 @@ const History: FC = memo(() => {
       });
 
       //日付文字列を置き換え
-      const modifiedMergeObj = mergeObj.map((item: Props) => {
+      const dateMergeObj = mergeObj.map((item: any) => {
         const dateOnly = item.day?.split("T")[0];
         return {
           ...item,
           day: dateOnly,
         };
       });
-      setOriginalItemName(modifiedMergeObj); //初期履歴データ
-      setFilterItemName(modifiedMergeObj); //検索用履歴データ
+
+      //消費と補充を合わせる
+      const modifiedMergeObj = Object.values(
+        dateMergeObj.reduce((acc: any, obj: any) => {
+          const key = obj.itemId + "-" + obj.day;
+          if (!acc[key]) {
+            acc[key] = {
+              day: obj.day,
+              name: obj.name,
+              incOrDecTrue: obj.incOrDec === true ? obj.quantity : 0, //補充数
+              incOrDecFalse: obj.incOrDec === false ? obj.quantity : 0, //消費数
+              stockAmount: obj.stockAmount,
+            };
+          } else {
+            if (obj.incOrDec === true) {
+              acc[key].incOrDecTrue += obj.quantity;
+            } else {
+              acc[key].incOrDecFalse += obj.quantity;
+            }
+          }
+          return acc;
+        }, {})
+      );
+
+      setOriginalItemName(modifiedMergeObj as Props[]); //初期履歴データ
+      setFilterItemName(modifiedMergeObj as Props[]); //検索用履歴データ
     };
     historyDataFetch();
   }, []);
+  console.log(itemDatas, 817);
 
   const searchHistory = () => {
     //商品検索
-    // const itemMatchResult = originalItemName.filter(
-    //   (item) => item.name === selectItem
-    // );
-    // setFilterItemName(itemMatchResult);
-    // console.log(itemMatchResult);
-    //日付検索
-    const dateMatchResult = originalItemName.filter(
-      (item) => item.day >= startDate && item.day <= endDate
+    const itemMatchResult = originalItemName.filter(
+      (item) => item.name === selectItem
     );
-    setFilterItemName(dateMatchResult);
+    setFilterItemName(itemMatchResult);
+    console.log(itemMatchResult);
+
+    //日付検索
+    //     const dateMatchResult = originalItemName.filter(
+    //       (item) => item.day >= startDate && item.day <= endDate
+    //     );
+    //     setFilterItemName(dateMatchResult);
   };
 
   return (
@@ -129,22 +160,33 @@ const History: FC = memo(() => {
                     商品名
                   </label>
                   <Select
-                    placeholder="商品名"
-                    value={selectItem}
-                    sx={{ width: "200px" }}
+                    defaultValue="商品を選択"
                     onChange={(e: SelectChangeEvent<string>) =>
                       setSelectItem(e.target.value)
                     }
+                    sx={[
+                      {
+                        "&:hover": {
+                          outline: "none",
+                        },
+                      },
+                      { width: "200px" },
+                    ]}
                   >
-                    <MenuItem value="コーヒー">コーヒー</MenuItem>
-                    <MenuItem value="ココア">ココア</MenuItem>
-                    <MenuItem value="紅茶">紅茶</MenuItem>
-                    <MenuItem value="ブライトブレンド">
-                      ブライトブレンド
+                    <MenuItem value="商品を選択" disabled>
+                      <Box sx={{ display: "flex" }}>
+                        <Typography sx={{ color: "rgba(0,0,0,0.6)" }}>
+                          商品を選択
+                        </Typography>
+                      </Box>
                     </MenuItem>
-                    <MenuItem value="LAVAZZA CLASSICO">
-                      LAVAZZA CLASSICO
-                    </MenuItem>
+                    {itemDatas.map((item: Items) => {
+                      return (
+                        <MenuItem key={item.id} value={item.name}>
+                          {item.name}
+                        </MenuItem>
+                      );
+                    })}
                   </Select>
                 </Box>
                 <Box>
@@ -175,7 +217,7 @@ const History: FC = memo(() => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {filterItemName.map((history: Props) => {
+              {filterItemName.map((history: any) => {
                 return (
                   <TableRow
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -186,12 +228,8 @@ const History: FC = memo(() => {
                     </TableCell>
 
                     <TableCell align="right">{history.day}</TableCell>
-                    <TableCell align="right">
-                      {history.incOrDec ? 0 : history.quantity}
-                    </TableCell>
-                    <TableCell align="right">
-                      {history.incOrDec ? history.quantity : 0}
-                    </TableCell>
+                    <TableCell align="right">{history.incOrDecFalse}</TableCell>
+                    <TableCell align="right">{history.incOrDecTrue}</TableCell>
                     <TableCell align="right">{history.stockAmount}</TableCell>
                   </TableRow>
                 );

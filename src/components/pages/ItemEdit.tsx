@@ -9,7 +9,7 @@ import { NavigateFunction, useNavigate, useParams } from "react-router";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 import ImgPathConversion from "../../utils/ImgPathConversion2";
-import useGetAnItem from "../../hooks/useGetAnItem";
+import useGetAnItem from "../../hooks/useGetAnItems";
 
 type Props = {};
 
@@ -29,8 +29,7 @@ const ItemEdit: FC<Props> = memo((props) => {
   // recoilからログインユーザー情報を取得
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
-  
-  
+
   useEffect(() => {
     // ログイン状態でなければログイン画面へ遷移
     // if(!authId && !loginUser.isAdmin) {
@@ -39,23 +38,23 @@ const ItemEdit: FC<Props> = memo((props) => {
     // console.log("ユーザー情報", loginUser)
     // console.log("authId", typeof !authId)
     // console.log("isAdmin", loginUser.isAdmin)
-  },[authId, loginUser])
+  }, [authId, loginUser]);
 
   useEffect(() => {
-    if(itemData) {
-      setItemName(itemData.name)
-    setItemDescription(itemData.description)
-    setItemCategory(itemData.itemCategory)
-    setItemImages(itemData.image)
-    console.log("set complete")
-    console.log("item name", itemData.name)
+    if (itemData) {
+      setItemName(itemData.name);
+      setItemDescription(itemData.description);
+      setItemCategory(itemData.itemCategory);
+      setItemImages(itemData.image);
+      console.log("set complete");
+      console.log("item name", itemData.name);
     }
-  }, [itemData])
+  }, [itemData]);
 
   // データ追加処理(確定ボタン)
   const onClickEditItemData: () => Promise<void> = async () => {
     const imagePath = await ImgPathConversion({
-      imgFiles: itemImages
+      imgFiles: itemImages,
     });
 
     if (isFirstRender.current) {
@@ -85,7 +84,7 @@ const ItemEdit: FC<Props> = memo((props) => {
 
   return (
     <>
-    <Paper sx={{ p: 5, width: "80%", m: "auto" }}>
+      <Paper sx={{ p: 5, width: "80%", m: "auto" }}>
         <AdmTitleText>商品詳細</AdmTitleText>
         <ItemForm
           setItemName={setItemName}

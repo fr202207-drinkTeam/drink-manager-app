@@ -1,6 +1,6 @@
 import { FC, memo, useEffect } from "react";
 import { useState } from "react";
-import useGetAnItem from "../../hooks/useGetAnItem";
+import useGetAnItem from "../../hooks/useGetAnItems";
 import {
   NavigateFunction,
   useLocation,
@@ -61,23 +61,22 @@ const ItemDetail: FC = memo(() => {
         console.error("Error:", error);
       });
 
-      postData.map((post) => {
-        // 投稿のいいねを取得
-    fetch(`http://localhost:8880/likes?postId=${post.id}?`, {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setPostData(data);
+    postData.map((post) => {
+      // 投稿のいいねを取得
+      fetch(`http://localhost:8880/likes?postId=${post.id}?`, {
+        method: "GET",
       })
-      .then(() => {
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-      })
-    
+        .then((res) => res.json())
+        .then((data) => {
+          setPostData(data);
+        })
+        .then(() => {
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    });
   }, [itemId]);
 
   // 投稿削除処理(削除ボタン)
