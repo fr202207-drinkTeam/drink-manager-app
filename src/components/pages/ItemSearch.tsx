@@ -6,7 +6,7 @@ import { MenuItem, Select, Typography } from "@mui/material";
 import type { Items } from "../../types/type";
 import Paginate from "../atoms/paginate/Paginate";
 import Box from "@mui/material/Box";
-import { ActivePinkButton, ActiveBlueButton, ActiveDarkBlueButton } from "../atoms/button/Button";
+import { ActiveDarkBlueButton } from "../atoms/button/Button";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import queryString from "query-string";
 import Cookies from "js-cookie";
@@ -23,9 +23,11 @@ const ItemSearch: FC<Props> = memo((props) => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams.get("page");
-  const [item, setItem] = useState<Items[]>();
-  const [allCategoryItem, setAllCategoryItem] = useState<Items[]>();
+  const [selectedItem, setSelectedItem] = useState<Items[]>();
+  const [allItem, setAllItem] = useState<Items[]>();
   const [selectedValue, setSelectedValue] = useState("popular");
+  const [categoryName,setCategoryName]=useState<any>()
+ 
 
 
   const handlePullDown = async(event:any) => {
@@ -49,14 +51,11 @@ const ItemSearch: FC<Props> = memo((props) => {
         );
 
         const data = await response.json();
-        setItem(data);
+        setSelectedItem(data);
       } catch (error) {
         console.error(error);
       }
-   
-    console.log(searchParams,"searchParams")
   };
-
   const queryParams = new URLSearchParams(location.search);
   const category = queryParams.get("category");
   const keyword = queryParams.get("keyword");
@@ -64,8 +63,8 @@ const ItemSearch: FC<Props> = memo((props) => {
 
   const perPage = 6;
   let currentPage = 1;
-console.log(item,"item")
-console.log(allCategoryItem,"allitem")
+console.log(selectedItem,"item")
+console.log(allItem,"allitem")
 
   // カテゴリタブを押したときの初期データ
   useEffect(() => {
@@ -78,38 +77,31 @@ console.log(allCategoryItem,"allitem")
         const response = await fetch(url);
         const data = await response.json();
         if (category === "all") {
-          setItem(data);
+          setSelectedItem(data);
         } else {
           const filteredData = data.filter(
             (item: any) => item.itemCategory === Number(category)
           );
-          setItem(filteredData);
+          setSelectedItem(filteredData);
+        }
+        if(location.search.includes("keyword")){
+          const keyword = new URLSearchParams(location.search).get("keyword");
+          let url = `http://localhost:8880/items?_page=${currentPage}&_limit=${perPage}&name_like=${keyword}`;
+          const response = await fetch(url);
+          const data = await response.json();
+          setSelectedItem(data);
         }
       } catch (error) {
         console.error(error);
       }
     };
     categoryFilterData();
-  }, [category]);
+    // location.searchを削除するとページングうまく動いた
+  }, [category, setSelectedItem,keyword]);
   // ワード検索
-  useEffect(() => {
-    const searchWordFilterData = async () => {
-      try {
-        if (location.search.includes("keyword")) {
-          const keyword = new URLSearchParams(location.search).get("keyword");
-          let url = `http://localhost:8880/items?_page=${currentPage}&_limit=${perPage}&name_like=${keyword}`;
-          const response = await fetch(url);
-          const data = await response.json();
-          setItem(data);
-          
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    searchWordFilterData();
-  }, [location.search, currentPage, setItem, perPage,keyword]);
+
   // ページングを押下ときのイベント
+
     const handlePageChange = async (
       event: React.SyntheticEvent,
       newValue: string
@@ -127,11 +119,13 @@ console.log(allCategoryItem,"allitem")
         navigate(`/home/search?${queryParams.toString()}`);
         const res = await fetch(url);
         const data = await res.json();
-        setItem(data);
+        setSelectedItem(data);
+        console.log(data,"data")
       } catch (error) {
         console.error(error);
       }
     }
+    console.log(selectedItem,"select")
   // カテゴリごとの全件数の取得 //
 // パラメータにcategoryとkeywordの指定があったらフィルタリングして件数を割り出す
 useEffect(() => {
@@ -147,43 +141,74 @@ useEffect(() => {
           let url = `http://localhost:8880/items?&${query}`;
           const res = await fetch(url);
           const data = await res.json();
-          setAllCategoryItem(data);
+          setAllItem(data);
       } catch (error) {
           console.error(error);
       }
   }
   categoryData();
 }, [category, keyword]);
-
+// Todo　カテゴリ検索
+useEffect(()=>{
+  if(category==="all"){
+    setCategoryName("すべて")
+  }else if(category==="1"){
+    setCategoryName ("ダーク（深煎り）")
+  }else if(category==="2"){
+    setCategoryName ("ミディアム（中煎り）")
+  }else if(category==="3"){
+    setCategoryName ("ライト（浅煎り）")
+  }else if(category==="4"){
+    setCategoryName ("カフェインレス")
+  }else if(category==="5"){
+    setCategoryName ("ティー")
+  }else if(category==="6"){
+    setCategoryName ("ココア")
+  }else if(category==="7"){
+    setCategoryName ("その他")
+  }
+},[category])
 
   return (
     <>
-      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        {/* <ActivePinkButton event={onNameAscClick}>人気順</ActivePinkButton>
-        <ActiveBlueButton event={onNameAscClick}>名前順</ActiveBlueButton> */}
-         <Select
+<Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+  <Box>
+    {category ?
+      <Typography variant="h6" sx={{ mb: 2 }}>「{categoryName}」の検索結果一覧</Typography>
+    :""}
+    {keyword ?
+      <Typography variant="h6">{keyword}の検索結果一覧</Typography>
+    :""}
+    <Typography sx={{ mx: "16px" }}>検索結果：{allItem?.length}件</Typography>
+  </Box>
+  <Box sx={{ display: "flex", alignItems: "center" }}>
+    <Select
       size="small"
       value={selectedValue}
-      sx={{ border: "none", backgroundColor: "white" }}
+      sx={{ border: "none", backgroundColor: "white", mr: "16px" }}
       onChange={handlePullDown}
     >
       <MenuItem value="popular">人気順</MenuItem>
       <MenuItem value="name">名前順</MenuItem>
       <MenuItem value="社内あり">社内あり</MenuItem>
     </Select>
-      </Box>
-      {keyword ?
-         <Typography>{keyword}の検索結果一覧</Typography>
-      :""}
+    
+  </Box>
+</Box>
+
+
+    <Box 　sx={{mx:"16px"}}>
       
-      {item  ? (
+      </Box>
+      {selectedItem  ? (
   <>
-    <Typography>検索結果：{allCategoryItem?.length}件</Typography>
-    {item && <ItemCard data={item} />}
-    {item?.length>0 &&
+
+    {selectedItem && <ItemCard data={selectedItem} />}
+   
+    {selectedItem?.length>0 &&
     <Paginate
       // ページング数
-      count={allCategoryItem && Math.ceil(allCategoryItem?.length / perPage)}
+      count={allItem && Math.ceil(allItem?.length / perPage)}
       onChange={handlePageChange}
       // 現在のページ
       page={Number(searchParams.get("page"))}
@@ -192,8 +217,27 @@ useEffect(() => {
 ) : (
   "該当する商品がありません"
 )}
+
+<div style={{ display: "flex", justifyContent: "flex-end" }}>
+  {loginUser?.isAdmin ? (
+    <Link to="/adminhome/additem">
+      <ActiveDarkBlueButton
+        event={function (): void {      
+        }}
+      >
+        商品追加
+      </ActiveDarkBlueButton>
+    </Link>
+  ) : (
+    ""
+  )}
+</div>
+
+
     </>
+    
   );
+  
 });
 
 export default ItemSearch;
