@@ -11,7 +11,7 @@ const PollRanking = () => {
   const [questionnaire, setQuestionnaire] = useState<Questionnaire>();
   const [items, setItems] = useState<Items[]>([]);
   const [startDate, setStartDate] = useState<any>();
-  const [pollId, setPollId] = useState<any>();
+  const [pollId, setPollId] = useState<number>();
   //id(3ヶ所にテストデータ「2」)を入れれば画面表示できる
 
   //投票結果集計
@@ -83,7 +83,7 @@ const PollRanking = () => {
 
     fetchData();
   }, [pollId]);
-
+  // 先月のアンケートidを取得し。その中からランダムで表示
   useEffect(() => {
     if (startDate) {
       const now = new Date();
@@ -95,17 +95,15 @@ const PollRanking = () => {
       );
       const startDates = startDate
         .filter(
-          (obj: any) =>
-            new Date(obj.startDate) > lastMonth &&
-            new Date(obj.startDate) < firstDayOfMonth
+          (questionnaire: Questionnaire) =>
+            new Date(questionnaire.startDate) > lastMonth &&
+            new Date(questionnaire.startDate) < firstDayOfMonth
         )
-        .map((obj: any) => obj.id);
+        .map((questionnaire: Questionnaire) => questionnaire.id);
       const randomId =
         startDates[Math.floor(Math.random() * startDates.length)];
       setPollId(randomId);
       console.log(pollId, "random");
-      console.log(startDates, "start");
-      console.log(lastMonth, "last");
     }
   }, [startDate, pollId]);
   //Items取得
