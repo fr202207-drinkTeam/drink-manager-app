@@ -2,7 +2,6 @@ import {
   Box,
   Card,
   MenuItem,
-  Pagination,
   Paper,
   Select,
   SelectChangeEvent,
@@ -13,28 +12,35 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from "@mui/material";
 import { ChangeEvent, FC, memo, useEffect, useState } from "react";
-import { ActiveDarkBlueButton } from "../atoms/button/Button";
+import { Items } from "../../types/type";
+import { ActiveDarkBlueButton, ActiveRedButton } from "../atoms/button/Button";
 import { SecondaryInput } from "../atoms/input/Input";
+import Paginate from "../atoms/paginate/Paginate";
 import AdmTitleText from "../atoms/text/AdmTitleText";
 
 type Props = {
-  id: number;
   itemId: number;
-  quantity: number;
   day: string;
-  incOrDec: boolean;
+  id: number;
+  incOrDecTrue: number;
+  incOrDecFalse: number;
   name: string;
   stockAmount: number;
 };
 
 const History: FC = memo(() => {
+  const [itemDatas, setItemDatas] = useState<Items[]>([]);
   const [originalItemName, setOriginalItemName] = useState<Props[]>([]);
   const [filterItemName, setFilterItemName] = useState<Props[]>([]);
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
   const [selectItem, setSelectItem] = useState<string>("");
+  const [itemsOffset, setItemsOffset] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [searchErrorMsg, setSearchErrorMsg] = useState("");
 
   useEffect(() => {
     const historyDataFetch = async () => {
@@ -43,41 +49,116 @@ const History: FC = memo(() => {
 
       const itemResponse = await fetch("http://localhost:8880/items");
       const itemData = await itemResponse.json();
+      setItemDatas(itemData);
 
       //商品名入りのオブジェクト作成
-      const mergeObj = historyData.map((history: { itemId: number }) => {
+      const itemObj = historyData.map((history: { itemId: number }) => {
         const items = itemData.find(
           (item: { id: number }) => item.id === history.itemId
         );
         return items ? { ...history, name: items.name } : history;
       });
-
       //日付文字列を置き換え
-      const modifiedMergeObj = mergeObj.map((item: Props) => {
+      const dateMergeObj = itemObj.map((item: Props) => {
         const dateOnly = item.day?.split("T")[0];
         return {
           ...item,
           day: dateOnly,
         };
       });
-      setOriginalItemName(modifiedMergeObj); //初期履歴データ
-      setFilterItemName(modifiedMergeObj); //検索用履歴データ
+
+      //消費と補充を合わせる
+      const mergeObj = Object.values(
+        dateMergeObj.reduce((acc: any, obj: any) => {
+          const key = obj.itemId + "-" + obj.day;
+          if (!acc[key]) {
+            acc[key] = {
+              day: obj.day,
+              name: obj.name,
+              incOrDecTrue: obj.incOrDec === true ? obj.quantity : 0, //補充数
+              incOrDecFalse: obj.incOrDec === false ? obj.quantity : 0, //消費数
+              stockAmount: obj.stockAmount,
+            };
+          } else {
+            if (obj.incOrDec === true) {
+              acc[key].incOrDecTrue += obj.quantity;
+            } else {
+              acc[key].incOrDecFalse += obj.quantity;
+            }
+          }
+          return acc;
+        }, {})
+      );
+
+      // 日付最新順に並び替える
+      mergeObj.sort((a: any, b: any) => {
+        return new Date(b.day).getTime() - new Date(a.day).getTime();
+      });
+
+      // //在庫合計を合わせる※途中
+      const stockAmountResponse = await fetch(
+        "http://localhost:8880/stockAmount"
+      );
+      const stockAmountData = await stockAmountResponse.json();
+      console.log(stockAmountData, 98);
+
+      const result = mergeObj.reduce((acc: any, obj1: any) => {
+        const obj2 = stockAmountData.find(
+          (obj2: any) => obj2.itemId === obj1.itemId && obj2.day === obj1.day
+        );
+        if (obj2) {
+          acc.push({ ...obj1, amount: obj2.amount });
+        } else {
+          acc.push(obj1);
+        }
+        return acc;
+      }, []);
+
+      console.log(result, 132);
+
+      setOriginalItemName(mergeObj as Props[]); //初期履歴データ
+      setFilterItemName(mergeObj as Props[]); //検索用履歴データ
     };
     historyDataFetch();
   }, []);
 
   const searchHistory = () => {
-    //商品検索
-    // const itemMatchResult = originalItemName.filter(
-    //   (item) => item.name === selectItem
-    // );
-    // setFilterItemName(itemMatchResult);
-    // console.log(itemMatchResult);
-    //日付検索
-    const dateMatchResult = originalItemName.filter(
-      (item) => item.day >= startDate && item.day <= endDate
-    );
-    setFilterItemName(dateMatchResult);
+    const todayDate = new Date().toISOString().split("T")[0];
+    if (todayDate < startDate || todayDate < endDate || startDate > endDate) {
+      setSearchErrorMsg("未来の日付もしくは片方の期間のみでは検索できません");
+    } else {
+      //日付・商品検索
+      let matchResult = originalItemName;
+      if (selectItem) {
+        matchResult = matchResult.filter((item) => item.name === selectItem);
+      }
+      if (startDate && endDate) {
+        matchResult = matchResult.filter(
+          (item) => item.day >= startDate && item.day <= endDate
+        );
+      }
+      setFilterItemName(matchResult);
+    }
+  };
+
+  const searchRecet = () => {
+    setSelectItem("");
+    setStartDate("");
+    setEndDate("");
+    setSearchErrorMsg("");
+    setFilterItemName(originalItemName);
+  };
+
+  //ページネーション
+  const itemsPerPage = 10; // 1ページに表示するオブジェクトの数
+  const endOffset = itemsOffset + itemsPerPage;
+  const currentItems = filterItemName.slice(itemsOffset, endOffset);
+  const pageCount = Math.ceil(filterItemName.length / itemsPerPage); //繰り上げ
+
+  const handlePageClick = (e: any, page: number) => {
+    setCurrentPage(page);
+    const newOffset = ((page - 1) * itemsPerPage) % filterItemName.length;
+    setItemsOffset(newOffset);
   };
 
   return (
@@ -97,6 +178,7 @@ const History: FC = memo(() => {
                 type="date"
                 style={{ marginRight: "5px" }}
                 id="period"
+                value={startDate}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setStartDate(e.target.value)
                 }
@@ -113,11 +195,13 @@ const History: FC = memo(() => {
               <SecondaryInput
                 type="date"
                 style={{ marginLeft: "5px" }}
+                value={endDate}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setEndDate(e.target.value)
                 }
               />
             </Box>
+            <p>{searchErrorMsg}</p>
             <Box sx={{ mt: "40px" }}>
               <Stack
                 direction="row"
@@ -129,30 +213,54 @@ const History: FC = memo(() => {
                     商品名
                   </label>
                   <Select
-                    placeholder="商品名"
+                    defaultValue="商品を選択"
                     value={selectItem}
-                    sx={{ width: "200px" }}
                     onChange={(e: SelectChangeEvent<string>) =>
                       setSelectItem(e.target.value)
                     }
+                    sx={[
+                      {
+                        "&:hover": {
+                          outline: "none",
+                        },
+                      },
+                      { width: "200px" },
+                    ]}
                   >
-                    <MenuItem value="コーヒー">コーヒー</MenuItem>
-                    <MenuItem value="ココア">ココア</MenuItem>
-                    <MenuItem value="紅茶">紅茶</MenuItem>
-                    <MenuItem value="ブライトブレンド">
-                      ブライトブレンド
+                    <MenuItem value="商品を選択" disabled>
+                      <Box sx={{ display: "flex" }}>
+                        <Typography sx={{ color: "rgba(0,0,0,0.6)" }}>
+                          商品を選択
+                        </Typography>
+                      </Box>
                     </MenuItem>
-                    <MenuItem value="LAVAZZA CLASSICO">
-                      LAVAZZA CLASSICO
-                    </MenuItem>
+                    {itemDatas.map((item: Items) => {
+                      return (
+                        <MenuItem key={item.id} value={item.name}>
+                          {item.name}
+                        </MenuItem>
+                      );
+                    })}
                   </Select>
                 </Box>
-                <Box>
-                  <ActiveDarkBlueButton
-                    children="履歴検索"
-                    event={searchHistory}
-                  />
-                </Box>
+                <Stack
+                  direction="row"
+                  sx={{ alignItems: "flex-end" }}
+                  spacing={2}
+                >
+                  <Box>
+                    <ActiveDarkBlueButton
+                      children="履歴検索"
+                      event={searchHistory}
+                    />
+                  </Box>
+                  <Box>
+                    <ActiveRedButton
+                      children="検索リセット"
+                      event={searchRecet}
+                    />
+                  </Box>
+                </Stack>
               </Stack>
             </Box>
           </Box>
@@ -175,7 +283,7 @@ const History: FC = memo(() => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {filterItemName.map((history: Props) => {
+              {currentItems.map((history: Props) => {
                 return (
                   <TableRow
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -186,12 +294,8 @@ const History: FC = memo(() => {
                     </TableCell>
 
                     <TableCell align="right">{history.day}</TableCell>
-                    <TableCell align="right">
-                      {history.incOrDec ? 0 : history.quantity}
-                    </TableCell>
-                    <TableCell align="right">
-                      {history.incOrDec ? history.quantity : 0}
-                    </TableCell>
+                    <TableCell align="right">{history.incOrDecFalse}</TableCell>
+                    <TableCell align="right">{history.incOrDecTrue}</TableCell>
                     <TableCell align="right">{history.stockAmount}</TableCell>
                   </TableRow>
                 );
@@ -207,9 +311,11 @@ const History: FC = memo(() => {
               )}
           </Table>
         </TableContainer>
-        <Box sx={{ display: "flex", justifyContent: "center", m: "20px" }}>
-          <Pagination count={3} />
-        </Box>
+        <Paginate
+          count={pageCount}
+          page={currentPage}
+          onChange={handlePageClick}
+        />
       </Box>
     </>
   );

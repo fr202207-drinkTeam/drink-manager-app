@@ -71,6 +71,7 @@ export const MainRouter = () => {
       {AdminRouter.map((route, index) => (
         <Route
           key={index}
+          // path={`/${route.path}`}
           path={`/adminhome${route.path}`}
           element={
             authId ? (
