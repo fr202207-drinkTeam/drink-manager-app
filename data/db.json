@@ -96,14 +96,19 @@
       "isAdmin": false,
       "polledPopular": false,
       "polledOther": false,
-      "id": 8}
+      "id": 8
+    }
   ],
   "items": [
     {
       "id": 1,
       "name": "ブライトブレンド",
       "description": "ミディアムローストの豆をブレンドしたブライトブレンドは、キャラメル、ベリー、はちみつのバランスのとれたほんのり甘い香りが楽しめる一杯です。",
-      "image": ["/item.png", "/item.png", "/item.png"],
+      "image": [
+        "/item.png",
+        "/item.png",
+        "/item.png"
+      ],
       "itemCategory": 2,
       "createdAt": "",
       "intheOffice": true,
@@ -114,7 +119,10 @@
       "id": 2,
       "name": "LAVAZZA CLASSICO",
       "description": "しっかりとした珈琲感とドライフルーツの風味が特徴のミディアムローストコーヒー。バランスのとれたリッチな味わいがお好みの方へオススメです。",
-      "image": ["/item.png", "/coffee.png"],
+      "image": [
+        "/item.png",
+        "/coffee.png"
+      ],
       "itemCategory": 2,
       "createdAt": "",
       "intheOffice": true,
@@ -125,7 +133,10 @@
       "id": 3,
       "name": "LAVAZZA INTENSO",
       "description": "スモーキーで香ばしい力強いフレーバーのダークローストコーヒー。キャラメリゼしたような風味と濃厚な味わいはリアルミルクフロスとも相性抜群です。",
-      "image": ["/item.png", "dummybanner.jpg"],
+      "image": [
+        "/item.png",
+        "dummybanner.jpg"
+      ],
       "itemCategory": 1,
       "createdAt": "",
       "intheOffice": true,
@@ -136,7 +147,10 @@
       "id": 4,
       "name": "プレミアム スムースロースト",
       "description": "ほど良いコクと軽やかで優しいアフターテイスト。一日のどんな気分にも寄り添う、プレミアムにスムーズな一杯です。",
-      "image": ["/item.png", "s4.png"],
+      "image": [
+        "/item.png",
+        "s4.png"
+      ],
       "itemCategory": 3,
       "createdAt": "",
       "intheOffice": true,
@@ -147,7 +161,9 @@
       "id": 5,
       "name": "アメリカンロースト",
       "description": "口当たりの良い さわやかな酸味。ほのかな甘いノートが最後に残ります。",
-      "image": ["/item.png"],
+      "image": [
+        "/item.png"
+      ],
       "itemCategory": 3,
       "createdAt": "",
       "intheOffice": true,
@@ -158,7 +174,9 @@
       "id": 6,
       "name": "コロンビア",
       "description": "100%南米コロンビア産の生豆使用。香ばしい香りと酸味・甘味・コクのバランスはマイルドそのものです。",
-      "image": ["/item.png"],
+      "image": [
+        "/item.png"
+      ],
       "itemCategory": 2,
       "createdAt": "",
       "intheOffice": true,
@@ -169,7 +187,9 @@
       "id": 7,
       "name": "スマトラ",
       "description": "100%スマトラ島産アラビカ豆。火山性土で育った豆からの力強い個性的なアロマは、複雑で深いコク、そしてほのかな甘みへと続きます。",
-      "image": ["/item.png"],
+      "image": [
+        "/item.png"
+      ],
       "itemCategory": 1,
       "createdAt": "",
       "intheOffice": true,
@@ -180,7 +200,9 @@
       "id": 8,
       "name": "プレミアスムースデカフ",
       "description": "市場のニーズが高まっているデカフェコーヒー。フルーティーな軽さの中に程よいコクがアフターテイストを満たします。",
-      "image": ["/item.png"],
+      "image": [
+        "/item.png"
+      ],
       "itemCategory": 4,
       "createdAt": "",
       "intheOffice": true,
@@ -191,7 +213,9 @@
       "id": 9,
       "name": "イングリッシュ ブレックファースト",
       "description": "バランスのよい渋味。しっかりとした味わい豊かな紅茶。",
-      "image": ["/item.png"],
+      "image": [
+        "/item.png"
+      ],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
@@ -202,7 +226,9 @@
       "id": 10,
       "name": "アールグレイ",
       "description": "爽やかなベルガモットの香りとほどよい風味が特徴的なお茶。シトラスとフルーツの香りとほのかに感じるスモーキーな香りのブレンドを楽しんでいただけます。",
-      "image": ["/item.png"],
+      "image": [
+        "/item.png"
+      ],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
@@ -213,7 +239,9 @@
       "id": 11,
       "name": "レモンハーブ",
       "description": "軽やかなレモンと柑橘系の香りに、フローラルなハチミツの風味が華を添えるノンカフェインのハーブティーです。",
-      "image": ["/item.png"],
+      "image": [
+        "/item.png"
+      ],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
@@ -224,7 +252,9 @@
       "id": 12,
       "name": "ジャスミン茶",
       "description": "ジャスミンの芳香を採りいれた渋みの少ないさっぱりとした緑茶です。",
-      "image": ["/item.png"],
+      "image": [
+        "/item.png"
+      ],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
@@ -235,7 +265,9 @@
       "id": 13,
       "name": "緑茶",
       "description": "豊かな香りとコク、まろやかな風味。深蒸し煎茶から引き出される ほど良い渋味と旨味は日本人の好みにぴったり。 国産茶葉100%使用。",
-      "image": ["/item.png"],
+      "image": [
+        "/item.png"
+      ],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
@@ -246,7 +278,9 @@
       "id": 14,
       "name": "ホットココア",
       "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）",
-      "image": ["/item.png"],
+      "image": [
+        "/item.png"
+      ],
       "itemCategory": 6,
       "createdAt": "",
       "intheOffice": true,
@@ -254,87 +288,155 @@
       "otherItem": false
     },
     {
-      "name": "ねぎ",
-      "description": "テストテストテストテストテスト",
+      "id": 15,
+      "name": "ホットココア",
+      "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）",
       "image": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/ce213123-2491-4dd1-8c1e-f05c105bda49?alt=media&token=fc3f8a6f-bbd4-4508-8b7d-5471ab90b053",
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/919f2cfa-fb77-4d30-8d07-820a4fda7dad?alt=media&token=ada209d6-f721-46ad-b7a3-edb9e1e33159"
+        "/item.png"
       ],
-      "itemCategory": 4,
-      "createdAt": "2023-04-26T18:14:45.200Z",
-      "inTheOffice": false,
-      "author": "test",
-      "otherItem": false,
-      "id": 15
+      "itemCategory": 6,
+      "createdAt": "",
+      "intheOffice": true,
+      "author": "",
+      "otherItem": false
     },
     {
-      "name": "ねぎ",
-      "description": "テストテストテストテストテスト",
+      "id": 16,
+      "name": "ホットココア",
+      "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）",
       "image": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/66d1dfde-4d3a-4c53-a2bb-15cd7c5526e3?alt=media&token=56d29929-d25b-46db-a789-bbc8943c4aa8",
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/c7555dc8-b20f-4f98-9249-1a8cd923e3c8?alt=media&token=07ef0b7a-a2ae-47d0-a1a6-d030b7dc4fdf"
+        "/item.png"
       ],
-      "itemCategory": 4,
-      "createdAt": "2023-04-26T18:14:50.739Z",
-      "inTheOffice": false,
-      "author": "test",
-      "otherItem": false,
-      "id": 16
+      "itemCategory": 6,
+      "createdAt": "",
+      "intheOffice": true,
+      "author": "",
+      "otherItem": false
     },
     {
-      "name": "テストテストテスト",
-      "description": "テストテストテストテストテストテストテスト",
+      "id": 17,
+      "name": "ホットココア",
+      "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）",
       "image": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/409d25a4-ec60-4fbc-95bf-cf9b6c468b3c?alt=media&token=38c0ad41-f549-415d-a76d-6793666a8d24",
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/7c64b716-7090-41c8-b3d2-d7acc24a8e96?alt=media&token=d9b9dd49-25c9-49e3-b060-a960e8444a10",
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/dae9c010-072b-4bb5-be3a-3f22fc021121?alt=media&token=ee489961-ca6e-477c-88a2-d7bf44695cf9"
+        "/item.png"
+      ],
+      "itemCategory": 6,
+      "createdAt": "",
+      "intheOffice": true,
+      "author": "",
+      "otherItem": false
+    },
+    {
+      "id": 18,
+      "name": "ホットココア",
+      "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）",
+      "image": [
+        "/item.png"
+      ],
+      "itemCategory": 6,
+      "createdAt": "",
+      "intheOffice": true,
+      "author": "",
+      "otherItem": false
+    },
+    {
+      "id": 19,
+      "name": "ホットココア",
+      "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）",
+      "image": [
+        "/item.png",
+        "/item.png"
+      ],
+      "itemCategory": 6,
+      "createdAt": "",
+      "intheOffice": true,
+      "author": "",
+      "otherItem": false
+    },
+    {
+      "name": "5858",
+      "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）5858",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/f8775a2e-a13d-4ac8-9e32-773b99585bfb?alt=media&token=34062896-73cd-4144-9371-8c5e55d9cc3f",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/6e74e587-f7e4-4b94-8c92-a66f555bd8a7?alt=media&token=886d6cab-3372-4ba3-bda4-ff811ee02f98",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/7bb4256c-e6c6-418d-b79b-b61ed403dd72?alt=media&token=08a55931-4801-49f4-83a0-75a8deb87fde"
       ],
       "itemCategory": 2,
-      "createdAt": "2023-04-26T18:16:49.922Z",
+      "createdAt": "2023-05-08T05:48:56.528Z",
       "inTheOffice": false,
-      "author": "test",
+      "author": "user1",
       "otherItem": false,
-      "id": 17
+      "id": 20
     },
     {
-      "name": "テストテストテストテスト",
-      "description": "テストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテスト",
+      "name": "新商品A",
+      "description": "新商品Aの説明",
       "image": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/a4008021-79d4-48f4-b3bf-d4b23d5b2113?alt=media&token=e141730c-2d46-4953-bd6e-fa8db00bdf57"
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/664554ff-dc10-415a-bbb4-228ef2bd034d?alt=media&token=b4a39318-64bf-4831-b859-210b0fd9e1dd",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/bab923a3-92a5-4e87-a78f-5c1694b37692?alt=media&token=8050bbad-1830-4018-81d2-0e1406a0524c"
       ],
-      "itemCategory": 4,
-      "createdAt": "2023-04-26T18:18:59.369Z",
+      "itemCategory": 5,
+      "createdAt": "2023-05-08T06:53:19.228Z",
       "inTheOffice": false,
-      "author": "test",
+      "author": 2,
       "otherItem": false,
-      "id": 18
+      "id": 21
     },
     {
-      "name": "19",
-      "description": "19",
+      "name": "新商品C",
+      "description": "新商品Cの説明",
       "image": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/ddbb9546-be39-4916-89b8-092eb1e67cd5?alt=media&token=948b2678-ef93-44e7-88c1-fdaea026738b",
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/c5efa6ec-927d-4f6f-9c9c-cc2f6bdc3325?alt=media&token=bcfa0b15-864d-4dd5-a539-5f056e76bc86"
-      ],
-      "itemCategory": 1,
-      "createdAt": "2023-04-27T00:05:34.340Z",
-      "inTheOffice": false,
-      "author": "test",
-      "otherItem": false,
-      "id": 19
-    },
-    {
-      "name": "商品",
-      "description": "商品",
-      "image": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/45e05d2f-180d-465a-bca5-b1e0fb45b477?alt=media&token=d0fb0a3a-8c29-4129-932f-e6c577371da8"
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/9d7ba785-8010-4e02-9fb9-c4304c9fb079?alt=media&token=10b56dff-a272-40ab-9cdf-f95771f120ce",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/ae6ec8f2-7b86-4d91-b405-96221ecd76e9?alt=media&token=5231ff05-6078-4266-8a60-ed2c09d83633"
       ],
       "itemCategory": 3,
-      "createdAt": "2023-04-27T01:48:29.461Z",
+      "createdAt": "2023-05-08T06:58:11.064Z",
+      "inTheOffice": false,
+      "author": 2,
+      "otherItem": false,
+      "id": 22
+    },
+    {
+      "name": "新商品D",
+      "description": "新商品Dの説明",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/8f86ae5f-b6eb-423d-b2da-388c336a87ce?alt=media&token=bbfb1e53-b172-4879-87b4-4764e5417736",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/ed434583-4f3a-46f4-bd44-28dcd694f708?alt=media&token=976a494f-16e1-4041-b153-b7f1b072b63e"
+      ],
+      "itemCategory": 3,
+      "createdAt": "2023-05-08T06:59:26.038Z",
+      "inTheOffice": false,
+      "author": 2,
+      "otherItem": false,
+      "id": 23
+    },
+    {
+      "name": "商品A",
+      "description": "説明",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/40ea4d2a-44cc-4043-bcb9-ca3f77335e19?alt=media&token=1453599b-ad4f-40c8-b186-55ae1e77d7f7",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/b3c3e8b2-25bb-4f6c-8bad-ee6b59930af2?alt=media&token=5e970d56-61c2-4948-aa02-adf1d5e10bab"
+      ],
+      "itemCategory": 2,
+      "createdAt": "2023-05-08T07:35:19.856Z",
       "inTheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 20
+      "id": 24
+    },
+    {
+      "name": "あああ",
+      "description": "ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/11ae2ce3-3e52-4b4c-b777-7e98c83f75e9?alt=media&token=c1332a3d-4432-4ff5-ad28-eeb14e901a89",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/19271b4a-5433-43da-80ab-0debb1152a28?alt=media&token=2e70d680-6fcb-4265-9b7b-23d5239ee83d"
+      ],
+      "itemCategory": 1,
+      "createdAt": "2023-05-08T07:41:03.621Z",
+      "inTheOffice": false,
+      "author": 1,
+      "otherItem": false,
+      "id": 25
     }
   ],
   "itemCategory": [
@@ -983,7 +1085,9 @@
       "userId": "1111",
       "content": "私は最近紅茶にハマってます！香りが良くてとても美味しいので皆さんも是非飲んでみてください！",
       "itemId": 10,
-      "postImage": ["/item.png"],
+      "postImage": [
+        "/item.png"
+      ],
       "createdAt": "2023-05-3T02:50:27.944Z",
       "updatedAt": ""
     },
@@ -992,7 +1096,10 @@
       "userId": "1114",
       "content": "最近あったかくなってきたので、ホットコーヒーからアイスコーヒーに変えて飲んでいます。そんな私のおすすめはブライトブレンド！",
       "itemId": 2,
-      "postImage": ["/item.png", "/item.png"],
+      "postImage": [
+        "/item.png",
+        "/item.png"
+      ],
       "createdAt": "2023-04-3T02:50:27.944Z",
       "updatedAt": ""
     },
@@ -1001,7 +1108,10 @@
       "userId": "1112",
       "content": "LAVAZZA CLASSICOめちゃうまです！",
       "itemId": 1,
-      "postImage": ["/coffee.png", "/item.png"],
+      "postImage": [
+        "/coffee.png",
+        "/item.png"
+      ],
       "createdAt": "2023-03-3T02:50:27.944Z",
       "updatedAt": ""
     },
@@ -1010,7 +1120,11 @@
       "userId": "1118",
       "content": "緑茶より断然ジャスミン茶派です",
       "itemId": 12,
-      "postImage": ["/item.png", "/coffee.png", "/s4.png"],
+      "postImage": [
+        "/item.png",
+        "/coffee.png",
+        "/s4.png"
+      ],
       "createdAt": "2023-02-3T02:50:27.944Z",
       "updatedAt": ""
     }

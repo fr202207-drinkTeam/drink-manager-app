@@ -96,7 +96,7 @@ const ItemForm: FC<Props> = memo((props) => {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setItemDescription(e.target.value)
         }
-        rows={5}
+        rows={4}
       />
 
       <InputLabel id="itemCategoryField" required>

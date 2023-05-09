@@ -55,7 +55,7 @@ const PostData: FC<Props> = memo((props) => {
               <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                 <Box>
                   <Typography variant="body2">
-                    {postData.createdAt.toString()}
+                    {/* {postData.createdAt.toString()} */}
                   </Typography>
                 </Box>
                 {/* ユーザーが管理者かどうかでそれぞれの投稿にタグ付け */}
