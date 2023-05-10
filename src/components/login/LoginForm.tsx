@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Cookie, Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Box,
   Container,
@@ -19,6 +19,8 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../Firebase";
 import { useRecoilState } from "recoil";
 import { loginUserState } from "../../store/loginUserState";
+import Cookies from "js-cookie";
+import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 
 type Props = {
   loginTitle: string;
@@ -32,7 +34,7 @@ const LoginForm: FC<Props> = (props) => {
   const [passText, setPassText] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [errorUser, setErrorUser] = useState<boolean>(false);
-  const [errorAdminCheck, setErrorAdminCheck] = useState<boolean>(false);
+  // const [errorAdminCheck, setErrorAdminCheck] = useState<boolean>(false);
 
   //入力フォーム
   const [email, setEmail] = useState<string>("");
@@ -83,6 +85,7 @@ const LoginForm: FC<Props> = (props) => {
         user[0].isAdmin === true
       ) {
         document.cookie = `authId=${loginedUser.uid}; max-age=86400`;
+        document.cookie = `isAdmin=true; max-age=86400`;
         navigate("/adminhome");
       } else if (
         currentLocation.startsWith("/login") &&
@@ -99,8 +102,11 @@ const LoginForm: FC<Props> = (props) => {
     }
   };
 
-  console.log(errorAdminCheck);
+  const authId = Cookies.get("authId")!;
+  const loginUsers = useLoginUserFetch({ authId: authId });
+  console.log(loginUsers);
 
+  console.log();
   return (
     <Container maxWidth="sm" sx={{ alignItems: "center", mt: "80px" }}>
       <Box>

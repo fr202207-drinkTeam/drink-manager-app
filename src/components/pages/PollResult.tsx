@@ -1,4 +1,5 @@
-import { FC, memo, useEffect, useState } from "react";
+/* eslint-disable array-callback-return */
+import {  memo, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 //mui
 import { Paper, Box } from "@mui/material";
@@ -28,7 +29,6 @@ const PollResult = memo(() => {
       }
     }
   });
-  console.log(Object.keys(pollCounts).length>=1,"pollcounts")
 
   //票の大きい商品順で並び替え
   const sortedPolls = Object.entries(pollCounts).sort(
@@ -39,7 +39,6 @@ const PollResult = memo(() => {
     return subArr[0];
   });
   const pollResult = result.map(Number);
-  console.log(pollResult, "pollresult");
 
   //value票の数を多い順に並び替え
   const values = Object.values(pollCounts).map(Number);
@@ -101,8 +100,8 @@ const PollResult = memo(() => {
         return bCount - aCount;
       });
       setPollCounts(polllCountItems);
-      console.log(polllCountItems, "polllCountItems");
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, questionnaire]);
 
   return (
@@ -189,7 +188,7 @@ const PollResult = memo(() => {
             flexWrap: "wrap",
           }}
         >
-        {pollCount.length > 0 && <ItemCard data={pollCount.slice(0, 3)} sxStyle={{ maxWidth: 260, minWidth:260,mx:5, mb:1 }} />}
+        {pollCount.length > 0 && <ItemCard data={pollCount.slice(0, 3)} sxStyle={{ maxWidth: 310, minWidth:310, mb:1 }} />}
         </Box>
         {values.length >= 4 && (
           <Box
@@ -199,7 +198,7 @@ const PollResult = memo(() => {
               justifyContent:"space-around",
             }}
           >
-            {values.map((data, index) => {
+            {values.map((data, index)=> {
               if (index >= 3 && index <= 5) {
                 return (
                   <Box key={index} sx={{ width: "30%", mt: 5,display:"flex",justifyContent:"center",alignItems:"center"}}>
@@ -224,7 +223,7 @@ const PollResult = memo(() => {
               justifyContent: "space-around",
             }}
           >
-            <ItemCard data={pollCount.slice(3)} sxStyle={{ maxWidth: 250, minWidth:250,mx:5, mb:10 }} />
+            <ItemCard data={pollCount.slice(3)} sxStyle={{ maxWidth: 310, minWidth:310, mb:10 }} />
           </Box>
         )}
         </>

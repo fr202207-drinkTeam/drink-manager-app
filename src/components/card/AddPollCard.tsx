@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import { Items } from "../../types/type";
-import { ActiveBorderButton, ActiveDarkBlueButton, ActiveGrayButton, InactiveButton } from "../atoms/button/Button";
+import { ActiveBorderButton, ActiveDarkBlueButton } from "../atoms/button/Button";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import CheckIcon from '@mui/icons-material/Check';
 
 type ItemCardProps = {
   data: Items[];
   sxStyle?: any;
+  selectedItems:number[]
+  setSelectedItems:any
 };
 
-const ItemCard = ({ data, sxStyle }: ItemCardProps) => {
+const ItemCard = ({ data, sxStyle,selectedItems,setSelectedItems }: ItemCardProps) => {
   // const navigate = useNavigate();
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
+
 
   const handleClick = async (id: number) => {
     if (!selectedItems.includes(id)) {
@@ -42,8 +43,8 @@ const ItemCard = ({ data, sxStyle }: ItemCardProps) => {
             return (
               <Card
                 sx={{
-                  width: 270,
-                  m: 2,
+                  width: 310,
+                  m:1,
                   boxShadow: "none",
                   border: "solid 1px ",
                   borderColor: "#bfbec5",
@@ -90,13 +91,14 @@ const ItemCard = ({ data, sxStyle }: ItemCardProps) => {
                   title="商品名"
                   sx={{
                     display: "block",
-                    width: 200,
-                    height: 200,
+                    width: 150,
+                    height: 150,
                     objectFit: "cover",
                     m: "auto",
+                    p:1
                   }}
                 />
-                <CardContent sx={{ height: "150px" }}>
+                <CardContent >
                   {drink.intheOffice ? (
                     <Typography
                       variant="body2"
@@ -136,22 +138,14 @@ const ItemCard = ({ data, sxStyle }: ItemCardProps) => {
                     gutterBottom
                     sx={{
                       textAlign: "center",
-                      fontSize: "16px",
+                      fontSize: "15px",
                       borderBottom: "double",
-                      fontFamily: "Georgia",
                       fontWeight: "bold",
-                      height: "200",
+                      fontFamily: "Georgia",
+                      mt:1
                     }}
                   >
                     {drink.name}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                    sx={{ textAlign: "center", fontSize: "13px" }}
-                  >
-                    {drink.description}
                   </Typography>
                 </CardContent>
                 {selectedItems.includes(drink.id) ? (
@@ -176,7 +170,7 @@ const ItemCard = ({ data, sxStyle }: ItemCardProps) => {
                       width: 200,
                       boxShadow: "none",
                       fontWeight: "bold",
-                      ml: 4,
+                      ml: 7,
                       border: "double",
                     }}
                     event={() => {

@@ -218,9 +218,9 @@ const ItemEdit: FC<Props> = memo(() => {
       <Paper sx={{ p: 5, width: "80%", m: "auto" }}>
         <AdmTitleText>商品編集</AdmTitleText>
         {updating ? (
-          <div style={{ margin: "200px", textAlign: "center"}}>
+          <div style={{ margin: "200px", textAlign: "center" }}>
             <p>更新中</p>
-          <CircularProgress />
+            <CircularProgress />
           </div>
         ) : (
           <>

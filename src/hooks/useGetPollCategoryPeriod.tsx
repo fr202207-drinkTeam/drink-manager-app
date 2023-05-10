@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Questionnaire } from "../types/type";
 
 const useGetPollCategoryPeriod = (id: number) => {
   const [questionnairePeriod, setQuestionnairePeriod] = useState<Questionnaire[]>([]);
-  const now = new Date();
-
+  
   useEffect(() => {
     (async () => {
+      const now = new Date();
       try {
         const response = await fetch(
           `http://localhost:8880/questionnaire?category=${Number(id)}`
@@ -31,7 +31,6 @@ const useGetPollCategoryPeriod = (id: number) => {
         console.error(error);
       }
     })();
-    // console.log(questionnairePeriod,"aaa")
   }, [id]);
 
   return questionnairePeriod;

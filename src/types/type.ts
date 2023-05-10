@@ -32,6 +32,7 @@ export type Questionnaire = {
       result?: number;
     }
   ];
+  description:string;
   createdAt: Date;
   category: number;
   startDate: Date;

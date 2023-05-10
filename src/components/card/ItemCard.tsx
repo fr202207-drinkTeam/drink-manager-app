@@ -28,7 +28,7 @@ const ItemCard = ({ data,sxStyle,sxBox }: ItemCardProps) => {
         {data?.map((drink: Items,index) => (
           <Card
             sx={{
-              width: 270,
+              width: 310,
               m: 2,
               boxShadow: "none",
               border: "solid 1px ",
@@ -124,11 +124,12 @@ const ItemCard = ({ data,sxStyle,sxBox }: ItemCardProps) => {
                   gutterBottom
                   sx={{
                     textAlign: "center",
-                    fontSize: "16px",
+                    fontSize: "15px",
                     borderBottom: "double",
                     fontFamily: "Georgia",
                     fontWeight: "bold",
                     height: "200",
+                    mt:1
                   }}
                 >
                   {drink.name}
