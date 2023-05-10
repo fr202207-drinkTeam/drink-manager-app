@@ -40,6 +40,7 @@ type Props = {
   openButtonSxStyle?: object;
   completeButtonColor: string;
   completeButtonName: string;
+  buttonName?: string;
   completeAction: () => any;
   cancelButtonColor: string;
 };
@@ -60,6 +61,7 @@ const ModalWindow: FC<Props> = memo((props: Props) => {
     openButtonSxStyle,
     completeButtonColor,
     completeButtonName,
+    buttonName,
     completeAction,
     cancelButtonColor,
   } = props;
@@ -136,12 +138,22 @@ const ModalWindow: FC<Props> = memo((props: Props) => {
 
   // モーダル表示ボタン
   const OpenButton = () => {
-    return buttonSetting(
-      openButtonColor,
-      handleOpen,
-      completeButtonName,
-      openButtonSxStyle
-    );
+    if(buttonName) {
+      return buttonSetting(
+        openButtonColor,
+        handleOpen,
+        buttonName,
+        openButtonSxStyle
+      );
+    } else {
+      return buttonSetting(
+        openButtonColor,
+        handleOpen,
+        completeButtonName,
+        openButtonSxStyle
+      );
+    }
+    
   };
 
   // 完了ボタン

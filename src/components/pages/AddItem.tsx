@@ -4,23 +4,30 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import {
-  InactiveButton,
-  ActiveBorderButton,
-} from "../atoms/button/Button";
+import { InactiveButton, ActiveBorderButton } from "../atoms/button/Button";
 import AdmTitleText from "../atoms/text/AdmTitleText";
-import ImgPathConversion from "../../utils/ImgPathConversion2";
+import ImgPathConversion from ".././../utils/ImgPathConversion";
 import ModalWindow from "../organisms/ModalWindow";
 import ItemForm from "../organisms/ItemForm";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
+import { CircularProgress } from "@mui/material";
 
-const AddItem: FC = memo(() => {
+type Props = {
+  //投票から商品追加したかどうか
+  pollFlag?: boolean;
+  setPollFlag?: React.Dispatch<React.SetStateAction<boolean>>;
+  handleClose?: any;
+};
+
+const AddItem: FC<Props> = memo(({ pollFlag, setPollFlag, handleClose }) => {
   const navigate: NavigateFunction = useNavigate();
   const [itemName, setItemName] = useState<string>("");
   const [itemDescription, setItemDescription] = useState<string>("");
   const [itemCategory, setItemCategory] = useState<number>(0);
   const [itemImages, setItemImages] = useState<File[]>([]);
+  const [adding, setAdding] = useState<boolean>(false);
+
   const isFirstRender = useRef(true);
 
   // recoilからログインユーザー情報を取得
@@ -29,11 +36,10 @@ const AddItem: FC = memo(() => {
 
   // データ追加処理(確定ボタン)
   const onClickAddItemData: () => Promise<void> = async () => {
+    setAdding(true)
     const imagePath = await ImgPathConversion({
-      imgFiles: itemImages
+      imgFiles: itemImages,
     });
-
-    console.log(imagePath);
 
     if (isFirstRender.current) {
       isFirstRender.current = false;
@@ -52,91 +58,107 @@ const AddItem: FC = memo(() => {
         createdAt: new Date(),
         inTheOffice: false,
         author: loginUser.id,
-        otherItem: false,
+        otherItem: pollFlag?true:false,
       }),
     }).then(() => {
+      setAdding(false)
       navigate("/adminhome");
-      console.log("success");
     });
   };
 
+  //投票から削除押した場合
+  const handleDelete = () => {
+    if (pollFlag) {
+      handleClose();
+    } else {
+      navigate(-1);
+    }
+  };
   return (
     <>
       <Paper sx={{ p: 5, width: "80%", m: "auto" }}>
         <AdmTitleText>商品追加</AdmTitleText>
-        <ItemForm
-          setItemName={setItemName}
-          setItemDescription={setItemDescription}
-          setItemCategory={setItemCategory}
-          setItemImages={setItemImages}
-        />
-
-        {itemName &&
-        itemDescription &&
-        itemCategory !== 0 &&
-        itemImages.length > 0 ? (
-          <></>
+        {adding ? (
+          <>
+            <div style={{ margin: "200px", textAlign: "center" }}>
+              <p>登録中</p>
+              <CircularProgress />
+            </div>
+          </>
         ) : (
           <>
-            <Typography
-              variant="body1"
-              component="div"
-              textAlign="center"
-              sx={{ mb: 1, mt: 3, color: "red" }}
-            >
-              全ての項目を入力、または選択して下さい
-            </Typography>
-          </>
-        )}
-
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <ModalWindow
-            title=""
-            content="内容は破棄されますがよろしいですか？"
-            openButtonColor="red"
-            completeButtonColor="red"
-            completeButtonName="削除"
-            completeAction={() => {
-              navigate(-1);
-            }}
-            cancelButtonColor="gray"
-            openButtonSxStyle={{
-              my: 2,
-              mr: 3,
-              py: "5px",
-              fontSize: "16px",
-            }}
-          />
-          {itemName &&
-          itemDescription &&
-          itemCategory !== 0 &&
-          itemImages.length > 0 ? (
-            <ActiveBorderButton
-              event={onClickAddItemData}
-              sxStyle={{
-                my: 2,
-                mr: 3,
-                py: "5px",
-                fontSize: "16px",
-              }}
-            >
-              確定
-            </ActiveBorderButton>
-          ) : (
-            <>
-              <InactiveButton
-                sxStyle={{
+            <ItemForm
+              setItemName={setItemName}
+              setItemDescription={setItemDescription}
+              setItemCategory={setItemCategory}
+              setItemImages={setItemImages}
+            />
+            {itemName &&
+            itemDescription &&
+            itemCategory !== 0 &&
+            itemImages.length > 0 ? (
+              <></>
+            ) : (
+              <>
+                <Typography
+                  variant="body1"
+                  component="div"
+                  textAlign="center"
+                  sx={{ mb: 1, mt: 3, color: "red" }}
+                >
+                  全ての項目を入力、または選択して下さい
+                </Typography>
+              </>
+            )}
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <ModalWindow
+                title=""
+                content="内容は破棄されますがよろしいですか？"
+                openButtonColor="red"
+                completeButtonColor="red"
+                completeButtonName="OK"
+                buttonName="入力内容を破棄"
+                completeAction={handleDelete}
+                cancelButtonColor="gray"
+                openButtonSxStyle={{
                   my: 2,
                   mr: 3,
                   py: "5px",
                   fontSize: "16px",
                 }}
-              >
-                確定
-              </InactiveButton>
-            </>
-          )}
-        </Box>
+              />
+              {itemName &&
+              itemDescription &&
+              itemCategory !== 0 &&
+              itemImages.length > 0 ? (
+                <ActiveBorderButton
+                  event={onClickAddItemData}
+                  sxStyle={{
+                    my: 2,
+                    mr: 3,
+                    py: "5px",
+                    fontSize: "16px",
+                  }}
+                >
+                  確定
+                </ActiveBorderButton>
+              ) : (
+                <>
+                  <InactiveButton
+                    sxStyle={{
+                      my: 2,
+                      mr: 3,
+                      py: "5px",
+                      fontSize: "16px",
+                    }}
+                  >
+                    確定
+                  </InactiveButton>
+                </>
+              )}
+            </Box>
+          </>
+        )}
       </Paper>
     </>
   );

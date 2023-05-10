@@ -12,7 +12,7 @@ import { Box } from "@mui/system";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import PreviewImage from "../molecules/PreviewImage";
 import { useParams } from "react-router";
-import useGetAnItem from "../../hooks/useGetAnItems";
+import useGetAnItem from "../../hooks/useGetAnItem";
 import previewImages from "../../utils/previewImages";
 
 type Props = {
@@ -102,7 +102,7 @@ const ItemForm: FC<Props> = memo((props) => {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setItemDescription(e.target.value)
         }
-        rows={5}
+        rows={4}
       />
 
       <InputLabel id="itemCategoryField" required>
