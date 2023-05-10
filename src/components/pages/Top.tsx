@@ -1,7 +1,5 @@
 import { FC, memo } from "react";
-// import "./App.css";
 import React from "react";
-
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -10,7 +8,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import DefaultLayout from "../layout/DefaultLayout";
-import Slider from "../atoms/slider/Slider";
+
 import { useRecoilValue } from "recoil";
 import { loginUserState } from "../../store/loginUserState";
 import { Grid } from "@mui/material";
@@ -23,19 +21,23 @@ import {
   ActivePinkButton,
 } from "../atoms/button/Button";
 import { useState, useEffect } from "react";
-import PostsData from "../organisms/PostData ";
+
 import { useNavigate } from "react-router-dom";
 import PollRanking from "../organisms/PollRanking";
+import PostsData from "../organisms/PostData ";
+import { Post } from "../../types/type";
+import PostData from "../organisms/PostData ";
 type Props = {};
 
 const Top: FC<Props> = memo((props) => {
   const navigate = useNavigate();
   const [postData, setPostData] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  // 投稿取得
+  console.log(postData, "postDate");
+  const [postsData, setPostsData] = useState<Post[]>([]);
+
   useEffect(() => {
-    // 関連する投稿を取得
-    fetch(`http://localhost:8880/posts?_limit=3}`, {
+    fetch(`http://localhost:8880/posts?&_limit=3&_sort=createdAt&_order=desc`, {
       method: "GET",
     })
       .then((res) => res.json())
@@ -49,7 +51,8 @@ const Top: FC<Props> = memo((props) => {
         console.error("Error:", error);
       });
   }, []);
-
+  console.log(postData, "top");
+  console.log(postsData, "top2");
   return (
     <>
       <DefaultLayout>
@@ -94,7 +97,6 @@ const Top: FC<Props> = memo((props) => {
             </Typography>
           </Card>
         </Box>
-        <PollRanking/>
         <Box sx={{ textAlign: "center" }}>
           <ActivePinkButton
             event={() => {
@@ -105,84 +107,8 @@ const Top: FC<Props> = memo((props) => {
             投票する
           </ActivePinkButton>
         </Box>
-        {/* <Grid container spacing={2}>
-                {items.map((item, index) => (
-                  <Grid key={index} item xs={12} sm={6} md={4}>
-                    <ItemCard />
-                  </Grid>
-                ))}
-              </Grid> */}
-
         <Box sx={{ textAlign: "center" }}>
-          <Card
-            sx={{
-              p: 1,
-              backgroundColor: "#fff",
-              border: "4px dotted #ffdead ",
-              textAlign: "center",
-              width: "60%",
-              borderRadius: "20px",
-              m: "auto",
-            }}
-          >
-            <Typography
-              gutterBottom
-              component="div"
-              sx={{ m: 2, color: "#595857", fontSize: "25px" }}
-            >
-              ランキング
-            </Typography>
-            <Typography
-              gutterBottom
-              component="div"
-              sx={{ m: 2, color: "#595857", fontSize: "16px" }}
-            >
-              ●●月の投票結果はこちら
-            </Typography>
-          </Card>
-        </Box>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6} md={4}>
-            <Box
-              sx={{
-                mt: 10,
-                pb: 10,
-                backgroundImage: "url(/crown1.png)",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "100px",
-                backgroundPosition: "center",
-              }}
-            ></Box>
-            <ItemCard data={[]} />
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Box
-              sx={{
-                mt: 10,
-                pb: 10,
-                backgroundImage: "url(/crown2.png)",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "100px",
-                backgroundPosition: "center",
-              }}
-            ></Box>
-            <ItemCard data={[]} />
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Box
-              sx={{
-                mt: 10,
-                pb: 10,
-                backgroundImage: "url(/crown3.png)",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "100px",
-                backgroundPosition: "center",
-              }}
-            ></Box>
-            <ItemCard data={[]} />
-          </Grid>
-        </Grid>
-        <Box sx={{ textAlign: "center" }}>
+          <PollRanking />
           <ActivePinkButton
             event={() => {
               navigate("/home/poll");
@@ -218,9 +144,57 @@ const Top: FC<Props> = memo((props) => {
             ラクスパートナーズのみんなの投稿がとどいてるよ !
           </Typography>
         </Card>
-        <Grid container spacing={2}></Grid>
+        <Paper sx={{ p: "20px", background: "#eae5e3", mt: 5 }}>
+          <Box sx={{ overflowY: "scroll", height: "500px", px: "20px" }}>
+            {postData.map((data: any, index: any) => (
+              <Paper
+                key={index}
+                elevation={3}
+                sx={{
+                  p: 1,
 
-        <Box sx={{ textAlign: "center" }}>
+                  maxWidth: "80%",
+                  m: "auto",
+                  mt: 2,
+                  minWidth: 100,
+                  display: "flex",
+                }}
+              >
+                <Box sx={{ display: "flex" }}>
+                  <CardContent
+                    sx={{
+                      flex: "1 0 auto",
+                      width: "0.7",
+                      height: 200,
+                    }}
+                  >
+                    <Typography variant="body2" component="p">
+                      {data.content}
+                    </Typography>
+                  </CardContent>
+                </Box>
+                {data.postImage.length > 0 && (
+                  <CardMedia
+                    component="img"
+                    sx={{
+                      p: 1,
+                      m: "auto",
+                      maxWidth: "20%",
+                      minWidth: 80,
+                    }}
+                    image={data.postImage[0]}
+                    alt="投稿画像"
+                  />
+                )}
+              </Paper>
+            ))}
+          </Box>
+        </Paper>
+        {postData.map((postData: Post) => (
+          <PostsData key={postData.id} postData={postData} isComment={true} />
+        ))}
+        <Box sx={{ textAlign: "center", mt: 4 }}>
+          <Grid container spacing={2}></Grid>
           <ActiveBeigeButton
             event={() => {
               navigate("/home/timeline");
