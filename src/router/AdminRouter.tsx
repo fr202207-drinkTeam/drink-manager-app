@@ -1,6 +1,6 @@
 import Consumption from "../components/pages/Consumption";
 import Addition from "../components/pages/Addition";
-import History from "../components/pages/History-1";
+import History from "../components/pages/History";
 import AddItem from "../components/pages/AddItem";
 import ItemEdit from "../components/pages/ItemEdit";
 import AddPoll from "../components/pages/AddPoll";

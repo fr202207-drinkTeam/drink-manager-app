@@ -63,43 +63,69 @@ export const MainRouter = () => {
   const loginUser = useLoginUserFetch({ authId: authId });
 
   return (
-    <Routes>
-      {MainRoute.map((route, index) => (
-        <Route key={index} path={route.path} element={route.element} />
-      ))}
-      {/* adminhome配下のルーティング */}
-      {AdminRouter.map((route, index) => (
-        <Route
-          key={index}
-          // path={`/${route.path}`}
-          path={`/adminhome${route.path}`}
-          element={
-            authId ? (
-              loginUser && isAdmin ? (
-                <DefaultLayout>{route.element}</DefaultLayout>
-              ) : (
-                <Navigate to="/login" replace />
-              )
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
-        />
-      ))}
-      {/* home配下のルーティング */}
-      {UserRouter.map((route, index) => (
-        <Route
-          key={index}
-          path={`/home${route.path}`}
-          element={
-            authId ? (
-              <DefaultLayout>{route.element}</DefaultLayout>
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
-        />
-      ))}
-    </Routes>
+    <>
+      <Routes>
+        {MainRoute.map((route, index) => (
+          <Route key={index} path={route.path} element={route.element} />
+        ))}
+        {/* adminhome配下のルーティング */}
+        {AdminRouter.map((route, index) => (
+          <Route
+            key={index}
+            path={`/adminhome${route.path}`}
+            element={<DefaultLayout>{route.element}</DefaultLayout>}
+          />
+        ))}
+        {/* home配下のルーティング */}
+        {UserRouter.map((route, index) => (
+          <Route
+            key={index}
+            path={`/home${route.path}`}
+            element={<DefaultLayout>{route.element}</DefaultLayout>}
+          />
+        ))}
+      </Routes>
+    </>
   );
+  //ログイン認証あり
+  // return (
+  //   <Routes>
+  //     {MainRoute.map((route, index) => (
+  //       <Route key={index} path={route.path} element={route.element} />
+  //     ))}
+  //     {/* adminhome配下のルーティング */}
+  //     {AdminRouter.map((route, index) => (
+  //       <Route
+  //         key={index}
+  //         // path={`/${route.path}`}
+  //         path={`/adminhome${route.path}`}
+  //         element={
+  //           authId ? (
+  //             loginUser && isAdmin ? (
+  //               <DefaultLayout>{route.element}</DefaultLayout>
+  //             ) : (
+  //               <Navigate to="/login" replace />
+  //             )
+  //           ) : (
+  //             <Navigate to="/login" replace />
+  //           )
+  //         }
+  //       />
+  //     ))}
+  //     {/* home配下のルーティング */}
+  //     {UserRouter.map((route, index) => (
+  //       <Route
+  //         key={index}
+  //         path={`/home${route.path}`}
+  //         element={
+  //           authId ? (
+  //             <DefaultLayout>{route.element}</DefaultLayout>
+  //           ) : (
+  //             <Navigate to="/login" replace />
+  //           )
+  //         }
+  //       />
+  //     ))}
+  //   </Routes>
+  // );
 };
