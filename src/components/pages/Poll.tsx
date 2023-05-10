@@ -1,16 +1,11 @@
 import { memo } from "react";
-//mui
 import { Box, Link, List, ListItem, ListItemText, Paper } from "@mui/material";
 import { ActiveBeigeButton } from "../atoms/button/Button";
-//type
 import { Items, Questionnaire } from "../../types/type";
-//com
-import PollTitle from "../pollParts/PollTitle";
+import PollTitle from "../molecules/poll/PollTitle";
 import PollCard from "../card/PollCard";
 import DottedMemo from "../atoms/memo/DottedMemo";
-//hooks
 import useGetPollCategoryItem from "../../hooks/useGetPollCategoryItem";
-// icon
 import AdsClickIcon from "@mui/icons-material/AdsClick";
 import LooksOneIcon from "@mui/icons-material/LooksOne";
 import LooksTwoIcon from "@mui/icons-material/LooksTwo";
@@ -23,8 +18,6 @@ const Poll = memo(() => {
   const PopularPollTitle: Questionnaire[] = useGetPollLatestTitle(1);
   const OtherPollTitle: Questionnaire[] = useGetPollLatestTitle(2);
   const navigate = useNavigate();
-  
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const now = new Date();
   return (
     <>
@@ -85,8 +78,6 @@ const Poll = memo(() => {
                       primaryTypographyProps={{
                         textAlign: "center",
                         fontSize: "40px",
-                        // fontWeight: "bold",
-                        lineHeight: 1.2,
                         border: "double #C89F81",
                         p: 1,
                       }}
@@ -101,8 +92,6 @@ const Poll = memo(() => {
                           flexWrap: "wrap",
                           justifyContent: "center",
                           fontSize: "20px",
-                          // fontWeight: "bold",
-                          lineHeight: 1.2,
                           paddingBottom: 1,
                         }}
                       >
@@ -135,7 +124,6 @@ const Poll = memo(() => {
                     primaryTypographyProps={{
                       textAlign: "center",
                       fontSize: "40px",
-                      lineHeight: 1.2,
                       border: "double #C89F81",
                       p: 1,
                     }}
@@ -148,8 +136,6 @@ const Poll = memo(() => {
                         flexWrap: "wrap",
                         justifyContent: "center",
                         fontSize: "20px",
-                        // fontWeight: "bold",
-                        lineHeight: 1.2,
                         paddingBottom: 1,
                       }}
                     >
@@ -221,7 +207,7 @@ const Poll = memo(() => {
               data={PopularitemData}
               pollNum={PopularPollTitle[0]?.id}
               pollCategory={PopularPollTitle[0]?.category}
-              sxStyle={{ ml: 5 }}
+              sxStyle={{mb:10 }}
             />
           </>
         ) : (
@@ -273,7 +259,6 @@ const Poll = memo(() => {
               data={OtheritemData}
               pollNum={OtherPollTitle[0]?.id}
               pollCategory={OtherPollTitle[0]?.category}
-              sxStyle={{ ml: 5 }}
             />
           </>
         ) : (

@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Questionnaire } from "../types/type";
 
 const useGetPollLatestTitle = () => {
   const [pollTitle, setPollTitle] = useState<Questionnaire[]>([]);
   const [startPeriodDate, setStartPeriodDate] = useState("");
   const [endPeriodDate, setEndPeriodDate] = useState("");
-  const now = new Date();
   useEffect(() => {
     //startdateが超えていたら
     (async () => {
+      const now = new Date();
       const response = await fetch(`http://localhost:8880/questionnaire`);
       const data = await response.json();
       const period = data.map((question: Questionnaire) => {
@@ -35,7 +35,7 @@ const useGetPollLatestTitle = () => {
         setPollTitle(periodData);
       }
     })();
-  }, [startPeriodDate, endPeriodDate, now]);
+  }, [startPeriodDate, endPeriodDate]);
   return pollTitle;
 };
 

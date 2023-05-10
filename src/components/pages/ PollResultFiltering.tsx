@@ -1,13 +1,10 @@
 import { Box, List, ListItem, ListItemText, Paper } from '@mui/material'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import { PrimaryDateInput } from '../atoms/input/dateInput'
 import { Questionnaire } from '../../types/type';
 // icon
-import CheckIcon from "@mui/icons-material/Check";
 import AdsClickIcon from "@mui/icons-material/AdsClick";
 import DottedMemo from '../atoms/memo/DottedMemo';
-import { WidthFull } from '@mui/icons-material';
-
 
 const  PollResultFiltering = () => {
   const [pollTitle, setPollTitle] = useState<Questionnaire[]>([]);
@@ -61,7 +58,6 @@ const  PollResultFiltering = () => {
           sx={{
             background: "#fff9f5",
             backgroundSize: 350,
-            // backgroundRepeat: "no-repeat",
             backgroundPosition: "left buttom",
             pt:3,
             pb:3,

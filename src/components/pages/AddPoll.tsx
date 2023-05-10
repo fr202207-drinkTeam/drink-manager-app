@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { FC, memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import AdmTitleText from "../atoms/text/AdmTitleText";
-import {Backdrop,Box,Fade,MenuItem,Modal,Paper,Select,SelectChangeEvent,} from "@mui/material";
-import { PrimaryInput, SecondaryInput } from "../atoms/input/Input";
-import { PrimaryDateInput } from "../atoms/input/dateInput";
+import {Backdrop,Box,Fade,Modal,Paper} from "@mui/material";
 import { Items, Questionnaire } from "../../types/type";
 import AddPollCard from "../card/AddPollCard";
 import {ActiveBorderButton,ActiveDarkBlueButton,} from "../atoms/button/Button";
@@ -11,9 +9,12 @@ import AddItem from "./AddItem";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 import { useNavigate } from "react-router-dom";
-
-
-type Props = {};
+import PollNameInput from "../molecules/poll/PollNameInput";
+import PollDescriptionInput from "../molecules/poll/PollDescriptionInput";
+import PollCategorySelect from "../molecules/poll/PollCategorySelect";
+import PollDateInput from "../molecules/poll/PollDateInput";
+import { CircularProgress } from "@mui/material";
+import useGetQuestionnaire from "../../hooks/useGetQuestipnnaire";
 
 const style = {
   position: "absolute" as "absolute",
@@ -29,7 +30,8 @@ const style = {
   height: "100%",
 };
 
-const AddPoll: FC<Props> = memo((props) => {
+const AddPoll = memo(() => {
+  //モーダル
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -38,41 +40,25 @@ const AddPoll: FC<Props> = memo((props) => {
   const [endPeriodDate, setEndPeriodDate] = useState("");
   const [items, setItems] = useState<Items[]>([]);
   const [pollFlag, setPollFlag] = useState(false);
-  const [pollCategory, setPollCategory] =
-    useState("投票種別を選択してください");
+  const [pollCategory, setPollCategory] =useState("投票種別を選択してください");
   const [pollName, setPollName] = useState("");
   const [pollDescription, setPollDescription] = useState("");
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [questionnaire, setQuestionnaire] = useState<Questionnaire[]>([]);
-  //validate
   const [pollNameError, setPollNameError] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
   const [categoryError, setCategoryError] = useState("");
   const [dateError, setDateError] = useState("");
   const [selectedItemsError, setSelectedItemsError] = useState("");
+  const [adding, setAdding] = useState<boolean>(false);
 
+  const questionnaireData: Questionnaire[] = useGetQuestionnaire();
 
   //login
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
-
   const isFirstRender = useRef(true);
   const navigate = useNavigate();
-
-  // yyyy-mm-dd 形式の文字列を作成（今日）
-  const today = new Date().toISOString().split("T")[0];
-
-  const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setStartPeriodDate(e.target.value);
-  };
-  const handleEndDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEndPeriodDate(e.target.value);
-  };
-
-  useEffect(() => {
-    console.log(startPeriodDate);
-    console.log(endPeriodDate);
-  }, [startPeriodDate, endPeriodDate]);
 
   //Items取得
   useEffect(() => {
@@ -86,31 +72,6 @@ const AddPoll: FC<Props> = memo((props) => {
       }
     })();
   }, [items]);
-
-  //アンケート情報取得
-  useEffect(() => {
-    const now = new Date();
-    (async () => {
-      const response = await fetch(`http://localhost:8880/questionnaire`);
-      const data = await response.json();
-      console.log(data, "");
-      const period = data.map((question: Questionnaire) => {
-        const endDate = new Date(question.endDate);
-        const startDate = new Date(question.startDate);
-        const isValidPeriod = endDate < now;
-        return {
-          ...question,
-          isValidPeriod: isValidPeriod,
-          endDate: endDate,
-          startDate: startDate,
-        };
-      });
-      const validPeriodData = period.filter((question: any) => {
-        return !question.isValidPeriod;
-      });
-      setQuestionnaire(validPeriodData);
-    })();
-  }, [endPeriodDate, startPeriodDate]);
 
   //バリデーション
   const validatePollName = () => {
@@ -137,7 +98,6 @@ const AddPoll: FC<Props> = memo((props) => {
     setCategoryError("");
     return true;
   };
-
   const validateDate = () => {
     if (!startPeriodDate || !endPeriodDate) {
       setDateError("*投票期間を入れてください");
@@ -147,7 +107,8 @@ const AddPoll: FC<Props> = memo((props) => {
       setDateError("*投票期間が正しくありません。再度確認してください。");
       return false;
     }
-    const isOverlapping = questionnaire.some(question => {
+
+    const isOverlapping = questionnaireData.some(question => {
       const questionStartDate = new Date(question.startDate);
       const questionEndDate = new Date(question.endDate);
       const inputStartDate = new Date(startPeriodDate);
@@ -155,7 +116,6 @@ const AddPoll: FC<Props> = memo((props) => {
       // 期間が重複している場合はtrueを返す
       return inputStartDate <= questionEndDate && inputEndDate >= questionStartDate;
     });
-  
     if (isOverlapping) {
       setDateError("*投票期間が被っています。投票期間を再度確認してください。");
       return false;
@@ -163,7 +123,6 @@ const AddPoll: FC<Props> = memo((props) => {
     setDateError("");
     return true;
   };
-
   const validateSelectedItems = () => {
     if (selectedItems.length === 0) {
       setSelectedItemsError("*投票に追加する商品を選択してください");
@@ -175,12 +134,12 @@ const AddPoll: FC<Props> = memo((props) => {
 
   //アンケート情報登録
   const onClickAddPollData: () => Promise<void> = async () => {
+    setAdding(true)
     const isNameValid = validatePollName();
     const isDescriptionValid = validateDescription();
     const isCategoryValid = validateCategory();
     const isDateValid = validateDate();
     const isSelectedItemsValid = validateSelectedItems();
-
     if (
       isNameValid &&
       isDescriptionValid &&
@@ -211,13 +170,25 @@ const AddPoll: FC<Props> = memo((props) => {
         }),
       }).then(() => {
         navigate("/adminhome");
+      }).catch((e)=>{
+        console.log(e)
       });
     }
+    setAdding(false)
   };
 
   return (
     <>
       <Paper sx={{ p: 3 }}>
+      {adding ? (
+          <>
+            <div style={{ margin: "200px", textAlign: "center" }}>
+              <p>登録中</p>
+              <CircularProgress />
+            </div>
+          </>
+        ) : (
+          <>
         <AdmTitleText children={"投票追加"} />
         <Box sx={{ mb: 1 }}>⚠︎ ここで追加した商品は商品一覧には表示されません。</Box>
         <ActiveDarkBlueButton event={handleOpen} sxStyle={{width:280,height:80,fontSize:"20px"}}>
@@ -246,127 +217,10 @@ const AddPoll: FC<Props> = memo((props) => {
             </Box>
           </Fade>
         </Modal>
-        <Box sx={{ mt: 3 }}>
-          {pollNameError && (
-            <Box style={{ color: "red", fontSize: 15, marginBottom: 1 }}>
-              {pollNameError}
-            </Box>
-          )}
-          <SecondaryInput
-            type="text"
-            label="投票タイトル"
-            placeHolder="投票タイトル"
-            helperText={`${pollName.length}/15`}
-            inputProps={{ maxLength: 15 }}
-            onChange={(e: any) => {
-              setPollName(e.target.value);
-            }}
-            required
-          />
-        </Box>
-        {descriptionError && (
-          <Box style={{ color: "red", fontSize: 15 }}>{descriptionError}</Box>
-        )}
-        <PrimaryInput
-          type="text"
-          label="投票詳細"
-          helperText={`${pollDescription.length}/31`}
-          inputProps={{ maxLength: 31 }}
-          onChange={(e: any) => {
-            setPollDescription(e.target.value);
-          }}
-          placeHolder="投票詳細"
-          required
-        />
-        <Box>
-          {categoryError && (
-            <Box sx={{ color: "red", fontSize: 15, pt: 2 }}>
-              {categoryError}
-            </Box>
-          )}
-          <Select
-            onChange={(e: SelectChangeEvent) => setPollCategory(e.target.value)}
-            value={pollCategory}
-            sx={{ my: 2, backgroundColor: "#fffffc" }}
-            required
-          >
-            <MenuItem value="投票種別を選択してください">
-              投票種別を選択してください
-            </MenuItem>
-            <MenuItem value="1">人気投票</MenuItem>
-            <MenuItem value="2">その他</MenuItem>
-          </Select>
-        </Box>
-        <Box
-          sx={{
-            border: "solid 1px #C4C4C4",
-            display: "inline-block",
-            borderRadius: "5px",
-            mt: 2,
-          }}
-        >
-          {dateError && (
-            <Box style={{ color: "red", fontSize: 15 }}>{dateError}</Box>
-          )}
-          <Box sx={{ m: 2 }}>
-            ※各投票の開催期間が被らないように設定してください
-          </Box>
-          <Box sx={{ mb: 1, fontWeight: "bold", ml: 1 }}>最近登録した投票</Box>
-          {questionnaire.map((data) => (
-            <Box key={data.id} sx={{ display: "flex", flexWrap: "wrap", ml: 1 }}>
-              <Box sx={{ fontSize: "18px", borderBottom: 1 }}>
-                ・{data.name}{" "}
-                <span
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    fontSize: "15px",
-                  }}
-                >
-                  期間:{data.startDate.toLocaleDateString()}~
-                  {data.endDate.toLocaleDateString()}
-                </span>{" "}
-              </Box>
-            </Box>
-          ))}
-          <Box sx={{ display: "flex", alignItems: "center", m: 1, mt: 3 }}>
-            <Box>
-              <PrimaryDateInput
-                name="startdate"
-                value={startPeriodDate}
-                onChange={handleStartDateChange}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                inputProps={{
-                  min: today,
-                }}
-              />
-              <span
-                style={{
-                  fontSize: "1.5rem",
-                  marginLeft: "10px",
-                  marginRight: "10px",
-                }}
-              >
-                〜
-              </span>
-            </Box>
-            <Box>
-              <PrimaryDateInput
-                name="enddate"
-                value={endPeriodDate}
-                onChange={handleEndDateChange}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                inputProps={{
-                  min: today,
-                }}
-              />
-            </Box>
-          </Box>
-        </Box>
+        <PollNameInput pollName={pollName} setPollName={setPollName} pollNameError={pollNameError} setPollNameError={setPollNameError}/>
+        <PollDescriptionInput pollDescription={pollDescription} setPollDescription={setPollDescription} descriptionError={descriptionError} setDescriptionError={setDescriptionError}/>
+        <PollCategorySelect pollCategory={pollCategory} setPollCategory={setPollCategory} categoryError={categoryError} setCategoryError={setCategoryError}/>
+        <PollDateInput startPeriodDate={startPeriodDate} endPeriodDate={endPeriodDate} setStartPeriodDate={setStartPeriodDate} setEndPeriodDate={setEndPeriodDate} dateError={dateError} setDateError={setDateError}/>
         <Box sx={{ m: "auto" }}>
           {selectedItemsError && (
             <Box sx={{ color: "red", fontSize: 15, mt: 3 }}>
@@ -383,7 +237,8 @@ const AddPoll: FC<Props> = memo((props) => {
           <ActiveBorderButton event={onClickAddPollData}>
             &nbsp;投票追加&nbsp;
           </ActiveBorderButton>
-        </Box>
+        </Box> 
+        </>)}
       </Paper>
     </>
   );
