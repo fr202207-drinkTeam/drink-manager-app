@@ -1173,9 +1173,121 @@
       "id": 1,
       "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-02T02:50:27.944Z",
       "incOrDec": true,
       "stockAmount": 1
+    },
+    {
+      "id": 2,
+      "itemId": 2,
+      "quantity": 1,
+      "day": "2023-05-02T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 1
+    },
+    {
+      "id": 3,
+      "itemId": 2,
+      "quantity": 1,
+      "day": "2023-05-02T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 1
+    },
+    {
+      "id": 4,
+      "itemId": 5,
+      "quantity": 1,
+      "day": "2023-05-02T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 1
+    },
+    {
+      "id": 5,
+      "itemId": 5,
+      "quantity": 10,
+      "day": "2023-05-02T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 10
+    },
+    {
+      "id": 6,
+      "itemId": 2,
+      "quantity": 1,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 1
+    },
+    {
+      "id": 7,
+      "itemId": 10,
+      "quantity": 5,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 10
+    },
+    {
+      "id": 8,
+      "itemId": 7,
+      "quantity": 5,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 10
+    },
+    {
+      "id": 9,
+      "itemId": 11,
+      "quantity": 5,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 10
+    },
+    {
+      "id": 10,
+      "itemId": 9,
+      "quantity": 5,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 10
+    },
+    {
+      "id": 11,
+      "itemId": 12,
+      "quantity": 5,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 10
+    },
+    {
+      "id": 12,
+      "itemId": 13,
+      "quantity": 5,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 10
+    },
+    {
+      "id": 13,
+      "itemId": 13,
+      "quantity": 6,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 12
+    },
+    {
+      "id": 14,
+      "itemId": 17,
+      "quantity": 6,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 12
+    }
+  ],
+  "stockAmount": [
+    {
+      "id": 1,
+      "itemId": 5,
+      "day": "2023-05-02T02:50:27.944Z",
+      "amount": 100
     }
   ],
   "addition": [
