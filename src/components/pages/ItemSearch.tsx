@@ -50,50 +50,46 @@ const ItemSearch: FC<Props> = memo((props) => {
   values.sort((a, b) => b - a);
 
   //poll取得
+
   useEffect(() => {
-    (async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:8880/polls?questionnaireId=${id}`
-        );
-        const data = await response.json();
-        setPolls(data);
+        const pollsResponse = await fetch(`http://localhost:8880/polls?questionnaireId=${id}`);
+        const pollsData = await pollsResponse.json();
+        setPolls(pollsData);
+  
+        const itemsResponse = await fetch('http://localhost:8880/items');
+        const itemsData = await itemsResponse.json();
+        setItems(itemsData);
+  
+        if (pollsData.length > 0 && questionnaire && itemsData.length > 0) {
+          const polllCountItems = itemsData.filter((item:any) => pollResult.includes(item.id));
+          polllCountItems.sort((a:any, b:any) => {
+            const aCount = pollCounts[a.id];
+            const bCount = pollCounts[b.id];
+            return bCount - aCount;
+          });
+          setPollCounts(polllCountItems);
+          console.log(polllCountItems, "polllCountItems");
+        }
       } catch (error) {
         console.error(error);
       }
-    })();
-  }, [id]);
-    //Items取得
-    useEffect(() => {
-      (async () => {
-        try {
-          const response = await fetch(`http://localhost:8880/items`);
-          const data = await response.json();
-          setItems(data);
-        } catch (error) {
-          console.error(error);
-        }
-      })();
-    }, [id]);
+    };
   
-    //questionnerに登録されているpolledItemsのidを取得
-    useEffect(() => {
-      if (polls.length > 0 && questionnaire && items.length > 0) {
-        //商品ID投票されている商品ID
-        const polllCountItems = items.filter((item: Items) => {
-          return pollResult.includes(item.id);
-        });
-        polllCountItems.sort((a: Items, b: Items) => {
-          const aCount = pollCounts[a.id];
-          const bCount = pollCounts[b.id];
-          return bCount - aCount;
-        });
-        setPollCounts(polllCountItems);
-        console.log(polllCountItems, "polllCountItems");
-      }
-    }, [id, questionnaire]);
+    fetchData();
+    items.map((item:any) => ({
+      ...item,
+      pollCount: pollCounts?.[item.id]
+    }))
+  }, [id, questionnaire]);
+    
     // pollCountsにて投票結果の集計取得できる
-    console.log(pollCounts,"values")
+    console.log(pollCounts,"pollCounts")
+    // items.map((item:any) => ({
+    //   ...item,
+    //   pollCount: pollCounts?.[item.id]
+    // }))
 // これと合わせたい
 // 人気順ここまで
   const authId = Cookies.get("authId")!;
@@ -217,13 +213,17 @@ console.log(allItem,"allitem")
       queryParams.set('page', newValue);
     
       try {
-        const params = {
+        const params: any = {
           itemCategory: category === "all" ? undefined : category,
           name_like: keyword,
         };
+        if (selectedValue === "intheOffice") {
+          params.intheOffice = true;
+        }
+    
         const query = queryString.stringify(params, { skipNull: true });
     
-        const sortValue = selectedValue === "name" ? "name" : "popular"; // プルダウンで選択された値によって _sort の値を変更
+        const sortValue = selectedValue === "name" ? "name" : "popular";
         const url = `http://localhost:8880/items?_sort=${sortValue}&_order=asc&_page=${newValue}&_limit=6&${query}`;
     
         navigate(`/home/search?${queryParams.toString()}`);
@@ -237,8 +237,8 @@ console.log(allItem,"allitem")
       }
     };
 
-    
-    
+    http://localhost:8880/items?_page=2&_limit=2&intheOffice=true&itemCategory=2    
+  
     
   // カテゴリごとの全件数の取得 //
 // パラメータにcategoryとkeywordの指定があったらフィルタリングして件数を割り出す
@@ -262,6 +262,8 @@ useEffect(() => {
   }
   categoryData();
 }, [category, keyword]);
+
+
 // Todo　カテゴリ検索
 useEffect(()=>{
   if(category==="all"){
