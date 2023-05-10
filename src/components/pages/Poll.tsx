@@ -13,6 +13,7 @@ import useGetPollLatestTitle from "../../hooks/useGetPollLatestTitle";
 import { useNavigate } from "react-router-dom";
 
 const Poll = memo(() => {
+  //当月（開催中）のアンケートだけ表示。それ以外は非表示
   const PopularitemData: Items[] = useGetPollCategoryItem(1);
   const OtheritemData: Items[] = useGetPollCategoryItem(2);
   const PopularPollTitle: Questionnaire[] = useGetPollLatestTitle(1);
@@ -207,7 +208,7 @@ const Poll = memo(() => {
               data={PopularitemData}
               pollNum={PopularPollTitle[0]?.id}
               pollCategory={PopularPollTitle[0]?.category}
-              sxStyle={{mb:10 }}
+              sxStyle={{mb:3 }}
             />
           </>
         ) : (
@@ -259,6 +260,7 @@ const Poll = memo(() => {
               data={OtheritemData}
               pollNum={OtherPollTitle[0]?.id}
               pollCategory={OtherPollTitle[0]?.category}
+              sxStyle={{mb:3 }}
             />
           </>
         ) : (

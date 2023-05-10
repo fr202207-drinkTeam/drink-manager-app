@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardMedia from "@mui/material/CardMedia";
@@ -69,14 +68,13 @@ const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
 
   return (
     <>
-    
       <Box
         sx={{
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "flex-start",
           ml:5,
-          mt: 5,
+          // mt: 2,
         }}
       >
         {data &&
@@ -85,7 +83,7 @@ const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
               <Card
                 sx={{
                   width: 290,
-                  m: 2,
+                  mx: 2,
                   boxShadow: "none",
                   border: "solid 1px ",
                   borderColor: "#bfbec5",
