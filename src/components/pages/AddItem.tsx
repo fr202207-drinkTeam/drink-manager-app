@@ -61,8 +61,12 @@ const AddItem: FC<Props> = memo(({ pollFlag, setPollFlag, handleClose }) => {
         otherItem: pollFlag?true:false,
       }),
     }).then(() => {
-      setAdding(false)
-      navigate("/adminhome");
+      if(pollFlag){
+        handleClose()
+      }else{
+        navigate("/adminhome");
+      }
+      console.log("success");
     });
   };
 
