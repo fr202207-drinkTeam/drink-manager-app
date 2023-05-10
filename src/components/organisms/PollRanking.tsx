@@ -12,7 +12,6 @@ const PollRanking = () => {
   const [items, setItems] = useState<Items[]>([]);
   const [startDate, setStartDate] = useState<any>();
   const [pollId, setPollId] = useState<number>();
-  //id(3ヶ所にテストデータ「2」)を入れれば画面表示できる
 
   //投票結果集計
   const pollCounts: any = {};
@@ -80,9 +79,8 @@ const PollRanking = () => {
         console.error(error);
       }
     };
-
     fetchData();
-  }, [pollId]);
+  }, []);
   // 先月のアンケートidを取得し。その中からランダムで表示
   useEffect(() => {
     if (startDate) {
@@ -133,7 +131,7 @@ const PollRanking = () => {
       });
       setPollCounts(polllCountItems);
     }
-  }, [pollId, questionnaire]);
+  }, [polls, questionnaire, items, pollId]);
 
   return (
     <>
@@ -168,9 +166,10 @@ const PollRanking = () => {
           ""
         )}
       </Card>
-      <Paper>
-        {Object.keys(pollCounts).length >= 1 ? (
-          <>
+
+      {Object.keys(pollCounts).length >= 1 ? (
+        <>
+          <Paper>
             <Box
               sx={{
                 display: "flex",
@@ -227,17 +226,17 @@ const PollRanking = () => {
               {pollCount.length > 0 && (
                 <ItemCard
                   data={pollCount.slice(0, 3)}
-                  sxStyle={{ maxWidth: 260, minWidth: 260, mx: 5, mb: 1 }}
+                  sxStyle={{ maxWidth: 220, minWidth: 220, mx: 5, mb: 1 }}
                 />
               )}
             </Box>
-          </>
-        ) : (
-          <Box sx={{ textAlign: "center", fontSize: "30px", py: 10 }}>
-            今回の投票結果はありませんでした。
-          </Box>
-        )}
-      </Paper>
+          </Paper>
+        </>
+      ) : (
+        <Box sx={{ textAlign: "center", fontSize: "30px", py: 10 }}>
+          今回の投票結果は現在集計中です！
+        </Box>
+      )}
     </>
   );
 };
