@@ -12,11 +12,13 @@ import CheckIcon from '@mui/icons-material/Check';
 type ItemCardProps = {
   data: Items[];
   sxStyle?: any;
+  selectedItems:number[]
+  setSelectedItems:any
 };
 
-const ItemCard = ({ data, sxStyle }: ItemCardProps) => {
+const ItemCard = ({ data, sxStyle,selectedItems,setSelectedItems }: ItemCardProps) => {
   // const navigate = useNavigate();
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
+
 
   const handleClick = async (id: number) => {
     if (!selectedItems.includes(id)) {
@@ -35,6 +37,7 @@ const ItemCard = ({ data, sxStyle }: ItemCardProps) => {
           justifyContent: "flex-start",
           flex: "end",
           mt: 5,
+          ml:5
         }}
       >
         {data &&
@@ -90,13 +93,14 @@ const ItemCard = ({ data, sxStyle }: ItemCardProps) => {
                   title="商品名"
                   sx={{
                     display: "block",
-                    width: 200,
-                    height: 200,
+                    width: 150,
+                    height: 150,
                     objectFit: "cover",
                     m: "auto",
+                    p:1
                   }}
                 />
-                <CardContent sx={{ height: "150px" }}>
+                <CardContent >
                   {drink.intheOffice ? (
                     <Typography
                       variant="body2"
@@ -136,22 +140,13 @@ const ItemCard = ({ data, sxStyle }: ItemCardProps) => {
                     gutterBottom
                     sx={{
                       textAlign: "center",
-                      fontSize: "16px",
+                      fontSize: "15px",
                       borderBottom: "double",
-                      fontFamily: "Georgia",
                       fontWeight: "bold",
-                      height: "200",
+                      fontFamily: "Georgia",
                     }}
                   >
                     {drink.name}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                    sx={{ textAlign: "center", fontSize: "13px" }}
-                  >
-                    {drink.description}
                   </Typography>
                 </CardContent>
                 {selectedItems.includes(drink.id) ? (

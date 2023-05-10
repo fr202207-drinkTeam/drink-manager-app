@@ -70,12 +70,13 @@ const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
 
   return (
     <>
+    
       <Box
         sx={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "space-around",
-          flex:"end",
+          justifyContent: "flex-start",
+          ml:5,
           mt: 5,
         }}
       >
@@ -137,6 +138,7 @@ const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
                         height: 200,
                         objectFit: "cover",
                         m: "auto",
+                        p:1
                       }}
                     />
                     <CardContent sx={{ height: "150px" }}>
@@ -228,7 +230,7 @@ const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
                   pollCategory === 2 &&
                   OthersPollData.some(
                     (data) => data.questionnaireId === pollNum
-                  )) ? (
+                  ))||loginUser.id===1 ? (
                   <InactiveButton
                     sx={{
                       background: "#e29399",

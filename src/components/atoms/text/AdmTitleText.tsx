@@ -17,7 +17,7 @@ const AdmTitleText: FC<Props> = memo(({ children }) => {
           sx={{
             mb: 8,
             color: '#fff',
-            background: '#a4a8ab',
+            background: '#696969',
             borderRadius: 10,
             py: 2,
             width: '60%',

@@ -14,19 +14,20 @@ const PollTitle = ({ poll }: PollTitleProps) => {
           background: "#fff9f5",
           p: 5,
           backgroundImage: "url(/coffee.png)",
-          backgroundSize: 170,
+          backgroundSize: 200,
           opacity: 0.8,
           mb: 5,
           mt: 5,
-          fontWeight:"bold"
+          fontWeight: "bold",
         }}
       >
         <Box
           sx={{
-            fontSize: "40px",
+            fontSize: "47px",
             textAlign: "center",
             mt: 10,
             backgroundColor: "white",
+            py: 2,
             background:
               "-webkit-repeating-linear-gradient(-45deg, #6ad1c8, #6ad1c8 2px, #fff 2px, #fff 4px)",
           }}
@@ -40,6 +41,7 @@ const PollTitle = ({ poll }: PollTitleProps) => {
             mt: 5,
             backgroundColor: "white",
             fontWeight: "bold",
+            py: 1,
           }}
         >
           開催期間: {poll[0]?.startDate.toLocaleDateString()}〜{" "}

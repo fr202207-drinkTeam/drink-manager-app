@@ -50,7 +50,7 @@ const AddItem: FC<Props> = memo(({pollFlag,setPollFlag,handleClose}) => {
     if (isFirstRender.current) {
       isFirstRender.current = false;
     }
-    
+
     fetch("http://localhost:8880/items", {
       method: "POST",
       headers: {
@@ -67,7 +67,11 @@ const AddItem: FC<Props> = memo(({pollFlag,setPollFlag,handleClose}) => {
         otherItem: pollFlag?true:false,
       }),
     }).then(() => {
-      navigate("/adminhome");
+      if(pollFlag){
+        handleClose()
+      }else{
+        navigate("/adminhome");
+      }
       console.log("success");
     });
   };
