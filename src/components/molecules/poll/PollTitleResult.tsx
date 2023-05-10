@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
-import { Questionnaire } from "../../types/type";
-import DottedMemo from "../atoms/memo/DottedMemo";
+import { Questionnaire } from "../../../types/type";
+import DottedMemo from "../../atoms/memo/DottedMemo";
 
 type PollTitleProps = {
   poll: Questionnaire[];

@@ -29,7 +29,7 @@ const StockCard: FC<Props> = (props) => {
             <Card
               key={index}
               sx={{
-                width: 270,
+                width: 310,
                 m: 2,
                 boxShadow: 'none',
                 border: 'solid 1px ',
@@ -56,7 +56,7 @@ const StockCard: FC<Props> = (props) => {
                   gutterBottom
                   sx={{
                     textAlign: 'center',
-                    fontSize: '16px',
+                    fontSize: '15px',
                     borderBottom: 'double',
                     fontFamily: 'Georgia',
                   }}

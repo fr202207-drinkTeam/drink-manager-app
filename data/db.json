@@ -857,6 +857,11 @@
           "result": ""
         },
         {
+          "id": 9,
+          "itemId": 9,
+          "result": ""
+        },
+        {
           "id": 10,
           "itemId": 14,
           "result": ""
@@ -895,6 +900,45 @@
       ],
       "author": 1,
       "id": 8
+    },
+    {
+      "name": "6月人気投票",
+      "description": "好きなドリンクに投票しよう！",
+      "category": 1,
+      "createdAt": "2023-05-10T08:16:34.851Z",
+      "startDate": "2023-06-01",
+      "endDate": "2023-06-30",
+      "polledItems": [
+        {
+          "itemId": 1
+        },
+        {
+          "itemId": 2
+        },
+        {
+          "itemId": 3
+        },
+        {
+          "itemId": 6
+        },
+        {
+          "itemId": 5
+        },
+        {
+          "itemId": 4
+        },
+        {
+          "itemId": 7
+        },
+        {
+          "itemId": 8
+        },
+        {
+          "itemId": 14
+        }
+      ],
+      "author": 1,
+      "id": 9
     }
   ],
   "polls": [

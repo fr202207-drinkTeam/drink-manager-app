@@ -188,7 +188,7 @@ const PollResult = memo(() => {
             flexWrap: "wrap",
           }}
         >
-        {pollCount.length > 0 && <ItemCard data={pollCount.slice(0, 3)} sxStyle={{ maxWidth: 260, minWidth:260,mx:5, mb:1 }} />}
+        {pollCount.length > 0 && <ItemCard data={pollCount.slice(0, 3)} sxStyle={{ maxWidth: 310, minWidth:310, mb:1 }} />}
         </Box>
         {values.length >= 4 && (
           <Box
@@ -223,7 +223,7 @@ const PollResult = memo(() => {
               justifyContent: "space-around",
             }}
           >
-            <ItemCard data={pollCount.slice(3)} sxStyle={{ maxWidth: 250, minWidth:250,mx:5, mb:10 }} />
+            <ItemCard data={pollCount.slice(3)} sxStyle={{ maxWidth: 310, minWidth:310, mb:10 }} />
           </Box>
         )}
         </>

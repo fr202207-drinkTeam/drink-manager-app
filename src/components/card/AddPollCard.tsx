@@ -37,7 +37,6 @@ const ItemCard = ({ data, sxStyle,selectedItems,setSelectedItems }: ItemCardProp
           justifyContent: "flex-start",
           flex: "end",
           mt: 5,
-          ml:5
         }}
       >
         {data &&
@@ -45,8 +44,8 @@ const ItemCard = ({ data, sxStyle,selectedItems,setSelectedItems }: ItemCardProp
             return (
               <Card
                 sx={{
-                  width: 270,
-                  m: 2,
+                  width: 310,
+                  m:1,
                   boxShadow: "none",
                   border: "solid 1px ",
                   borderColor: "#bfbec5",
@@ -144,6 +143,7 @@ const ItemCard = ({ data, sxStyle,selectedItems,setSelectedItems }: ItemCardProp
                       borderBottom: "double",
                       fontWeight: "bold",
                       fontFamily: "Georgia",
+                      mt:1
                     }}
                   >
                     {drink.name}
@@ -171,7 +171,7 @@ const ItemCard = ({ data, sxStyle,selectedItems,setSelectedItems }: ItemCardProp
                       width: 200,
                       boxShadow: "none",
                       fontWeight: "bold",
-                      ml: 4,
+                      ml: 7,
                       border: "double",
                     }}
                     event={() => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Items, Questionnaire } from "../types/type";
 
 const useGetPollCategoryItem = (id: number) => {
