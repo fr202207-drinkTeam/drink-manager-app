@@ -288,83 +288,137 @@
       "otherItem": false
     },
     {
-      "name": "ねぎ",
-      "description": "テストテストテストテストテスト",
+      "id": 15,
+      "name": "ホットココア",
+      "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）",
       "image": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/ce213123-2491-4dd1-8c1e-f05c105bda49?alt=media&token=fc3f8a6f-bbd4-4508-8b7d-5471ab90b053",
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/919f2cfa-fb77-4d30-8d07-820a4fda7dad?alt=media&token=ada209d6-f721-46ad-b7a3-edb9e1e33159"
+        "/item.png"
       ],
-      "itemCategory": 4,
-      "createdAt": "2023-04-26T18:14:45.200Z",
-      "inTheOffice": false,
-      "author": "test",
-      "otherItem": false,
-      "id": 15
+      "itemCategory": 6,
+      "createdAt": "",
+      "intheOffice": true,
+      "author": "",
+      "otherItem": false
     },
     {
-      "name": "ねぎ",
-      "description": "テストテストテストテストテスト",
+      "id": 16,
+      "name": "ホットココア",
+      "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）",
       "image": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/66d1dfde-4d3a-4c53-a2bb-15cd7c5526e3?alt=media&token=56d29929-d25b-46db-a789-bbc8943c4aa8",
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/c7555dc8-b20f-4f98-9249-1a8cd923e3c8?alt=media&token=07ef0b7a-a2ae-47d0-a1a6-d030b7dc4fdf"
+        "/item.png"
       ],
-      "itemCategory": 4,
-      "createdAt": "2023-04-26T18:14:50.739Z",
-      "inTheOffice": false,
-      "author": "test",
-      "otherItem": false,
-      "id": 16
+      "itemCategory": 6,
+      "createdAt": "",
+      "intheOffice": true,
+      "author": "",
+      "otherItem": false
     },
     {
-      "name": "テストテストテスト",
-      "description": "テストテストテストテストテストテストテスト",
+      "id": 17,
+      "name": "ホットココア",
+      "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）",
       "image": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/409d25a4-ec60-4fbc-95bf-cf9b6c468b3c?alt=media&token=38c0ad41-f549-415d-a76d-6793666a8d24",
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/7c64b716-7090-41c8-b3d2-d7acc24a8e96?alt=media&token=d9b9dd49-25c9-49e3-b060-a960e8444a10",
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/dae9c010-072b-4bb5-be3a-3f22fc021121?alt=media&token=ee489961-ca6e-477c-88a2-d7bf44695cf9"
+        "/item.png"
+      ],
+      "itemCategory": 6,
+      "createdAt": "",
+      "intheOffice": true,
+      "author": "",
+      "otherItem": false
+    },
+    {
+      "id": 18,
+      "name": "ホットココア",
+      "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）",
+      "image": [
+        "/item.png"
+      ],
+      "itemCategory": 6,
+      "createdAt": "",
+      "intheOffice": true,
+      "author": "",
+      "otherItem": false
+    },
+    {
+      "id": 19,
+      "name": "ホットココア",
+      "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）",
+      "image": [
+        "/item.png",
+        "/item.png"
+      ],
+      "itemCategory": 6,
+      "createdAt": "",
+      "intheOffice": true,
+      "author": "",
+      "otherItem": false
+    },
+    {
+      "name": "5858",
+      "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）5858",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/f8775a2e-a13d-4ac8-9e32-773b99585bfb?alt=media&token=34062896-73cd-4144-9371-8c5e55d9cc3f",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/6e74e587-f7e4-4b94-8c92-a66f555bd8a7?alt=media&token=886d6cab-3372-4ba3-bda4-ff811ee02f98",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/7bb4256c-e6c6-418d-b79b-b61ed403dd72?alt=media&token=08a55931-4801-49f4-83a0-75a8deb87fde"
       ],
       "itemCategory": 2,
-      "createdAt": "2023-04-26T18:16:49.922Z",
+      "createdAt": "2023-05-08T05:48:56.528Z",
       "inTheOffice": false,
-      "author": "test",
+      "author": "user1",
       "otherItem": false,
-      "id": 17
+      "id": 20
     },
     {
-      "name": "テストテストテストテスト",
-      "description": "テストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテスト",
+      "name": "新商品A",
+      "description": "新商品Aの説明",
       "image": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/a4008021-79d4-48f4-b3bf-d4b23d5b2113?alt=media&token=e141730c-2d46-4953-bd6e-fa8db00bdf57"
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/664554ff-dc10-415a-bbb4-228ef2bd034d?alt=media&token=b4a39318-64bf-4831-b859-210b0fd9e1dd",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/bab923a3-92a5-4e87-a78f-5c1694b37692?alt=media&token=8050bbad-1830-4018-81d2-0e1406a0524c"
       ],
-      "itemCategory": 4,
-      "createdAt": "2023-04-26T18:18:59.369Z",
+      "itemCategory": 5,
+      "createdAt": "2023-05-08T06:53:19.228Z",
       "inTheOffice": false,
-      "author": "test",
+      "author": 2,
       "otherItem": false,
-      "id": 18
+      "id": 21
     },
     {
-      "name": "19",
-      "description": "19",
+      "name": "新商品C",
+      "description": "新商品Cの説明",
       "image": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/ddbb9546-be39-4916-89b8-092eb1e67cd5?alt=media&token=948b2678-ef93-44e7-88c1-fdaea026738b",
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/c5efa6ec-927d-4f6f-9c9c-cc2f6bdc3325?alt=media&token=bcfa0b15-864d-4dd5-a539-5f056e76bc86"
-      ],
-      "itemCategory": 1,
-      "createdAt": "2023-04-27T00:05:34.340Z",
-      "inTheOffice": false,
-      "author": "test",
-      "otherItem": false,
-      "id": 19
-    },
-    {
-      "name": "商品",
-      "description": "商品",
-      "image": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/45e05d2f-180d-465a-bca5-b1e0fb45b477?alt=media&token=d0fb0a3a-8c29-4129-932f-e6c577371da8"
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/9d7ba785-8010-4e02-9fb9-c4304c9fb079?alt=media&token=10b56dff-a272-40ab-9cdf-f95771f120ce",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/ae6ec8f2-7b86-4d91-b405-96221ecd76e9?alt=media&token=5231ff05-6078-4266-8a60-ed2c09d83633"
       ],
       "itemCategory": 3,
-      "createdAt": "2023-04-27T01:48:29.461Z",
+      "createdAt": "2023-05-08T06:58:11.064Z",
+      "inTheOffice": false,
+      "author": 2,
+      "otherItem": false,
+      "id": 22
+    },
+    {
+      "name": "新商品D",
+      "description": "新商品Dの説明",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/8f86ae5f-b6eb-423d-b2da-388c336a87ce?alt=media&token=bbfb1e53-b172-4879-87b4-4764e5417736",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/ed434583-4f3a-46f4-bd44-28dcd694f708?alt=media&token=976a494f-16e1-4041-b153-b7f1b072b63e"
+      ],
+      "itemCategory": 3,
+      "createdAt": "2023-05-08T06:59:26.038Z",
+      "inTheOffice": false,
+      "author": 2,
+      "otherItem": false,
+      "id": 23
+    },
+    {
+      "name": "商品A",
+      "description": "説明",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/40ea4d2a-44cc-4043-bcb9-ca3f77335e19?alt=media&token=1453599b-ad4f-40c8-b186-55ae1e77d7f7",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/b3c3e8b2-25bb-4f6c-8bad-ee6b59930af2?alt=media&token=5e970d56-61c2-4948-aa02-adf1d5e10bab"
+      ],
+      "itemCategory": 2,
+      "createdAt": "2023-05-08T07:35:19.856Z",
       "inTheOffice": false,
       "author": 1,
       "otherItem": false,
@@ -1109,9 +1163,121 @@
       "id": 1,
       "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-02T02:50:27.944Z",
       "incOrDec": true,
       "stockAmount": 1
+    },
+    {
+      "id": 2,
+      "itemId": 2,
+      "quantity": 1,
+      "day": "2023-05-02T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 1
+    },
+    {
+      "id": 3,
+      "itemId": 2,
+      "quantity": 1,
+      "day": "2023-05-02T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 1
+    },
+    {
+      "id": 4,
+      "itemId": 5,
+      "quantity": 1,
+      "day": "2023-05-02T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 1
+    },
+    {
+      "id": 5,
+      "itemId": 5,
+      "quantity": 10,
+      "day": "2023-05-02T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 10
+    },
+    {
+      "id": 6,
+      "itemId": 2,
+      "quantity": 1,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 1
+    },
+    {
+      "id": 7,
+      "itemId": 10,
+      "quantity": 5,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 10
+    },
+    {
+      "id": 8,
+      "itemId": 7,
+      "quantity": 5,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 10
+    },
+    {
+      "id": 9,
+      "itemId": 11,
+      "quantity": 5,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 10
+    },
+    {
+      "id": 10,
+      "itemId": 9,
+      "quantity": 5,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 10
+    },
+    {
+      "id": 11,
+      "itemId": 12,
+      "quantity": 5,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 10
+    },
+    {
+      "id": 12,
+      "itemId": 13,
+      "quantity": 5,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 10
+    },
+    {
+      "id": 13,
+      "itemId": 13,
+      "quantity": 6,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 12
+    },
+    {
+      "id": 14,
+      "itemId": 17,
+      "quantity": 6,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 12
+    }
+  ],
+  "stockAmount": [
+    {
+      "id": 1,
+      "itemId": 5,
+      "day": "2023-05-02T02:50:27.944Z",
+      "amount": 100
     }
   ],
   "addition": [
