@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { FC, memo } from "react";
 import ItemCard from "../card/ItemCard";
 import { MenuItem, Select, Typography } from "@mui/material";
-import type { Items } from "../../types/type";
+import type { Items, Polls, Questionnaire } from "../../types/type";
 import Paginate from "../atoms/paginate/Paginate";
 import Box from "@mui/material/Box";
 import { ActiveDarkBlueButton } from "../atoms/button/Button";
@@ -15,7 +15,87 @@ import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 type Props = {};
 
 const ItemSearch: FC<Props> = memo((props) => {
+  const id=2
+  const [polls, setPolls] = useState<Polls[]>([]);
+  const [pollCount, setPollCounts] = useState<Items[]>([]);
+  const [questionnaire, setQuestionnaire] = useState<Questionnaire>();
+  const [items, setItems] = useState<Items[]>([]);
 
+  //投票結果集計
+  const pollCounts: any = {};
+  polls.forEach((item) => {
+    if (item.questionnaireId === Number(id)) {
+      if (pollCounts[item.result]) {
+        pollCounts[item.result]++;
+      } else {
+        pollCounts[item.result] = 1;
+      }
+    }
+  });
+  console.log(Object.keys(pollCounts).length>=1,"pollcounts")
+
+  //票の大きい商品順で並び替え
+  const sortedPolls = Object.entries(pollCounts).sort(
+    (a: any, b: any) => b[1] - a[1]
+  );
+  console.log(sortedPolls, "sorr");
+  const result = sortedPolls.map((subArr) => {
+    return subArr[0];
+  });
+  const pollResult = result.map(Number);
+  console.log(pollResult, "pollresult");
+
+  //value票の数を多い順に並び替え
+  const values = Object.values(pollCounts).map(Number);
+  values.sort((a, b) => b - a);
+
+  //poll取得
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:8880/polls?questionnaireId=${id}`
+        );
+        const data = await response.json();
+        setPolls(data);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, [id]);
+    //Items取得
+    useEffect(() => {
+      (async () => {
+        try {
+          const response = await fetch(`http://localhost:8880/items`);
+          const data = await response.json();
+          setItems(data);
+        } catch (error) {
+          console.error(error);
+        }
+      })();
+    }, [id]);
+  
+    //questionnerに登録されているpolledItemsのidを取得
+    useEffect(() => {
+      if (polls.length > 0 && questionnaire && items.length > 0) {
+        //商品ID投票されている商品ID
+        const polllCountItems = items.filter((item: Items) => {
+          return pollResult.includes(item.id);
+        });
+        polllCountItems.sort((a: Items, b: Items) => {
+          const aCount = pollCounts[a.id];
+          const bCount = pollCounts[b.id];
+          return bCount - aCount;
+        });
+        setPollCounts(polllCountItems);
+        console.log(polllCountItems, "polllCountItems");
+      }
+    }, [id, questionnaire]);
+    // pollCountsにて投票結果の集計取得できる
+    console.log(pollCounts,"values")
+// これと合わせたい
+// 人気順ここまで
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
 
