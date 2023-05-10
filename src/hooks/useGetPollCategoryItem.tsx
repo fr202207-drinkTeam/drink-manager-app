@@ -3,12 +3,14 @@ import { Items, Questionnaire } from "../types/type";
 
 const useGetPollCategoryItem = (id: number) => {
   const [items, setItems] = useState<Items[]>([]);
-  const now = new Date();
-
+  
   //投票期間中の商品をカテゴリごとに表示するカスタムフック
   useEffect(() => {
     (async () => {
+      const now = new Date();
       try {
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);//当月最初の日
+        const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);//当月最終日
         //アイテム取得
         const res = await fetch(`http://localhost:8880/items`);
         const itemdata = await res.json();
@@ -29,9 +31,12 @@ const useGetPollCategoryItem = (id: number) => {
             startDate:startDate
           };
         });
-        const sortedData = Categoryperiod.sort(
-          (after: any, before: any) => before.endDate - after.endDate
-        );
+        const filteredData = Categoryperiod.filter((poll: Questionnaire) => {
+          const startDate = poll.startDate.getTime();
+          const endDate = poll.endDate.getTime();
+          return startDate >= startOfMonth.getTime() && endDate <= endOfMonth.getTime();
+        });
+        const sortedData = filteredData.sort((a: { endDate: { getTime: () => number; }; }, b: { endDate: { getTime: () => number; }; }) => b.endDate.getTime() - a.endDate.getTime());
         const pollitemID = sortedData[0]?.polledItems.map(
           (poll: { itemId: any }) => {
             return poll.itemId;

@@ -939,6 +939,45 @@
       ],
       "author": 1,
       "id": 9
+    },
+    {
+      "name": "6月お菓子投票",
+      "description": "好きなドリンクに投票しよう！",
+      "category": 2,
+      "createdAt": "2023-05-10T08:16:34.851Z",
+      "startDate": "2023-06-01",
+      "endDate": "2023-06-30",
+      "polledItems": [
+        {
+          "itemId": 1
+        },
+        {
+          "itemId": 2
+        },
+        {
+          "itemId": 3
+        },
+        {
+          "itemId": 6
+        },
+        {
+          "itemId": 15
+        },
+        {
+          "itemId": 23
+        },
+        {
+          "itemId": 22
+        },
+        {
+          "itemId": 21
+        },
+        {
+          "itemId": 14
+        }
+      ],
+      "author": 1,
+      "id": 10
     }
   ],
   "polls": [
