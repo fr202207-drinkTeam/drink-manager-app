@@ -25,37 +25,42 @@ const ItemSearch: FC<Props> = memo((props) => {
   const page = searchParams.get("page");
   const [selectedItem, setSelectedItem] = useState<Items[]>();
   const [allItem, setAllItem] = useState<Items[]>();
-  const [selectedValue, setSelectedValue] = useState("popular");
-  const [categoryName,setCategoryName]=useState<any>()
+  const [selectedValue, setSelectedValue] = useState("name");
+  const [categoryName,setCategoryName]=useState<string>()
  
+console.log(selectedValue)
 
+const handlePullDown = async (event: any) => {
+  const value = event.target.value;
+  setSelectedValue(value);
 
-  const handlePullDown = async(event:any) => {
-    const value = event.target.value;
-    setSelectedValue(value);
-   
-      const searchParams = new URLSearchParams(location.search);
-      searchParams.set("sort", encodeURIComponent(value));
-      navigate(`${location.pathname}?${searchParams}`);
+  const searchParams = new URLSearchParams(location.search);
+  searchParams.set("sort", encodeURIComponent(value));
+  navigate(`${location.pathname}?${searchParams}`);
+
+  try {
+    const params = {
+      itemCategory: category === "all" ? undefined : category,
+      name_like: keyword,
+    };
+    let apiUrl = `http://localhost:8880/items?_page=1&_limit=${perPage}`;
+    // 社内ありの取得
+    if (value === "name") {
+      apiUrl += `&_sort=name&_order=asc`;
+    } else if (value === "intheOffice") {
+      apiUrl += `&intheOffice=true`;
     
-      try {
-        const params = {
-          itemCategory: category === "all" ? undefined : category,
-          name_like:keyword,
-          
-      };
-      const query = queryString.stringify(params, {skipNull: true});
-        // 名前順　２ページ目以降ができない
-        const response = await fetch(
-          `http://localhost:8880/items?_sort=name&_order=asc&_page=${currentPage}&_limit=${perPage}&${query}`
-        );
-
-        const data = await response.json();
-        setSelectedItem(data);
-      } catch (error) {
-        console.error(error);
-      }
-  };
+    } else {
+      apiUrl += `&_sort=${value}&_order=asc`;
+    }
+    const query = queryString.stringify(params, { skipNull: true });
+    const response = await fetch(`${apiUrl}&${query}`);
+    const data = await response.json();
+    setSelectedItem(data);
+  } catch (error) {
+    console.error(error);
+  }
+};
   const queryParams = new URLSearchParams(location.search);
   const category = queryParams.get("category");
   const keyword = queryParams.get("keyword");
@@ -96,36 +101,65 @@ console.log(allItem,"allitem")
       }
     };
     categoryFilterData();
-    // location.searchを削除するとページングうまく動いた
+
   }, [category, setSelectedItem,keyword]);
-  // ワード検索
 
   // ページングを押下ときのイベント
-
+    // const handlePageChange = async (
+    //   event: React.SyntheticEvent,
+    //   newValue: string
+    // ) => {
+    //   const queryParams = new URLSearchParams(location.search);
+    //   queryParams.set('page', newValue);
+  
+    //   try {
+    //     const params = {
+    //       itemCategory: category === "all" ? undefined : category,
+    //       name_like: keyword,
+    //     };
+    //     const query = queryString.stringify(params, { skipNull: true });
+    //     let url = `http://localhost:8880/items?_sort=name&_order=asc&_page=${newValue}&_limit=6&${query}`;
+    //     navigate(`/home/search?${queryParams.toString()}`);
+    //     const res = await fetch(url);
+    //     const data = await res.json();
+    //     setSelectedItem(data);
+    //     console.log(data,"data")
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // }
+    // console.log(selectedItem,"select")
     const handlePageChange = async (
       event: React.SyntheticEvent,
       newValue: string
     ) => {
       const queryParams = new URLSearchParams(location.search);
       queryParams.set('page', newValue);
-  
+    
       try {
         const params = {
           itemCategory: category === "all" ? undefined : category,
           name_like: keyword,
         };
         const query = queryString.stringify(params, { skipNull: true });
-        let url = `http://localhost:8880/items?_sort=name&_order=asc&_page=${newValue}&_limit=6&${query}`;
+    
+        const sortValue = selectedValue === "name" ? "name" : "popular"; // プルダウンで選択された値によって _sort の値を変更
+        const url = `http://localhost:8880/items?_sort=${sortValue}&_order=asc&_page=${newValue}&_limit=6&${query}`;
+    
         navigate(`/home/search?${queryParams.toString()}`);
+    
         const res = await fetch(url);
         const data = await res.json();
         setSelectedItem(data);
-        console.log(data,"data")
+        console.log(data, "data");
       } catch (error) {
         console.error(error);
       }
-    }
-    console.log(selectedItem,"select")
+    };
+
+    
+    
+    
   // カテゴリごとの全件数の取得 //
 // パラメータにcategoryとkeywordの指定があったらフィルタリングして件数を割り出す
 useEffect(() => {
@@ -190,19 +224,16 @@ useEffect(()=>{
     >
       <MenuItem value="popular">人気順</MenuItem>
       <MenuItem value="name">名前順</MenuItem>
-      <MenuItem value="社内あり">社内あり</MenuItem>
+      <MenuItem value="intheOffice">社内あり</MenuItem>
     </Select>
     
   </Box>
 </Box>
-
-
     <Box 　sx={{mx:"16px"}}>
       
       </Box>
       {selectedItem  ? (
   <>
-
     {selectedItem && <ItemCard data={selectedItem} />}
    
     {selectedItem?.length>0 &&
@@ -217,7 +248,6 @@ useEffect(()=>{
 ) : (
   "該当する商品がありません"
 )}
-
 <div style={{ display: "flex", justifyContent: "flex-end" }}>
   {loginUser?.isAdmin ? (
     <Link to="/adminhome/additem">
