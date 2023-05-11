@@ -13,12 +13,12 @@ import {
 import { ActiveDarkBlueButton } from "../atoms/button/Button";
 import Slider from "../atoms/slider/Slider";
 import FreeBreakfastIcon from "@mui/icons-material/FreeBreakfast";
-import type { Posts } from "../../types/type";
+import type { Post } from "../../types/type";
 import { Link } from "react-router-dom";
 import ModalWindow from "../organisms/ModalWindow";
 
 const ItemDetail: FC = memo(() => {
-  const [postData, setPostData] = useState<Posts[]>([]);
+  const [postData, setPostData] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   // const [itemId, setItemId] = useState()
 

@@ -6,10 +6,13 @@ type Props = {
   imgFiles: File[];
 };
 
-const ImgPathConversion = async(props: Props) => {
-
-    const promises = props.imgFiles.map((imgFile) => {
-      return new Promise((resolve, reject) => {
+const ImgPathConversion = async (props: Props) => {
+  const promises = props.imgFiles.map((imgFile) => {
+    // 更新時(firebaseUrl変換が既にされているものの場合)
+    if (imgFile.size === 0) {
+      return imgFile.name;
+    }
+    return new Promise((resolve, reject) => {
       // uuidで画像登録用文字列生成
       const uniqueId = uuidv4();
       const storageRef = ref(storage, `/${uniqueId}`);
@@ -18,21 +21,22 @@ const ImgPathConversion = async(props: Props) => {
       uploadImage.on(
         "state_changed",
         (snapshot) => {},
-        (err) => {reject(err);},
+        (err) => {
+          reject(err);
+        },
         () => {
           getDownloadURL(storageRef).then((url) => {
             console.log(url);
-              resolve(url);
+            resolve(url);
           });
-        });
         }
       );
-    })
+    });
+  });
 
   const imagePaths = await Promise.all(promises);
   console.log(imagePaths);
   return imagePaths;
-}
-
+};
 
 export default ImgPathConversion;
