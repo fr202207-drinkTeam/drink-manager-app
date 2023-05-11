@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import React, { FC } from "react";
-import { PrimaryInput } from "../../atoms/input/Input";
+import { PrimaryInput } from "../input/Input";
 
 type PollDescriptionInputProps = {
   pollDescription: string;

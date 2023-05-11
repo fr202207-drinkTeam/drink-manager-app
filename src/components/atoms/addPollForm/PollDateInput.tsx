@@ -1,6 +1,6 @@
 import { Box } from '@mui/material'
 import React, { FC } from 'react'
-import { PrimaryDateInput } from '../../atoms/input/dateInput'
+import { PrimaryDateInput } from '../input/dateInput'
 import { Questionnaire } from '../../../types/type';
 import useGetQuestionnaire from '../../../hooks/useGetQuestipnnaire';
 
