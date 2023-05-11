@@ -9,10 +9,10 @@ import AddItem from "./AddItem";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 import { useNavigate } from "react-router-dom";
-import PollNameInput from "../molecules/poll/PollNameInput";
-import PollDescriptionInput from "../molecules/poll/PollDescriptionInput";
-import PollCategorySelect from "../molecules/poll/PollCategorySelect";
-import PollDateInput from "../molecules/poll/PollDateInput";
+import PollNameInput from "../atoms/addPollForm/PollNameInput";
+import PollDescriptionInput from "../atoms/addPollForm/PollDescriptionInput";
+import PollCategorySelect from "../atoms/addPollForm/PollCategorySelect";
+import PollDateInput from "../atoms/addPollForm/PollDateInput";
 import { CircularProgress } from "@mui/material";
 import useGetQuestionnaire from "../../hooks/useGetQuestipnnaire";
 
