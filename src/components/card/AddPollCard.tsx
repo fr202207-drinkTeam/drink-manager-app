@@ -156,7 +156,7 @@ const ItemCard = ({ data, sxStyle,selectedItems,setSelectedItems }: ItemCardProp
                       boxShadow: "none",
                       border: "double",
                       fontWeight: "bold",
-                      ml: 4,
+                      ml: 7,
                     }}
                      event={() => {
                       handleClick(drink.id);

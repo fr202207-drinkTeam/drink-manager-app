@@ -107,7 +107,6 @@ const AddPoll = memo(() => {
       setDateError("*投票期間が正しくありません。再度確認してください。");
       return false;
     }
-
     const isOverlapping = questionnaireData.some(question => {
       const questionStartDate = new Date(question.startDate);
       const questionEndDate = new Date(question.endDate);

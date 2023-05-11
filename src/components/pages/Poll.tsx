@@ -19,6 +19,8 @@ const Poll = memo(() => {
   const PopularPollTitle: Questionnaire[] = useGetPollLatestTitle(1);
   const OtherPollTitle: Questionnaire[] = useGetPollLatestTitle(2);
   const navigate = useNavigate();
+  const title=[PopularPollTitle[0]].concat(OtherPollTitle[0])
+  console.log(title)
   const now = new Date();
   return (
     <>
