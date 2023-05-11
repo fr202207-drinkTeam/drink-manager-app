@@ -1100,6 +1100,30 @@
       "result": 8,
       "createdAt": "2023-05-04T05:47:49.540Z",
       "id": 10
+    },
+    {
+      "questionnaireId": 6,
+      "userId": 4,
+      "category": 1,
+      "result": 1,
+      "createdAt": "2023-05-11T06:56:05.803Z",
+      "id": 11
+    },
+    {
+      "questionnaireId": 6,
+      "userId": 5,
+      "category": 1,
+      "result": 2,
+      "createdAt": "2023-05-11T06:56:05.803Z",
+      "id": 12
+    },
+    {
+      "questionnaireId": 6,
+      "userId": 6,
+      "category": 1,
+      "result": 1,
+      "createdAt": "2023-05-11T06:56:05.803Z",
+      "id": 13
     }
   ],
   "contact": [],

@@ -11,6 +11,7 @@ import PollDetail from "../molecules/poll/PollDetail";
 import { Fab } from "@mui/material";
 import { KeyboardArrowUp } from "@mui/icons-material";
 import ScrollPageTop from "../atoms/ScrollPageTop";
+import PollRanking from "../organisms/PollRanking";
 
 const Poll = memo((props) => {
   //当月（開催中）のアンケートだけ表示。それ以外は非表示
@@ -21,12 +22,12 @@ const Poll = memo((props) => {
   const navigate = useNavigate();
   const pollTitle = [PopularPollTitle[0]].concat(OtherPollTitle[0]);
   const now = new Date();
+  console.log(typeof PopularPollTitle[0]?.id,"aaa")
   return (
     <>
       <Paper
         sx={{ mb: 5, width: "100%", minWidth: 500, maxWidth: 1200, pb: 13 }}
       >
-        <div id="top"></div>
         <Box
           sx={{
             textAlign: "center",
