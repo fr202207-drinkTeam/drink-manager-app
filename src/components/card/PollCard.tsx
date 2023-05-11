@@ -51,24 +51,7 @@ const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
         result: drinkId,
         createdAt: new Date(),
       };
-<<<<<<< HEAD
-      const endpoint = pollCategory === 1 ? "polledPopular" : "polledOther";
-      const response = await fetch(
-        `http://localhost:8880/users/1/${endpoint}`,
-        {
-          method: "PUT",
-          body: JSON.stringify({ ...users, [endpoint]: true }),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      const responseData = await response.json();
-      setUsers((prevUsers: any) => ({ ...prevUsers, [endpoint]: true }));
-      console.log(responseData);
-
-      const pollResponse = await fetch("http://localhost:8880/polls", {
-=======
       const response = await fetch("http://localhost:8880/polls", {
->>>>>>> main
         method: "POST",
         body: JSON.stringify(data),
         headers: {
