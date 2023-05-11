@@ -39,14 +39,20 @@ const Top: FC<Props> = memo((props) => {
   const [postData, setPostData] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [editPostData, setEditPostData] = useState<Post | null>(null);
-  const { fetchPostData, postLoading, postError } = useGetPosts();
 
   useEffect(() => {
-    if (fetchPostData) {
-      setPostData(fetchPostData);
-    }
-  }, [fetchPostData]);
-  console.log(postData, "fetch");
+    fetch(
+      `http://localhost:8880/posts?_sort=createdAt&_order=desc&_start=0&_end=3`,
+      { method: "GET" }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setPostData(data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
   return (
     <>
       <DefaultLayout>
@@ -138,16 +144,21 @@ const Top: FC<Props> = memo((props) => {
             ラクスパートナーズのみんなの投稿がとどいてるよ !
           </Typography>
         </Card>
-
-        {postData.map((postData: Post) => (
-          <PostData
-            key={postData.id}
-            postData={postData}
-            isComment={false}
-            setEditPostData={setEditPostData}
-            loginUser={loginUser}
-          />
-        ))}
+        <Paper sx={{ p: "20px", background: "#eae5e3", mt: "50px" }}>
+          <Box sx={{ overflowY: "scroll", height: "500px", px: "20px" }}>
+            {postData.map((postData: Post) => (
+              <PostData
+                key={postData.id}
+                postData={postData}
+                isComment={false}
+                loginUser={loginUser}
+                setEditPostData={function(
+                  value: React.SetStateAction<Post | null>
+                ): void {}}
+              />
+            ))}
+          </Box>
+        </Paper>
         <Box sx={{ textAlign: "center", mt: 4 }}>
           <Grid container spacing={2}></Grid>
           <ActiveBeigeButton

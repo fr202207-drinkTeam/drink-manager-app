@@ -30,6 +30,7 @@ const Header = () => {
     { label: "Top", href: "/home" },
     { label: "ご利用ガイド", href: "/home/guide" },
     { label: "投票", href: "/home/poll" },
+    { label: "タイムライン", href: "/home/timeline" },
     { label: "お問い合わせ", href: "/home/contact" },
   ];
   const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -125,7 +126,7 @@ const Header = () => {
             <Link to="/adminhome">
               <ActiveDarkBlueButton
                 sxStyle={{ borderRadius: 10 }}
-                event={function(): void {}}
+                event={function (): void {}}
               >
                 管理者用TOP
               </ActiveDarkBlueButton>

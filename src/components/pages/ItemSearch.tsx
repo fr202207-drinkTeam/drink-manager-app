@@ -15,87 +15,7 @@ import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 type Props = {};
 
 const ItemSearch: FC<Props> = memo((props) => {
-  // const id = 2;
-  // const [polls, setPolls] = useState<Polls[]>([]);
-  // const [pollCount, setPollCounts] = useState<Items[]>([]);
-  // const [questionnaire, setQuestionnaire] = useState<Questionnaire>();
-  // const [items, setItems] = useState<Items[]>([]);
 
-  // //投票結果集計
-  // const pollCounts: any = {};
-  // polls.forEach((item) => {
-  //   if (item.questionnaireId === Number(id)) {
-  //     if (pollCounts[item.result]) {
-  //       pollCounts[item.result]++;
-  //     } else {
-  //       pollCounts[item.result] = 1;
-  //     }
-  //   }
-  // });
-  // console.log(Object.keys(pollCounts).length >= 1, "pollcounts");
-
-  // //票の大きい商品順で並び替え
-  // const sortedPolls = Object.entries(pollCounts).sort(
-  //   (a: any, b: any) => b[1] - a[1]
-  // );
-  // console.log(sortedPolls, "sorr");
-  // const result = sortedPolls.map((subArr) => {
-  //   return subArr[0];
-  // });
-  // const pollResult = result.map(Number);
-  // console.log(pollResult, "pollresult");
-
-  // //value票の数を多い順に並び替え
-  // const values = Object.values(pollCounts).map(Number);
-  // values.sort((a, b) => b - a);
-
-  // //poll取得
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const pollsResponse = await fetch(
-  //         `http://localhost:8880/polls?questionnaireId=${id}`
-  //       );
-  //       const pollsData = await pollsResponse.json();
-  //       setPolls(pollsData);
-
-  //       const itemsResponse = await fetch("http://localhost:8880/items");
-  //       const itemsData = await itemsResponse.json();
-  //       setItems(itemsData);
-
-  //       if (pollsData.length > 0 && questionnaire && itemsData.length > 0) {
-  //         const polllCountItems = itemsData.filter((item: any) =>
-  //           pollResult.includes(item.id)
-  //         );
-  //         polllCountItems.sort((a: any, b: any) => {
-  //           const aCount = pollCounts[a.id];
-  //           const bCount = pollCounts[b.id];
-  //           return bCount - aCount;
-  //         });
-  //         setPollCounts(polllCountItems);
-  //         console.log(polllCountItems, "polllCountItems");
-  //         setSelectedValue(initialSelectedValue);
-  //       }
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchData();
-  //   items.map((item: any) => ({
-  //     ...item,
-  //     pollCount: pollCounts?.[item.id],
-  //   }));
-  // }, [id, questionnaire]);
-
-  // pollCountsにて投票結果の集計取得できる
-  // items.map((item:any) => ({
-  //   ...item,
-  //   pollCount: pollCounts?.[item.id]
-  // }))
-
-  // 人気順ここまで
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
   const location = useLocation();
@@ -104,9 +24,8 @@ const ItemSearch: FC<Props> = memo((props) => {
   const page = searchParams.get("page");
   const [selectedItem, setSelectedItem] = useState<Items[]>();
   const [allItem, setAllItem] = useState<Items[]>();
-  const [selectedValue, setSelectedValue] = useState("選択する");
+  const [selectedValue, setSelectedValue] = useState("name");
   const [categoryName, setCategoryName] = useState<string>();
-  const [initialSelectedValue] = useState("選択する");
   console.log(selectedValue);
 
   const handlePullDown = async (event: any) => {
@@ -115,14 +34,18 @@ const ItemSearch: FC<Props> = memo((props) => {
 
     const searchParams = new URLSearchParams(location.search);
     searchParams.set("sort", encodeURIComponent(value));
+    // プルダウンでの選択時に1ページ目に戻る　パラメーター　page=1にする
+    searchParams.set("page", "1"); 
     navigate(`${location.pathname}?${searchParams}`);
+  
 
     try {
       const params = {
         itemCategory: category === "all" ? undefined : category,
         name_like: keyword,
       };
-      let apiUrl = `http://localhost:8880/items?_page=1&_limit=${perPage}`;
+      let apiUrl = `http://localhost:8880/items?&otherItem=false&_limit=${perPage}`;
+      
       //  名前順
       if (value === "name") {
         apiUrl += `&_sort=name&_order=asc`;
@@ -138,8 +61,10 @@ const ItemSearch: FC<Props> = memo((props) => {
       const query = queryString.stringify(params, { skipNull: true });
       const response = await fetch(`${apiUrl}&${query}`);
       const data = await response.json();
-      setSelectedItem(data.filter((item: any) => !item.otherItem));
-      setAllItem(data.filter((item: any) => !item.otherItem));
+      setSelectedItem(data);
+      if (apiUrl === "&intheOffice=false" || "&intheOffice=true") {
+        setAllItem(data);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -157,7 +82,7 @@ const ItemSearch: FC<Props> = memo((props) => {
   useEffect(() => {
     const categoryFilterData = async () => {
       try {
-        let url = `http://localhost:8880/items?_page=${currentPage}&_limit=${perPage}`;
+        let url = `http://localhost:8880/items?&otherItem=false&_sort=name&_page=${currentPage}&_limit=${perPage}`;
         if (category !== "all") {
           url += `&itemCategory=${category}`;
         }
@@ -173,10 +98,10 @@ const ItemSearch: FC<Props> = memo((props) => {
         }
         if (location.search.includes("keyword")) {
           const keyword = new URLSearchParams(location.search).get("keyword");
-          let url = `http://localhost:8880/items?_page=${currentPage}&_limit=${perPage}&name_like=${keyword}`;
+          let url = `http://localhost:8880/items?&otherItem=false&_page=${currentPage}&_limit=${perPage}&name_like=${keyword}`;
           const response = await fetch(url);
           const data = await response.json();
-          setSelectedItem(data.filter((item: any) => !item.otherItem));
+          setSelectedItem(data);
         }
       } catch (error) {
         console.error(error);
@@ -185,7 +110,7 @@ const ItemSearch: FC<Props> = memo((props) => {
     categoryFilterData();
   }, [category, setSelectedItem, keyword]);
   console.log("select", selectedItem);
-
+  // ページング
   const handlePageChange = async (
     event: React.SyntheticEvent,
     newValue: string
@@ -206,60 +131,77 @@ const ItemSearch: FC<Props> = memo((props) => {
       const query = queryString.stringify(params, { skipNull: true });
 
       const sortValue = selectedValue === "name" ? "name" : "popular";
-      const url = `http://localhost:8880/items?_sort=${sortValue}&_order=asc&_page=${newValue}&_limit=6&${query}`;
+      const url = `http://localhost:8880/items?&otherItem=false&_sort=${sortValue}&_order=asc&_page=${newValue}&_limit=6&${query}`;
 
       navigate(`/home/search?${queryParams.toString()}`);
 
       const res = await fetch(url);
       const data = await res.json();
-      setSelectedItem(data.filter((item: any) => !item.otherItem));
+      setSelectedItem(data);
     } catch (error) {
       console.error(error);
     }
   };
   // カテゴリごとの全件数の取得 //
   // パラメータにcategoryとkeywordの指定があったらフィルタリングして件数を割り出す
-  useEffect(() => {
+  useEffect(() => { 
     const categoryData = async () => {
       try {
+        let url = `http://localhost:8880/items?&otherItem=false`;
+        
+        if (selectedValue === "intheOffice") {
+          url += "&intheOffice=true"; // Append intheOffice parameter
+        }else if(selectedValue === "intheOfficeNone") {
+          url += "&intheOffice=false"; // Append intheOffice parameter
+        }
+  
         const params = {
           itemCategory: category === "all" ? undefined : category,
           name_like: keyword,
         };
         const query = queryString.stringify(params, { skipNull: true });
-
-        let url = `http://localhost:8880/items?&${query}`;
+        url += `&${query}`;
+  
         const res = await fetch(url);
         const data = await res.json();
-        // othrItemがtrueのものを除外
-        setAllItem(data.filter((item: any) => !item.otherItem));
+        setAllItem(data);
       } catch (error) {
         console.error(error);
       }
     };
+  
     categoryData();
-  }, [category, keyword]);
+  }, [category, keyword, selectedValue]);
+ 
 
-  // Todo　カテゴリ検索リファクタリング
+  // Todo カテゴリ検索リファクタリングする
   useEffect(() => {
     if (category === "all") {
       setCategoryName("すべて");
+      setSelectedValue("name");
     } else if (category === "1") {
       setCategoryName("ダーク（深煎り）");
+      setSelectedValue("name");
     } else if (category === "2") {
       setCategoryName("ミディアム（中煎り）");
+      setSelectedValue("name");
     } else if (category === "3") {
       setCategoryName("ライト（浅煎り）");
+      setSelectedValue("name");
     } else if (category === "4") {
       setCategoryName("カフェインレス");
+      setSelectedValue("name");
     } else if (category === "5") {
       setCategoryName("ティー");
+      setSelectedValue("name");
     } else if (category === "6") {
       setCategoryName("ココア");
+      setSelectedValue("name");
     } else if (category === "7") {
       setCategoryName("その他");
+      setSelectedValue("name");
     }
-  }, [category]);
+  }, [category, setSelectedValue]);
 
   return (
     <>
@@ -295,11 +237,11 @@ const ItemSearch: FC<Props> = memo((props) => {
             onChange={handlePullDown}
           >
             <MenuItem value="選択する" disabled>
-              <Box sx={{ display: "flex" }}>
+              {/* <Box sx={{ display: "flex" }}>
                 <Typography sx={{ color: "rgba(0,0,0,0.6)" }}>
                   選択する
                 </Typography>
-              </Box>
+              </Box> */}
             </MenuItem>
             {/* <MenuItem value="popular">人気順</MenuItem> */}
             <MenuItem value="name">名前順</MenuItem>
