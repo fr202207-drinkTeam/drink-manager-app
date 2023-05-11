@@ -1,5 +1,4 @@
-import Cookies from "js-cookie";
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { loginUserState } from "../store/loginUserState";
 import { Users } from "../types/type";

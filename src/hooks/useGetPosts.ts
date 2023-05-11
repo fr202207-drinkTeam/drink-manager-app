@@ -1,45 +1,32 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect} from "react";
 import { Post } from "../types/type";
 
 // 投稿データ取得hooks
-const useGetPosts = (params: string = "") => {
-  const [postsData, setPostsData] = useState<Post[] | null>([]);
-  // useEffenctの初回レンダリング回避
-  const isFirstRender = useRef(true);
+const useGetPosts = (
+  params: string = "http://localhost:8880/posts?_sort=createdAt&_order=desc&_start=0&_end=3"
+) => {
+  const [fetchPostData, setfetchPostData] = useState<Post[] | null>(null);
+  const [postLoading, setPostLoading] = useState<boolean>(false);
+  const [postError, setPostError] = useState<boolean>(false);
 
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
+    setPostLoading(true);
     // データ取得
     fetch(`http://localhost:8880/posts${params}`, { method: "GET" })
       .then((res) => res.json())
       .then((data) => {
-        // データが0件だった場合、投稿がないことを判別するために、ダミーデータをセット
-        if (data.length === 0) {
-          setPostsData([
-            {
-              userId: 0,
-              content: "データなし",
-              itemId: 0,
-              postImage: [],
-              createdAt: new Date(),
-              updatedAt: new Date(),
-              id: 0,
-            },
-          ]);
-          return;
-        }
         // データがある場合は通常通りデータをセット
-        setPostsData(data);
+        setfetchPostData(data);
+        setPostLoading(false);
       })
       .catch((error) => {
         console.error("Error:", error);
+        setPostError(true);
+        setPostLoading(false);
       });
   }, [params]);
 
-  return postsData;
+  return { fetchPostData, postLoading, postError };
 };
 
 export default useGetPosts;
