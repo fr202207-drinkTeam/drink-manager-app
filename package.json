@@ -40,7 +40,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "mock-api": "json-server --watch data/db.json --port 8880"
+    "mock-api": "json-server --watch data/db.json --fks _id --port 8880"
   },
   "eslintConfig": {
     "extends": [

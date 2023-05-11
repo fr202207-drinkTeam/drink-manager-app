@@ -1,4 +1,4 @@
-import { FC, memo, useRef } from "react";
+import { FC, memo } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Box from "@mui/material/Box";
@@ -28,8 +28,6 @@ const AddItem: FC<Props> = memo(({ pollFlag, setPollFlag, handleClose }) => {
   const [itemImages, setItemImages] = useState<File[]>([]);
   const [adding, setAdding] = useState<boolean>(false);
 
-  const isFirstRender = useRef(true);
-
   // recoilからログインユーザー情報を取得
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
@@ -40,11 +38,6 @@ const AddItem: FC<Props> = memo(({ pollFlag, setPollFlag, handleClose }) => {
     const imagePath = await ImgPathConversion({
       imgFiles: itemImages,
     });
-
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-    }
-
     fetch("http://localhost:8880/items", {
       method: "POST",
       headers: {
@@ -74,6 +67,7 @@ const AddItem: FC<Props> = memo(({ pollFlag, setPollFlag, handleClose }) => {
       navigate(-1);
     }
   };
+
   return (
     <>
       <Paper sx={{ p: 5, width: "80%", m: "auto" }}>
