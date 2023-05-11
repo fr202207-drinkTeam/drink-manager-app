@@ -162,7 +162,7 @@ const AdminHome: FC<Props> = memo((props) => {
                   fontFamily="Source Han Sans"
                   sx={{ color: 'black', fontSize: '20px', marginTop: '10px' }}
                 >
-                  補充在庫入力
+                  アンケート追加
                 </Typography>
               </Box>
             </Link>

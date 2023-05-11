@@ -1,7 +1,7 @@
 import { FC, memo, useEffect, useState } from "react";
 import { Box } from "@mui/system";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
-import type { Posts } from "../../types/type";
+import type { Post } from "../../types/type";
 
 type Props = {
   itemId: number;
@@ -9,7 +9,7 @@ type Props = {
 };
 
 const TimelineCorner: FC<Props> = memo((props) => {
-  const [postData, setPostData] = useState<Posts[]>([]);
+  const [postData, setPostData] = useState<Post[]>([]);
   const [displayPostId, setDisplayPostId] = useState<number>(0);
   const [displayPostData, setDisplayPostData] = useState<any>(null);
 

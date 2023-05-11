@@ -2,7 +2,8 @@
 const previewImages = (
   event: React.ChangeEvent<HTMLInputElement>,
   imageFiles: File[],
-  setImageFiles: React.Dispatch<React.SetStateAction<File[]>>
+  setImageFiles: React.Dispatch<React.SetStateAction<File[]>>,
+  changeImageIndex?: number
 ) => {
   // 画像が見つからない場合、処理を終了
   if (!event.target.files![0]) {
@@ -17,6 +18,16 @@ const previewImages = (
     return;
   }
 
+  // 画像変更の場合
+  if (typeof changeImageIndex === "number") {
+    setImageFiles(() => {
+      imageFiles.splice(changeImageIndex, 1, event.target.files![0]);
+      return [...imageFiles];
+    });
+    return;
+  }
+
+  // 画像追加の場合
   // 画像ファイルが3つ以上の場合、古い画像を削除して新しい3つを追加
   if (imageFiles.length >= 3) {
     setImageFiles((imageFiles: File[]) => {

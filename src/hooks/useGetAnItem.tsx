@@ -1,25 +1,25 @@
 import { useState, useEffect } from "react";
 
 type Props = {
-  itemId: number
+  itemId: number;
 };
 
 const useGetAnItem = (props: Props) => {
-  const [itemData, setItemData] = useState<any>()
-  
+  const [itemData, setItemData] = useState<any>();
+
   useEffect(() => {
     if (!props.itemId) return;
-    fetch(`http://localhost:8880/items?id=${props.itemId}`, {method: 'GET'})
-      .then(res => res.json())
-      .then(data => {
-        setItemData(data[0])
+    fetch(`http://localhost:8880/items?id=${props.itemId}`, { method: "GET" })
+      .then((res) => res.json())
+      .then((data) => {
+        setItemData(data[0]);
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error("Error:", error);
       });
-  }, [props.itemId])
+  }, [props.itemId]);
 
-  return itemData
-}
+  return itemData;
+};
 
-export default useGetAnItem
+export default useGetAnItem;

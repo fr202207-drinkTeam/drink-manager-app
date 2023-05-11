@@ -94,7 +94,6 @@ const Top: FC<Props> = memo((props) => {
             </Typography>
           </Card>
         </Box>
-        <PollRanking/>
         <Box sx={{ textAlign: "center" }}>
           <ActivePinkButton
             event={onSearchButtonClick}

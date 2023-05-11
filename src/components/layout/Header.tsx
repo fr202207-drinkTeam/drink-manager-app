@@ -72,7 +72,7 @@ const Header = () => {
   console.log(auth, "auth");
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
-  console.log(loginUser, "user");
+  // console.log(loginUser, "user");
   const onLogoutClick = () => {
     signOut(auth)
       .then(() => {

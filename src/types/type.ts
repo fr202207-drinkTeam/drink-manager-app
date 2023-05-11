@@ -32,6 +32,7 @@ export type Questionnaire = {
       result?: number;
     }
   ];
+  description:string;
   createdAt: Date;
   category: number;
   startDate: Date;
@@ -48,16 +49,6 @@ export type Polls = {
   category:number;
 };
 
-export type Posts = {
-  id: number;
-  userId: number;
-  content: string;
-  itemId: number;
-  postImage: string[];
-  createdAt: Date;
-  updatedAt: Date;
-};
-
 export type Post = {
   id: number;
   userId: number;
@@ -67,3 +58,19 @@ export type Post = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type Comment = {
+  id: number;
+  userId: number;
+  content: string;
+  postId: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export type Like = {
+  id: number;
+  userId: number;
+  postId: number;
+  time: Date;
+}
