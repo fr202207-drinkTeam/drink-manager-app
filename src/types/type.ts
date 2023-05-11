@@ -1,3 +1,4 @@
+
 export type Users = {
   id: number | null;
   firstName: string;
@@ -31,6 +32,7 @@ export type Questionnaire = {
       result?: number;
     }
   ];
+  description:string;
   createdAt: Date;
   category: number;
   startDate: Date;
@@ -44,6 +46,7 @@ export type Polls = {
   userId: number;
   result: number;
   createdAt: Date;
+  category:number;
 };
 
 export type Post = {

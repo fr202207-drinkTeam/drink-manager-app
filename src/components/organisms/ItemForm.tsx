@@ -11,13 +11,15 @@ import {
 import { Box } from "@mui/system";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import PreviewImage from "../molecules/PreviewImage";
+import { useParams } from "react-router";
+import useGetAnItem from "../../hooks/useGetAnItem";
+import previewImages from "../../utils/previewImages";
 
 type Props = {
   setItemName: Dispatch<SetStateAction<string>>;
   setItemDescription: Dispatch<SetStateAction<string>>;
   setItemCategory: Dispatch<SetStateAction<number>>;
   setItemImages: Dispatch<SetStateAction<File[]>>;
-  // setImagesPathsArr: Dispatch<SetStateAction<string[]>>;
 };
 
 const ItemForm: FC<Props> = memo((props) => {
@@ -26,42 +28,13 @@ const ItemForm: FC<Props> = memo((props) => {
   const [formItemDescription, setItemDescription] = useState<string>("");
   const [formItemCategory, setItemCategory] = useState<number>(0);
   const [formItemImages, setItemImages] = useState<File[]>([]);
-  // const [imagesPathsArr, setImagesPathsArr] = useState<string[]>([]);
 
   // propsの受け渡しの処理
   props.setItemName(formItemName);
   props.setItemDescription(formItemDescription);
   props.setItemCategory(formItemCategory);
   props.setItemImages(formItemImages);
-  // props.setImagesPathsArr(imagesPathsArr)
-
-  // 画像プレビュー機能
-  const previewImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // 入力した画像に重複がないか判別
-    const preventSameImage = formItemImages.some(
-      (image: File) => image.name === event.target.files![0].name
-    );
-    // 重複があった場合は処理を終了
-    if (preventSameImage) {
-      return;
-    }
-
-    // 画像ファイルが3つ以上の場合、古い画像を削除して新しい3つを追加
-    if (formItemImages.length >= 3) {
-      setItemImages((inputImages: File[]) => {
-        const limitedImages = [...inputImages, event.target.files![0]];
-        limitedImages.shift();
-        return limitedImages;
-      });
-    }
-    // 画像ファイルが３つ未満の場合、通常の画像追加
-    else {
-      setItemImages((inputImages: File[]) => [
-        ...inputImages,
-        event.target.files![0],
-      ]);
-    }
-  };
+  console.log("set serve props");
 
   return (
     <>
@@ -79,7 +52,14 @@ const ItemForm: FC<Props> = memo((props) => {
         商品画像
       </Typography>
 
-      <Box sx={{ mb: 5, width: "100%", alignItems: "center", justifyContent: "space-between" }}>
+      <Box
+        sx={{
+          mb: 5,
+          width: "100%",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
         {formItemImages.length > 0 && (
           <PreviewImage
             inputImages={formItemImages}
@@ -102,7 +82,9 @@ const ItemForm: FC<Props> = memo((props) => {
                 type="file"
                 style={{ display: "none" }}
                 id="itemImageFeild"
-                onChange={previewImage}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  previewImages(event, formItemImages, setItemImages);
+                }}
               />
             </button>
           </Box>
@@ -120,7 +102,7 @@ const ItemForm: FC<Props> = memo((props) => {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setItemDescription(e.target.value)
         }
-        rows={5}
+        rows={4}
       />
 
       <InputLabel id="itemCategoryField" required>

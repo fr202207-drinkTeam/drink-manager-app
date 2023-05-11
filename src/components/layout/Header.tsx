@@ -10,7 +10,6 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import { ActiveBlueButton, ActiveDarkBlueButton } from "../atoms/button/Button";
@@ -19,10 +18,14 @@ import { Link } from "react-router-dom";
 import ModalWindow from "../organisms/ModalWindow";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
-import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { loginUserState } from "../../store/loginUserState";
+import { Users } from "../../types/type";
+import { getAuth, signOut } from "firebase/auth";
 const Header = () => {
   const navigate = useNavigate();
+
   const pages = [
     { label: "Top", href: "/home" },
     { label: "ご利用ガイド", href: "/home/guide" },
@@ -65,13 +68,25 @@ const Header = () => {
   }));
 
   // ログアウト
+  const auth = getAuth();
+  console.log(auth, "auth");
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
   // console.log(loginUser, "user");
   const onLogoutClick = () => {
-    document.cookie = `authId=; max-age=0`;
-    navigate("/login");
-    alert("ログアウトしました");
+    signOut(auth)
+      .then(() => {
+        document.cookie = `authId=; max-age=0`;
+        // ログアウト時の画面遷移の分岐
+        if (loginUser?.isAdmin) {
+          navigate("/adminlogin");
+        } else {
+          navigate("/login");
+        }
+      })
+      .catch((error) => {
+        // An error happened.
+      });
   };
   return (
     <>
@@ -83,22 +98,46 @@ const Header = () => {
           alignItems: "center",
         }}
       >
-        <Typography>こんにちは {loginUser?.firstName}さん</Typography>
-        <ModalWindow
-          title=""
-          content="本当にログアウトしてもよろしいですか？"
-          openButtonColor="blue"
-          completeButtonColor="darkblue"
-          completeButtonName="ログアウト"
-          completeAction={onLogoutClick}
-          cancelButtonColor="gray"
-          openButtonSxStyle={{
-            mx: 3,
-            py: "5px",
-            fontSize: "16px",
-            borderRadius: 10,
-          }}
-        />
+        {loginUser?.firstName === "" ? (
+          <></>
+        ) : loginUser?.isAdmin ? (
+          <Typography>こんにちは管理者さん</Typography>
+        ) : (
+          <Typography>こんにちは {loginUser?.firstName}さん</Typography>
+        )}
+        <div>
+          <ModalWindow
+            title=""
+            content="本当にログアウトしてもよろしいですか？"
+            openButtonColor="blue"
+            completeButtonColor="darkblue"
+            completeButtonName="ログアウト"
+            completeAction={onLogoutClick}
+            cancelButtonColor="gray"
+            openButtonSxStyle={{
+              mx: 3,
+              py: "5px",
+              fontSize: "16px",
+              borderRadius: 10,
+            }}
+          />
+        </div>
+        {/* {loginUser?.firstName === "" ? (
+          <></>
+        ) : loginUser?.isAdmin ? (
+          <div style={{ marginLeft: "auto" }}>
+            <Link to="/adminhome">
+              <ActiveDarkBlueButton
+                event={onLogoutClick}
+                sxStyle={{ borderRadius: 10 }}
+              >
+                管理者用TOP
+              </ActiveDarkBlueButton>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )} */}
         {loginUser?.isAdmin ? (
           <div style={{ marginLeft: "auto" }}>
             <Link to="/adminhome">
@@ -118,7 +157,13 @@ const Header = () => {
       <AppBar position="static" sx={styles.appBar}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: { xs: "flex", md: "none" },
+                textAlign: "center !important",
+              }}
+            >
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -149,9 +194,9 @@ const Header = () => {
               >
                 {pages.map((page) => (
                   <MenuItem key={page.label} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center" fontWeight="bold">
-                      {page.label}
-                    </Typography>
+                    <Box sx={{ textAlign: "center !important" }}>
+                      <Typography fontWeight="bold">{page.label}</Typography>
+                    </Box>
                   </MenuItem>
                 ))}
               </Menu>
@@ -175,21 +220,21 @@ const Header = () => {
             ></Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
-                <Button
-                  key={page.label}
-                  href={page.href}
-                  onClick={handleCloseNavMenu}
-                  sx={{
-                    my: 2,
-                    color: "white",
-                    display: "block",
-                    fontWeight: "bold",
-                    fontSize: 16,
-                    textAlign: "right",
-                  }}
-                >
-                  {page.label}
-                </Button>
+                <Link to={page.href} key={page.label}>
+                  <Button
+                    onClick={handleCloseNavMenu}
+                    sx={{
+                      my: 2,
+                      color: "white",
+                      display: "block",
+                      fontWeight: "bold",
+                      fontSize: 16,
+                      textAlign: "center",
+                    }}
+                  >
+                    {page.label}
+                  </Button>
+                </Link>
               ))}
             </Box>
 

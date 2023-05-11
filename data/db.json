@@ -8,10 +8,8 @@
       "email": "test@test.com",
       "password": "Test1234",
       "confirmPassword": "Test1234",
-      "isAdmin": false,
-      "authId": "giP7CHKGEuNbsXUemefgUCjtciQ2",
-      "polledPopular": false,
-      "polledOther": false
+      "isAdmin": true,
+      "authId": "giP7CHKGEuNbsXUemefgUCjtciQ2"
     },
     {
       "id": 2,
@@ -22,9 +20,83 @@
       "password": "Example1",
       "confirmPassword": "Example1",
       "authId": "zH28CwVTE8hAQ5DaQSoScaFktOq2",
-      "isAdmin": true,
+      "isAdmin": false
+    },
+    {
+      "userId": "11111",
+      "firstName": "テスト",
+      "lastName": "テスト",
+      "email": "test@example.com",
+      "password": "Password1",
+      "confirmPassword": "Password1",
+      "authId": "YdgGCZZZzXYI7xZUopxH7Hcl9zi1",
+      "isAdmin": false,
+      "id": 3
+    },
+    {
+      "userId": "2244",
+      "firstName": "test",
+      "lastName": "test2",
+      "email": "test1@test.com",
+      "password": "Pass1234",
+      "confirmPassword": "Pass1234",
+      "authId": "9N6ZHJ6jCMPv0MBdiZl1ZdE3bx42",
+      "isAdmin": false,
       "polledPopular": false,
-      "polledOther": false
+      "polledOther": false,
+      "id": 4
+    },
+    {
+      "userId": "2255",
+      "firstName": "test2",
+      "lastName": "test2",
+      "email": "test11@test.com",
+      "password": "Pass1234",
+      "confirmPassword": "Pass1234",
+      "authId": "KYY2eNjeAGeMAEObuvATo8wwW8M2",
+      "isAdmin": false,
+      "polledPopular": false,
+      "polledOther": false,
+      "id": 5
+    },
+    {
+      "userId": "2266",
+      "firstName": "test3",
+      "lastName": "test3",
+      "email": "test111@test.com",
+      "password": "Pass1234",
+      "confirmPassword": "Pass1234",
+      "authId": "rks1dqAKI7fwwMX2YxdDixMn0AS2",
+      "isAdmin": false,
+      "polledPopular": false,
+      "polledOther": false,
+      "id": 6
+    },
+    {
+      "userId": "2277",
+      "firstName": "らく",
+      "lastName": "す",
+      "email": "test6@test.com",
+      "password": "Pass1234",
+      "confirmPassword": "Pass1234",
+      "authId": "JcZ33s5tiZfKGah8psHQj56J1u12",
+      "isAdmin": false,
+      "polledPopular": false,
+      "polledOther": false,
+      "id": 7
+    },
+    {
+      "userId": "2288",
+      "firstName": "らく",
+      "lastName": "らく",
+      "email": "test1111@test.com",
+      "password": "Pass1234",
+      "confirmPassword": "Pass1234",
+      "authId": "apwjwi81L6ahYco1DOAKLewXQvz2",
+      "isAdmin": false,
+      "polledPopular": false,
+      "polledOther": false,
+      "id": 8
     }
   ],
   "items": [
@@ -139,7 +211,7 @@
     },
     {
       "id": 9,
-      "name": "イングリッシュ ブレックファースト",
+      "name": "イングリッシュブレックファスト",
       "description": "バランスのよい渋味。しっかりとした味わい豊かな紅茶。",
       "image": [
         "/item.png"
@@ -216,74 +288,150 @@
       "otherItem": false
     },
     {
-      "name": "ねぎ",
-      "description": "テストテストテストテストテスト",
+      "id": 15,
+      "name": "ホットココア",
+      "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）",
       "image": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/ce213123-2491-4dd1-8c1e-f05c105bda49?alt=media&token=fc3f8a6f-bbd4-4508-8b7d-5471ab90b053",
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/919f2cfa-fb77-4d30-8d07-820a4fda7dad?alt=media&token=ada209d6-f721-46ad-b7a3-edb9e1e33159"
+        "/item.png"
       ],
-      "itemCategory": 4,
-      "createdAt": "2023-04-26T18:14:45.200Z",
-      "inTheOffice": false,
-      "author": "test",
-      "otherItem": false,
-      "id": 15
+      "itemCategory": 6,
+      "createdAt": "",
+      "intheOffice": true,
+      "author": "",
+      "otherItem": false
     },
     {
-      "name": "ねぎ",
-      "description": "テストテストテストテストテスト",
+      "id": 16,
+      "name": "ホットココア",
+      "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）",
       "image": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/66d1dfde-4d3a-4c53-a2bb-15cd7c5526e3?alt=media&token=56d29929-d25b-46db-a789-bbc8943c4aa8",
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/c7555dc8-b20f-4f98-9249-1a8cd923e3c8?alt=media&token=07ef0b7a-a2ae-47d0-a1a6-d030b7dc4fdf"
+        "/item.png"
       ],
-      "itemCategory": 4,
-      "createdAt": "2023-04-26T18:14:50.739Z",
-      "inTheOffice": false,
-      "author": "test",
-      "otherItem": false,
-      "id": 16
+      "itemCategory": 6,
+      "createdAt": "",
+      "intheOffice": true,
+      "author": "",
+      "otherItem": false
     },
     {
-      "name": "テストテストテスト",
-      "description": "テストテストテストテストテストテストテスト",
+      "id": 17,
+      "name": "ホットココア",
+      "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）",
       "image": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/409d25a4-ec60-4fbc-95bf-cf9b6c468b3c?alt=media&token=38c0ad41-f549-415d-a76d-6793666a8d24",
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/7c64b716-7090-41c8-b3d2-d7acc24a8e96?alt=media&token=d9b9dd49-25c9-49e3-b060-a960e8444a10",
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/dae9c010-072b-4bb5-be3a-3f22fc021121?alt=media&token=ee489961-ca6e-477c-88a2-d7bf44695cf9"
+        "/item.png"
+      ],
+      "itemCategory": 6,
+      "createdAt": "",
+      "intheOffice": true,
+      "author": "",
+      "otherItem": false
+    },
+    {
+      "id": 18,
+      "name": "ホットココア",
+      "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）",
+      "image": [
+        "/item.png"
+      ],
+      "itemCategory": 6,
+      "createdAt": "",
+      "intheOffice": true,
+      "author": "",
+      "otherItem": false
+    },
+    {
+      "id": 19,
+      "name": "ホットココア",
+      "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）",
+      "image": [
+        "/item.png",
+        "/item.png"
+      ],
+      "itemCategory": 6,
+      "createdAt": "",
+      "intheOffice": true,
+      "author": "",
+      "otherItem": false
+    },
+    {
+      "name": "5858",
+      "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）5858",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/f8775a2e-a13d-4ac8-9e32-773b99585bfb?alt=media&token=34062896-73cd-4144-9371-8c5e55d9cc3f",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/6e74e587-f7e4-4b94-8c92-a66f555bd8a7?alt=media&token=886d6cab-3372-4ba3-bda4-ff811ee02f98",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/7bb4256c-e6c6-418d-b79b-b61ed403dd72?alt=media&token=08a55931-4801-49f4-83a0-75a8deb87fde"
       ],
       "itemCategory": 2,
-      "createdAt": "2023-04-26T18:16:49.922Z",
+      "createdAt": "2023-05-08T05:48:56.528Z",
       "inTheOffice": false,
-      "author": "test",
+      "author": "user1",
       "otherItem": false,
-      "id": 17
+      "id": 20
     },
     {
-      "name": "テストテストテストテスト",
-      "description": "テストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテスト",
+      "name": "おっとっと",
+      "description": "おっとっとは、ポテト生地を軽く焼き上げたノンフライスナック。",
       "image": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/a4008021-79d4-48f4-b3bf-d4b23d5b2113?alt=media&token=e141730c-2d46-4953-bd6e-fa8db00bdf57"
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/ef763e81-7fe6-47d2-803b-6be7d881a6f3?alt=media&token=c7bfe8e1-0763-448f-bb44-1e809d9e301f"
       ],
-      "itemCategory": 4,
-      "createdAt": "2023-04-26T18:18:59.369Z",
+      "itemCategory": 7,
+      "createdAt": "2023-05-08T06:12:15.214Z",
       "inTheOffice": false,
-      "author": "test",
-      "otherItem": false,
-      "id": 18
+      "author": 1,
+      "otherItem": true,
+      "id": 21
     },
     {
-      "name": "19",
-      "description": "19",
+      "name": "ポテロング",
+      "description": "サックサク　ノンフライ　しお味\n塩味が効いたポテトの旨味とサックサク食感がくせになる！\nおいしくて、ながーいノンフライスナック！！",
       "image": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/ddbb9546-be39-4916-89b8-092eb1e67cd5?alt=media&token=948b2678-ef93-44e7-88c1-fdaea026738b",
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/c5efa6ec-927d-4f6f-9c9c-cc2f6bdc3325?alt=media&token=bcfa0b15-864d-4dd5-a539-5f056e76bc86"
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/ac92f318-dc06-49fb-8712-cef5a2de1792?alt=media&token=d8332ad8-8bbd-4bc2-a6c2-09b9969ac933"
       ],
-      "itemCategory": 1,
-      "createdAt": "2023-04-27T00:05:34.340Z",
+      "itemCategory": 7,
+      "createdAt": "2023-05-08T06:38:56.851Z",
       "inTheOffice": false,
-      "author": "test",
-      "otherItem": false,
-      "id": 19
+      "author": 1,
+      "otherItem": true,
+      "id": 22
+    },
+    {
+      "name": "じゃがりこ",
+      "description": "独自の製法で「はじめカリッとあとからサクサク」の心地よい食感が楽しめます。にんじんとパセリのつぶつぶがおいしそうなじゃがりこの定番、サラダ味です。",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/c5447b51-2010-4e21-aa16-6042f7e20abe?alt=media&token=71113bdd-b9ef-4ea2-b0d4-7e78bc1db231"
+      ],
+      "itemCategory": 7,
+      "createdAt": "2023-05-08T06:40:36.593Z",
+      "inTheOffice": false,
+      "author": 1,
+      "otherItem": true,
+      "id": 23
+    },
+    {
+      "name": "堅あげポテト",
+      "description": "噛むほどうまい！厚切りじゃがいもをゆっくり丁寧にフライしました。堅い食感で噛むほどにじゃがいもの味わいが楽しめるポテトチップスです。",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/e50d97a1-4bfc-4f49-82d5-ee51b0e473b5?alt=media&token=f297c75b-9e84-4eb4-8db5-6a22e38eade2"
+      ],
+      "itemCategory": 7,
+      "createdAt": "2023-05-08T06:42:44.461Z",
+      "inTheOffice": false,
+      "author": 1,
+      "otherItem": true,
+      "id": 24
+    },
+    {
+      "name": "ポテトチップス　のりしお",
+      "description": "ふわっと香る「青のり」が、じゃがいものおいしさをいっそう引き立てます。",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/8b4f2c9d-a9d6-45f0-bf8f-b5bd96ec4461?alt=media&token=96f2cbda-a7ba-45e5-aba7-70cfe8fbcd5f"
+      ],
+      "itemCategory": 7,
+      "createdAt": "2023-05-10T02:06:04.847Z",
+      "inTheOffice": false,
+      "author": 1,
+      "otherItem": true,
+      "id": 25
     }
   ],
   "itemCategory": [
@@ -326,7 +474,7 @@
   "questionnaire": [
     {
       "id": 1,
-      "name": "4月社内drink人気投票",
+      "name": "2月社内drink人気投票",
       "polledItems": [
         {
           "id": 1,
@@ -375,155 +523,14 @@
         }
       ],
       "createdAt": "2023-04-1T09:27:46.692Z",
+      "description": "一番気になる、好きなドリンクに投票しよう！",
       "category": 1,
-      "startDate": "2023-04-22T09:27:46.692Z",
-      "endDate": "2023-05-30T09:27:46.692Z",
+      "startDate": "2023-02-02",
+      "endDate": "2023-02-25",
       "author": 1
     },
     {
-      "id": 2,
-      "name": "3月社内drink人気投票",
-      "polledItems": [
-        {
-          "id": 1,
-          "itemId": 1,
-          "result": ""
-        },
-        {
-          "id": 2,
-          "itemId": 2,
-          "result": ""
-        },
-        {
-          "id": 3,
-          "itemId": 3,
-          "result": ""
-        },
-        {
-          "id": 4,
-          "itemId": 4,
-          "result": ""
-        },
-        {
-          "id": 5,
-          "itemId": 5,
-          "result": ""
-        },
-        {
-          "id": 6,
-          "itemId": 6,
-          "result": ""
-        },
-        {
-          "id": 7,
-          "itemId": 7,
-          "result": ""
-        },
-        {
-          "id": 8,
-          "itemId": 8,
-          "result": ""
-        },
-        {
-          "id": 10,
-          "itemId": 14,
-          "result": ""
-        }
-      ],
-      "createdAt": "2023-02-1T09:27:46.692Z",
-      "category": 1,
-      "startDate": "2023-03-22T09:27:46.692Z",
-      "endDate": "2023-03-30T09:27:46.692Z",
-      "author": 1
-    },
-    {
-      "id": 3,
-      "name": "4月メニューの広がり投票",
-      "polledItems": [
-        {
-          "id": 1,
-          "itemId": 1,
-          "result": ""
-        },
-        {
-          "id": 2,
-          "itemId": 2,
-          "result": ""
-        },
-        {
-          "id": 3,
-          "itemId": 3,
-          "result": ""
-        },
-        {
-          "id": 4,
-          "itemId": 4,
-          "result": ""
-        },
-        {
-          "id": 5,
-          "itemId": 5,
-          "result": ""
-        },
-        {
-          "id": 6,
-          "itemId": 6,
-          "result": ""
-        },
-        {
-          "id": 7,
-          "itemId": 7,
-          "result": ""
-        },
-        {
-          "id": 8,
-          "itemId": 8,
-          "result": ""
-        },
-        {
-          "id": 9,
-          "itemId": 9,
-          "result": ""
-        },
-        {
-          "id": 10,
-          "itemId": 10,
-          "result": ""
-        },
-        {
-          "id": 11,
-          "itemId": 11,
-          "result": ""
-        },
-        {
-          "id": 12,
-          "itemId": 12,
-          "result": ""
-        },
-        {
-          "id": 13,
-          "itemId": 13,
-          "result": ""
-        },
-        {
-          "id": 14,
-          "itemId": 14,
-          "result": ""
-        },
-        {
-          "id": 15,
-          "itemId": 15,
-          "result": ""
-        }
-      ],
-      "createdAt": "2023-04-1T09:27:46.692Z",
-      "category": 2,
-      "startDate": "2023-04-22T09:27:46.692Z",
-      "endDate": "2023-05-31T09:27:46.692Z",
-      "author": 1
-    },
-    {
-      "id": 4,
+      "id": 5,
       "name": "3月メニューの広がり投票",
       "polledItems": [
         {
@@ -603,33 +610,496 @@
         }
       ],
       "createdAt": "2023-04-1T09:27:46.692Z",
+      "description": "みんなの投票で会社に設置してある ドリンクの種類がかわるよ！",
       "category": 2,
-      "startDate": "2023-02-22T09:27:46.692Z",
-      "endDate": "2023-03-31T09:27:46.692Z",
+      "startDate": "2023-02-22",
+      "endDate": "2023-03-31",
       "author": 1
+    },
+    {
+      "id": 2,
+      "name": "3月社内drink人気投票",
+      "polledItems": [
+        {
+          "id": 1,
+          "itemId": 1,
+          "result": ""
+        },
+        {
+          "id": 2,
+          "itemId": 2,
+          "result": ""
+        },
+        {
+          "id": 3,
+          "itemId": 3,
+          "result": ""
+        },
+        {
+          "id": 4,
+          "itemId": 4,
+          "result": ""
+        },
+        {
+          "id": 5,
+          "itemId": 5,
+          "result": ""
+        },
+        {
+          "id": 6,
+          "itemId": 6,
+          "result": ""
+        },
+        {
+          "id": 7,
+          "itemId": 7,
+          "result": ""
+        },
+        {
+          "id": 8,
+          "itemId": 8,
+          "result": ""
+        },
+        {
+          "id": 10,
+          "itemId": 14,
+          "result": ""
+        }
+      ],
+      "createdAt": "2023-02-1T09:27:46.692Z",
+      "category": 1,
+      "description": "一番気になる、好きなドリンクに投票しよう！",
+      "startDate": "2023-03-02",
+      "endDate": "2023-03-30",
+      "author": 1
+    },
+    {
+      "id": 3,
+      "name": "4月社内drink人気投票",
+      "polledItems": [
+        {
+          "id": 1,
+          "itemId": 1,
+          "result": ""
+        },
+        {
+          "id": 2,
+          "itemId": 2,
+          "result": ""
+        },
+        {
+          "id": 3,
+          "itemId": 3,
+          "result": ""
+        },
+        {
+          "id": 4,
+          "itemId": 4,
+          "result": ""
+        },
+        {
+          "id": 5,
+          "itemId": 5,
+          "result": ""
+        },
+        {
+          "id": 6,
+          "itemId": 6,
+          "result": ""
+        },
+        {
+          "id": 7,
+          "itemId": 7,
+          "result": ""
+        },
+        {
+          "id": 8,
+          "itemId": 8,
+          "result": ""
+        },
+        {
+          "id": 10,
+          "itemId": 14,
+          "result": ""
+        }
+      ],
+      "createdAt": "2023-02-1T09:27:46.692Z",
+      "category": 1,
+      "description": "一番気になる、好きなドリンクに投票しよう！",
+      "startDate": "2023-04-01",
+      "endDate": "2023-04-25",
+      "author": 1
+    },
+    {
+      "id": 4,
+      "name": "推しドリンクを追加しよう！",
+      "polledItems": [
+        {
+          "id": 1,
+          "itemId": 1,
+          "result": ""
+        },
+        {
+          "id": 2,
+          "itemId": 2,
+          "result": ""
+        },
+        {
+          "id": 3,
+          "itemId": 3,
+          "result": ""
+        },
+        {
+          "id": 4,
+          "itemId": 4,
+          "result": ""
+        },
+        {
+          "id": 5,
+          "itemId": 5,
+          "result": ""
+        },
+        {
+          "id": 6,
+          "itemId": 6,
+          "result": ""
+        },
+        {
+          "id": 7,
+          "itemId": 7,
+          "result": ""
+        },
+        {
+          "id": 8,
+          "itemId": 8,
+          "result": ""
+        },
+        {
+          "id": 9,
+          "itemId": 9,
+          "result": ""
+        },
+        {
+          "id": 10,
+          "itemId": 10,
+          "result": ""
+        },
+        {
+          "id": 11,
+          "itemId": 11,
+          "result": ""
+        },
+        {
+          "id": 12,
+          "itemId": 12,
+          "result": ""
+        },
+        {
+          "id": 13,
+          "itemId": 13,
+          "result": ""
+        },
+        {
+          "id": 14,
+          "itemId": 14,
+          "result": ""
+        }
+      ],
+      "createdAt": "2023-04-1T09:27:46.692Z",
+      "description": "みんなの投票で会社に設置してある ドリンクの種類がかわるよ！",
+      "category": 2,
+      "startDate": "2023-04-01",
+      "endDate": "2023-04-30",
+      "author": 1
+    },
+    {
+      "id": 6,
+      "name": "5月社内drink人気投票",
+      "polledItems": [
+        {
+          "id": 1,
+          "itemId": 1,
+          "result": ""
+        },
+        {
+          "id": 2,
+          "itemId": 2,
+          "result": ""
+        },
+        {
+          "id": 3,
+          "itemId": 3,
+          "result": ""
+        },
+        {
+          "id": 4,
+          "itemId": 4,
+          "result": ""
+        },
+        {
+          "id": 5,
+          "itemId": 5,
+          "result": ""
+        },
+        {
+          "id": 6,
+          "itemId": 6,
+          "result": ""
+        },
+        {
+          "id": 7,
+          "itemId": 7,
+          "result": ""
+        },
+        {
+          "id": 8,
+          "itemId": 8,
+          "result": ""
+        },
+        {
+          "id": 9,
+          "itemId": 9,
+          "result": ""
+        },
+        {
+          "id": 10,
+          "itemId": 14,
+          "result": ""
+        }
+      ],
+      "createdAt": "2023-04-1T09:27:46.692Z",
+      "description": "一番気になる、好きなドリンクに投票しよう！",
+      "category": 1,
+      "startDate": "2023-05-01",
+      "endDate": "2023-05-30",
+      "author": 1
+    },
+    {
+      "name": "スナックお菓子No1投票",
+      "description": "好きなお菓子があれば投票してね！！",
+      "category": 2,
+      "createdAt": "2023-05-08T08:04:41.780Z",
+      "startDate": "2023-05-01",
+      "endDate": "2023-05-30",
+      "polledItems": [
+        {
+          "itemId": 21
+        },
+        {
+          "itemId": 24
+        },
+        {
+          "itemId": 23
+        },
+        {
+          "itemId": 22
+        },
+        {
+          "itemId": 25
+        }
+      ],
+      "author": 1,
+      "id": 8
+    },
+    {
+      "name": "6月人気投票",
+      "description": "好きなドリンクに投票しよう！",
+      "category": 1,
+      "createdAt": "2023-05-10T08:16:34.851Z",
+      "startDate": "2023-06-01",
+      "endDate": "2023-06-30",
+      "polledItems": [
+        {
+          "itemId": 1
+        },
+        {
+          "itemId": 2
+        },
+        {
+          "itemId": 3
+        },
+        {
+          "itemId": 6
+        },
+        {
+          "itemId": 5
+        },
+        {
+          "itemId": 4
+        },
+        {
+          "itemId": 7
+        },
+        {
+          "itemId": 8
+        },
+        {
+          "itemId": 14
+        }
+      ],
+      "author": 1,
+      "id": 9
+    },
+    {
+      "name": "6月お菓子投票",
+      "description": "好きなドリンクに投票しよう！",
+      "category": 2,
+      "createdAt": "2023-05-10T08:16:34.851Z",
+      "startDate": "2023-06-01",
+      "endDate": "2023-06-30",
+      "polledItems": [
+        {
+          "itemId": 1
+        },
+        {
+          "itemId": 2
+        },
+        {
+          "itemId": 3
+        },
+        {
+          "itemId": 6
+        },
+        {
+          "itemId": 15
+        },
+        {
+          "itemId": 23
+        },
+        {
+          "itemId": 22
+        },
+        {
+          "itemId": 21
+        },
+        {
+          "itemId": 14
+        }
+      ],
+      "author": 1,
+      "id": 10
     }
   ],
   "polls": [
     {
-      "id": 782,
-      "questionnaireId": 1,
-      "userId": null,
-      "result": 4,
-      "createdAt": "2023-04-25T07:26:02.679Z"
-    },
-    {
-      "id": 110,
-      "questionnaireId": 1,
-      "userId": null,
-      "result": 1,
-      "createdAt": "2023-04-24T23:59:49.268Z"
-    },
-    {
-      "id": 436,
       "questionnaireId": 2,
-      "userId": null,
+      "userId": 6,
+      "category": 1,
+      "result": 2,
+      "createdAt": "2023-04-28T01:00:00.337Z",
+      "id": 1
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 5,
+      "category": 1,
       "result": 1,
-      "createdAt": "2023-04-26T04:41:50.105Z"
+      "createdAt": "2023-04-28T01:16:07.365Z",
+      "id": 2
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 3,
+      "category": 1,
+      "result": 8,
+      "createdAt": "2023-04-28T01:18:02.296Z",
+      "id": 3
+    },
+    {
+      "questionnaireId": 4,
+      "userId": 1,
+      "category": 2,
+      "result": 2,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 4
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 4,
+      "category": 8,
+      "result": 2,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 5
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 7,
+      "category": 7,
+      "result": 2,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 6
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 8,
+      "category": 3,
+      "result": 1,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 7
+    },
+    {
+      "questionnaireId": 5,
+      "userId": 8,
+      "category": 3,
+      "result": 1,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 8
+    },
+    {
+      "questionnaireId": 5,
+      "userId": 7,
+      "category": 3,
+      "result": 1,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 9,
+      "category": 3,
+      "result": 5,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 7
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 10,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 7
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 11,
+      "category": 3,
+      "result": 7,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 7
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 12,
+      "category": 3,
+      "result": 7,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 7
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 13,
+      "category": 3,
+      "result": 8,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 7
+    },
+    {
+      "questionnaireId": 6,
+      "userId": 1,
+      "category": 1,
+      "result": 8,
+      "createdAt": "2023-05-04T05:47:49.540Z",
+      "id": 10
     }
   ],
   "contact": [],
@@ -715,9 +1185,121 @@
       "id": 1,
       "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-02T02:50:27.944Z",
       "incOrDec": true,
       "stockAmount": 1
+    },
+    {
+      "id": 2,
+      "itemId": 2,
+      "quantity": 1,
+      "day": "2023-05-02T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 1
+    },
+    {
+      "id": 3,
+      "itemId": 2,
+      "quantity": 1,
+      "day": "2023-05-02T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 1
+    },
+    {
+      "id": 4,
+      "itemId": 5,
+      "quantity": 1,
+      "day": "2023-05-02T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 1
+    },
+    {
+      "id": 5,
+      "itemId": 5,
+      "quantity": 10,
+      "day": "2023-05-02T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 10
+    },
+    {
+      "id": 6,
+      "itemId": 2,
+      "quantity": 1,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 1
+    },
+    {
+      "id": 7,
+      "itemId": 10,
+      "quantity": 5,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 10
+    },
+    {
+      "id": 8,
+      "itemId": 7,
+      "quantity": 5,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 10
+    },
+    {
+      "id": 9,
+      "itemId": 11,
+      "quantity": 5,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 10
+    },
+    {
+      "id": 10,
+      "itemId": 9,
+      "quantity": 5,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 10
+    },
+    {
+      "id": 11,
+      "itemId": 12,
+      "quantity": 5,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 10
+    },
+    {
+      "id": 12,
+      "itemId": 13,
+      "quantity": 5,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 10
+    },
+    {
+      "id": 13,
+      "itemId": 13,
+      "quantity": 6,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 12
+    },
+    {
+      "id": 14,
+      "itemId": 17,
+      "quantity": 6,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": false,
+      "stockAmount": 12
+    }
+  ],
+  "stockAmount": [
+    {
+      "id": 1,
+      "itemId": 5,
+      "day": "2023-05-02T02:50:27.944Z",
+      "amount": 100
     }
   ],
   "addition": [

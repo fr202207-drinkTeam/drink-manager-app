@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Cookie, Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Box,
   Container,
@@ -19,6 +19,8 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../Firebase";
 import { useRecoilState } from "recoil";
 import { loginUserState } from "../../store/loginUserState";
+import Cookies from "js-cookie";
+import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 
 type Props = {
   loginTitle: string;
@@ -32,6 +34,7 @@ const LoginForm: FC<Props> = (props) => {
   const [passText, setPassText] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [errorUser, setErrorUser] = useState<boolean>(false);
+  // const [errorAdminCheck, setErrorAdminCheck] = useState<boolean>(false);
 
   //入力フォーム
   const [email, setEmail] = useState<string>("");
@@ -40,6 +43,7 @@ const LoginForm: FC<Props> = (props) => {
   const location = useLocation();
   const currentLocation = location.pathname;
   const navigate = useNavigate();
+  //Recoil
   const [loginUser, setLoginUser] = useRecoilState(loginUserState);
 
   //パスワードの入力形式チェック
@@ -74,23 +78,35 @@ const LoginForm: FC<Props> = (props) => {
       const user = await response.json();
       // Recoil
       setLoginUser(user[0]);
-      //cookieをセット
-      if (loginedUser.uid === user[0].authId) {
+      //管理者判定しcookieセット
+      if (
+        currentLocation.startsWith("/adminlogin") &&
+        loginedUser.uid === user[0].authId &&
+        user[0].isAdmin === true
+      ) {
         document.cookie = `authId=${loginedUser.uid}; max-age=86400`;
-      } else {
-        alert("ユーザーが存在しません");
-      }
-      //管理者判定
-      if (user[0].isAdmin === false) {
+        document.cookie = `isAdmin=true; max-age=86400`;
+        navigate("/adminhome");
+      } else if (
+        currentLocation.startsWith("/login") &&
+        loginedUser.uid === user[0].authId &&
+        user[0].isAdmin === false
+      ) {
+        document.cookie = `authId=${loginedUser.uid}; max-age=86400`;
         navigate("/home");
       } else {
-        navigate("/adminhome");
+        setErrorUser(true);
       }
     } catch (error) {
       setErrorUser(true);
     }
   };
 
+  const authId = Cookies.get("authId")!;
+  const loginUsers = useLoginUserFetch({ authId: authId });
+  console.log(loginUsers);
+
+  console.log();
   return (
     <Container maxWidth="sm" sx={{ alignItems: "center", mt: "80px" }}>
       <Box>
@@ -102,19 +118,13 @@ const LoginForm: FC<Props> = (props) => {
           label="メールアドレス"
           placeholder="例）example@example.com"
           helperText={(() => {
-            if (errorMail) {
-              if (email === "") {
-                return "メールアドレスを入力してください";
-              } else if (
-                errorMail &&
-                (!email.includes("@") || email.length > 40)
-              ) {
-                return "＠を含んだ40文字以内で入力してください";
-              } else {
-                return "";
-              }
-            } else {
-              return null;
+            if (errorMail && email === "") {
+              return "メールアドレスを入力してください";
+            } else if (
+              (errorMail && !email.includes("@")) ||
+              email.length > 40
+            ) {
+              return "＠を含んだ40文字以内で入力してください";
             }
           })()}
           error={
@@ -139,20 +149,15 @@ const LoginForm: FC<Props> = (props) => {
           label="パスワード"
           placeholder="パスワード"
           helperText={(() => {
-            if (errorPass) {
-              if (password === "") {
-                return "パスワードを入力してください";
-              } else if (
-                errorPass &&
-                isValidPassword(password) &&
-                (password.length < 8 || password.length < 16)
-              ) {
-                return "";
-              } else {
-                return "半角英字大文字、小文字、数字の3種類を1つ必ず使用し8文字以上16文字以内";
-              }
-            } else {
-              return null;
+            if (errorPass && password === "") {
+              return "パスワードを入力してください";
+            } else if (
+              errorPass &&
+              (!isValidPassword(password) ||
+                password.length < 8 ||
+                password.length > 16)
+            ) {
+              return "半角英字大文字、小文字、数字の3種類を1つ必ず使用し8文字以上16文字以内";
             }
           })()}
           error={
@@ -178,76 +183,80 @@ const LoginForm: FC<Props> = (props) => {
             ),
           }}
         />
-        {passText ? (
-          <List>
-            <ListItem>
-              <Stack>
-                <ListItemText
-                  primary={(() => {
-                    if (password.length >= 8 && password.length <= 16) {
-                      return (
-                        <>
-                          <CheckCircle
-                            style={{
-                              color: "green",
-                              verticalAlign: "middle",
-                              marginRight: "5px",
-                            }}
-                          />
-                          8文字以上16文字以内
-                        </>
-                      );
-                    } else {
-                      return (
-                        <>
-                          <CheckCircle
-                            style={{
-                              verticalAlign: "middle",
-                              marginRight: "5px",
-                            }}
-                          />
-                          8文字以上16文字以内
-                        </>
-                      );
-                    }
-                  })()}
-                />
-                <ListItemText
-                  primary={(() => {
-                    if (isValidPassword(password)) {
-                      return (
-                        <>
-                          <CheckCircle
-                            style={{
-                              color: "green",
-                              verticalAlign: "middle",
-                              marginRight: "5px",
-                            }}
-                          />
-                          半角英字大文字、小文字、数字の3種類を1つ必ず使用
-                        </>
-                      );
-                    } else {
-                      return (
-                        <>
-                          <CheckCircle
-                            style={{
-                              verticalAlign: "middle",
-                              marginRight: "5px",
-                            }}
-                          />
-                          半角英字大文字、小文字、数字の3種類を1つ必ず使用
-                        </>
-                      );
-                    }
-                  })()}
-                />
-              </Stack>
-            </ListItem>
-          </List>
-        ) : (
-          ""
-        )}
+        {(() => {
+          if (passText) {
+            return (
+              <List>
+                <ListItem>
+                  <Stack>
+                    <ListItemText
+                      primary={(() => {
+                        if (password.length >= 8 && password.length <= 16) {
+                          return (
+                            <>
+                              <CheckCircle
+                                style={{
+                                  color: "green",
+                                  verticalAlign: "middle",
+                                  marginRight: "5px",
+                                }}
+                              />
+                              8文字以上16文字以内
+                            </>
+                          );
+                        } else {
+                          return (
+                            <>
+                              <CheckCircle
+                                style={{
+                                  verticalAlign: "middle",
+                                  marginRight: "5px",
+                                }}
+                              />
+                              8文字以上16文字以内
+                            </>
+                          );
+                        }
+                      })()}
+                    />
+                    <ListItemText
+                      primary={(() => {
+                        if (isValidPassword(password)) {
+                          return (
+                            <>
+                              <CheckCircle
+                                style={{
+                                  color: "green",
+                                  verticalAlign: "middle",
+                                  marginRight: "5px",
+                                }}
+                              />
+                              半角英字大文字、小文字、数字の3種類を1つ必ず使用
+                            </>
+                          );
+                        } else {
+                          return (
+                            <>
+                              <CheckCircle
+                                style={{
+                                  verticalAlign: "middle",
+                                  marginRight: "5px",
+                                }}
+                              />
+                              半角英字大文字、小文字、数字の3種類を1つ必ず使用
+                            </>
+                          );
+                        }
+                      })()}
+                    />
+                  </Stack>
+                </ListItem>
+              </List>
+            );
+          } else {
+            return "";
+          }
+        })()}
         {(() => {
           if (errorUser) {
             return (

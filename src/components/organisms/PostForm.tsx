@@ -13,7 +13,7 @@ import {
 import React, { FC, memo, useEffect, useRef, useState } from "react";
 import PreviewImage from "../molecules/PreviewImage";
 import previewImages from "../../utils/previewImages";
-import ImgPathConversion from "../../utils/ImgPathConversion2";
+import ImgPathConversion from "../../utils/ImgPathConversion";
 import { Items, Post, Users } from "../../types/type";
 import ModalWindow from "./ModalWindow";
 
