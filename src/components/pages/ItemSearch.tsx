@@ -15,87 +15,86 @@ import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 type Props = {};
 
 const ItemSearch: FC<Props> = memo((props) => {
-  const id = 2;
-  const [polls, setPolls] = useState<Polls[]>([]);
-  const [pollCount, setPollCounts] = useState<Items[]>([]);
-  const [questionnaire, setQuestionnaire] = useState<Questionnaire>();
-  const [items, setItems] = useState<Items[]>([]);
+  // const id = 2;
+  // const [polls, setPolls] = useState<Polls[]>([]);
+  // const [pollCount, setPollCounts] = useState<Items[]>([]);
+  // const [questionnaire, setQuestionnaire] = useState<Questionnaire>();
+  // const [items, setItems] = useState<Items[]>([]);
 
-  //投票結果集計
-  const pollCounts: any = {};
-  polls.forEach((item) => {
-    if (item.questionnaireId === Number(id)) {
-      if (pollCounts[item.result]) {
-        pollCounts[item.result]++;
-      } else {
-        pollCounts[item.result] = 1;
-      }
-    }
-  });
-  console.log(Object.keys(pollCounts).length >= 1, "pollcounts");
+  // //投票結果集計
+  // const pollCounts: any = {};
+  // polls.forEach((item) => {
+  //   if (item.questionnaireId === Number(id)) {
+  //     if (pollCounts[item.result]) {
+  //       pollCounts[item.result]++;
+  //     } else {
+  //       pollCounts[item.result] = 1;
+  //     }
+  //   }
+  // });
+  // console.log(Object.keys(pollCounts).length >= 1, "pollcounts");
 
-  //票の大きい商品順で並び替え
-  const sortedPolls = Object.entries(pollCounts).sort(
-    (a: any, b: any) => b[1] - a[1]
-  );
-  console.log(sortedPolls, "sorr");
-  const result = sortedPolls.map((subArr) => {
-    return subArr[0];
-  });
-  const pollResult = result.map(Number);
-  console.log(pollResult, "pollresult");
+  // //票の大きい商品順で並び替え
+  // const sortedPolls = Object.entries(pollCounts).sort(
+  //   (a: any, b: any) => b[1] - a[1]
+  // );
+  // console.log(sortedPolls, "sorr");
+  // const result = sortedPolls.map((subArr) => {
+  //   return subArr[0];
+  // });
+  // const pollResult = result.map(Number);
+  // console.log(pollResult, "pollresult");
 
-  //value票の数を多い順に並び替え
-  const values = Object.values(pollCounts).map(Number);
-  values.sort((a, b) => b - a);
+  // //value票の数を多い順に並び替え
+  // const values = Object.values(pollCounts).map(Number);
+  // values.sort((a, b) => b - a);
 
-  //poll取得
+  // //poll取得
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const pollsResponse = await fetch(
-          `http://localhost:8880/polls?questionnaireId=${id}`
-        );
-        const pollsData = await pollsResponse.json();
-        setPolls(pollsData);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const pollsResponse = await fetch(
+  //         `http://localhost:8880/polls?questionnaireId=${id}`
+  //       );
+  //       const pollsData = await pollsResponse.json();
+  //       setPolls(pollsData);
 
-        const itemsResponse = await fetch("http://localhost:8880/items");
-        const itemsData = await itemsResponse.json();
-        setItems(itemsData);
+  //       const itemsResponse = await fetch("http://localhost:8880/items");
+  //       const itemsData = await itemsResponse.json();
+  //       setItems(itemsData);
 
-        if (pollsData.length > 0 && questionnaire && itemsData.length > 0) {
-          const polllCountItems = itemsData.filter((item: any) =>
-            pollResult.includes(item.id)
-          );
-          polllCountItems.sort((a: any, b: any) => {
-            const aCount = pollCounts[a.id];
-            const bCount = pollCounts[b.id];
-            return bCount - aCount;
-          });
-          setPollCounts(polllCountItems);
-          console.log(polllCountItems, "polllCountItems");
-          setSelectedValue(initialSelectedValue);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  //       if (pollsData.length > 0 && questionnaire && itemsData.length > 0) {
+  //         const polllCountItems = itemsData.filter((item: any) =>
+  //           pollResult.includes(item.id)
+  //         );
+  //         polllCountItems.sort((a: any, b: any) => {
+  //           const aCount = pollCounts[a.id];
+  //           const bCount = pollCounts[b.id];
+  //           return bCount - aCount;
+  //         });
+  //         setPollCounts(polllCountItems);
+  //         console.log(polllCountItems, "polllCountItems");
+  //         setSelectedValue(initialSelectedValue);
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
 
-    fetchData();
-    items.map((item: any) => ({
-      ...item,
-      pollCount: pollCounts?.[item.id],
-    }));
-  }, [id, questionnaire]);
+  //   fetchData();
+  //   items.map((item: any) => ({
+  //     ...item,
+  //     pollCount: pollCounts?.[item.id],
+  //   }));
+  // }, [id, questionnaire]);
 
   // pollCountsにて投票結果の集計取得できる
-  console.log(pollCounts, "pollCounts");
   // items.map((item:any) => ({
   //   ...item,
   //   pollCount: pollCounts?.[item.id]
   // }))
-  // これと合わせたい
+
   // 人気順ここまで
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
@@ -124,18 +123,23 @@ const ItemSearch: FC<Props> = memo((props) => {
         name_like: keyword,
       };
       let apiUrl = `http://localhost:8880/items?_page=1&_limit=${perPage}`;
-      // 社内ありの取得
+      //  名前順
       if (value === "name") {
         apiUrl += `&_sort=name&_order=asc`;
       } else if (value === "intheOffice") {
+        // 社内あり
         apiUrl += `&intheOffice=true`;
+      } else if (value === "intheOfficeNone") {
+        // 社内なし
+        apiUrl += `&intheOffice=false`;
       } else {
         apiUrl += `&_sort=${value}&_order=asc`;
       }
       const query = queryString.stringify(params, { skipNull: true });
       const response = await fetch(`${apiUrl}&${query}`);
       const data = await response.json();
-      setSelectedItem(data);
+      setSelectedItem(data.filter((item: any) => !item.otherItem));
+      setAllItem(data.filter((item: any) => !item.otherItem));
     } catch (error) {
       console.error(error);
     }
@@ -160,19 +164,19 @@ const ItemSearch: FC<Props> = memo((props) => {
         const response = await fetch(url);
         const data = await response.json();
         if (category === "all") {
-          setSelectedItem(data);
+          setSelectedItem(data.filter((item: any) => !item.otherItem));
         } else {
           const filteredData = data.filter(
             (item: any) => item.itemCategory === Number(category)
           );
-          setSelectedItem(filteredData);
+          setSelectedItem(filteredData.filter((item: any) => !item.otherItem));
         }
         if (location.search.includes("keyword")) {
           const keyword = new URLSearchParams(location.search).get("keyword");
           let url = `http://localhost:8880/items?_page=${currentPage}&_limit=${perPage}&name_like=${keyword}`;
           const response = await fetch(url);
           const data = await response.json();
-          setSelectedItem(data);
+          setSelectedItem(data.filter((item: any) => !item.otherItem));
         }
       } catch (error) {
         console.error(error);
@@ -180,32 +184,8 @@ const ItemSearch: FC<Props> = memo((props) => {
     };
     categoryFilterData();
   }, [category, setSelectedItem, keyword]);
+  console.log("select", selectedItem);
 
-  // ページングを押下ときのイベント
-  // const handlePageChange = async (
-  //   event: React.SyntheticEvent,
-  //   newValue: string
-  // ) => {
-  //   const queryParams = new URLSearchParams(location.search);
-  //   queryParams.set('page', newValue);
-
-  //   try {
-  //     const params = {
-  //       itemCategory: category === "all" ? undefined : category,
-  //       name_like: keyword,
-  //     };
-  //     const query = queryString.stringify(params, { skipNull: true });
-  //     let url = `http://localhost:8880/items?_sort=name&_order=asc&_page=${newValue}&_limit=6&${query}`;
-  //     navigate(`/home/search?${queryParams.toString()}`);
-  //     const res = await fetch(url);
-  //     const data = await res.json();
-  //     setSelectedItem(data);
-  //     console.log(data,"data")
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-  // console.log(selectedItem,"select")
   const handlePageChange = async (
     event: React.SyntheticEvent,
     newValue: string
@@ -220,8 +200,9 @@ const ItemSearch: FC<Props> = memo((props) => {
       };
       if (selectedValue === "intheOffice") {
         params.intheOffice = true;
+      } else if (selectedValue === "intheOfficeNone") {
+        params.intheOffice = false;
       }
-
       const query = queryString.stringify(params, { skipNull: true });
 
       const sortValue = selectedValue === "name" ? "name" : "popular";
@@ -231,8 +212,7 @@ const ItemSearch: FC<Props> = memo((props) => {
 
       const res = await fetch(url);
       const data = await res.json();
-      setSelectedItem(data);
-      console.log(data, "data");
+      setSelectedItem(data.filter((item: any) => !item.otherItem));
     } catch (error) {
       console.error(error);
     }
@@ -251,7 +231,8 @@ const ItemSearch: FC<Props> = memo((props) => {
         let url = `http://localhost:8880/items?&${query}`;
         const res = await fetch(url);
         const data = await res.json();
-        setAllItem(data);
+        // othrItemがtrueのものを除外
+        setAllItem(data.filter((item: any) => !item.otherItem));
       } catch (error) {
         console.error(error);
       }
@@ -259,7 +240,7 @@ const ItemSearch: FC<Props> = memo((props) => {
     categoryData();
   }, [category, keyword]);
 
-  // Todo　カテゴリ検索
+  // Todo　カテゴリ検索リファクタリング
   useEffect(() => {
     if (category === "all") {
       setCategoryName("すべて");
@@ -320,9 +301,10 @@ const ItemSearch: FC<Props> = memo((props) => {
                 </Typography>
               </Box>
             </MenuItem>
-            <MenuItem value="popular">人気順</MenuItem>
+            {/* <MenuItem value="popular">人気順</MenuItem> */}
             <MenuItem value="name">名前順</MenuItem>
             <MenuItem value="intheOffice">社内あり</MenuItem>
+            <MenuItem value="intheOfficeNone">社内なし</MenuItem>
           </Select>
         </Box>
       </Box>

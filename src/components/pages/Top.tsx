@@ -31,10 +31,9 @@ type Props = {};
 
 const Top: FC<Props> = memo((props) => {
   const navigate = useNavigate();
-  const [postData, setPostData] = useState<any>([]);
+  const [postData, setPostData] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   console.log(postData, "postDate");
-  const [postsData, setPostsData] = useState<Post[]>([]);
 
   useEffect(() => {
     fetch(`http://localhost:8880/posts?&_limit=3&_sort=createdAt&_order=desc`, {
@@ -51,8 +50,7 @@ const Top: FC<Props> = memo((props) => {
         console.error("Error:", error);
       });
   }, []);
-  console.log(postData, "top");
-  console.log(postsData, "top2");
+
   return (
     <>
       <DefaultLayout>
@@ -102,7 +100,7 @@ const Top: FC<Props> = memo((props) => {
             event={() => {
               navigate("/home/poll");
             }}
-            sxStyle={{ width: "30%", py: 2, my: 10, borderRadius: 20 }}
+            sxStyle={{ width: "20%", py: 2, my: 10 }}
           >
             投票する
           </ActivePinkButton>
@@ -113,7 +111,7 @@ const Top: FC<Props> = memo((props) => {
             event={() => {
               navigate("/home/poll");
             }}
-            sxStyle={{ width: "30%", py: 2, my: 10, borderRadius: 20 }}
+            sxStyle={{ width: "20%", py: 2, my: 10 }}
           >
             過去の投票結果を見る
           </ActivePinkButton>
@@ -168,9 +166,11 @@ const Top: FC<Props> = memo((props) => {
                       height: 200,
                     }}
                   >
-                    <Typography variant="body2" component="p">
-                      {data.content}
-                    </Typography>
+                    <Box sx={{ width: "100%" }}>
+                      <Typography variant="body2" component="p">
+                        {data.content}
+                      </Typography>
+                    </Box>
                   </CardContent>
                 </Box>
                 {data.postImage.length > 0 && (
@@ -199,7 +199,7 @@ const Top: FC<Props> = memo((props) => {
             event={() => {
               navigate("/home/timeline");
             }}
-            sxStyle={{ width: "30%", py: 2, mt: 10, borderRadius: 20 }}
+            sxStyle={{ width: "20%", py: 2, mt: 10 }}
           >
             タイムラインを見る
           </ActiveBeigeButton>

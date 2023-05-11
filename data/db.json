@@ -1100,6 +1100,14 @@
       "result": 8,
       "createdAt": "2023-05-04T05:47:49.540Z",
       "id": 10
+    },
+    {
+      "questionnaireId": 8,
+      "userId": null,
+      "category": 2,
+      "result": 25,
+      "createdAt": "2023-05-10T23:33:08.845Z",
+      "id": 11
     }
   ],
   "contact": [],
