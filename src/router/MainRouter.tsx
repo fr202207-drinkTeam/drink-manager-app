@@ -7,6 +7,10 @@ import {
   useNavigate,
 } from "react-router-dom";
 
+import { Fab } from "@mui/material";
+import { KeyboardArrowUp } from "@mui/icons-material";
+import ScrollPageTop from "../components/atoms/ScrollPageTop";
+
 import { AdminRouter } from "./AdminRouter";
 import { UserRouter } from "./UserRouter";
 
@@ -55,7 +59,7 @@ const MainRoute = [
   },
 ];
 
-export const MainRouter = () => {
+export const MainRouter = (props:any) => {
   //Cookie
 
   const authId = Cookies.get("authId")!;
@@ -86,6 +90,23 @@ export const MainRouter = () => {
           />
         ))}
       </Routes>
+      <ScrollPageTop {...props}>
+          <Fab
+            size="large"
+            aria-label="scroll back to top"
+            sx={{
+              bottom: "120px",
+              backgroundColor: "#9AB7CA",
+              color: "#fff",
+              ":hover": {
+                background: "#9AB7CA",
+                cursor: "pointer",
+              },
+            }}
+          >
+            <KeyboardArrowUp />
+          </Fab>
+        </ScrollPageTop>
     </>
   );
   //ログイン認証あり
