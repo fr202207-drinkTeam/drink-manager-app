@@ -70,15 +70,18 @@ const PollCard = ({ data, pollNum, pollCategory }: PollCardProps) => {
         createdAt: new Date(),
       };
       const endpoint = pollCategory === 1 ? "polledPopular" : "polledOther";
-      const response = await fetch(`http://localhost:8880/users/1/${endpoint}`, {
-        method: "PUT",
-        body: JSON.stringify({ ...users, [endpoint]: true }),
-        headers: { "Content-Type": "application/json" },
-      });
+      const response = await fetch(
+        `http://localhost:8880/users/1/${endpoint}`,
+        {
+          method: "PUT",
+          body: JSON.stringify({ ...users, [endpoint]: true }),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
       const responseData = await response.json();
       setUsers((prevUsers: any) => ({ ...prevUsers, [endpoint]: true }));
       console.log(responseData);
-  
+
       const pollResponse = await fetch("http://localhost:8880/polls", {
         method: "POST",
         body: JSON.stringify(data),
@@ -265,6 +268,12 @@ const PollCard = ({ data, pollNum, pollCategory }: PollCardProps) => {
                     title={`${drink.name}に投票してもよろしいですか？？`}
                     content={"⚠️一つの投票につき一回までしか投票できません"}
                     openButtonColor={"pink"}
+                    openButtonIcon={
+                      <>
+                        <SwitchAccessShortcutAddIcon />
+                        &nbsp;&nbsp;
+                      </>
+                    }
                     completeButtonColor={"blue"}
                     completeButtonName={`投票する`}
                     completeAction={() => submitPoll(drink.id)}

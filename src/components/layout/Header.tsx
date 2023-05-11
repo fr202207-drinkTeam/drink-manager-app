@@ -67,7 +67,7 @@ const Header = () => {
   // ログアウト
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
-  console.log(loginUser, "user");
+  // console.log(loginUser, "user");
   const onLogoutClick = () => {
     document.cookie = `authId=; max-age=0`;
     navigate("/login");

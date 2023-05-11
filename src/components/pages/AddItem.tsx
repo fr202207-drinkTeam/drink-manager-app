@@ -38,8 +38,7 @@ const AddItem: FC<Props> = memo((props) => {
   // データ追加処理(確定ボタン)
   const onClickAddItemData: () => Promise<void> = async () => {
     const imagePath = await ImgPathConversion({
-      imgFiles: itemImages,
-      addItem: addItem,
+      imgFiles: itemImages
     });
 
     console.log(imagePath);

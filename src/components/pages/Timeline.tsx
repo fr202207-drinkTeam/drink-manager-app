@@ -1,26 +1,36 @@
 import { FC, memo, useEffect, useState } from "react";
-import SearchIcon from "@mui/icons-material/Search";
 import {
   Box,
   CircularProgress,
-  Grid,
   IconButton,
-  InputBase,
-  MenuItem,
   Paper,
-  Select,
   SelectChangeEvent,
-  Typography,
 } from "@mui/material";
 import { CachedOutlined } from "@mui/icons-material";
 import PostForm from "../organisms/PostForm";
-import PostsData from "../organisms/PostData ";
+import PostData from "../organisms/PostData ";
 import { Post } from "../../types/type";
 import useGetPosts from "../../hooks/useGetPosts";
+import TimelineHeader from "../organisms/TimelineHeader";
+import useGetItems from "../../hooks/useGetItems";
+import Cookies from "js-cookie";
+import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 
 type Props = {};
 
 const Timeline: FC<Props> = memo((props) => {
+  // TODO 受け手
+  // const location = useLocation();
+  // const itemId = location.state;
+  // console.log("itemId", itemId);
+
+  // ログイン情報取得
+  const authId = Cookies.get("authId")!;
+  const loginUser = useLoginUserFetch({ authId: authId });
+
+  // 商品情報取得
+  const { itemData, itemError } = useGetItems();
+
   // 投稿データ取得時のクエリパラメータ要素
   // 投稿数
   const [postParamsNum, setpostParamsNum] = useState<number>(0);
@@ -36,10 +46,16 @@ const Timeline: FC<Props> = memo((props) => {
   );
 
   // 投稿データ格納
-  const [postsData, setPostsData] = useState<Post[]>([]);
+  const [postData, setPostData] = useState<Post[]>([]);
+
+  // 投稿データ取得時にそれ以上データがあるか判別
+  const [noMoreData, setNoMoreData] = useState<boolean>(false);
+
+  // 投稿を編集する際にその投稿を格納
+  const [editPostData, setEditPostData] = useState<Post | null>(null);
 
   // 取得した投稿データ、パラメータが更新されるたびに投稿データ取得
-  const fetchPostsData: Post[] | null = useGetPosts(postParams);
+  const { fetchPostData, postLoading } = useGetPosts(postParams);
 
   // 各クエリパラメータ要素のstateが変わるたびに新しいパラメータをセット
   useEffect(() => {
@@ -52,35 +68,30 @@ const Timeline: FC<Props> = memo((props) => {
 
   // 新しく取得した投稿データと既に取得していたデータをまとめる
   useEffect(() => {
-    setPostsData(() => {
-      // 新規、既存両方のデータが存在する場合
-      if (postsData && fetchPostsData) {
+    if (!fetchPostData) {
+      return;
+    }
+    setPostData(() => {
+      // 新規データが存在しない場合
+      if (!fetchPostData.length) {
+        setNoMoreData(true);
+        return [...postData];
+      } else {
+        setNoMoreData(false);
         // 新規、既存のデータが同じでないことを確認
-        const preventDuplication = postsData.some((post: Post) => {
-          return post.id === fetchPostsData[0].id;
+        const preventDuplication = postData.some((post: Post) => {
+          return post.id === fetchPostData[0].id;
         });
         // 新規、既存のデータが同じだった場合、既存データを返す
         if (preventDuplication) {
-          return postsData;
+          return postData;
         }
         // 新規、既存のデータが同じでない場合、まとめたものを返す
-        return [...postsData, ...fetchPostsData];
-      }
-      // 既存データしかない場合、既存データを返す
-      else if (postsData && !fetchPostsData) {
-        return postsData;
-      }
-      // 新規データしかない場合、新規データを返す
-      else if (!PostsData && fetchPostsData) {
-        return fetchPostsData;
-      }
-      // 新規、既存両方のデータが存在しない場合（初期ロード時）、空の配列を返す
-      else {
-        return [];
+        return [...postData, ...fetchPostData];
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fetchPostsData]);
+  }, [fetchPostData]);
 
   // データ取得ボタン
   const FetchPostsButton = ({
@@ -94,9 +105,11 @@ const Timeline: FC<Props> = memo((props) => {
     ) => {
       // ヘッダーのボタンの場合は投稿3件取得
       if (isHeaderButton) {
-        setPostsData([]);
-        setpostParamsNum(0);
+        window.location.reload();
       } else {
+        if (noMoreData) {
+          return;
+        }
         // 画面下のボタンの場合は現在の表示に追加で3件取得
         setpostParamsNum(postParamsNum + 3);
       }
@@ -119,20 +132,19 @@ const Timeline: FC<Props> = memo((props) => {
 
   // 投稿の絞込み
   const filterPosts = (event: SelectChangeEvent<string>) => {
+    setPostData([]);
     const selectedRange = event.target.value;
+
     switch (selectedRange) {
       case "すべて":
-        setPostsData([]);
         setpostParamsNum(0);
         setPostUserAdmin("");
         break;
       case "投稿":
-        setPostsData([]);
         setpostParamsNum(0);
         setPostUserAdmin("userId_ne=2&");
         break;
       case "お知らせ":
-        setPostsData([]);
         setpostParamsNum(0);
         setPostUserAdmin("userId=2&");
         break;
@@ -142,102 +154,62 @@ const Timeline: FC<Props> = memo((props) => {
   // 投稿の検索
   const searchPost = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setPostData([]);
+    setpostParamsNum(0);
     if (
       !(event.target instanceof HTMLFormElement) ||
       !(event.target[0] instanceof HTMLInputElement)
     ) {
       return;
     }
-    setPostsData([]);
-    setpostParamsNum(0);
+
     setPostSearch(`q=${event.target[0].value}&`);
   };
 
   return (
     <Paper sx={{ p: "20px", background: "#eae5e3" }}>
-      <Grid
-        container
-        sx={{
-          flexGrow: 1,
-          borderBottom: 1,
-          py: "10px",
-          alignItems: "center",
-          justifyContent: "flex-end",
-        }}
-      >
-        <Grid item xs={4}>
-          <Typography variant="h4">タイムライン</Typography>
-        </Grid>
+      <TimelineHeader
+        searchPost={searchPost}
+        filterPosts={filterPosts}
+        fetchPostsButton={<FetchPostsButton isHeaderButton={true} />}
+      />
 
-        <Grid item xs={5}>
-          <Paper
-            component="form"
-            onSubmit={searchPost}
-            elevation={0}
-            sx={[
-              {
-                p: "2px 4px",
-                display: "flex",
-                alignItems: "center",
-                maxWidth: "215px",
-                mr: "5px",
-                height: "35px",
-              },
-              {
-                "&:hover": {
-                  border: "1px solid",
-                  p: "1px 3px",
-                },
-              },
-            ]}
-          >
-            <InputBase sx={{ ml: 1, flex: 1 }} placeholder="検索" />
-            <IconButton type="submit" sx={{ p: "10px" }} aria-label="search">
-              <SearchIcon />
-            </IconButton>
-          </Paper>
-        </Grid>
-
-        <Grid item xs={2}>
-          <Select
-            size="small"
-            fullWidth
-            defaultValue="すべて"
-            sx={{ border: "none", backgroundColor: "white" }}
-            onChange={filterPosts}
-          >
-            <MenuItem value="すべて">すべて</MenuItem>
-            <MenuItem value="投稿">投稿</MenuItem>
-            <MenuItem value="お知らせ">お知らせ</MenuItem>
-          </Select>
-        </Grid>
-        <Grid item xs={1} sx={{ p: "none" }}>
-          <FetchPostsButton isHeaderButton={true} />
-        </Grid>
-      </Grid>
       <Box sx={{ overflowY: "scroll", height: "1000px", px: "20px" }}>
-        <PostForm />
+        <PostForm
+          itemData={itemData}
+          itemError={itemError}
+          loginUser={loginUser}
+          editPostData={editPostData}
+          setEditPostData={setEditPostData}
+        />
 
         {/* 初期ロード時 */}
-        {postsData.length === 0 && (
+        {postData.length === 0 && postLoading && (
           <Box sx={{ textAlign: "center", mt: "20px" }}>
             <CircularProgress />
           </Box>
         )}
-        {/* データが存在する場合(データ取得したが、なかった場合もダミーデータがある) */}
-        {postsData && postsData.length > 0 && (
-          <>
-            {postsData.map((postData: Post) => (
-              <PostsData
-                key={postData.id}
-                postData={postData}
-                isComment={true}
-              />
-            ))}
-            <Box sx={{ mt: "20px" }}>
-              <FetchPostsButton />
-            </Box>
-          </>
+        {/* データが存在する場合 */}
+
+        {postData.map((postData: Post) => (
+          <PostData
+            key={postData.id}
+            postData={postData}
+            isComment={true}
+            loginUser={loginUser}
+            setEditPostData={setEditPostData}
+          />
+        ))}
+
+        {/* 新規データが存在しない場合 */}
+        {fetchPostData && !postLoading && noMoreData && (
+          <p>これ以上投稿が見つかりません。</p>
+        )}
+        {/* 追加ロードボタン */}
+        {!postLoading && (
+          <Box sx={{ mt: "20px" }}>
+            <FetchPostsButton />
+          </Box>
         )}
       </Box>
     </Paper>
