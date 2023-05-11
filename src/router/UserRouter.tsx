@@ -1,4 +1,4 @@
-import PollResultFiltering from "../components/pages/ PollResultFiltering";
+import PollResultFiltering from "../components/pages/PollResultFiltering";
 import Contact from "../components/pages/Contact";
 import Faq from "../components/pages/Faq";
 import Guide from "../components/pages/Guide";
