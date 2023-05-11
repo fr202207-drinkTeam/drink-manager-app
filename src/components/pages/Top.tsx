@@ -27,30 +27,26 @@ import PollRanking from "../organisms/PollRanking";
 import PostsData from "../organisms/PostData ";
 import { Post } from "../../types/type";
 import PostData from "../organisms/PostData ";
+import useGetPosts from "../../hooks/useGetPosts";
+import Cookies from "js-cookie";
+import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 type Props = {};
 
 const Top: FC<Props> = memo((props) => {
+  const authId = Cookies.get("authId")!;
+  const loginUser = useLoginUserFetch({ authId: authId });
   const navigate = useNavigate();
   const [postData, setPostData] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  console.log(postData, "postDate");
+  const [editPostData, setEditPostData] = useState<Post | null>(null);
+  const { fetchPostData, postLoading, postError } = useGetPosts();
 
   useEffect(() => {
-    fetch(`http://localhost:8880/posts?&_limit=3&_sort=createdAt&_order=desc`, {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setPostData(data);
-      })
-      .then(() => {
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, []);
-
+    if (fetchPostData) {
+      setPostData(fetchPostData);
+    }
+  }, [fetchPostData]);
+  console.log(postData, "fetch");
   return (
     <>
       <DefaultLayout>
@@ -142,56 +138,15 @@ const Top: FC<Props> = memo((props) => {
             ラクスパートナーズのみんなの投稿がとどいてるよ !
           </Typography>
         </Card>
-        <Paper sx={{ p: "20px", background: "#eae5e3", mt: 5 }}>
-          <Box sx={{ overflowY: "scroll", height: "500px", px: "20px" }}>
-            {postData.map((data: any, index: any) => (
-              <Paper
-                key={index}
-                elevation={3}
-                sx={{
-                  p: 1,
 
-                  maxWidth: "80%",
-                  m: "auto",
-                  mt: 2,
-                  minWidth: 100,
-                  display: "flex",
-                }}
-              >
-                <Box sx={{ display: "flex" }}>
-                  <CardContent
-                    sx={{
-                      flex: "1 0 auto",
-                      width: "0.7",
-                      height: 200,
-                    }}
-                  >
-                    <Box sx={{ width: "100%" }}>
-                      <Typography variant="body2" component="p">
-                        {data.content}
-                      </Typography>
-                    </Box>
-                  </CardContent>
-                </Box>
-                {data.postImage.length > 0 && (
-                  <CardMedia
-                    component="img"
-                    sx={{
-                      p: 1,
-                      m: "auto",
-                      maxWidth: "20%",
-                      minWidth: 80,
-                    }}
-                    image={data.postImage[0]}
-                    alt="投稿画像"
-                  />
-                )}
-              </Paper>
-            ))}
-          </Box>
-        </Paper>
         {postData.map((postData: Post) => (
-          <PostsData key={postData.id} postData={postData} isComment={true} />
+          <PostData
+            key={postData.id}
+            postData={postData}
+            isComment={false}
+            setEditPostData={setEditPostData}
+            loginUser={loginUser}
+          />
         ))}
         <Box sx={{ textAlign: "center", mt: 4 }}>
           <Grid container spacing={2}></Grid>
@@ -208,5 +163,4 @@ const Top: FC<Props> = memo((props) => {
     </>
   );
 });
-
 export default Top;
