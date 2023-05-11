@@ -4,62 +4,52 @@ import { Questionnaire } from "../../../types/type";
 import DottedMemo from "../../atoms/memo/DottedMemo";
 
 type PollTitleProps = {
-  poll: Questionnaire[];
+  poll: Questionnaire|undefined;
 };
 
-const PollTitle = ({ poll }: PollTitleProps) => {
+const PollTitleResult = ({ poll }: PollTitleProps) => {
 
   return (
     <>
-      {poll.map((data, index) => (
-        <Box
+      <Box
           sx={{
             background: "#fff9f5",
-            p: 5,
+            // p: 5,
             backgroundImage: "url(/iwai.png)",
-            backgroundSize: "250px",
+            backgroundSize: "110px",
             backgroundRepeat: "no-repeat",
-            backgroundPosition: "left",
-            mt: 5,
+            backgroundPosition: "left ",
+            py:5,
             mb: 5,
           }}
         >
           <Box
             sx={{
-              fontFamily: "cursive",
               fontSize: "40px",
               textAlign: "center",
-              mt: 10,
-              backgroundColor: "white",
-              background:
-                "-webkit-repeating-linear-gradient(-45deg, #6ad1c8, #6ad1c8 2px, #fff 2px, #fff 4px)",
+              // mt: 10,
+              fontWeight: "bold",
+              letterSpacing:5,
             }}
           >
-            {data.name}
+            {poll?.name}&nbsp;投票結果
           </Box>
+
           <Box
             sx={{
-              fontFamily: "cursive",
               fontSize: "20px",
               textAlign: "center",
-              mt: 5,
+              fontWeight: "bold",
+              mt: 3,
+              letterSpacing:5,
             }}
           >
-            開催期間:{" "}{data.startDate.toLocaleDateString()}〜{" "}
-            {data.endDate.toLocaleDateString()}
+            開催期間: {poll?.startDate.toLocaleString()}&nbsp;〜&nbsp;
+            {poll?.endDate.toLocaleString()}
           </Box>
         </Box>
-      ))}
-      <DottedMemo
-        text={"たくさんのご投票ありがとうございました!!"}
-        information={""}
-        fontSize={"25px"}
-        maxWidth={700}
-        minWidth={500}
-        margin={1}
-      />
     </>
   );
 };
 
-export default PollTitle;
+export default PollTitleResult;

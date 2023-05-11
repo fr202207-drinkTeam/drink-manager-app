@@ -3,13 +3,14 @@ import  {  useEffect, useState } from 'react'
 import ItemCard from '../card/ItemCard';
 import { Items, Polls, Questionnaire } from '../../types/type';
 import { useParams } from 'react-router-dom';
+import useGetAnQuestionnaire from '../../hooks/useGetAnQuestionnaire';
 
 const PollRanking = () => {
   const { id } = useParams();
   const [polls, setPolls] = useState<Polls[]>([]);
   const [pollCount, setPollCounts] = useState<Items[]>([]);
-  const [questionnaire, setQuestionnaire] = useState<Questionnaire>();
   const [items, setItems] = useState<Items[]>([]);
+  const questionnaire: Questionnaire|undefined = useGetAnQuestionnaire(Number(id));
 
   //id(3ヶ所にテストデータ「2」)を入れれば画面表示できる
 
@@ -49,21 +50,6 @@ const PollRanking = () => {
         );
         const data = await response.json();
         setPolls(data);
-      } catch (error) {
-        console.error(error);
-      }
-    })();
-  }, [id]);
-
-  //questionner取得
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:8880/questionnaire/${id}`
-        );
-        const data = await response.json();
-        setQuestionnaire(data);
       } catch (error) {
         console.error(error);
       }

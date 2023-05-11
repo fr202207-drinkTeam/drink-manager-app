@@ -1,22 +1,21 @@
 /* eslint-disable array-callback-return */
 import {  memo, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-//mui
 import { Paper, Box } from "@mui/material";
-
-//com
 import DottedMemo from "../atoms/memo/DottedMemo";
 import ItemCard from "../card/ItemCard";
-
-// types
 import { Items, Polls, Questionnaire } from "../../types/type";
+import PollTitleResult from "../molecules/poll/PollTitleResult";
+import useGetAnQuestionnaire from "../../hooks/useGetAnQuestionnaire";
+import useGetAllItems from "../../hooks/useGetAllItems";
+import useGetAnPoll from "../../hooks/useGetAnPoll";
 
 const PollResult = memo(() => {
   const { id } = useParams();
-  const [polls, setPolls] = useState<Polls[]>([]);
   const [pollCount, setPollCounts] = useState<Items[]>([]);
-  const [questionnaire, setQuestionnaire] = useState<Questionnaire>();
-  const [items, setItems] = useState<Items[]>([]);
+  const questionnaire: Questionnaire|undefined = useGetAnQuestionnaire(Number(id));
+  const items: Items[]= useGetAllItems();
+  const polls: Polls[]= useGetAnPoll(Number(id));
 
   //投票結果集計
   const pollCounts: any = {};
@@ -34,7 +33,6 @@ const PollResult = memo(() => {
   const sortedPolls = Object.entries(pollCounts).sort(
     (a: any, b: any) => b[1] - a[1]
   );
-  console.log(sortedPolls, "sorr");
   const result = sortedPolls.map((subArr) => {
     return subArr[0];
   });
@@ -43,49 +41,6 @@ const PollResult = memo(() => {
   //value票の数を多い順に並び替え
   const values = Object.values(pollCounts).map(Number);
   values.sort((a, b) => b - a);
-
-  //poll取得
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:8880/polls?questionnaireId=${id}`
-        );
-        const data = await response.json();
-        setPolls(data);
-      } catch (error) {
-        console.error(error);
-      }
-    })();
-  }, [id]);
-
-  //questionner取得
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:8880/questionnaire/${id}`
-        );
-        const data = await response.json();
-        setQuestionnaire(data);
-      } catch (error) {
-        console.error(error);
-      }
-    })();
-  }, [id]);
-
-  //Items取得
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await fetch(`http://localhost:8880/items`);
-        const data = await response.json();
-        setItems(data);
-      } catch (error) {
-        console.error(error);
-      }
-    })();
-  }, [id]);
 
   //questionnerに登録されているpolledItemsのidを取得
   useEffect(() => {
@@ -101,46 +56,12 @@ const PollResult = memo(() => {
       });
       setPollCounts(polllCountItems);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, questionnaire]);
 
   return (
     <>
       <Paper>
-        <Box
-          sx={{
-            background: "#fff9f5",
-            p: 5,
-            backgroundImage: "url(/iwai.png)",
-            backgroundSize: "200px",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "left ",
-            mt: 5,
-            mb: 5,
-          }}
-        >
-          <Box
-            sx={{
-              fontSize: "40px",
-              textAlign: "center",
-              mt: 10,
-              fontWeight: "bold",
-            }}
-          >
-            {questionnaire?.name}&nbsp;投票結果
-          </Box>
-          <Box
-            sx={{
-              fontSize: "20px",
-              textAlign: "center",
-              fontWeight: "bold",
-              mt: 5,
-            }}
-          >
-            開催期間: {questionnaire?.startDate.toLocaleString()}&nbsp;〜&nbsp;
-            {questionnaire?.endDate.toLocaleString()}
-          </Box>
-        </Box>
+        <PollTitleResult poll={questionnaire}/>
         {Object.keys(pollCounts).length >=1 ?
          <>
         <DottedMemo
@@ -193,9 +114,7 @@ const PollResult = memo(() => {
         {values.length >= 4 && (
           <Box
             sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent:"space-around",
+              display: "flex",flexWrap: "wrap",justifyContent:"space-around",
             }}
           >
             {values.map((data, index)=> {

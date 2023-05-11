@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { memo, useEffect, useRef, useState } from "react";
 import AdmTitleText from "../atoms/text/AdmTitleText";
-import {Backdrop,Box,Fade,Modal,Paper} from "@mui/material";
+import {Backdrop,Box,Fade,Modal,Paper, Toolbar} from "@mui/material";
 import { Items, Questionnaire } from "../../types/type";
 import AddPollCard from "../card/AddPollCard";
 import {ActiveBorderButton,ActiveDarkBlueButton,} from "../atoms/button/Button";
@@ -15,6 +15,7 @@ import PollCategorySelect from "../atoms/addPollForm/PollCategorySelect";
 import PollDateInput from "../atoms/addPollForm/PollDateInput";
 import { CircularProgress } from "@mui/material";
 import useGetQuestionnaire from "../../hooks/useGetQuestipnnaire";
+import useGetAllItem from "../../hooks/useGetAllItems";
 
 const style = {
   position: "absolute" as "absolute",
@@ -38,7 +39,6 @@ const AddPoll = memo(() => {
 
   const [startPeriodDate, setStartPeriodDate] = useState("");
   const [endPeriodDate, setEndPeriodDate] = useState("");
-  const [items, setItems] = useState<Items[]>([]);
   const [pollFlag, setPollFlag] = useState(false);
   const [pollCategory, setPollCategory] =useState("投票種別を選択してください");
   const [pollName, setPollName] = useState("");
@@ -53,25 +53,13 @@ const AddPoll = memo(() => {
   const [adding, setAdding] = useState<boolean>(false);
 
   const questionnaireData: Questionnaire[] = useGetQuestionnaire();
+  const items: Items[] = useGetAllItem();
 
   //login
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
   const isFirstRender = useRef(true);
   const navigate = useNavigate();
-
-  //Items取得
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await fetch(`http://localhost:8880/items`);
-        const data = await response.json();
-        setItems(data);
-      } catch (error) {
-        console.error(error);
-      }
-    })();
-  }, [items]);
 
   //バリデーション
   const validatePollName = () => {
@@ -188,6 +176,7 @@ const AddPoll = memo(() => {
           </>
         ) : (
           <>
+        <Box id="top" />
         <AdmTitleText children={"投票追加"} />
         <Box sx={{ mb: 1 }}>⚠︎ ここで追加した商品は商品一覧には表示されません。</Box>
         <ActiveDarkBlueButton event={handleOpen} sxStyle={{width:280,height:80,fontSize:"20px"}}>
