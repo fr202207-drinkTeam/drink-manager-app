@@ -174,7 +174,7 @@ const ItemDetail: FC = memo(() => {
                             }}
                           >
                             <Typography variant="body2" component="p">
-                              {postData[0].content}
+                              {postData[0].content.replace(/\n<a href=.*/, "")}
                             </Typography>
                           </CardContent>
                         </Box>

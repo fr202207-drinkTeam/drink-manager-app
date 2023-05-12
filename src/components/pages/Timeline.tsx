@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useState } from "react";
+import { FC, memo, useEffect, useRef, useState } from "react";
 import {
   Box,
   CircularProgress,
@@ -15,14 +15,25 @@ import TimelineHeader from "../organisms/TimelineHeader";
 import useGetItems from "../../hooks/useGetItems";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
+import { useLocation, useNavigate } from "react-router";
 
 type Props = {};
 
 const Timeline: FC<Props> = memo((props) => {
-  // TODO 受け手
-  // const location = useLocation();
-  // const itemId = location.state;
-  // console.log("itemId", itemId);
+  const itemId = useRef<number>(0);
+
+  // 商品詳細画面から遷移した場合、itemIdを取得
+  const location = useLocation();
+  const navigate = useNavigate();
+  useEffect(() => {
+    const itemInfo = location.state;
+    if (itemInfo) {
+      itemId.current = itemInfo.itemId;
+    }
+    console.log("itemId", itemId.current);
+    navigate(location.state, {})
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // ログイン情報取得
   const authId = Cookies.get("authId")!;
@@ -59,6 +70,11 @@ const Timeline: FC<Props> = memo((props) => {
 
   // 各クエリパラメータ要素のstateが変わるたびに新しいパラメータをセット
   useEffect(() => {
+    if (itemId.current !== 0) {
+      console.log("set", `?itemId=${itemId.current}`);
+      setPostParams(`?itemId=${itemId.current}`);
+      return;
+    }
     setPostParams(
       `?${postUserAdmin}${postSearch}_sort=createdAt&_order=desc&_start=${postParamsNum}&_end=${
         postParamsNum + 3
@@ -69,9 +85,11 @@ const Timeline: FC<Props> = memo((props) => {
   // 新しく取得した投稿データと既に取得していたデータをまとめる
   useEffect(() => {
     if (!fetchPostData) {
+      itemId.current = 0;
       return;
     }
     setPostData(() => {
+      itemId.current = 0;
       // 新規データが存在しない場合
       if (!fetchPostData.length) {
         setNoMoreData(true);
@@ -111,6 +129,15 @@ const Timeline: FC<Props> = memo((props) => {
           return;
         }
         // 画面下のボタンの場合は現在の表示に追加で3件取得
+        if (postParams.includes("?itemId=")) {
+          setPostData([]);
+          setPostParams(
+            `?${postUserAdmin}${postSearch}_sort=createdAt&_order=desc&_start=${postParamsNum}&_end=${
+              postParamsNum + 3
+            }`
+          );
+          return;
+        }
         setpostParamsNum(postParamsNum + 3);
       }
     };
@@ -142,11 +169,11 @@ const Timeline: FC<Props> = memo((props) => {
         break;
       case "投稿":
         setpostParamsNum(0);
-        setPostUserAdmin("userId_ne=2&");
+        setPostUserAdmin("userId_ne=1&");
         break;
       case "お知らせ":
         setpostParamsNum(0);
-        setPostUserAdmin("userId=2&");
+        setPostUserAdmin("userId=1&");
         break;
     }
   };

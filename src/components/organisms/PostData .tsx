@@ -1,5 +1,5 @@
 import { FC, memo, useEffect, useState } from "react";
-import { Comment as CommentType, Post, Users } from "../../types/type";
+import { Comment as CommentType, Like, Post, Users } from "../../types/type";
 import {
   Paper,
   Typography,
@@ -13,7 +13,8 @@ import Comment from "./Comment";
 import parse from "html-react-parser";
 import Likes from "../molecules/Likes";
 import { EditNote } from "@mui/icons-material";
-import { ActiveDarkBlueButton, ActiveRedButton } from "../atoms/button/Button";
+import { ActiveDarkBlueButton } from "../atoms/button/Button";
+import ModalWindow from "./ModalWindow";
 
 // 投稿データ、コメント表示有無、ログインユーザー情報、投稿編集のset関数
 type Props = {
@@ -32,6 +33,8 @@ const PostData: FC<Props> = memo((props) => {
   const [commentData, setCommentData] = useState<CommentType[]>([]);
   // ログインユーザーの投稿だった場合、メニューの表示
   const [menu, setMenu] = useState<boolean>(false);
+
+  const [reloadComment, setReloadComment] = useState<boolean>(false)
 
   useEffect(() => {
     // 投稿のユーザー情報取得
@@ -54,7 +57,7 @@ const PostData: FC<Props> = memo((props) => {
       .catch((error) => {
         console.log("Error:", error);
       });
-  }, [postData]);
+  }, [postData, reloadComment]);
 
   // 投稿内容の装飾
   let content = postData.content
@@ -75,11 +78,43 @@ const PostData: FC<Props> = memo((props) => {
   };
   // 投稿削除処理
   const deletePost = () => {
+    // 投稿削除
     fetch(`http://localhost:8880/posts/${postData.id}`, {
       method: "DELETE",
     })
       .then((res) => {
         setMenu(false);
+        // 投稿に関連するコメントの削除
+        fetch(`http://localhost:8880/comments?postId=${postData.id}`, {
+          method: "GET",
+        })
+          .then((res) => res.json())
+          .then((comments) => {
+            comments.forEach((comment: CommentType) => {
+              fetch(`http://localhost:8880/comments/${comment.id}`, {
+                method: "DELETE",
+              });
+            });
+          })
+          .catch((error) => {
+            console.log("Error:", error);
+          });
+
+        // 投稿に関連するいいねの削除
+        fetch(`http://localhost:8880/likes?postId=${postData.id}`, {
+          method: "GET",
+        })
+          .then((res) => res.json())
+          .then((likes) => {
+            likes.forEach((like: Like) => {
+              fetch(`http://localhost:8880/likes/${like.id}`, {
+                method: "DELETE",
+              });
+            });
+          })
+          .catch((error) => {
+            console.log("Error:", error);
+          });
       })
       .catch((error) => {
         console.log("Error:", error);
@@ -115,7 +150,16 @@ const PostData: FC<Props> = memo((props) => {
           {menu && (
             <Grid item xs={2}>
               <ActiveDarkBlueButton event={editPost}>編集</ActiveDarkBlueButton>
-              <ActiveRedButton event={deletePost}>削除</ActiveRedButton>
+              <ModalWindow
+                title=""
+                content="内容は破棄されますがよろしいですか？"
+                openButtonColor="red"
+                completeButtonColor="red"
+                completeButtonName="確定"
+                buttonName="削除"
+                completeAction={deletePost}
+                cancelButtonColor="gray"
+              />
             </Grid>
           )}
         </Box>
@@ -127,7 +171,7 @@ const PostData: FC<Props> = memo((props) => {
           </Box>
 
           {/* ユーザーが管理者かどうかでそれぞれの投稿にタグ付け */}
-          {userData?.isAdmin ? (
+          {userData && userData.isAdmin && (
             <Typography
               variant="body2"
               sx={{
@@ -140,7 +184,8 @@ const PostData: FC<Props> = memo((props) => {
             >
               お知らせ
             </Typography>
-          ) : (
+          )}
+          {userData && !userData.isAdmin && (
             <Typography
               variant="body2"
               sx={{
@@ -199,6 +244,8 @@ const PostData: FC<Props> = memo((props) => {
           commentData={commentData}
           postData={postData}
           loginUser={loginUser}
+          reloadComment={reloadComment}
+          setReloadComment={setReloadComment}
         />
       )}
     </Paper>

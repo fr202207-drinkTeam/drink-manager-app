@@ -1154,32 +1154,7 @@
     }
   ],
   "comments": [],
-  "likes": [
-    {
-      "postId": 8,
-      "userId": 1,
-      "time": "2023-05-11T00:58:37.360Z",
-      "id": 1
-    },
-    {
-      "postId": 8,
-      "userId": 2,
-      "time": "2023-05-11T01:08:35.086Z",
-      "id": 2
-    },
-    {
-      "postId": 9,
-      "userId": 1,
-      "time": "2023-05-11T01:12:05.283Z",
-      "id": 3
-    },
-    {
-      "postId": 9,
-      "userId": 2,
-      "time": "2023-05-11T01:12:19.851Z",
-      "id": 4
-    }
-  ],
+  "likes": [],
   "stockhistory": [
     {
       "id": 1,

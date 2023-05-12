@@ -3,7 +3,7 @@ import { Post } from "../types/type";
 
 // 投稿データ取得hooks
 const useGetPosts = (
-  params: string = "http://localhost:8880/posts?_sort=createdAt&_order=desc&_start=0&_end=3"
+  params: string
 ) => {
   const [fetchPostData, setfetchPostData] = useState<Post[] | null>(null);
   const [postLoading, setPostLoading] = useState<boolean>(false);

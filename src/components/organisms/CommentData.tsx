@@ -2,17 +2,26 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import { FC, memo, useEffect, useState } from "react";
 import { Comment as CommentType, Users } from "../../types/type";
 import { EditNote } from "@mui/icons-material";
-import { ActiveDarkBlueButton, ActiveRedButton } from "../atoms/button/Button";
+import { ActiveDarkBlueButton } from "../atoms/button/Button";
+import ModalWindow from "./ModalWindow";
 
 // コメントデータ、ログイン情報、編集コメントのset関数
 type Props = {
   commentData: CommentType;
   loginUser: Users;
   setEditCommentData: React.Dispatch<React.SetStateAction<CommentType | null>>;
+  reloadComment: boolean;
+  setReloadComment: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const CommentData: FC<Props> = memo((props) => {
-  const { commentData, loginUser, setEditCommentData } = props;
+  const {
+    commentData,
+    loginUser,
+    setEditCommentData,
+    reloadComment,
+    setReloadComment,
+  } = props;
   // コメントのユーザー情報格納
   const [userData, setUserData] = useState<Users | null>(null);
   // ログインユーザーのコメントだった場合、メニューボタン表示
@@ -46,6 +55,7 @@ const CommentData: FC<Props> = memo((props) => {
       .then(() => {
         console.log("delete");
         setMenu(false);
+        setReloadComment(!reloadComment);
       })
       .catch((error) => {
         console.log("Error:", error);
@@ -91,7 +101,16 @@ const CommentData: FC<Props> = memo((props) => {
             <ActiveDarkBlueButton event={editComment}>
               編集
             </ActiveDarkBlueButton>
-            <ActiveRedButton event={deleteComment}>削除</ActiveRedButton>
+            <ModalWindow
+              title=""
+              content="内容は破棄されますがよろしいですか？"
+              openButtonColor="red"
+              completeButtonColor="red"
+              completeButtonName="確定"
+              buttonName="削除"
+              completeAction={deleteComment}
+              cancelButtonColor="gray"
+            />
           </Grid>
         )}
       </Grid>
