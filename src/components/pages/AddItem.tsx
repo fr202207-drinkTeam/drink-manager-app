@@ -74,7 +74,9 @@ const AddItem: FC<Props> = memo(({ pollFlag, setPollFlag, handleClose }) => {
   return (
     <>
       <Paper sx={{ p: 5, width: "80%", m: "auto" }}>
+      
         <AdmTitleText>商品追加</AdmTitleText>
+        <Box id="top"/>
         {adding ? (
           <>
             <div style={{ margin: "200px", textAlign: "center" }}>

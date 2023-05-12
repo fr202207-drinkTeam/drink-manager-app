@@ -95,6 +95,7 @@ const ItemEdit: FC = memo(() => {
         <div>Loading...</div>
       ) : (
         <Paper sx={{ p: 5, width: "80%", m: "auto" }}>
+          <Box id="top"/>
           <AdmTitleText>商品編集</AdmTitleText>
           {updating ? (
             <div style={{ margin: "200px", textAlign: "center" }}>

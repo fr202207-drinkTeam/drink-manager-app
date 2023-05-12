@@ -47,6 +47,7 @@ const ItemDetail: FC = memo(() => {
               <Box
                 sx={{ display: "flex", mb: 5, alignItems: "center", ml: 10 }}
               >
+                <Box id="top" />
                 <FreeBreakfastIcon fontSize="large" />
                 <Typography variant="h3" component="p" sx={{ ml: 2 }}>
                   {getAnItemResult.itemData.name}
