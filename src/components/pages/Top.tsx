@@ -152,9 +152,7 @@ const Top: FC<Props> = memo((props) => {
                 postData={postData}
                 isComment={false}
                 loginUser={loginUser}
-                setEditPostData={function(
-                  value: React.SetStateAction<Post | null>
-                ): void {}}
+                setEditPostData={null}
               />
             ))}
           </Box>

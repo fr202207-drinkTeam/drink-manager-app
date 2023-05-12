@@ -176,32 +176,41 @@ const ItemSearch: FC<Props> = memo((props) => {
 
   // Todo カテゴリ検索リファクタリングする
   useEffect(() => {
-    if (category === "all") {
-      setCategoryName("すべて");
-      setSelectedValue("name");
-    } else if (category === "1") {
-      setCategoryName("ダーク（深煎り）");
-      setSelectedValue("name");
-    } else if (category === "2") {
-      setCategoryName("ミディアム（中煎り）");
-      setSelectedValue("name");
-    } else if (category === "3") {
-      setCategoryName("ライト（浅煎り）");
-      setSelectedValue("name");
-    } else if (category === "4") {
-      setCategoryName("カフェインレス");
-      setSelectedValue("name");
-    } else if (category === "5") {
-      setCategoryName("ティー");
-      setSelectedValue("name");
-    } else if (category === "6") {
-      setCategoryName("ココア");
-      setSelectedValue("name");
-    } else if (category === "7") {
-      setCategoryName("その他");
-      setSelectedValue("name");
+    let categoryName = "";
+    let selectedValue = "name";
+  
+    switch (category) {
+      case "all":
+        categoryName = "すべて";
+        break;
+      case "1":
+        categoryName = "ダーク（深煎り）";
+        break;
+      case "2":
+        categoryName = "ミディアム（中煎り）";
+        break;
+      case "3":
+        categoryName = "ライト（浅煎り）";
+        break;
+      case "4":
+        categoryName = "カフェインレス";
+        break;
+      case "5":
+        categoryName = "ティー";
+        break;
+      case "6":
+        categoryName = "ココア";
+        break;
+      case "7":
+        categoryName = "その他";
+        break;
+      default:
+        break;
     }
-  }, [category, setSelectedValue]);
+  
+    setCategoryName(categoryName);
+    setSelectedValue(selectedValue);
+  }, [category]);
 
   return (
     <>
