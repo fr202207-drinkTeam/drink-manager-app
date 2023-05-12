@@ -28,7 +28,7 @@ const ItemCard = ({ data, sxStyle, sxBox }: ItemCardProps) => {
         {data?.map((drink: Items, index) => (
           <Card
             sx={{
-              width: "260px",
+              width: 260,
               m: 2,
               boxShadow: "none",
               border: "solid 1px ",

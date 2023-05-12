@@ -72,12 +72,14 @@ const Header = () => {
   const auth = getAuth();
   console.log(auth, "auth");
   const authId = Cookies.get("authId")!;
+  const isAdmin = Cookies.get("isAdmin")!;
   const loginUser = useLoginUserFetch({ authId: authId });
   // console.log(loginUser, "user");
   const onLogoutClick = () => {
     signOut(auth)
       .then(() => {
         document.cookie = `authId=; max-age=0`;
+        document.cookie = `isAdmin=; max-age=0`;
         // ログアウト時の画面遷移の分岐
         if (loginUser?.isAdmin) {
           navigate("/adminlogin");
@@ -99,7 +101,9 @@ const Header = () => {
           alignItems: "center",
         }}
       >
-        {loginUser?.isAdmin ? (
+        {loginUser?.firstName === "" ? (
+          <></>
+        ) : isAdmin ? (
           <Typography>こんにちは管理者さん</Typography>
         ) : (
           <Typography>こんにちは {loginUser?.firstName}さん</Typography>
