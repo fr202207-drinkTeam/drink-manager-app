@@ -45,11 +45,11 @@ const ItemForm: FC<Props> = memo((props) => {
         required
         onChange={(e: any) => setItemName(e.target.value)}
         sx={{ width: 400, mb: 5 }}
-        inputProps={{ maxLength: 20 }}
+        inputProps={{ maxLength: 18 }}
       />
 
-      <Typography variant="body1" component="p" sx={{ mb: 1 }}>
-        商品画像
+      <Typography variant="body1" component="p" sx={{ mb: 1, color: "rgba(0, 0, 0, 0.6)" }}>
+        商品画像 *
       </Typography>
 
       <Box
