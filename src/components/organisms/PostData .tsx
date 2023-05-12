@@ -20,7 +20,7 @@ type Props = {
   postData: Post;
   isComment: boolean;
   loginUser: Users;
-  setEditPostData: React.Dispatch<React.SetStateAction<Post | null>>;
+  setEditPostData: React.Dispatch<React.SetStateAction<Post | null>> | null;
 };
 
 const PostData: FC<Props> = memo((props) => {
@@ -70,7 +70,7 @@ const PostData: FC<Props> = memo((props) => {
   // 投稿編集処理
   const editPost = () => {
     setMenu(false);
-    setEditPostData(postData);
+    setEditPostData!(postData);
     return;
   };
   // 投稿削除処理

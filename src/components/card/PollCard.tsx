@@ -17,15 +17,16 @@ import SwitchAccessShortcutAddIcon from "@mui/icons-material/SwitchAccessShortcu
 import ModalWindow from "../organisms/ModalWindow";
 //hooks
 import useGetPollCategoryData from "../../hooks/useGetPollCategoryData";
+import { useEffect, useState } from "react";
 
 type PollCardProps = {
   data: Items[];
   pollCategory: number;
   pollNum?: number;
-  sxStyle?:any
+  sxStyle?: any;
 };
 
-const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
+const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
   const navigate = useNavigate();
   //login
   const authId = Cookies.get("authId")!;
@@ -59,8 +60,9 @@ const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
         },
       });
       const responseData = await response.json();
+      navigate("/home")
+      alert(`投票を受け付けました。投票ありがとうございました！`)
       console.log(responseData);
-      window.location.reload()
     } catch (err) {
       console.log(err, "エラー");
     }
@@ -73,7 +75,7 @@ const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "flex-start",
-          ml:5,
+          ml: 5,
           // mt: 2,
         }}
       >
@@ -82,12 +84,12 @@ const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
             return (
               <Card
                 sx={{
-                  width: 290,
+                  width: 295,
                   mx: 2,
                   boxShadow: "none",
                   border: "solid 1px ",
                   borderColor: "#bfbec5",
-                  ...sxStyle
+                  ...sxStyle,
                 }}
                 key={index}
               >
@@ -135,7 +137,7 @@ const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
                         height: 200,
                         objectFit: "cover",
                         m: "auto",
-                        p:1
+                        p: 1,
                       }}
                     />
                     <CardContent sx={{ height: "150px" }}>
@@ -183,7 +185,7 @@ const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
                           fontFamily: "Georgia",
                           fontWeight: "bold",
                           height: "200",
-                          mt:1
+                          mt: 1,
                         }}
                       >
                         {drink.name}
@@ -209,7 +211,7 @@ const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
                     width: 200,
                     boxShadow: "none",
                     fontWeight: "bold",
-                    ml: 5.5,
+                    ml: 6.5,
                     border: "double",
                   }}
                   event={() => {
@@ -228,25 +230,25 @@ const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
                   pollCategory === 2 &&
                   OthersPollData.some(
                     (data) => data.questionnaireId === pollNum
-                  ))||loginUser.id===1 ? (
-
+                  )) ||
+                (loginUser.id === 1 )? (
                   <InactiveButton
                     sx={{
                       background: "#e29399",
                       width: 200,
-                      textAlign:"center",
+                      textAlign: "center",
                       mb: 2,
                       boxShadow: "none",
                       border: "double",
                       fontWeight: "bold",
-                      ml: 5.5,
+                      ml: 6.5,
                       ":hover": {
                         background: "#e29399",
                         cursor: "pointer",
                       },
                     }}
                   >
-                    <SwitchAccessShortcutAddIcon />
+                    
                     &nbsp;投票しました
                   </InactiveButton>
                 ) : (
@@ -271,7 +273,7 @@ const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
                       boxShadow: "none",
                       border: "double",
                       fontWeight: "bold",
-                      ml: 5.5,
+                      ml: 6.5,
                       ":hover": {
                         background: "#e29399",
                         cursor: "pointer",
