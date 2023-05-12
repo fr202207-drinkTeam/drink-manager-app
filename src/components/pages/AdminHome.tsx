@@ -34,7 +34,7 @@ const AdminHome: FC<Props> = memo((props) => {
             flexWrap="wrap"
             marginTop="110px"
           >
-            <Link to="/adminhome/consumption">
+            <Link to="/adminhome/addition">
               <Box
                 sx={{
                   width: 200,
@@ -67,7 +67,7 @@ const AdminHome: FC<Props> = memo((props) => {
                 </Typography>
               </Box>
             </Link>
-            <Link to="/adminhome/addition">
+            <Link to="/adminhome/consumption">
               <Box
                 sx={{
                   width: 200,

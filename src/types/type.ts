@@ -15,10 +15,10 @@ export type Items = {
   name: string;
   description: string;
   image: string;
-  itemCategory?: number|null;
-  createdAt?: Date|null;
+  itemCategory?: number | null;
+  createdAt?: Date | null;
   intheOffice: boolean;
-  author?: string|null;
+  author?: string | null;
 };
 
 export type Questionnaire = {
@@ -44,4 +44,13 @@ export type Polls = {
   userId: number;
   result: number;
   createdAt: Date;
+};
+
+export type StockHistory = {
+  id: number;
+  itemId: number;
+  quantity: number;
+  day: Date;
+  incOrDec: boolean;
+  stockAmount: number;
 };

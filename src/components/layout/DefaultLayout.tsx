@@ -35,7 +35,7 @@ function DefaultLayout({ children }: { children: any }) {
   const handleButtonClick = () => {};
   // パスの取得
   const location = useLocation();
-  console.log(location.pathname);
+  // console.log(location.pathname);
   const images = ["../top.png", "../top.png", "../top.png"];
   return (
     <React.Fragment>
