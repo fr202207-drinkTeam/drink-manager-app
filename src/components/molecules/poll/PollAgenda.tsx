@@ -1,5 +1,5 @@
 import { Box, ListItem, ListItemText } from '@mui/material'
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { ActiveBeigeButton } from '../../atoms/button/Button'
 import { useNavigate } from 'react-router-dom'
 import { Questionnaire } from '../../../types/type'
@@ -33,9 +33,9 @@ const PollAgenda:FC<PollAgendaProps> = ({pollTitle}) => {
 
           <Box>
             {pollTitle.map((title, index) => (
-              <>
+              <Box key={index}>
                 {!(title?.endDate <= now) ? (
-                  <Box key={title?.id} sx={{ textAlign: "center" }}>
+                  <Box sx={{ textAlign: "center" }}>
                     <ListItem
                       sx={{
                         display: "flex",
@@ -79,7 +79,7 @@ const PollAgenda:FC<PollAgendaProps> = ({pollTitle}) => {
                 ) : (
                   <Box></Box>
                 )}
-              </>
+              </Box>
             ))}
           </Box>
         <Box sx={{ textAlign: "center", my: 5, mb: 10 }}>

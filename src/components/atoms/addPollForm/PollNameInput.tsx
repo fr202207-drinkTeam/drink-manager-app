@@ -27,8 +27,8 @@ const PollNameInput: FC<ValidarionProps> = ({
         <SecondaryInput
           type="text"
           label="投票タイトル"
-          placeHolder="投票タイトル"
           helperText={`${pollName.length}/15`}
+          placeholder="投票タイトル"
           inputProps={{ maxLength: 15 }}
           onChange={(e: any) => {
             setPollName(e.target.value);

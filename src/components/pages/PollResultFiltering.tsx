@@ -81,6 +81,7 @@ const  PollResultFiltering = () => {
             過去の投票結果
           </Box>
         </Box>
+        <Box id="top" />
         <DottedMemo
               text={" 投票期間を選択することで過去の投票結果を確認できます！"}
               information={"※投票結果を確認したい期間を選択してください"}

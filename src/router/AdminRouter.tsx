@@ -15,7 +15,7 @@ export const AdminRouter = [
     path: "/additem",
     element: (
       <AddItem
-        setTrigger={function (value: SetStateAction<boolean>): void {
+        setTrigger={function(value: SetStateAction<boolean>): void {
           throw new Error("Function not implemented.");
         }}
       />

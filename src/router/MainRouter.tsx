@@ -35,7 +35,7 @@ const MainRoute = [
   },
 ];
 
-export const MainRouter = (props:any) => {
+export const MainRouter = (props: any) => {
   //Cookie
   const authId = Cookies.get("authId")!;
   const isAdmin = Cookies.get("isAdmin")!;
@@ -52,8 +52,7 @@ export const MainRouter = (props:any) => {
         {AdminRouter.map((route, index) => (
           <Route
             key={index}
-            // path={`/${route.path}`}
-            path={`/${route.path}`}
+            path={`/adminhome${route.path}`}
             element={
               authId ? (
                 loginUser && isAdmin ? (
