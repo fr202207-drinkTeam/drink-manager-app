@@ -13,9 +13,13 @@ import { Link, useLocation } from "react-router-dom";
 import Slider from "../atoms/slider/Slider";
 import ItemSearchForm from "../molecules/ItemSearchForm";
 import { Items } from "../../types/type";
+import { Fab } from "@mui/material";
+import { KeyboardArrowUp } from "@mui/icons-material";
+import ScrollPageTop from "../atoms/ScrollPageTop";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
-function DefaultLayout({ children }: { children: any }) {
+
+function DefaultLayout({ children,props }: { children: any,props?:any }) {
   const handleButtonClick = () => {};
   // パスの取得
   const location = useLocation();
@@ -101,6 +105,23 @@ function DefaultLayout({ children }: { children: any }) {
       ) : (
         ""
       )}
+       <ScrollPageTop {...props}>
+          <Fab
+            size="large"
+            aria-label="scroll back to top"
+            sx={{
+              bottom: "120px",
+              backgroundColor: "#9AB7CA",
+              color: "#fff",
+              ":hover": {
+                background: "#9AB7CA",
+                cursor: "pointer",
+              },
+            }}
+          >
+            <KeyboardArrowUp />
+          </Fab>
+        </ScrollPageTop>
       <Footer />
     </React.Fragment>
   );

@@ -1068,10 +1068,10 @@
     },
     {
       "questionnaireId": 6,
-      "userId": 1,
+      "userId": 5,
       "category": 1,
-      "result": 8,
-      "createdAt": "2023-05-04T05:47:49.540Z",
+      "result": 5,
+      "createdAt": "2023-05-12T00:59:59.497Z",
       "id": 10
     },
     {
