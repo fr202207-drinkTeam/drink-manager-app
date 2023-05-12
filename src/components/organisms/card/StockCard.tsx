@@ -5,8 +5,8 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
 import { Box } from '@mui/material';
-import { Items } from '../../types/type';
-import { StockInput } from '../atoms/input/StockInput';
+import { Items } from '../../../types/type';
+import { StockInput } from '../../atoms/input/StockInput';
 
 type Props = {
   itemData: Array<Items>;
@@ -29,7 +29,7 @@ const StockCard: FC<Props> = (props) => {
             <Card
               key={index}
               sx={{
-                width: 270,
+                width: 310,
                 m: 2,
                 boxShadow: 'none',
                 border: 'solid 1px ',
@@ -56,7 +56,7 @@ const StockCard: FC<Props> = (props) => {
                   gutterBottom
                   sx={{
                     textAlign: 'center',
-                    fontSize: '16px',
+                    fontSize: '15px',
                     borderBottom: 'double',
                     fontFamily: 'Georgia',
                   }}

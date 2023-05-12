@@ -1,3 +1,4 @@
+import PollResultFiltering from "../components/pages/PollResultFiltering";
 import Contact from "../components/pages/Contact";
 import Faq from "../components/pages/Faq";
 import Guide from "../components/pages/Guide";
@@ -16,4 +17,5 @@ export const UserRouter = [
   { path: "/faq", element: <Faq /> },
   { path: "/poll", element: <Poll /> },
   { path: "/poll/:id", element: <PollResult /> },
+  { path: "/poll/pollresult", element: <PollResultFiltering /> },
 ];

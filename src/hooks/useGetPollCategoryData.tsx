@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Polls, Questionnaire } from "../types/type";
+import  { useEffect, useState } from "react";
+import { Polls } from "../types/type";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "./useLoginUserFetch";
 
@@ -23,7 +23,7 @@ const useGetPollCategoryData = (id: number) => {
         console.error(error);
       }
     })();
-  }, [loginUser.id]);
+  }, [id, loginUser.id]);
 
   return pollData;
 };

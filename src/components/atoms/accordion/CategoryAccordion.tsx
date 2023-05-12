@@ -19,6 +19,10 @@ const CategoryAccordion = () => {
     navigate(`/home/search?category=${category}&page=1`);
   };
 
+  const accordionStyle = {
+    "&.Mui-expanded::before": { opacity: "1 !important" },
+  };
+
   return (
     <>
       <div>
@@ -29,7 +33,7 @@ const CategoryAccordion = () => {
           <Typography
             variant="h6"
             textAlign="center"
-            sx={{ mb: 4, color: "#ea6f00" }}
+            sx={{ mb: "56px", color: "#ea6f00" }}
           >
             商品一覧
           </Typography>
@@ -88,14 +92,20 @@ const CategoryAccordion = () => {
           </AccordionSummary>
         </Accordion>
         <Accordion
+          sx={{
+            m: 0,
+            ...accordionStyle,
+          }}
           disableGutters
           onClick={() => handleAccordionClick("5")}
-          sx={{ m: 0, "&.Mui-expanded::before": { opacity: "1 !important" } }}
         >
           <AccordionSummary id="tea">ティー</AccordionSummary>
         </Accordion>
         <Accordion
-          sx={{ m: 0, "&.Mui-expanded::before": { opacity: "1 !important" } }}
+          sx={{
+            m: 0,
+            ...accordionStyle,
+          }}
           disableGutters
           onClick={() => handleAccordionClick("6")}
         >
@@ -104,7 +114,7 @@ const CategoryAccordion = () => {
         <Accordion
           sx={{
             m: 0,
-            "&.Mui-expanded::before": { opacity: "1 !important" },
+            ...accordionStyle,
           }}
           disableGutters
           onClick={() => handleAccordionClick("7")}
@@ -114,12 +124,12 @@ const CategoryAccordion = () => {
         <Accordion
           sx={{
             m: 0,
-            "&.Mui-expanded::before": { opacity: "1 !important" },
+            ...accordionStyle,
           }}
           disableGutters
           onClick={() => handleAccordionClick("all")}
         >
-          <AccordionSummary id="all">すべて</AccordionSummary>
+          <AccordionSummary>すべて</AccordionSummary>
         </Accordion>
       </div>
     </>

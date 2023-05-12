@@ -1,7 +1,5 @@
 import { FC, memo } from "react";
-// import "./App.css";
 import React from "react";
-
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -10,11 +8,11 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import DefaultLayout from "../layout/DefaultLayout";
-import Slider from "../atoms/slider/Slider";
+
 import { useRecoilValue } from "recoil";
 import { loginUserState } from "../../store/loginUserState";
 import { Grid } from "@mui/material";
-import ItemCard from "../card/ItemCard";
+import ItemCard from "../organisms/card/ItemCard";
 import { Paper } from "@mui/material";
 import Container from "@mui/material";
 import {
@@ -23,33 +21,38 @@ import {
   ActivePinkButton,
 } from "../atoms/button/Button";
 import { useState, useEffect } from "react";
-import PostsData from "../organisms/PostData ";
+
 import { useNavigate } from "react-router-dom";
 import PollRanking from "../organisms/PollRanking";
+import PostsData from "../organisms/PostData ";
+import { Post } from "../../types/type";
+import PostData from "../organisms/PostData ";
+import useGetPosts from "../../hooks/useGetPosts";
+import Cookies from "js-cookie";
+import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 type Props = {};
 
 const Top: FC<Props> = memo((props) => {
+  const authId = Cookies.get("authId")!;
+  const loginUser = useLoginUserFetch({ authId: authId });
   const navigate = useNavigate();
-  const [postData, setPostData] = useState<any>([]);
+  const [postData, setPostData] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  // 投稿取得
+  const [editPostData, setEditPostData] = useState<Post | null>(null);
+
   useEffect(() => {
-    // 関連する投稿を取得
-    fetch(`http://localhost:8880/posts?_limit=3}`, {
-      method: "GET",
-    })
+    fetch(
+      `http://localhost:8880/posts?_sort=createdAt&_order=desc&_start=0&_end=3`,
+      { method: "GET" }
+    )
       .then((res) => res.json())
       .then((data) => {
         setPostData(data);
-      })
-      .then(() => {
-        setLoading(false);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   }, []);
-  const onSearchButtonClick = () => {};
   return (
     <>
       <DefaultLayout>
@@ -94,96 +97,23 @@ const Top: FC<Props> = memo((props) => {
             </Typography>
           </Card>
         </Box>
-        <PollRanking/>
         <Box sx={{ textAlign: "center" }}>
           <ActivePinkButton
-            event={onSearchButtonClick}
-            sxStyle={{ width: "30%", py: 2, my: 10, borderRadius: 20 }}
+            event={() => {
+              navigate("/home/poll");
+            }}
+            sxStyle={{ width: "20%", py: 2, my: 10 }}
           >
             投票する
           </ActivePinkButton>
         </Box>
-        {/* <Grid container spacing={2}>
-                {items.map((item, index) => (
-                  <Grid key={index} item xs={12} sm={6} md={4}>
-                    <ItemCard />
-                  </Grid>
-                ))}
-              </Grid> */}
-
         <Box sx={{ textAlign: "center" }}>
-          <Card
-            sx={{
-              p: 1,
-              backgroundColor: "#fff",
-              border: "4px dotted #ffdead ",
-              textAlign: "center",
-              width: "60%",
-              borderRadius: "20px",
-              m: "auto",
-            }}
-          >
-            <Typography
-              gutterBottom
-              component="div"
-              sx={{ m: 2, color: "#595857", fontSize: "25px" }}
-            >
-              ランキング
-            </Typography>
-            <Typography
-              gutterBottom
-              component="div"
-              sx={{ m: 2, color: "#595857", fontSize: "16px" }}
-            >
-              ●●月の投票結果はこちら
-            </Typography>
-          </Card>
-        </Box>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6} md={4}>
-            <Box
-              sx={{
-                mt: 10,
-                pb: 10,
-                backgroundImage: "url(/crown1.png)",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "100px",
-                backgroundPosition: "center",
-              }}
-            ></Box>
-            <ItemCard data={[]} />
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Box
-              sx={{
-                mt: 10,
-                pb: 10,
-                backgroundImage: "url(/crown2.png)",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "100px",
-                backgroundPosition: "center",
-              }}
-            ></Box>
-            <ItemCard data={[]} />
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Box
-              sx={{
-                mt: 10,
-                pb: 10,
-                backgroundImage: "url(/crown3.png)",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "100px",
-                backgroundPosition: "center",
-              }}
-            ></Box>
-            <ItemCard data={[]} />
-          </Grid>
-        </Grid>
-        <Box sx={{ textAlign: "center" }}>
+          <PollRanking />
           <ActivePinkButton
-            event={onSearchButtonClick}
-            sxStyle={{ width: "30%", py: 2, my: 10, borderRadius: 20 }}
+            event={() => {
+              navigate("/home/poll");
+            }}
+            sxStyle={{ width: "20%", py: 2, my: 10 }}
           >
             過去の投票結果を見る
           </ActivePinkButton>
@@ -214,30 +144,28 @@ const Top: FC<Props> = memo((props) => {
             ラクスパートナーズのみんなの投稿がとどいてるよ !
           </Typography>
         </Card>
-        <Grid container spacing={2}>
-          {/* {postData && postData.length > 0 && (
-            <> */}
-          {/* 仮置 */}
-          {/* {postData.map((postData: any) => (
-                <Grid item xs={12} sm={6} md={4}>
-                  <PostsData
-                    key={postData.id}
-                    postData={postData}
-                    isComment={false}
-                  />
-                </Grid>
-              ))}
-              <Box sx={{ mt: "20px" }}></Box> */}
-          {/* </>
-          )} */}
-        </Grid>
-
-        <Box sx={{ textAlign: "center" }}>
+        <Paper sx={{ p: "20px", background: "#eae5e3", mt: "50px" }}>
+          <Box sx={{ overflowY: "scroll", height: "500px", px: "20px" }}>
+            {postData.map((postData: Post) => (
+              <PostData
+                key={postData.id}
+                postData={postData}
+                isComment={false}
+                loginUser={loginUser}
+                setEditPostData={function(
+                  value: React.SetStateAction<Post | null>
+                ): void {}}
+              />
+            ))}
+          </Box>
+        </Paper>
+        <Box sx={{ textAlign: "center", mt: 4 }}>
+          <Grid container spacing={2}></Grid>
           <ActiveBeigeButton
             event={() => {
               navigate("/home/timeline");
             }}
-            sxStyle={{ width: "30%", py: 2, mt: 10, borderRadius: 20 }}
+            sxStyle={{ width: "20%", py: 2, mt: 10 }}
           >
             タイムラインを見る
           </ActiveBeigeButton>
@@ -246,5 +174,4 @@ const Top: FC<Props> = memo((props) => {
     </>
   );
 });
-
 export default Top;

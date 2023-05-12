@@ -1,18 +1,9 @@
-import { FC, memo, useState, Dispatch, SetStateAction } from "react";
+import { FC, memo, Dispatch, SetStateAction } from "react";
 import { PrimaryInput, SecondaryInput } from "../atoms/input/Input";
-import {
-  Button,
-  CardMedia,
-  InputLabel,
-  MenuItem,
-  Select,
-  Typography,
-} from "@mui/material";
+import { InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import PreviewImage from "../molecules/PreviewImage";
-import { useParams } from "react-router";
-import useGetAnItem from "../../hooks/useGetAnItem";
 import previewImages from "../../utils/previewImages";
 
 type Props = {
@@ -20,36 +11,32 @@ type Props = {
   setItemDescription: Dispatch<SetStateAction<string>>;
   setItemCategory: Dispatch<SetStateAction<number>>;
   setItemImages: Dispatch<SetStateAction<File[]>>;
+  itemName: string;
+  itemDescription: string;
+  itemImages: any;
+  itemCategory: number;
 };
 
 const ItemForm: FC<Props> = memo((props) => {
-  // 状態管理
-  const [formItemName, setItemName] = useState<string>("");
-  const [formItemDescription, setItemDescription] = useState<string>("");
-  const [formItemCategory, setItemCategory] = useState<number>(0);
-  const [formItemImages, setItemImages] = useState<File[]>([]);
-
-  // propsの受け渡しの処理
-  props.setItemName(formItemName);
-  props.setItemDescription(formItemDescription);
-  props.setItemCategory(formItemCategory);
-  props.setItemImages(formItemImages);
-  console.log("set serve props");
 
   return (
     <>
       <SecondaryInput
         id="itemName"
         label="商品名"
-        defaultValue={formItemName}
+        value={props.itemName}
         required
-        onChange={(e: any) => setItemName(e.target.value)}
+        onChange={(e: any) => props.setItemName(e.target.value)}
         sx={{ width: 400, mb: 5 }}
-        inputProps={{ maxLength: 20 }}
+        inputProps={{ maxLength: 18 }}
       />
 
-      <Typography variant="body1" component="p" sx={{ mb: 1 }}>
-        商品画像
+      <Typography
+        variant="body1"
+        component="p"
+        sx={{ mb: 1, color: "rgba(0, 0, 0, 0.6)" }}
+      >
+        商品画像 *
       </Typography>
 
       <Box
@@ -60,16 +47,16 @@ const ItemForm: FC<Props> = memo((props) => {
           justifyContent: "space-between",
         }}
       >
-        {formItemImages.length > 0 && (
+        {props.itemImages.length > 0 && (
           <PreviewImage
-            inputImages={formItemImages}
-            setInputImages={setItemImages}
-            inputLength={formItemImages.length}
+            inputImages={props.itemImages}
+            setInputImages={props.setItemImages}
+            inputLength={props.itemImages.length}
             width={"100%"}
             height={"150px"}
           />
         )}
-        {formItemImages.length < 3 && (
+        {props.itemImages.length < 3 && (
           <Box sx={{ width: "100%", textAlign: "center" }}>
             <button style={{ background: "none", border: "none" }}>
               <label htmlFor="itemImageFeild">
@@ -83,7 +70,7 @@ const ItemForm: FC<Props> = memo((props) => {
                 style={{ display: "none" }}
                 id="itemImageFeild"
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  previewImages(event, formItemImages, setItemImages);
+                  previewImages(event, props.itemImages, props.setItemImages);
                 }}
               />
             </button>
@@ -97,10 +84,10 @@ const ItemForm: FC<Props> = memo((props) => {
         label="商品説明"
         sx={{ width: "100%", mb: 5 }}
         inputProps={{ maxLength: 200 }}
-        defaultValue={formItemDescription}
+        value={props.itemDescription}
         required
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setItemDescription(e.target.value)
+          props.setItemDescription(e.target.value)
         }
         rows={4}
       />
@@ -111,11 +98,11 @@ const ItemForm: FC<Props> = memo((props) => {
       <Select
         labelId="itemCategoryField"
         id="itemCategoryField"
-        value={formItemCategory}
+        value={props.itemCategory}
         label="商品カテゴリー"
         placeholder="商品カテゴリーを選択して下さい"
         onChange={(e) => {
-          setItemCategory(Number(e.target.value));
+          props.setItemCategory(Number(e.target.value));
         }}
         sx={{ mb: 5 }}
       >

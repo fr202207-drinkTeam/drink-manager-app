@@ -30,6 +30,7 @@ const Header = () => {
     { label: "Top", href: "/home" },
     { label: "ご利用ガイド", href: "/home/guide" },
     { label: "投票", href: "/home/poll" },
+    { label: "タイムライン", href: "/home/timeline" },
     { label: "お問い合わせ", href: "/home/contact" },
   ];
   const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -73,7 +74,7 @@ const Header = () => {
   const authId = Cookies.get("authId")!;
   const isAdmin = Cookies.get("isAdmin")!;
   const loginUser = useLoginUserFetch({ authId: authId });
-  console.log(loginUser, "user");
+  // console.log(loginUser, "user");
   const onLogoutClick = () => {
     signOut(auth)
       .then(() => {
@@ -124,28 +125,12 @@ const Header = () => {
             }}
           />
         </div>
-        {/* {loginUser?.firstName === "" ? (
-          <></>
-        ) : loginUser?.isAdmin ? (
-          <div style={{ marginLeft: "auto" }}>
-            <Link to="/adminhome">
-              <ActiveDarkBlueButton
-                event={onLogoutClick}
-                sxStyle={{ borderRadius: 10 }}
-              >
-                管理者用TOP
-              </ActiveDarkBlueButton>
-            </Link>
-          </div>
-        ) : (
-          ""
-        )} */}
         {loginUser?.isAdmin ? (
           <div style={{ marginLeft: "auto" }}>
             <Link to="/adminhome">
               <ActiveDarkBlueButton
-                event={onLogoutClick}
                 sxStyle={{ borderRadius: 10 }}
+                event={function (): void {}}
               >
                 管理者用TOP
               </ActiveDarkBlueButton>

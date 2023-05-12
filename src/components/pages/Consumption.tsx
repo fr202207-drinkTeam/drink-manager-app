@@ -1,8 +1,8 @@
 import { Box, CircularProgress, Paper, Alert, AlertTitle } from '@mui/material';
 
 import { FC, memo, useEffect, useState } from 'react';
-import StockCard from '../card/StockCard';
-import { useGetOfficeItems1 } from '../../hooks/useGetOfficeItems1';
+import StockCard from '../organisms/card/StockCard';
+import  useGetItems  from '../../hooks/useGetItems';
 import AdmTitleText from '../atoms/text/AdmTitleText';
 import { ActiveDarkBlueButton } from '../atoms/button/Button';
 import axios from 'axios';
@@ -10,7 +10,8 @@ import axios from 'axios';
 type Props = {};
 
 const Consumption: FC<Props> = memo((props) => {
-  const { itemData, loading, error } = useGetOfficeItems1();
+  const { itemData, itemLoading, itemError } = useGetItems("?intheOffice=true");
+  console.log("itemData",itemData)
   const [latestStockAmount, setLatestStockAmount] = useState<number>();
 
   const onClickExport = () => {
@@ -25,7 +26,7 @@ const Consumption: FC<Props> = memo((props) => {
         const StockHistory = res.data;
         setLatestStockAmount(StockHistory[StockHistory.length - 1].stockAmount);
       })
-      .catch((res) => console.log(res.error));
+      .catch((res) => console.log(res.itemError));
   };
 
   useEffect(() => {
@@ -51,12 +52,12 @@ const Consumption: FC<Props> = memo((props) => {
       <Box sx={{ width: '60%' }}>
         <AdmTitleText>消費在庫入力</AdmTitleText>
       </Box>
-      {error ? (
+      {itemError ? (
         <Alert severity="error" sx={{ marginTop: '30px', fontSize: '20px' }}>
-          <AlertTitle>Error</AlertTitle>
+          <AlertTitle>itemError</AlertTitle>
           データが見つかりませんでした。
         </Alert>
-      ) : loading ? (
+      ) : itemLoading ? (
         <CircularProgress sx={{ marginTop: '30px' }} />
       ) : (
         <StockCard itemData={itemData} />

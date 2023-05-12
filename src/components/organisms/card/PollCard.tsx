@@ -1,37 +1,36 @@
-import { useState } from "react";
 import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { ActiveBeigeButton, InactiveButton } from "../atoms/button/Button";
+import { ActiveBeigeButton, InactiveButton } from "../../atoms/button/Button";
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
+import { useLoginUserFetch } from "../../../hooks/useLoginUserFetch";
 //cookie
 import Cookies from "js-cookie";
 //types
-import { Items, Polls } from "../../types/type";
+import { Items, Polls } from "../../../types/type";
 //icon
 import SearchIcon from "@mui/icons-material/Search";
 import SwitchAccessShortcutAddIcon from "@mui/icons-material/SwitchAccessShortcutAdd";
-import ModalWindow from "../organisms/ModalWindow";
+import ModalWindow from "../ModalWindow";
 //hooks
-import useGetPollCategoryData from "../../hooks/useGetPollCategoryData";
+import useGetPollCategoryData from "../../../hooks/useGetPollCategoryData";
+import { useEffect, useState } from "react";
 
 type PollCardProps = {
   data: Items[];
   pollCategory: number;
   pollNum?: number;
-  sxStyle?:any
+  sxStyle?: any;
 };
 
-const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
+const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
   const navigate = useNavigate();
   //login
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
-
   const PopularPollData: Polls[] = useGetPollCategoryData(1);
   const OthersPollData: Polls[] = useGetPollCategoryData(2);
 
@@ -61,8 +60,9 @@ const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
         },
       });
       const responseData = await response.json();
+      navigate("/home")
+      alert(`投票を受け付けました。投票ありがとうございました！`)
       console.log(responseData);
-      window.location.reload()
     } catch (err) {
       console.log(err, "エラー");
     }
@@ -74,9 +74,9 @@ const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
         sx={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "space-around",
-          flex:"end",
-          mt: 5,
+          justifyContent: "flex-start",
+          ml: 5,
+          // mt: 2,
         }}
       >
         {data &&
@@ -84,12 +84,12 @@ const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
             return (
               <Card
                 sx={{
-                  width: 270,
-                  m: 2,
+                  width: 295,
+                  mx: 2,
                   boxShadow: "none",
                   border: "solid 1px ",
                   borderColor: "#bfbec5",
-                  ...sxStyle
+                  ...sxStyle,
                 }}
                 key={index}
               >
@@ -137,6 +137,7 @@ const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
                         height: 200,
                         objectFit: "cover",
                         m: "auto",
+                        p: 1,
                       }}
                     />
                     <CardContent sx={{ height: "150px" }}>
@@ -179,11 +180,12 @@ const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
                         gutterBottom
                         sx={{
                           textAlign: "center",
-                          fontSize: "16px",
+                          fontSize: "14px",
                           borderBottom: "double",
                           fontFamily: "Georgia",
                           fontWeight: "bold",
                           height: "200",
+                          mt: 1,
                         }}
                       >
                         {drink.name}
@@ -209,7 +211,7 @@ const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
                     width: 200,
                     boxShadow: "none",
                     fontWeight: "bold",
-                    ml: 4,
+                    ml: 6.5,
                     border: "double",
                   }}
                   event={() => {
@@ -228,23 +230,25 @@ const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
                   pollCategory === 2 &&
                   OthersPollData.some(
                     (data) => data.questionnaireId === pollNum
-                  )) ? (
+                  )) ||
+                (loginUser.isAdmin === true )? (
                   <InactiveButton
                     sx={{
                       background: "#e29399",
                       width: 200,
+                      textAlign: "center",
                       mb: 2,
                       boxShadow: "none",
                       border: "double",
                       fontWeight: "bold",
-                      ml: 4,
+                      ml: 6.5,
                       ":hover": {
                         background: "#e29399",
                         cursor: "pointer",
                       },
                     }}
                   >
-                    <SwitchAccessShortcutAddIcon />
+                    
                     &nbsp;投票しました
                   </InactiveButton>
                 ) : (
@@ -252,6 +256,12 @@ const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
                     title={`${drink.name}に投票してもよろしいですか？？`}
                     content={"⚠️一つの投票につき一回までしか投票できません"}
                     openButtonColor={"pink"}
+                    openButtonIcon={
+                      <>
+                        <SwitchAccessShortcutAddIcon />
+                        &nbsp;&nbsp;
+                      </>
+                    }
                     completeButtonColor={"blue"}
                     completeButtonName={`投票する`}
                     completeAction={() => submitPoll(drink.id)}
@@ -263,7 +273,7 @@ const PollCard = ({ data, pollNum, pollCategory,sxStyle }: PollCardProps) => {
                       boxShadow: "none",
                       border: "double",
                       fontWeight: "bold",
-                      ml: 4,
+                      ml: 6.5,
                       ":hover": {
                         background: "#e29399",
                         cursor: "pointer",

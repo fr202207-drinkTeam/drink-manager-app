@@ -35,7 +35,7 @@ const MainRoute = [
   },
 ];
 
-export const MainRouter = () => {
+export const MainRouter = (props:any) => {
   //Cookie
   const authId = Cookies.get("authId")!;
   const isAdmin = Cookies.get("isAdmin")!;
