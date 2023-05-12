@@ -2,10 +2,12 @@ import { Box } from "@mui/material";
 import { Questionnaire } from "../../../types/type";
 
 type PollTitleProps = {
-  poll: Questionnaire|undefined;
+  poll: Questionnaire;
 };
 
 const PollTitleResult = ({ poll }: PollTitleProps) => {
+  const startData=new Date(poll?.startDate).toLocaleDateString()
+  const endData=new Date(poll?.endDate).toLocaleDateString()
 
   return (
     <>
@@ -40,8 +42,8 @@ const PollTitleResult = ({ poll }: PollTitleProps) => {
               letterSpacing:5,
             }}
           >
-            開催期間: {poll?.startDate.toLocaleString()}&nbsp;〜&nbsp;
-            {poll?.endDate.toLocaleString()}
+            開催期間: {startData}&nbsp;〜&nbsp;
+            {endData}
           </Box>
         </Box>
     </>
