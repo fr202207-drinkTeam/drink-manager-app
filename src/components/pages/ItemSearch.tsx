@@ -217,9 +217,10 @@ const ItemSearch: FC<Props> = memo((props) => {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
+          width:"900px"
         }}
       >
-        <Box>
+        <Box >
           {category ? (
             <Typography variant="h6" sx={{ mb: 2 }}>
               「{categoryName}」の検索結果一覧
