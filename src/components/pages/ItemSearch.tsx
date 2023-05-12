@@ -236,7 +236,7 @@ const ItemSearch: FC<Props> = memo((props) => {
             検索結果：{allItem?.length}件
           </Typography>
         </Box>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box sx={{ display: "flex", alignItems: "center", }}>
           <Select
             size="small"
             value={selectedValue}
