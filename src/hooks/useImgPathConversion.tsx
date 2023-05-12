@@ -1,43 +1,55 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { storage } from "../Firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
+import { v4 as uuidv4 } from "uuid";
 
 type Props = {
-  imgFile: any;
+  imgFiles: File[];
+  addItem: number;
 };
 
 const useImgPathConversion = (props: Props) => {
-  const [loading, setLoading] = useState(false);
-  const [isUploaded, setIsUploaded] = useState(false);
-  const [imagePath, setImagePath] = useState<string | null>(null);
+  const [imagePath, setImagePath] = useState<string[]>([]);
+  const isFirstRender = useRef(true);
+  console.log("imgFiles", props.imgFiles)
 
   useEffect(() => {
-    if (props.imgFile) {
-      const storageRef = ref(storage, `/${props.imgFile.name}`);
-      const file = props.imgFile instanceof File ? props.imgFile : new File([], props.imgFile);
-      const uploadImage = uploadBytesResumable(storageRef, file);
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    const imagesPathsArr: string[] = [];
+
+    props.imgFiles.forEach((imgFile) => {
+      // uuidで画像登録用文字列生成
+      const uniqueId = uuidv4();
+      const storageRef = ref(storage, `/${uniqueId}`);
+      const uploadImage = uploadBytesResumable(storageRef, imgFile);
 
       uploadImage.on(
         "state_changed",
+        (snapshot) => {},
+        (err) => {},
         () => {
-          setLoading(true);
-        },
-        (err) => {
-          console.log("Error:" + err);
-        },
-        () => {
-          setLoading(false);
-          setIsUploaded(true);
-    
           getDownloadURL(storageRef).then((url) => {
-            setImagePath(url);
+            imagesPathsArr.push(url);
           });
         }
       );
-    }
-  }, [props.imgFile]);
+      return imagesPathsArr;
+    });
 
-  return { imagePath, loading, isUploaded };
+      console.log("set")
+      setImagePath(imagesPathsArr);
+
+  }, [props.addItem]);
+
+  console.log("imagePathsArr", imagePath);
+  if(imagePath.length === props.imgFiles.length) {
+    return { imagePath };
+  }
+  return {}
 };
 
 export default useImgPathConversion;

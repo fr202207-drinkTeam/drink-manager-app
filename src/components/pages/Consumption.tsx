@@ -10,7 +10,7 @@ import {
 import { FC, memo, useEffect, useState } from 'react';
 
 import StockCard from '../card/StockCard';
-import { useGetOfficeItems1 } from '../../hooks/useGetOfficeItems1';
+import  useGetItems  from '../../hooks/useGetItems';
 import AdmTitleText from '../atoms/text/AdmTitleText';
 import { ActiveDarkBlueButton } from '../atoms/button/Button';
 import axios from 'axios';
@@ -29,6 +29,9 @@ const Consumption: FC<Props> = memo((props) => {
     );
     setInputValueArr(firstInputValueArr);
   }, [itemData]);
+  const { itemData, itemLoading, itemError } = useGetItems("?intheOffice=true");
+  console.log("itemData",itemData)
+  const [latestStockAmount, setLatestStockAmount] = useState<number>();
 
   const onClickExport = () => {
     alert('送信しました。');
@@ -46,6 +49,16 @@ const Consumption: FC<Props> = memo((props) => {
   const [inTheOfficeItemArr, setInTheOfficeItemArr] = useState<
     Array<StockHistory>
   >([]);
+  //現在の在庫量を取得
+  const getStockAmount = () => {
+    axios
+      .get(`http://localhost:8880/stockhistory?itemId=2&_sort=id&_order=ask`)
+      .then((res) => {
+        const StockHistory = res.data;
+        setLatestStockAmount(StockHistory[StockHistory.length - 1].stockAmount);
+      })
+      .catch((res) => console.log(res.itemError));
+  };
 
   useEffect(() => {
     getStockAmount();
@@ -121,9 +134,9 @@ const Consumption: FC<Props> = memo((props) => {
       <Box sx={{ width: '60%' }}>
         <AdmTitleText>消費在庫入力</AdmTitleText>
       </Box>
-      {error ? (
+      {itemError ? (
         <Alert severity="error" sx={{ marginTop: '30px', fontSize: '20px' }}>
-          <AlertTitle>Error</AlertTitle>
+          <AlertTitle>itemError</AlertTitle>
           データが見つかりませんでした。
         </Alert>
       ) : loading ? (

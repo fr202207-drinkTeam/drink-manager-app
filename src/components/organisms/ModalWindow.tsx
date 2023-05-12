@@ -6,8 +6,6 @@ import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Unstable_Grid2";
 
-import SwitchAccessShortcutAddIcon from "@mui/icons-material/SwitchAccessShortcutAdd";
-
 import {
   ActiveBeigeButton,
   ActiveBlueButton,
@@ -16,6 +14,8 @@ import {
   ActivePinkButton,
   ActiveRedButton,
   InactiveButton,
+  ActiveGrayButton,
+  ActiveBorderButton,
 } from "../atoms/button/Button";
 
 const style = {
@@ -30,15 +30,17 @@ const style = {
   p: 4,
 };
 
-// モーダルタイトル、内容、表示ボタン（色、スタイル）、完了ボタン（色、名前、処理）、キャンセルボタン（色）
+// モーダルタイトル、内容、表示ボタン（色、スタイル、アイコン）、完了ボタン（色、名前、処理）、キャンセルボタン（色）
 type Props = {
   title: string;
   content: string;
   openButtonColor: string;
   openButtonSxStyle?: object;
+  openButtonIcon?: JSX.Element;
   completeButtonColor: string;
   completeButtonName: string;
-  completeAction: () => any;
+  buttonName?: string;
+  completeAction: any;
   cancelButtonColor: string;
 };
 
@@ -56,8 +58,10 @@ const ModalWindow: FC<Props> = memo((props: Props) => {
     content,
     openButtonColor,
     openButtonSxStyle,
+    openButtonIcon,
     completeButtonColor,
     completeButtonName,
+    buttonName,
     completeAction,
     cancelButtonColor,
   } = props;
@@ -99,8 +103,8 @@ const ModalWindow: FC<Props> = memo((props: Props) => {
       case "pink":
         return (
           <ActivePinkButton event={action} sxStyle={openButtonSxStyle}>
-            <SwitchAccessShortcutAddIcon />
-            &nbsp;&nbsp;{label}
+            {openButtonIcon}
+            {label}
           </ActivePinkButton>
         );
       case "darkblue":
@@ -115,6 +119,18 @@ const ModalWindow: FC<Props> = memo((props: Props) => {
             {label}
           </ActiveRedButton>
         );
+      case "gray":
+        return (
+          <ActiveGrayButton event={action} sxStyle={openButtonSxStyle}>
+            {label}
+          </ActiveGrayButton>
+        );
+      case "borderRed":
+        return (
+          <ActiveBorderButton event={action} sxStyle={openButtonSxStyle}>
+            {label}
+          </ActiveBorderButton>
+        );
       default:
         return <Fragment />;
     }
@@ -122,12 +138,22 @@ const ModalWindow: FC<Props> = memo((props: Props) => {
 
   // モーダル表示ボタン
   const OpenButton = () => {
-    return buttonSetting(
-      openButtonColor,
-      handleOpen,
-      completeButtonName,
-      openButtonSxStyle
-    );
+    if(buttonName) {
+      return buttonSetting(
+        openButtonColor,
+        handleOpen,
+        buttonName,
+        openButtonSxStyle
+      );
+    } else {
+      return buttonSetting(
+        openButtonColor,
+        handleOpen,
+        completeButtonName,
+        openButtonSxStyle
+      );
+    }
+    
   };
 
   // 完了ボタン

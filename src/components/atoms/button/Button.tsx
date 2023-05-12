@@ -1,5 +1,5 @@
-import React from 'react';
-import Button, { ButtonProps } from '@mui/material/Button';
+import React from "react";
+import Button, { ButtonProps } from "@mui/material/Button";
 
 interface InactiveButtonProps extends ButtonProps {
   sxStyle?: any;
@@ -28,7 +28,7 @@ const InactiveButton = ({
       variant="contained"
       disabled
       sx={{
-        fontWeight: 'bold',
+        fontWeight: "bold",
         fontFamily: "'M PLUS 1p', sans-serif",
         ...sxStyle,
       }}
@@ -50,12 +50,12 @@ const ActiveBlueButton = ({
       variant="contained"
       onClick={event}
       sx={{
-        background: '#8FB8D6',
-        fontWeight: 'bold',
-        ':hover': {
-          background: '#8FB8D6',
+        background: "#8FB8D6",
+        fontWeight: "bold",
+        ":hover": {
+          background: "#8FB8D6",
           opacity: 0.7,
-          cursor: 'pointer',
+          cursor: "pointer",
         },
         fontFamily: "'M PLUS 1p', sans-serif",
         ...sxStyle,
@@ -78,12 +78,12 @@ const ActiveOrangeButton = ({
       variant="contained"
       onClick={event}
       sx={{
-        background: '#ea6f00',
-        fontWeight: 'bold',
-        ':hover': {
-          background: '#ea6f00',
+        background: "#ea6f00",
+        fontWeight: "bold",
+        ":hover": {
+          background: "#ea6f00",
           opacity: 0.7,
-          cursor: 'pointer',
+          cursor: "pointer",
         },
         fontFamily: "'M PLUS 1p', sans-serif",
         ...sxStyle,
@@ -106,12 +106,12 @@ const ActiveBeigeButton = ({
       variant="contained"
       onClick={event}
       sx={{
-        background: '#C89F81',
-        fontWeight: 'bold',
-        ':hover': {
-          background: '#C89F81',
+        background: "#C89F81",
+        fontWeight: "bold",
+        ":hover": {
+          background: "#C89F81",
           opacity: 0.7,
-          cursor: 'pointer',
+          cursor: "pointer",
         },
         fontFamily: "'M PLUS 1p', sans-serif",
         ...sxStyle,
@@ -134,12 +134,12 @@ const ActivePinkButton = ({
       variant="contained"
       onClick={event}
       sx={{
-        background: '#e29399',
-        fontWeight: 'bold',
-        ':hover': {
-          background: '#e29399',
+        background: "#e29399",
+        fontWeight: "bold",
+        ":hover": {
+          background: "#e29399",
           opacity: 0.7,
-          cursor: 'pointer',
+          cursor: "pointer",
         },
         fontFamily: "'M PLUS 1p', sans-serif",
         ...sxStyle,
@@ -162,12 +162,12 @@ const ActiveDarkBlueButton = ({
       variant="contained"
       onClick={event}
       sx={{
-        background: '#024098',
-        fontWeight: 'bold',
-        ':hover': {
-          background: '#024098',
+        background: "#024098",
+        fontWeight: "bold",
+        ":hover": {
+          background: "#024098",
           opacity: 0.7,
-          cursor: 'pointer',
+          cursor: "pointer",
         },
         fontFamily: "'M PLUS 1p', sans-serif",
         ...sxStyle,
@@ -190,12 +190,12 @@ const ActiveRedButton = ({
       variant="contained"
       onClick={event}
       sx={{
-        background: '#ff0000',
-        fontWeight: 'bold',
-        ':hover': {
-          background: '#ff0000',
+        background: "#E83929",
+        fontWeight: "bold",
+        ":hover": {
+          background: "#E83929",
           opacity: 0.7,
-          cursor: 'pointer',
+          cursor: "pointer",
         },
         fontFamily: "'M PLUS 1p', sans-serif",
         ...sxStyle,
@@ -207,6 +207,63 @@ const ActiveRedButton = ({
   );
 };
 
+const ActiveBorderButton = ({
+  children,
+  event,
+  sxStyle,
+  ...props
+}: ActiveButtonProps) => {
+  return (
+    <Button
+      variant="contained"
+      onClick={event}
+      sx={{
+        background: "#fff",
+        fontWeight: "bold",
+        border: "1px solid #E83929",
+        color: "#E83929",
+        ":hover": {
+          background: "#fff",
+          opacity: 0.7,
+          cursor: "pointer",
+        },
+        fontFamily: "'M PLUS 1p', sans-serif",
+        ...sxStyle,
+      }}
+      {...props}
+    >
+      {children}
+    </Button>
+  );
+};
+const ActiveGrayButton = ({
+  children,
+  event,
+  sxStyle,
+  ...props
+}: ActiveButtonProps) => {
+  return (
+    <Button
+      variant="contained"
+      onClick={event}
+      sx={{
+        background: "#a4a8ab",
+        fontWeight: "bold",
+        color: "#fff",
+        ":hover": {
+          background: "#a4a8ab",
+          opacity: 0.7,
+          cursor: "pointer",
+        },
+        fontFamily: "'M PLUS 1p', sans-serif",
+        ...sxStyle,
+      }}
+      {...props}
+    >
+      {children}
+    </Button>
+  );
+};
 export {
   PrimaryButton,
   InactiveButton,
@@ -216,4 +273,6 @@ export {
   ActivePinkButton,
   ActiveDarkBlueButton,
   ActiveRedButton,
+  ActiveBorderButton,
+  ActiveGrayButton,
 };

@@ -1,7 +1,5 @@
 import { FC, memo } from "react";
-// import "./App.css";
 import React from "react";
-
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -10,45 +8,170 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import DefaultLayout from "../layout/DefaultLayout";
-import Slider from "../atoms/slider/Slider";
+
 import { useRecoilValue } from "recoil";
 import { loginUserState } from "../../store/loginUserState";
+import { Grid } from "@mui/material";
+import ItemCard from "../card/ItemCard";
+import { Paper } from "@mui/material";
+import Container from "@mui/material";
+import {
+  ActiveBeigeButton,
+  ActiveBlueButton,
+  ActivePinkButton,
+} from "../atoms/button/Button";
+import { useState, useEffect } from "react";
+
+import { useNavigate } from "react-router-dom";
+import PollRanking from "../organisms/PollRanking";
+import PostsData from "../organisms/PostData ";
+import { Post } from "../../types/type";
+import PostData from "../organisms/PostData ";
+import useGetPosts from "../../hooks/useGetPosts";
+import Cookies from "js-cookie";
+import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 type Props = {};
 
 const Top: FC<Props> = memo((props) => {
-  const images = ["../item.png", "../item.png", "../item.png"];
+  const authId = Cookies.get("authId")!;
+  const loginUser = useLoginUserFetch({ authId: authId });
+  const navigate = useNavigate();
+  const [postData, setPostData] = useState<Post[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [editPostData, setEditPostData] = useState<Post | null>(null);
+
+  useEffect(() => {
+    fetch(
+      `http://localhost:8880/posts?_sort=createdAt&_order=desc&_start=0&_end=3`,
+      { method: "GET" }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setPostData(data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
   return (
     <>
       <DefaultLayout>
-        {/*  内藤さん用商品詳細ページスライダー start*/}
-        <Box
+        <Box sx={{ textAlign: "center" }}>
+          <Card
+            sx={{
+              p: 1,
+              backgroundColor: "#fff",
+              border: "4px dotted #ffdead ",
+              textAlign: "center",
+              width: "60%",
+              borderRadius: "20px",
+              m: "auto",
+            }}
+          >
+            <Typography
+              gutterBottom
+              component="div"
+              sx={{ m: 4, color: "#595857", fontSize: "25px" }}
+            >
+              みんなの投票で会社に設置してある<br></br>
+              <Typography
+                gutterBottom
+                component="span"
+                sx={{
+                  color: "#f3bf88",
+                  fontSize: "25px",
+                  fontWeight: "bold",
+                }}
+              >
+                ドリンクの種類
+              </Typography>
+              がかわるよ！
+            </Typography>
+            <Typography
+              gutterBottom
+              component="div"
+              sx={{ m: 4, color: "#595857", fontSize: "16px" }}
+            >
+              好きなドリンクを教えてね。<br></br>
+              あなたの一票で結果が変わるかも!?
+            </Typography>
+          </Card>
+        </Box>
+        <Box sx={{ textAlign: "center" }}>
+          <ActivePinkButton
+            event={() => {
+              navigate("/home/poll");
+            }}
+            sxStyle={{ width: "20%", py: 2, my: 10 }}
+          >
+            投票する
+          </ActivePinkButton>
+        </Box>
+        <Box sx={{ textAlign: "center" }}>
+          <PollRanking />
+          <ActivePinkButton
+            event={() => {
+              navigate("/home/poll");
+            }}
+            sxStyle={{ width: "20%", py: 2, my: 10 }}
+          >
+            過去の投票結果を見る
+          </ActivePinkButton>
+        </Box>
+        <Card
           sx={{
-            mr: 15,
             p: 1,
-            display: "flex",
-            ml: 10,
-            alignItems: "center",
-            //  スライダーの大きさの調整のため自由に変更お願いします!
-            width: 400,
+            backgroundColor: "#fff",
+            border: "4px dotted #ffdead ",
+            textAlign: "center",
+            width: "60%",
+            borderRadius: "20px",
+            m: "auto",
           }}
         >
-          <Slider
-            // 画像　<Slider>コンポーネントにてmapで回している
-            images={images}
-            // 何枚画像を表示させるか
-            slidesPerView={1}
-            // 画像ループさせるか(最後の画像までいったら自動的に1枚目に戻る)
-            loop={true}
-            // 矢印の表示
-            navigation={true}
-            // 矢印を押下せずに自動的にループさせるか
-            autoplay={false}
-          />
+          <Typography
+            gutterBottom
+            component="div"
+            sx={{ m: 2, color: "#595857", fontSize: "25px" }}
+          >
+            みんなの声
+          </Typography>
+          <Typography
+            gutterBottom
+            component="div"
+            sx={{ m: 2, color: "#595857", fontSize: "16px" }}
+          >
+            ラクスパートナーズのみんなの投稿がとどいてるよ !
+          </Typography>
+        </Card>
+        <Paper sx={{ p: "20px", background: "#eae5e3", mt: "50px" }}>
+          <Box sx={{ overflowY: "scroll", height: "500px", px: "20px" }}>
+            {postData.map((postData: Post) => (
+              <PostData
+                key={postData.id}
+                postData={postData}
+                isComment={false}
+                loginUser={loginUser}
+                setEditPostData={function(
+                  value: React.SetStateAction<Post | null>
+                ): void {}}
+              />
+            ))}
+          </Box>
+        </Paper>
+        <Box sx={{ textAlign: "center", mt: 4 }}>
+          <Grid container spacing={2}></Grid>
+          <ActiveBeigeButton
+            event={() => {
+              navigate("/home/timeline");
+            }}
+            sxStyle={{ width: "20%", py: 2, mt: 10 }}
+          >
+            タイムラインを見る
+          </ActiveBeigeButton>
         </Box>
-        {/*  内藤さん用商品詳細ページスライダー  end*/}
       </DefaultLayout>
     </>
   );
 });
-
 export default Top;

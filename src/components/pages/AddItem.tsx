@@ -4,177 +4,159 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import {
-  InactiveButton,
-  ActiveBlueButton,
-  ActiveOrangeButton,
-  ActiveDarkBlueButton,
-  ActiveRedButton,
-} from "../atoms/button/Button";
+import { InactiveButton, ActiveBorderButton } from "../atoms/button/Button";
 import AdmTitleText from "../atoms/text/AdmTitleText";
-import useImgPathConversion from "../../hooks/useImgPathConversion";
+import ImgPathConversion from ".././../utils/ImgPathConversion";
 import ModalWindow from "../organisms/ModalWindow";
-// import useLoginUser from "../../hooks/useLoginUser";
 import ItemForm from "../organisms/ItemForm";
+import Cookies from "js-cookie";
+import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
+import { CircularProgress } from "@mui/material";
 
-type Props = {};
+type Props = {
+  //投票から商品追加したかどうか
+  pollFlag?: boolean;
+  setPollFlag?: React.Dispatch<React.SetStateAction<boolean>>;
+  handleClose?: any;
+};
 
-const AddItem: FC<Props> = memo((props) => {
+const AddItem: FC<Props> = memo(({ pollFlag, setPollFlag, handleClose }) => {
   const navigate: NavigateFunction = useNavigate();
   const [itemName, setItemName] = useState<string>("");
   const [itemDescription, setItemDescription] = useState<string>("");
   const [itemCategory, setItemCategory] = useState<number>(0);
-  const [itemImages, setItemImages] = useState<{ id: number; value: string }[]>(
-    []
-  );
-  const [testImageData, setTestImageData] = useState<any>(null);
-  const { imagePath, loading, isUploaded } = useImgPathConversion({
-    imgFile: testImageData,
-  });
+  const [itemImages, setItemImages] = useState<File[]>([]);
+  const [adding, setAdding] = useState<boolean>(false);
 
   // recoilからログインユーザー情報を取得
-
-  // テスト用
-  const imageData = (e: any) => {
-    setTestImageData(e.target.files[0]);
-  };
-
-  // 画像の削除機能
-  const onClickDeleteItemImage = (imageId: number) => {
-    const updatedItemImages = [...itemImages];
-    updatedItemImages.splice(imageId - 1, 1);
-    setItemImages(updatedItemImages);
-  };
-
-  // 画像プレビュー機能
-  const addItemImage = (event: any) => {
-    const file = event.target.files?.[0];
-    if (!file) {
-      return;
-    }
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      const newImage = {
-        id: itemImages.length + 1,
-        value: reader.result as string,
-      };
-      setItemImages([...itemImages, newImage]);
-    };
-  };
+  const authId = Cookies.get("authId")!;
+  const loginUser = useLoginUserFetch({ authId: authId });
 
   // データ追加処理(確定ボタン)
   const onClickAddItemData: () => Promise<void> = async () => {
-    await fetch("http://localhost:8880/items", {
+    setAdding(true)
+    const imagePath = await ImgPathConversion({
+      imgFiles: itemImages,
+    });
+    fetch("http://localhost:8880/items", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: "test",
-        name: { itemName },
-        description: { itemDescription },
-        image: itemImages,
-        itemCategory: { itemCategory },
+        name: itemName,
+        description: itemDescription,
+        image: imagePath,
+        itemCategory: itemCategory,
         createdAt: new Date(),
         inTheOffice: false,
-        author: "test", // recoilから取得
-        otherItem: false,
+        author: loginUser.id,
+        otherItem: pollFlag?true:false,
       }),
-    })
-      .then((response) => response.json())
-      .then(() => {
+    }).then(() => {
+      if(pollFlag){
+        handleClose()
+      }else{
         navigate("/adminhome");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+      }
+      console.log("success");
+    });
+  };
+
+  //投票から削除押した場合
+  const handleDelete = () => {
+    if (pollFlag) {
+      handleClose();
+    } else {
+      navigate(-1);
+    }
   };
 
   return (
     <>
       <Paper sx={{ p: 5, width: "80%", m: "auto" }}>
         <AdmTitleText>商品追加</AdmTitleText>
-        <ItemForm
-          setItemName={setItemName}
-          setItemDescription={setItemDescription}
-          setItemCategory={setItemCategory}
-          setItemImages={setItemImages}
-        />
-
-        {itemName &&
-        itemDescription &&
-        itemCategory !== 0 &&
-        itemImages.length > 0 ? (
-          <></>
+        {adding ? (
+          <>
+            <div style={{ margin: "200px", textAlign: "center" }}>
+              <p>登録中</p>
+              <CircularProgress />
+            </div>
+          </>
         ) : (
           <>
-            <Typography
-              variant="body1"
-              component="div"
-              textAlign="center"
-              sx={{ mb: 1, mt: 3, color: "red" }}
-            >
-              全ての項目を入力、または選択して下さい
-            </Typography>
-          </>
-        )}
-
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <ModalWindow
-            title="削除"
-            content="内容は破棄されますがよろしいですか？"
-            openButtonColor="red"
-            completeButtonColor="beige"
-            completeButtonName="削除"
-            completeAction={() => {
-              navigate(-1);
-            }}
-            cancelButtonColor="pink"
-            openButtonSxStyle={{
-              my: 2,
-              mr: 3,
-              py: "5px",
-              fontSize: "16px",
-            }}
-          />
-          {itemName &&
-          itemDescription &&
-          itemCategory !== 0 &&
-          itemImages.length > 0 ? (
-            <ActiveBlueButton
-              event={onClickAddItemData}
-              sxStyle={{
-                my: 2,
-                mr: 3,
-                py: "5px",
-                fontSize: "16px",
-              }}
-            >
-              確定
-            </ActiveBlueButton>
-          ) : (
-            <>
-              <InactiveButton
-                sxStyle={{
+            <ItemForm
+              setItemName={setItemName}
+              setItemDescription={setItemDescription}
+              setItemCategory={setItemCategory}
+              setItemImages={setItemImages}
+            />
+            {itemName &&
+            itemDescription &&
+            itemCategory !== 0 &&
+            itemImages.length > 0 ? (
+              <></>
+            ) : (
+              <>
+                <Typography
+                  variant="body1"
+                  component="div"
+                  textAlign="center"
+                  sx={{ mb: 1, mt: 3, color: "red" }}
+                >
+                  全ての項目を入力、または選択して下さい
+                </Typography>
+              </>
+            )}
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <ModalWindow
+                title=""
+                content="内容は破棄されますがよろしいですか？"
+                openButtonColor="red"
+                completeButtonColor="red"
+                completeButtonName="OK"
+                buttonName="入力内容を破棄"
+                completeAction={handleDelete}
+                cancelButtonColor="gray"
+                openButtonSxStyle={{
                   my: 2,
                   mr: 3,
                   py: "5px",
                   fontSize: "16px",
                 }}
-              >
-                確定
-              </InactiveButton>
-            </>
-          )}
-        </Box>
-        <p>テスト</p>
-        <input type="file" onChange={imageData} />
-        <div>
-          {loading && <p>Uploading image...</p>}
-          {isUploaded && <p>Image uploaded successfully!</p>}
-          {imagePath && <img src={imagePath} alt="uploaded" />}
-        </div>
+              />
+              {itemName &&
+              itemDescription &&
+              itemCategory !== 0 &&
+              itemImages.length > 0 ? (
+                <ActiveBorderButton
+                  event={onClickAddItemData}
+                  sxStyle={{
+                    my: 2,
+                    mr: 3,
+                    py: "5px",
+                    fontSize: "16px",
+                  }}
+                >
+                  確定
+                </ActiveBorderButton>
+              ) : (
+                <>
+                  <InactiveButton
+                    sxStyle={{
+                      my: 2,
+                      mr: 3,
+                      py: "5px",
+                      fontSize: "16px",
+                    }}
+                  >
+                    確定
+                  </InactiveButton>
+                </>
+              )}
+            </Box>
+          </>
+        )}
       </Paper>
     </>
   );

@@ -1,42 +1,34 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import { useState } from "react";
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  TextField,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
-import { PrimaryButton } from "../atoms/button/Button";
-import AccordionMenu from "../atoms/accordion/AccordionMenu";
+import CategoryAccordion from "../atoms/accordion/CategoryAccordion";
 import Header from "./Header";
 import Footer from "./Footer";
-import { CardMedia } from "@mui/material";
-import { ActiveOrangeButton } from "../atoms/button/Button";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Slider from "../atoms/slider/Slider";
-function DefaultLayout({ children }: { children: any }) {
+import ItemSearchForm from "../molecules/ItemSearchForm";
+import { Items } from "../../types/type";
+import { Fab } from "@mui/material";
+import { KeyboardArrowUp } from "@mui/icons-material";
+import ScrollPageTop from "../atoms/ScrollPageTop";
+import Cookies from "js-cookie";
+import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
+
+function DefaultLayout({ children,props }: { children: any,props?:any }) {
   const handleButtonClick = () => {};
   // パスの取得
   const location = useLocation();
   // console.log(location.pathname);
   const images = ["../top.png", "../top.png", "../top.png"];
+  const [searchWord, setSearchWord] = useState("");
+  const [searchResults, setSearchResults] = useState<Items[]>();
+  const authId = Cookies.get("authId")!;
+  const loginUser = useLoginUserFetch({ authId: authId });
   return (
     <React.Fragment>
       <Header />
@@ -48,15 +40,14 @@ function DefaultLayout({ children }: { children: any }) {
           loop={false}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           navigation={false}
-          // style={style}
         />
       ) : (
         ""
       )}
-      <Container maxWidth="xl" sx={{ mt: 10, mb: 20 }}>
+      <Container maxWidth="xl" sx={{ mt: 10, mb: 10 }}>
         <Grid container spacing={2}>
           <Grid item xs={3}>
-            <AccordionMenu />
+            <CategoryAccordion />
             {/* 検索ボタン */}
 
             <Typography
@@ -67,22 +58,21 @@ function DefaultLayout({ children }: { children: any }) {
               - キーワードで探す -
             </Typography>
             <Box sx={{ mb: 10 }}>
-              <TextField
-                id="outlined-basic"
-                variant="outlined"
-                sx={{ my: 4, width: "100%", backgroundColor: "#fff" }}
+              <ItemSearchForm
+                searchWord={searchWord}
+                setSearchWord={setSearchWord}
+                searchResults={searchResults}
+                setSearchResults={setSearchResults}
               />
-              <ActiveOrangeButton
-                event={handleButtonClick}
-                sxStyle={{ width: "100%" }} // ここでwidthを指定する
-              >
-                検索する
-              </ActiveOrangeButton>
               <Box sx={{ my: 4 }}>
-                <img src="/dummybanner.jpg" style={{ maxWidth: "100%" }} />
+                <Link to="/home/timeline">
+                  <img src="/timeline.png" style={{ maxWidth: "100%" }} />
+                </Link>
               </Box>
               <Box>
-                <img src="/dummybanner.jpg" style={{ maxWidth: "100%" }} />
+                <Link to="/home/poll">
+                  <img src="/poll.png" style={{ maxWidth: "100%" }} />
+                </Link>
               </Box>
             </Box>
           </Grid>
@@ -92,27 +82,46 @@ function DefaultLayout({ children }: { children: any }) {
           </Grid>
         </Grid>
       </Container>
-      {/* チャットボット  /adminhome から始まるパス名の際には非表示*/}
-      {!location.pathname.startsWith("/adminhome") ? (
-        <Box
-          sx={{
-            borderRadius: 20,
-            position: "fixed",
-            bottom: 20,
-            right: 10,
-            zIndex: 1,
-            width: 100,
-            height: 100,
-          }}
-        >
-          <img
-            src="/chatbot.png"
-            style={{ maxWidth: "100%", borderRadius: "20px" }}
-          />
-        </Box>
+      {/* チャットボット管理者でのログイン時に非表示 */}
+      {!loginUser?.isAdmin ? (
+        <Link to="/faq" target="_blank">
+          <Box
+            sx={{
+              borderRadius: 20,
+              position: "fixed",
+              bottom: 20,
+              right: 10,
+              zIndex: 1,
+              width: 100,
+              height: 100,
+            }}
+          >
+            <img
+              src="/chatbot.png"
+              style={{ maxWidth: "100%", borderRadius: "20px" }}
+            />
+          </Box>
+        </Link>
       ) : (
         ""
       )}
+       <ScrollPageTop {...props}>
+          <Fab
+            size="large"
+            aria-label="scroll back to top"
+            sx={{
+              bottom: "120px",
+              backgroundColor: "#9AB7CA",
+              color: "#fff",
+              ":hover": {
+                background: "#9AB7CA",
+                cursor: "pointer",
+              },
+            }}
+          >
+            <KeyboardArrowUp />
+          </Fab>
+        </ScrollPageTop>
       <Footer />
     </React.Fragment>
   );

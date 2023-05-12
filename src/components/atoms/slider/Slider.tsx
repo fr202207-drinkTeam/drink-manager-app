@@ -28,7 +28,7 @@ const Slider = (props: Props) => {
       className="itemSwiper"
     >
       {images.map((image: string, index: any) => (
-        <SwiperSlide key={index}>
+        <SwiperSlide key={index} >
           <img src={image} alt="" style={{ width: "100%" }} />
         </SwiperSlide>
       ))}

@@ -10,12 +10,16 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import PreviewImage from "../molecules/PreviewImage";
+import { useParams } from "react-router";
+import useGetAnItem from "../../hooks/useGetAnItem";
+import previewImages from "../../utils/previewImages";
 
 type Props = {
   setItemName: Dispatch<SetStateAction<string>>;
   setItemDescription: Dispatch<SetStateAction<string>>;
   setItemCategory: Dispatch<SetStateAction<number>>;
-  setItemImages: Dispatch<SetStateAction<{ id: number; value: string }[]>>;
+  setItemImages: Dispatch<SetStateAction<File[]>>;
 };
 
 const ItemForm: FC<Props> = memo((props) => {
@@ -23,39 +27,14 @@ const ItemForm: FC<Props> = memo((props) => {
   const [formItemName, setItemName] = useState<string>("");
   const [formItemDescription, setItemDescription] = useState<string>("");
   const [formItemCategory, setItemCategory] = useState<number>(0);
-  const [formItemImages, setItemImages] = useState<
-    { id: number; value: string }[]
-  >([]);
+  const [formItemImages, setItemImages] = useState<File[]>([]);
 
   // propsの受け渡しの処理
   props.setItemName(formItemName);
   props.setItemDescription(formItemDescription);
   props.setItemCategory(formItemCategory);
   props.setItemImages(formItemImages);
-
-  // 画像の削除機能
-  const onClickDeleteItemImage: (imageId: number) => void = (imageId: number) => {
-    const updatedItemImages = [...formItemImages];
-    updatedItemImages.splice(imageId - 1, 1);
-    setItemImages(updatedItemImages);
-  };
-
-  // 画像プレビュー機能
-  const addItemImage = (event: any) => {
-    const file = event.target.files?.[0];
-    if (!file) {
-      return;
-    }
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      const newImage = {
-        id: formItemImages.length + 1,
-        value: reader.result as string,
-      };
-      setItemImages([...formItemImages, newImage]);
-    };
-  };
+  console.log("set serve props");
 
   return (
     <>
@@ -66,65 +45,35 @@ const ItemForm: FC<Props> = memo((props) => {
         required
         onChange={(e: any) => setItemName(e.target.value)}
         sx={{ width: 400, mb: 5 }}
-        inputProps={{ maxLength: 20 }}
+        inputProps={{ maxLength: 18 }}
       />
 
-      <Typography variant="body1" component="p" sx={{ mb: 1 }}>
-        商品画像 * 最大3枚まで
+      <Typography variant="body1" component="p" sx={{ mb: 1, color: "rgba(0, 0, 0, 0.6)" }}>
+        商品画像 *
       </Typography>
 
-      <Box sx={{ display: "flex", mb: 5, width: 800, alignItems: "center" }}>
-        {formItemImages.map((item, index) => {
-          return (
-            <>
-              <Box sx={{ width: 300 }} key={index}>
-                <CardMedia
-                  component="img"
-                  image={item.value}
-                  alt="商品画像"
-                  sx={{ m: "auto", width: 200 }}
-                />
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <label htmlFor={item.id.toString()}>
-                    <Button
-                      style={{
-                        background: "none",
-                        border: "none",
-                        margin: "15px 1px",
-                        fontWeight: "bold",
-                        fontSize: "16px",
-                        color: "#000",
-                        fontFamily: "'M PLUS 1p', sans-serif",
-                      }}
-                    >
-                      変更
-                    </Button>
-                  </label>
-                  <Button
-                    key={item.id.toString()}
-                    onClick={() => onClickDeleteItemImage(item.id)}
-                    style={{
-                      background: "none",
-                      border: "none",
-                      margin: "15px 1px",
-                      fontWeight: "bold",
-                      fontSize: "16px",
-                      color: "#ff0000",
-                      fontFamily: "'M PLUS 1p', sans-serif",
-                    }}
-                  >
-                    削除
-                  </Button>
-                </div>
-              </Box>
-            </>
-          );
-        })}
+      <Box
+        sx={{
+          mb: 5,
+          width: "100%",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        {formItemImages.length > 0 && (
+          <PreviewImage
+            inputImages={formItemImages}
+            setInputImages={setItemImages}
+            inputLength={formItemImages.length}
+            width={"100%"}
+            height={"150px"}
+          />
+        )}
         {formItemImages.length < 3 && (
-          <Box sx={{ width: 300, textAlign: "center" }}>
+          <Box sx={{ width: "100%", textAlign: "center" }}>
             <button style={{ background: "none", border: "none" }}>
               <label htmlFor="itemImageFeild">
-                <Typography variant="body2" component="p" sx={{ mb: 1, mt: 5 }}>
+                <Typography variant="body2" component="p">
                   追加
                 </Typography>
                 <AddCircleOutlineIcon sx={{ fontSize: 30, mb: 5 }} />
@@ -133,7 +82,9 @@ const ItemForm: FC<Props> = memo((props) => {
                 type="file"
                 style={{ display: "none" }}
                 id="itemImageFeild"
-                onChange={addItemImage}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  previewImages(event, formItemImages, setItemImages);
+                }}
               />
             </button>
           </Box>
@@ -144,14 +95,14 @@ const ItemForm: FC<Props> = memo((props) => {
         multiline
         aria-label="itemDescription"
         label="商品説明"
-        sx={{ width: 800, mb: 5 }}
+        sx={{ width: "100%", mb: 5 }}
         inputProps={{ maxLength: 200 }}
         defaultValue={formItemDescription}
         required
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setItemDescription(e.target.value)
         }
-        rows={5}
+        rows={4}
       />
 
       <InputLabel id="itemCategoryField" required>

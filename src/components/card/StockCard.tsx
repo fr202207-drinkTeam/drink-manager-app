@@ -46,7 +46,7 @@ const StockCard: FC<Props> = (props) => {
             <Card
               key={index}
               sx={{
-                width: 270,
+                width: 310,
                 m: 2,
                 boxShadow: 'none',
                 border: 'solid 1px ',
@@ -58,7 +58,7 @@ const StockCard: FC<Props> = (props) => {
                 alt="商品画像"
                 height="140"
                 width="140"
-                image={drink.image}
+                image={drink.image[0]}
                 title="商品名"
                 sx={{
                   display: 'block',
@@ -73,7 +73,7 @@ const StockCard: FC<Props> = (props) => {
                   gutterBottom
                   sx={{
                     textAlign: 'center',
-                    fontSize: '16px',
+                    fontSize: '15px',
                     borderBottom: 'double',
                     fontFamily: 'Georgia',
                   }}
