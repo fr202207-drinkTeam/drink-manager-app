@@ -217,7 +217,7 @@ const ItemSearch: FC<Props> = memo((props) => {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
-          width:"900px"
+          width:"880px"
         }}
       >
         <Box >
