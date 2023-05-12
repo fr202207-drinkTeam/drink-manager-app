@@ -84,7 +84,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
             return (
               <Card
                 sx={{
-                  width: 310,
+                  width: 295,
                   mx: 2,
                   boxShadow: "none",
                   border: "solid 1px ",

@@ -78,7 +78,7 @@ const Poll = memo((props) => {
                       component="a"
                       href={index === 0 ? `#popular` : "#others"}
                     >
-                      <Toolbar id="top" />
+                      <Box id="top" />
                       <ListItemText
                         primaryTypographyProps={{
                           textAlign: "center",

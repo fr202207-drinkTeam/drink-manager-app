@@ -17,7 +17,7 @@ const PollTitle = ({ poll }: PollTitleProps) => {
           pb:1,
           backgroundImage: "url(/coffee2.png)",
           backgroundRepeat: "no-repeat",
-          backgroundSize: 200,
+          backgroundSize: 120,
           opacity: 0.8,
           mb: 5,
           mt: 4,
