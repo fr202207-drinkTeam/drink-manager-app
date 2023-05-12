@@ -5,7 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
-import { Items } from "../../types/type";
+import { Items } from "../../../types/type";
 import { Link } from "react-router-dom";
 type ItemCardProps = {
   data: Items[];

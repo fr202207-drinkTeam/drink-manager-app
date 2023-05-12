@@ -16,17 +16,19 @@ import { CircularProgress } from "@mui/material";
 type Props = {
   //投票から商品追加したかどうか
   pollFlag?: boolean;
-  setPollFlag?: React.Dispatch<React.SetStateAction<boolean>>;
   handleClose?: any;
+  trigger?:boolean;
+  setTrigger:React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const AddItem: FC<Props> = memo(({ pollFlag, setPollFlag, handleClose }) => {
+const AddItem: FC<Props> = memo(({ pollFlag, handleClose,trigger,setTrigger }) => {
   const navigate: NavigateFunction = useNavigate();
   const [itemName, setItemName] = useState<string>("");
   const [itemDescription, setItemDescription] = useState<string>("");
   const [itemCategory, setItemCategory] = useState<number>(0);
   const [itemImages, setItemImages] = useState<File[]>([]);
   const [adding, setAdding] = useState<boolean>(false);
+
 
   // recoilからログインユーザー情報を取得
   const authId = Cookies.get("authId")!;
@@ -55,6 +57,7 @@ const AddItem: FC<Props> = memo(({ pollFlag, setPollFlag, handleClose }) => {
       }),
     }).then(() => {
       if(pollFlag){
+        setTrigger(!trigger)
         handleClose()
       }else{
         navigate("/adminhome");

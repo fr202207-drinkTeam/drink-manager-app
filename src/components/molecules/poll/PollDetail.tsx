@@ -6,13 +6,14 @@ import AdsClickIcon from "@mui/icons-material/AdsClick";
 type PollDetailProps={
   PopularitemData?:any
   OtheritemData?:any
+  titleText:string
 }
 
-const PollDetail:FC<PollDetailProps> = ({PopularitemData,OtheritemData}) => {
+const PollDetail:FC<PollDetailProps> = ({PopularitemData,OtheritemData,titleText}) => {
   return (
    <>
    <DottedMemo
-              text={" 一番気になる、好きなドリンクに投票しよう！"}
+              text={titleText}
               information={"※各投票、お一人につき一回まで投票が可能です"}
               fontSize={"20px"}
               maxWidth={700}

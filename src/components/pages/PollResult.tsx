@@ -3,7 +3,7 @@ import {  memo, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Paper, Box } from "@mui/material";
 import DottedMemo from "../atoms/memo/DottedMemo";
-import ItemCard from "../card/ItemCard";
+import ItemCard from "../organisms/card/ItemCard";
 import { Items, Polls, Questionnaire } from "../../types/type";
 import PollTitleResult from "../molecules/poll/PollTitleResult";
 import useGetAnQuestionnaire from "../../hooks/useGetAnQuestionnaire";
@@ -13,8 +13,9 @@ import useGetAnPoll from "../../hooks/useGetAnPoll";
 const PollResult = memo(() => {
   const { id } = useParams();
   const [pollCount, setPollCounts] = useState<Items[]>([]);
+  const [trigger, setTrigger] = useState(false);
   const questionnaire: Questionnaire|undefined = useGetAnQuestionnaire(Number(id));
-  const items: Items[]= useGetAllItems();
+  const items: Items[]= useGetAllItems(trigger);
   const polls: Polls[]= useGetAnPoll(Number(id));
 
   //投票結果集計
