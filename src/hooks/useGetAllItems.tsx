@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Items } from "../types/type";
-
-
+//アイテムを全て取得
+//レンダリングさせるためにtrigger置いてます。使用先でState(const[trigger,settrigger]=useState(false);)を使用し
+//トリガーとしたい場所に「setTrigger(!trigger)」を設置してください
 const useGetAllItem = (trigger: boolean) => {
   const [items, setItems] = useState<Items[]>([]);
 
