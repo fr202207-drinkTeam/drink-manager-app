@@ -1,5 +1,5 @@
 import { FC, memo } from "react";
-import LoginForm from "../login/LoginForm";
+import LoginForm from "../atoms/login/LoginForm";
 
 type Props = {};
 

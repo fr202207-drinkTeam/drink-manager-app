@@ -1,4 +1,3 @@
-
 export type Users = {
   id: number | null;
   firstName: string;
@@ -16,10 +15,10 @@ export type Items = {
   name: string;
   description: string;
   image: string[];
-  itemCategory?: number|null;
-  createdAt?: Date|null;
+  itemCategory?: number | null;
+  createdAt?: Date | null;
   intheOffice: boolean;
-  author?: string|null;
+  author?: string | null;
 };
 
 export type Questionnaire = {
@@ -45,7 +44,7 @@ export type Polls = {
   userId: number;
   result: number;
   createdAt: Date;
-  category:number;
+  category: number;
 };
 
 export type Posts = {
@@ -66,4 +65,13 @@ export type Post = {
   postImage: string[];
   createdAt: Date;
   updatedAt: Date;
+};
+
+export type StockHistory = {
+  id: number;
+  itemId: number;
+  quantity: number;
+  day: string;
+  incOrDec: boolean;
+  stockAmount: number;
 };

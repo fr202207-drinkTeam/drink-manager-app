@@ -1,11 +1,4 @@
-import {
-  Link,
-  Navigate,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 
 import { AdminRouter } from "./AdminRouter";
 import { UserRouter } from "./UserRouter";
@@ -21,13 +14,8 @@ import DefaultLayout from "../components/layout/DefaultLayout";
 import Faq from "../components/pages/Faq";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../hooks/useLoginUserFetch";
-import { useEffect, useState } from "react";
 import ScrollTop from "../components/atoms/ScrollTop";
 const MainRoute = [
-  // {
-  //   path: "/main",
-  //   element: <MainMock />,
-  // },
   {
     path: "/adminlogin",
     element: <AdminLogin />,
@@ -40,14 +28,6 @@ const MainRoute = [
     path: "/register",
     element: <Register />,
   },
-  {
-    path: "/adminhome",
-    element: <AdminHome />,
-  },
-  {
-    path: "/home",
-    element: <Top />,
-  },
   // ヘッダー不必要のため仮置
   {
     path: "/faq",
@@ -57,7 +37,6 @@ const MainRoute = [
 
 export const MainRouter = () => {
   //Cookie
-
   const authId = Cookies.get("authId")!;
   const isAdmin = Cookies.get("isAdmin")!;
   const loginUser = useLoginUserFetch({ authId: authId });
@@ -73,8 +52,19 @@ export const MainRouter = () => {
         {AdminRouter.map((route, index) => (
           <Route
             key={index}
-            path={`/adminhome${route.path}`}
-            element={<DefaultLayout>{route.element}</DefaultLayout>}
+            // path={`/${route.path}`}
+            path={`/${route.path}`}
+            element={
+              authId ? (
+                loginUser && isAdmin ? (
+                  <DefaultLayout>{route.element}</DefaultLayout>
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
           />
         ))}
         {/* home配下のルーティング */}
@@ -82,51 +72,27 @@ export const MainRouter = () => {
           <Route
             key={index}
             path={`/home${route.path}`}
-            element={<DefaultLayout>{route.element}</DefaultLayout>}
+            element={
+              authId ? (
+                <DefaultLayout>{route.element}</DefaultLayout>
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
           />
         ))}
+        {/* {その他ルーティング} */}
+        <Route
+          path={`/adminhome`}
+          element={
+            authId && isAdmin ? <AdminHome /> : <Navigate to="/login" replace />
+          }
+        />
+        <Route
+          path={`/home`}
+          element={authId ? <Top /> : <Navigate to="/login" replace />}
+        />
       </Routes>
     </>
   );
-  //ログイン認証あり
-  // return (
-  //   <Routes>
-  //     {MainRoute.map((route, index) => (
-  //       <Route key={index} path={route.path} element={route.element} />
-  //     ))}
-  //     {/* adminhome配下のルーティング */}
-  //     {AdminRouter.map((route, index) => (
-  //       <Route
-  //         key={index}
-  //         // path={`/${route.path}`}
-  //         path={`/adminhome${route.path}`}
-  //         element={
-  //           authId ? (
-  //             loginUser && isAdmin ? (
-  //               <DefaultLayout>{route.element}</DefaultLayout>
-  //             ) : (
-  //               <Navigate to="/login" replace />
-  //             )
-  //           ) : (
-  //             <Navigate to="/login" replace />
-  //           )
-  //         }
-  //       />
-  //     ))}
-  //     {/* home配下のルーティング */}
-  //     {UserRouter.map((route, index) => (
-  //       <Route
-  //         key={index}
-  //         path={`/home${route.path}`}
-  //         element={
-  //           authId ? (
-  //             <DefaultLayout>{route.element}</DefaultLayout>
-  //           ) : (
-  //             <Navigate to="/login" replace />
-  //           )
-  //         }
-  //       />
-  //     ))}
-  //   </Routes>
-  // );
 };
