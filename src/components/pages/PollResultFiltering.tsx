@@ -68,9 +68,8 @@ const  PollResultFiltering = () => {
           <Box
             sx={{
               fontFamily: "cursive",
-              fontSize: "40px",
+              fontSize: "45px",
               textAlign: "center",
-              fontWeight:"bold",
               mt: 5,
               mb: 5,
               width:"100%",
