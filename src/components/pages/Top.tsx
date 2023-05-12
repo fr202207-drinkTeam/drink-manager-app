@@ -12,7 +12,7 @@ import DefaultLayout from "../layout/DefaultLayout";
 import { useRecoilValue } from "recoil";
 import { loginUserState } from "../../store/loginUserState";
 import { Grid } from "@mui/material";
-import ItemCard from "../card/ItemCard";
+import ItemCard from "../organisms/card/ItemCard";
 import { Paper } from "@mui/material";
 import Container from "@mui/material";
 import {

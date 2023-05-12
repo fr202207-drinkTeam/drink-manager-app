@@ -10,7 +10,6 @@ const useGetQuestionnaire = () => {
     (async () => {
       const response = await fetch(`http://localhost:8880/questionnaire`);
       const data = await response.json();
-      console.log(data, "");
       const period = data.map((question: Questionnaire) => {
         const endDate = new Date(question.endDate);
         const startDate = new Date(question.startDate);
