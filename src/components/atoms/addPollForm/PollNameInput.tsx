@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import React, { FC } from "react";
-import { SecondaryInput } from "../../atoms/input/Input";
+import { SecondaryInput } from "../input/Input";
 
 type ValidarionProps = {
   pollName: string;

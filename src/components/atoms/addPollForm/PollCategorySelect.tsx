@@ -14,7 +14,6 @@ const PollCategorySelect: FC<PollCategorySelectProps> = ({
   setPollCategory,
   setCategoryError,
 }) => {
-
   return( 
   <Box>
      {categoryError && (

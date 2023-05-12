@@ -15,7 +15,6 @@ import AdmTitleText from "../atoms/text/AdmTitleText";
 import { Box } from "@mui/system";
 import ModalWindow from "../organisms/ModalWindow";
 import {
-  ActiveBlueButton,
   ActiveBorderButton,
   InactiveButton,
 } from "../atoms/button/Button";
@@ -31,15 +30,13 @@ import AutorenewIcon from "@mui/icons-material/Autorenew";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 
-type Props = {};
-
 type Image = {
   id: number;
   file: any;
   url: string;
 };
 
-const ItemEdit: FC<Props> = memo(() => {
+const ItemEdit: FC = memo(() => {
   const navigate: NavigateFunction = useNavigate();
   const [itemName, setItemName] = useState<string>("");
   const [itemDescription, setItemDescription] = useState<string>("");
@@ -47,31 +44,41 @@ const ItemEdit: FC<Props> = memo(() => {
   const isFirstRender = useRef(true);
   const [images, setImages] = useState<Image[]>([]);
   const [updating, setUpdating] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  
 
   // パラメーターのitemIdを元にデータ取得
   const paramsData = useParams();
   const itemId = Number(paramsData.id);
-  const itemData = useGetAnItem({ itemId: itemId });
+  // const itemData = useGetAnItem({ itemId: itemId });
+  const getAnItemComplete = (isComplete: boolean) => {
+    setLoading(isComplete);
+  };
+  const getAnItemResult = useGetAnItem({
+    itemId: itemId,
+    onFetchComplete: getAnItemComplete,
+  });
 
   // recoilからログインユーザー情報を取得
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
 
   useEffect(() => {
-    if (itemData) {
-      const initImages = itemData.image.map((url: string, index: number) => {
+    if (getAnItemResult.itemData) {
+      const initImages = getAnItemResult.itemData.image.map((url: string, index: number) => {
         return { id: index, file: null, url: url };
       });
-      setItemName(itemData.name);
-      setItemDescription(itemData.description);
-      setItemCategory(itemData.itemCategory);
+      setItemName(getAnItemResult.itemData.name);
+      setItemDescription(getAnItemResult.itemData.description);
+      setItemCategory(getAnItemResult.itemData.itemCategory);
       setImages(initImages);
       console.log("set complete");
-      console.log("item name", itemData.name);
-      console.log(itemData.image);
+      console.log("item name", getAnItemResult.itemData.name);
+      console.log(getAnItemResult.itemData.image);
     }
-    console.log(itemData);
-  }, [itemData]);
+    console.log(getAnItemResult.itemData);
+  }, [getAnItemResult.itemData]);
 
   // データ追加処理(確定ボタン)
   const onClickEditItemData: () => Promise<void> = async () => {
@@ -81,14 +88,11 @@ const ItemEdit: FC<Props> = memo(() => {
     }
     const imgDataToAdd: string[] = [];
     for (const obj of images) {
-      console.log(obj.url.substring(0, 5));
       if (obj.url.substring(0, 5) === "blob:") {
         // urlがnullの場合、fileをアップロードする
         const uniqueId = uuidv4();
         const storageRef = ref(storage, `/${uniqueId}`);
         const uploadImage = uploadBytesResumable(storageRef, obj.file);
-        console.log("!obj");
-
         await new Promise<void>((resolve, reject) => {
           uploadImage.on(
             "state_changed",
@@ -110,6 +114,7 @@ const ItemEdit: FC<Props> = memo(() => {
         imgDataToAdd.push(obj.url);
         console.log(111);
       }
+      console.log(imgDataToAdd)
     }
     fetch(`http://localhost:8880/items/${itemId}`, {
       method: "PUT",
@@ -141,19 +146,27 @@ const ItemEdit: FC<Props> = memo(() => {
     );
   };
 
-  // 画像削除ボタンコンポーネント
+  // 画像削除ボタン
   const DeleteButton = ({ imageIndex }: { imageIndex: number }) => {
-    // 画像削除処理
     const deleteImage = () => {
-      setImages((inputImages) => {
-        inputImages.splice(imageIndex, 1);
-        return [...inputImages];
+
+      const filterImages = images.filter((image) => {
+        return image.id !== imageIndex
       });
+
+      const newImages = filterImages.map((image, index) => {
+        image.id = index;
+        return image;
+      });
+
+
+      setImages(() => newImages);
+
     };
     return (
       <Box sx={{ textAlign: "center" }}>
         <IconButton
-          onClick={deleteImage}
+          onClick={() => deleteImage()}
           sx={{
             color: "black",
             borderRadius: "none",
@@ -224,17 +237,15 @@ const ItemEdit: FC<Props> = memo(() => {
           </div>
         ) : (
           <>
-            {itemName !== "" && (
-              <SecondaryInput
-                id="itemName"
-                label="商品名"
-                defaultValue={itemName}
-                required
-                onChange={(e: any) => setItemName(e.target.value)}
-                sx={{ width: 400, mb: 5 }}
-                inputProps={{ maxLength: 20 }}
-              />
-            )}
+            <SecondaryInput
+              id="itemName"
+              label="商品名"
+              value={itemName}
+              required
+              onChange={(e: any) => setItemName(e.target.value)}
+              sx={{ width: 400, mb: 5 }}
+              inputProps={{ maxLength: 18 }}
+            />
             <Typography variant="body1" component="p" sx={{ mb: 1 }}>
               商品画像
             </Typography>
@@ -247,49 +258,47 @@ const ItemEdit: FC<Props> = memo(() => {
                 justifyContent: "space-between",
               }}
             >
-              {/* 画像表示 */}
               <Typography variant="body2">{`画像数：(${images.length}/3)`}</Typography>
               <ImageList
                 sx={{ width: "auto", height: 230 }}
                 cols={3}
                 rowHeight={164}
               >
-                {images.length > 0 &&
-                  images.map((image) => (
-                    <>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          flexDirection: "column",
-                        }}
-                      >
-                        <ImageListItem>
-                          <img
-                            key={image.id}
-                            src={image.url}
-                            id={`img${image.id}`}
-                            alt="商品画像"
-                            style={{
-                              width: "100%",
-                              height: "150px",
-                              objectFit: "contain",
-                            }}
-                          />
-                        </ImageListItem>
-                        <Box sx={{ display: "flex" }}>
-                          <ImageListItemBar
-                            title={<ImgChangeButton imageIndex={image.id} />}
-                            position="below"
-                          />
-                          <ImageListItemBar
-                            title={<DeleteButton imageIndex={image.id} />}
-                            position="below"
-                          />
-                        </Box>
+                {images.map((image) => (
+                  <>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <ImageListItem>
+                        <img
+                          key={image.id}
+                          src={image.url}
+                          id={`img${image.id}`}
+                          alt="商品画像"
+                          style={{
+                            width: "100%",
+                            height: "150px",
+                            objectFit: "contain",
+                          }}
+                        />
+                      </ImageListItem>
+                      <Box sx={{ display: "flex" }}>
+                        <ImageListItemBar
+                          title={<ImgChangeButton imageIndex={image.id} />}
+                          position="below"
+                        />
+                        <ImageListItemBar
+                          title={<DeleteButton imageIndex={image.id} />}
+                          position="below"
+                        />
                       </Box>
-                    </>
-                  ))}
+                    </Box>
+                  </>
+                ))}
               </ImageList>
               {images.length < 3 && (
                 <Box sx={{ width: "100%", textAlign: "center" }}>
@@ -310,46 +319,42 @@ const ItemEdit: FC<Props> = memo(() => {
                 </Box>
               )}
             </Box>
-            {itemDescription !== "" && (
-              <PrimaryInput
-                multiline
-                aria-label="itemDescription"
-                label="商品説明"
-                sx={{ width: "100%", mb: 5 }}
-                inputProps={{ maxLength: 200 }}
-                defaultValue={itemDescription}
-                required
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setItemDescription(e.target.value)
-                }
-                rows={4}
-              />
-            )}
+            <PrimaryInput
+              multiline
+              aria-label="itemDescription"
+              label="商品説明"
+              sx={{ width: "100%", mb: 5 }}
+              inputProps={{ maxLength: 200 }}
+              value={itemDescription}
+              required
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setItemDescription(e.target.value)
+              }
+              rows={4}
+            />
             <InputLabel id="itemCategoryField" required>
               商品カテゴリー
             </InputLabel>
-            {itemCategory !== 0 && (
-              <Select
-                labelId="itemCategoryField"
-                id="itemCategoryField"
-                value={itemCategory}
-                label="商品カテゴリー"
-                placeholder="商品カテゴリーを選択して下さい"
-                onChange={(e) => {
-                  setItemCategory(Number(e.target.value));
-                }}
-                sx={{ mb: 5 }}
-              >
-                <MenuItem value={0}>商品カテゴリーを選択して下さい</MenuItem>
-                <MenuItem value={1}>コーヒー/ダーク(深煎り)</MenuItem>
-                <MenuItem value={2}>コーヒー/ダーク(中煎り)</MenuItem>
-                <MenuItem value={3}>コーヒー/ライト(浅煎り)</MenuItem>
-                <MenuItem value={4}>コーヒー/カフェインレス</MenuItem>
-                <MenuItem value={5}>ティー</MenuItem>
-                <MenuItem value={6}>ココア</MenuItem>
-                <MenuItem value={6}>その他</MenuItem>
-              </Select>
-            )}
+            <Select
+              labelId="itemCategoryField"
+              id="itemCategoryField"
+              value={itemCategory}
+              label="商品カテゴリー"
+              placeholder="商品カテゴリーを選択して下さい"
+              onChange={(e) => {
+                setItemCategory(Number(e.target.value));
+              }}
+              sx={{ mb: 5 }}
+            >
+              <MenuItem value={0}>商品カテゴリーを選択して下さい</MenuItem>
+              <MenuItem value={1}>コーヒー/ダーク(深煎り)</MenuItem>
+              <MenuItem value={2}>コーヒー/ダーク(中煎り)</MenuItem>
+              <MenuItem value={3}>コーヒー/ライト(浅煎り)</MenuItem>
+              <MenuItem value={4}>コーヒー/カフェインレス</MenuItem>
+              <MenuItem value={5}>ティー</MenuItem>
+              <MenuItem value={6}>ココア</MenuItem>
+              <MenuItem value={6}>その他</MenuItem>
+            </Select>
             {itemName &&
             itemDescription &&
             itemCategory !== 0 &&
