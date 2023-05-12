@@ -1,6 +1,5 @@
-import { FC, memo } from "react";
+import { FC, memo, useState } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
@@ -12,6 +11,7 @@ import ItemForm from "../organisms/ItemForm";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 import { CircularProgress } from "@mui/material";
+import { Users } from "../../types/type";
 
 type Props = {
   //投票から商品追加したかどうか
@@ -29,8 +29,8 @@ const AddItem: FC<Props> = memo(({ pollFlag, setPollFlag, handleClose }) => {
   const [adding, setAdding] = useState<boolean>(false);
 
   // recoilからログインユーザー情報を取得
-  const authId = Cookies.get("authId")!;
-  const loginUser = useLoginUserFetch({ authId: authId });
+  const authId: string = Cookies.get("authId")!;
+  const loginUser: Users = useLoginUserFetch({ authId: authId });
 
   // データ追加処理(確定ボタン)
   const onClickAddItemData: () => Promise<void> = async () => {
@@ -59,12 +59,11 @@ const AddItem: FC<Props> = memo(({ pollFlag, setPollFlag, handleClose }) => {
       }else{
         navigate("/adminhome");
       }
-      console.log("success");
     });
   };
 
   //投票から削除押した場合
-  const handleDelete = () => {
+  const handleDelete: () => void = () => {
     if (pollFlag) {
       handleClose();
     } else {
@@ -86,10 +85,15 @@ const AddItem: FC<Props> = memo(({ pollFlag, setPollFlag, handleClose }) => {
         ) : (
           <>
             <ItemForm
+              itemName={itemName}
               setItemName={setItemName}
+              itemDescription={itemDescription}
               setItemDescription={setItemDescription}
+              itemCategory={itemCategory}
               setItemCategory={setItemCategory}
+              itemImages={itemImages}
               setItemImages={setItemImages}
+
             />
             {itemName &&
             itemDescription &&

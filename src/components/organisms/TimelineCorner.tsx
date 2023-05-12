@@ -2,6 +2,8 @@ import { FC, memo, useEffect, useState } from "react";
 import { Box } from "@mui/system";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import type { Post } from "../../types/type";
+import { Like } from "../../types/type";
+import { Link } from "react-router-dom";
 
 type Props = {
   itemId: number;
@@ -13,11 +15,9 @@ const TimelineCorner: FC<Props> = memo((props) => {
   const [displayPostData, setDisplayPostData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  console.log(1, isLoading);
   // 該当する投稿を取得
   useEffect(() => {
-    console.log(2, isLoading);
-    const fetchData = async () => {
+    const fetchData: () => Promise<void> = async () => {
       try {
         const res = await fetch(
           `http://localhost:8880/posts?itemId=${props.itemId}`,
@@ -26,7 +26,6 @@ const TimelineCorner: FC<Props> = memo((props) => {
           }
         );
         const data = await res.json();
-        console.log("該当する投稿データ", data);
         if (data.length > 0) {
           setPostData(data);
         } else {
@@ -41,7 +40,7 @@ const TimelineCorner: FC<Props> = memo((props) => {
 
   // 関連する投稿のそれぞれのいいね数を取得
   useEffect(() => {
-    const fetchLikes = async () => {
+    const fetchLikes: () => Promise<void> = async () => {
       const allLikes: any[] = await Promise.all(
         postData.map(async (post) => {
           try {
@@ -58,14 +57,20 @@ const TimelineCorner: FC<Props> = memo((props) => {
           }
         })
       );
-      console.log("該当する投稿の各いいねデータ", allLikes);
-      const maxLikesLengthArray = allLikes.reduce((acc, cur) => {
+      const maxLikesLengthArray: Like[] = allLikes.reduce((acc, cur) => {
         return acc.length > cur.length ? acc : cur;
       }, []);
-      const newDisplayPostId = maxLikesLengthArray[0].postId;
+
+      if(maxLikesLengthArray.length === 0) {
+        setDisplayPostId(postData[0].id)
+        return;
+      }
+
+      const newDisplayPostId: number = maxLikesLengthArray[0].postId;
       if (newDisplayPostId !== displayPostId) {
         setDisplayPostId(newDisplayPostId);
       }
+      
     };
     if (postData.length > 0) {
       fetchLikes();
@@ -74,7 +79,7 @@ const TimelineCorner: FC<Props> = memo((props) => {
 
   // 表示させる投稿データ取得
   useEffect(() => {
-    const fetchDisplayPost = async () => {
+    const fetchDisplayPost: () => Promise<void> = async () => {
       if (displayPostId === 0) {
         return;
       }
@@ -86,16 +91,13 @@ const TimelineCorner: FC<Props> = memo((props) => {
           }
         );
         const data = await res.json();
-        console.log("表示させる投稿データ", data);
         setDisplayPostData(data);
         setIsLoading(false);
-        console.log(3, isLoading);
       } catch (error) {
         console.error("Error:", error);
       }
     };
     fetchDisplayPost();
-    console.log(displayPostData);
   }, [displayPostId]);
 
   return (
@@ -156,6 +158,14 @@ const TimelineCorner: FC<Props> = memo((props) => {
           </>
         )}
       </Card>
+      <Link
+        to={"/home/timeline"}
+        state={{ itemId: props.itemId }}
+        style={{ margin: "10px",  textDecoration: "underline", display: "block", textAlign: "end", fontSize: "14px"
+        }}
+      >
+        タイムラインへ移動
+      </Link>
     </>
   );
 });
