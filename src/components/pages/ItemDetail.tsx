@@ -7,25 +7,27 @@ import { Typography } from "@mui/material";
 import { ActiveDarkBlueButton } from "../atoms/button/Button";
 import Slider from "../atoms/slider/Slider";
 import FreeBreakfastIcon from "@mui/icons-material/FreeBreakfast";
-import type { Post } from "../../types/type";
-import { Link } from "react-router-dom";
 import ModalWindow from "../organisms/ModalWindow";
 import TimelineCorner from "../organisms/TimelineCorner";
 
 const ItemDetail: FC = memo(() => {
-  const [postData, setPostData] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [displayPostId, setDisplayPostId] = useState<number>(0);
-  const [displayPostData, setDisplayPostData] = useState<any>(null);
-
   // 受け手
   // const location = useLocation();
   // const { itemId } = location.state as State;
 
   const paramsData = useParams();
   const itemId = Number(paramsData.id);
-  const itemData = useGetAnItem({ itemId: itemId });
+
   const navigate: NavigateFunction = useNavigate();
+
+  const getAnItemComplete = (isComplete: boolean) => {
+    setLoading(isComplete);
+  };
+  const getAnItemResult = useGetAnItem({
+    itemId: itemId,
+    onFetchComplete: getAnItemComplete,
+  });
 
   // 投稿削除処理(削除ボタン)
   const onClickDeleteItem = async () => {
@@ -48,14 +50,14 @@ const ItemDetail: FC = memo(() => {
         <p>Loading...</p>
       ) : (
         <>
-          {itemData && (
+          {getAnItemResult.itemData ? (
             <>
               <Box
                 sx={{ display: "flex", mb: 5, alignItems: "center", ml: 10 }}
               >
                 <FreeBreakfastIcon fontSize="large" />
                 <Typography variant="h3" component="p" sx={{ ml: 2 }}>
-                  {itemData.name}
+                  {getAnItemResult.itemData.name}
                 </Typography>
               </Box>
               <Box
@@ -75,7 +77,7 @@ const ItemDetail: FC = memo(() => {
                   }}
                 >
                   <Slider
-                    images={itemData.image}
+                    images={getAnItemResult.itemData.image}
                     slidesPerView={1}
                     loop={true}
                     navigation={true}
@@ -91,7 +93,7 @@ const ItemDetail: FC = memo(() => {
                   >
                     【商品説明】
                     <br />
-                    {itemData.description}
+                    {getAnItemResult.itemData.description}
                   </Typography>
 
                   <Typography
@@ -103,7 +105,7 @@ const ItemDetail: FC = memo(() => {
                     \ 商品に関連するタイムラインはこちら /
                   </Typography>
 
-                  <TimelineCorner itemId={itemId} completeFetch={setLoading}></TimelineCorner>
+                  <TimelineCorner itemId={itemId}></TimelineCorner>
                 </Box>
               </Box>
               <Box sx={{ display: "flex", mr: 5 }}>
@@ -131,8 +133,7 @@ const ItemDetail: FC = memo(() => {
                 />
               </Box>
             </>
-          )}
-          {!loading && itemData && (
+          ) : (
             <div>該当する商品がありません</div>
           )}
         </>

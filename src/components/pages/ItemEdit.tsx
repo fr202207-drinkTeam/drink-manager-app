@@ -44,31 +44,41 @@ const ItemEdit: FC = memo(() => {
   const isFirstRender = useRef(true);
   const [images, setImages] = useState<Image[]>([]);
   const [updating, setUpdating] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  
 
   // パラメーターのitemIdを元にデータ取得
   const paramsData = useParams();
   const itemId = Number(paramsData.id);
-  const itemData = useGetAnItem({ itemId: itemId });
+  // const itemData = useGetAnItem({ itemId: itemId });
+  const getAnItemComplete = (isComplete: boolean) => {
+    setLoading(isComplete);
+  };
+  const getAnItemResult = useGetAnItem({
+    itemId: itemId,
+    onFetchComplete: getAnItemComplete,
+  });
 
   // recoilからログインユーザー情報を取得
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
 
   useEffect(() => {
-    if (itemData) {
-      const initImages = itemData.image.map((url: string, index: number) => {
+    if (getAnItemResult.itemData) {
+      const initImages = getAnItemResult.itemData.image.map((url: string, index: number) => {
         return { id: index, file: null, url: url };
       });
-      setItemName(itemData.name);
-      setItemDescription(itemData.description);
-      setItemCategory(itemData.itemCategory);
+      setItemName(getAnItemResult.itemData.name);
+      setItemDescription(getAnItemResult.itemData.description);
+      setItemCategory(getAnItemResult.itemData.itemCategory);
       setImages(initImages);
       console.log("set complete");
-      console.log("item name", itemData.name);
-      console.log(itemData.image);
+      console.log("item name", getAnItemResult.itemData.name);
+      console.log(getAnItemResult.itemData.image);
     }
-    console.log(itemData);
-  }, [itemData]);
+    console.log(getAnItemResult.itemData);
+  }, [getAnItemResult.itemData]);
 
   // データ追加処理(確定ボタン)
   const onClickEditItemData: () => Promise<void> = async () => {
@@ -248,7 +258,6 @@ const ItemEdit: FC = memo(() => {
                 justifyContent: "space-between",
               }}
             >
-              {/* 画像表示 */}
               <Typography variant="body2">{`画像数：(${images.length}/3)`}</Typography>
               <ImageList
                 sx={{ width: "auto", height: 230 }}

@@ -5,16 +5,18 @@ import type { Post } from "../../types/type";
 
 type Props = {
   itemId: number;
-  completeFetch: any
 };
 
 const TimelineCorner: FC<Props> = memo((props) => {
   const [postData, setPostData] = useState<Post[]>([]);
   const [displayPostId, setDisplayPostId] = useState<number>(0);
   const [displayPostData, setDisplayPostData] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  console.log(1, isLoading);
   // 該当する投稿を取得
   useEffect(() => {
+    console.log(2, isLoading);
     const fetchData = async () => {
       try {
         const res = await fetch(
@@ -27,6 +29,8 @@ const TimelineCorner: FC<Props> = memo((props) => {
         console.log("該当する投稿データ", data);
         if (data.length > 0) {
           setPostData(data);
+        } else {
+          setIsLoading(false)
         }
       } catch (error) {
         console.error("Error:", error);
@@ -62,7 +66,6 @@ const TimelineCorner: FC<Props> = memo((props) => {
       if (newDisplayPostId !== displayPostId) {
         setDisplayPostId(newDisplayPostId);
       }
-      
     };
     if (postData.length > 0) {
       fetchLikes();
@@ -72,7 +75,9 @@ const TimelineCorner: FC<Props> = memo((props) => {
   // 表示させる投稿データ取得
   useEffect(() => {
     const fetchDisplayPost = async () => {
-      
+      if (displayPostId === 0) {
+        return;
+      }
       try {
         const res = await fetch(
           `http://localhost:8880/posts/${displayPostId}`,
@@ -83,16 +88,14 @@ const TimelineCorner: FC<Props> = memo((props) => {
         const data = await res.json();
         console.log("表示させる投稿データ", data);
         setDisplayPostData(data);
+        setIsLoading(false);
+        console.log(3, isLoading);
       } catch (error) {
         console.error("Error:", error);
       }
     };
     fetchDisplayPost();
     console.log(displayPostData);
-    props.completeFetch(false)
-    if (displayPostId === 0) {
-        return;
-      }
   }, [displayPostId]);
 
   return (
@@ -108,7 +111,9 @@ const TimelineCorner: FC<Props> = memo((props) => {
           display: "flex",
         }}
       >
-        {postData.length > 0 && displayPostData ? (
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : postData.length > 0 && displayPostData ? (
           <>
             <Box sx={{ display: "flex" }}>
               <CardContent
