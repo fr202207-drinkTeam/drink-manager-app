@@ -179,6 +179,7 @@ const ItemSearch: FC<Props> = memo((props) => {
     switch (category) {
       case "all":
         categoryName = "すべて";
+        selectedValue = "name";
         break;
       case "1":
         categoryName = "ダーク（深煎り）";
@@ -250,7 +251,7 @@ const ItemSearch: FC<Props> = memo((props) => {
           </Select>
         </Box>
       </Box>
-      <Box sx={{ mx: "16px" }}></Box>
+      <Box sx={{ mx: "16px" }}></Box><Box id="top" /> 
       {selectedItem ? (
         <>
           {selectedItem && <ItemCard data={selectedItem} />}
@@ -275,6 +276,7 @@ const ItemSearch: FC<Props> = memo((props) => {
               商品追加
             </ActiveDarkBlueButton>
           </Link>
+          
         ) : (
           ""
         )}
