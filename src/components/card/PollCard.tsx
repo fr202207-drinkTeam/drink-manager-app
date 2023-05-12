@@ -231,7 +231,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                   OthersPollData.some(
                     (data) => data.questionnaireId === pollNum
                   )) ||
-                (loginUser.id === 1 )? (
+                (loginUser.isAdmin === true )? (
                   <InactiveButton
                     sx={{
                       background: "#e29399",

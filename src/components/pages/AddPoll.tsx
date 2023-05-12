@@ -62,6 +62,7 @@ const AddPoll = memo(() => {
   const navigate = useNavigate();
 
   //バリデーション
+  //投票名
   const validatePollName = () => {
     if (!pollName) {
       setPollNameError("*投票名を入力してください");
@@ -70,6 +71,7 @@ const AddPoll = memo(() => {
     setPollNameError("");
     return true;
   };
+  //投票詳細
   const validateDescription = () => {
     if (!pollDescription) {
       setDescriptionError("*投票詳細を入力してください");
@@ -78,6 +80,7 @@ const AddPoll = memo(() => {
     setDescriptionError("");
     return true;
   };
+  //投票カテゴリー
   const validateCategory = () => {
     if (pollCategory === "投票種別を選択してください") {
       setCategoryError("*投票種別を選択してください");
@@ -86,6 +89,7 @@ const AddPoll = memo(() => {
     setCategoryError("");
     return true;
   };
+  
   const validateDate = () => {
     if (!startPeriodDate || !endPeriodDate) {
       setDateError("*投票期間を入れてください");
