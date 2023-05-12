@@ -3,6 +3,7 @@ import { TextField } from "@mui/material";
 import { ActiveOrangeButton } from "../atoms/button/Button";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { PrimaryInput } from "../atoms/input/Input";
 type Props = {
   searchWord: string;
   setSearchWord: React.Dispatch<React.SetStateAction<string>>;
@@ -23,6 +24,7 @@ const ItemSearchForm: React.FC<Props> = ({ searchWord, setSearchWord }) => {
       setSearchResults(data);
       // navigate(`/home/search?category=${category}&page=1`);
       navigate(`/home/search?keyword=${searchWord}&page=1`);
+      setSearchWord("");
     } catch (error) {
       console.error(error);
     }

@@ -9,10 +9,12 @@ import { styled } from "@mui/material/styles";
 import CategoryAccordion from "../atoms/accordion/CategoryAccordion";
 import Header from "./Header";
 import Footer from "./Footer";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Slider from "../atoms/slider/Slider";
 import ItemSearchForm from "../molecules/ItemSearchForm";
 import { Items } from "../../types/type";
+import Cookies from "js-cookie";
+import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 function DefaultLayout({ children }: { children: any }) {
   const handleButtonClick = () => {};
   // パスの取得
@@ -21,6 +23,8 @@ function DefaultLayout({ children }: { children: any }) {
   const images = ["../top.png", "../top.png", "../top.png"];
   const [searchWord, setSearchWord] = useState("");
   const [searchResults, setSearchResults] = useState<Items[]>();
+  const authId = Cookies.get("authId")!;
+  const loginUser = useLoginUserFetch({ authId: authId });
   return (
     <React.Fragment>
       <Header />
@@ -32,7 +36,6 @@ function DefaultLayout({ children }: { children: any }) {
           loop={false}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           navigation={false}
-          // style={style}
         />
       ) : (
         ""
@@ -58,10 +61,14 @@ function DefaultLayout({ children }: { children: any }) {
                 setSearchResults={setSearchResults}
               />
               <Box sx={{ my: 4 }}>
-                <img src="/dummybanner.jpg" style={{ maxWidth: "100%" }} />
+                <Link to="/home/timeline">
+                  <img src="/timeline.png" style={{ maxWidth: "100%" }} />
+                </Link>
               </Box>
               <Box>
-                <img src="/dummybanner.jpg" style={{ maxWidth: "100%" }} />
+                <Link to="/home/poll">
+                  <img src="/poll.png" style={{ maxWidth: "100%" }} />
+                </Link>
               </Box>
             </Box>
           </Grid>
@@ -71,24 +78,26 @@ function DefaultLayout({ children }: { children: any }) {
           </Grid>
         </Grid>
       </Container>
-      {/* チャットボット  /adminhome から始まるパス名の際には非表示*/}
-      {!location.pathname.startsWith("/adminhome") ? (
-        <Box
-          sx={{
-            borderRadius: 20,
-            position: "fixed",
-            bottom: 20,
-            right: 10,
-            zIndex: 1,
-            width: 100,
-            height: 100,
-          }}
-        >
-          <img
-            src="/chatbot.png"
-            style={{ maxWidth: "100%", borderRadius: "20px" }}
-          />
-        </Box>
+      {/* チャットボット管理者でのログイン時に非表示 */}
+      {!loginUser?.isAdmin ? (
+        <Link to="/faq" target="_blank">
+          <Box
+            sx={{
+              borderRadius: 20,
+              position: "fixed",
+              bottom: 20,
+              right: 10,
+              zIndex: 1,
+              width: 100,
+              height: 100,
+            }}
+          >
+            <img
+              src="/chatbot.png"
+              style={{ maxWidth: "100%", borderRadius: "20px" }}
+            />
+          </Box>
+        </Link>
       ) : (
         ""
       )}

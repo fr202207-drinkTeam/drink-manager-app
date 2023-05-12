@@ -21,11 +21,14 @@ const Footer = () => {
         <Link to="/home/guide">
           <Typography sx={{ mx: 2, color: "white" }}>ご利用ガイド</Typography>
         </Link>
-        <Link to="/home/contact">
-          <Typography sx={{ mx: 2, color: "white" }}>お問い合わせ</Typography>
-        </Link>
         <Link to="/home/poll">
           <Typography sx={{ mx: 2, color: "white" }}>投票</Typography>
+        </Link>
+        <Link to="/home/timeline">
+          <Typography sx={{ mx: 2, color: "white" }}>タイムライン</Typography>
+        </Link>
+        <Link to="/home/contact">
+          <Typography sx={{ mx: 2, color: "white" }}>お問い合わせ</Typography>
         </Link>
       </Box>
       <Box

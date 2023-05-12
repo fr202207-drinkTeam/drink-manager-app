@@ -1,22 +1,22 @@
-import { Paper, Box } from '@mui/material';
-import  {  useEffect, useState } from 'react'
-import ItemCard from '../card/ItemCard';
-import { Items, Polls, Questionnaire } from '../../types/type';
-import { useParams } from 'react-router-dom';
+import { Paper, Box, Card, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import ItemCard from "../card/ItemCard";
+import { Items, Polls, Questionnaire } from "../../types/type";
+import { useParams } from "react-router-dom";
 
 const PollRanking = () => {
-  const { id } = useParams();
+  // const { id } = useParams();
   const [polls, setPolls] = useState<Polls[]>([]);
   const [pollCount, setPollCounts] = useState<Items[]>([]);
   const [questionnaire, setQuestionnaire] = useState<Questionnaire>();
   const [items, setItems] = useState<Items[]>([]);
-
-  //id(3ヶ所にテストデータ「2」)を入れれば画面表示できる
+  const [startDate, setStartDate] = useState<any>();
+  const [pollId, setPollId] = useState<number>();
 
   //投票結果集計
   const pollCounts: any = {};
   polls.forEach((item) => {
-    if (item.questionnaireId === Number(id)) {
+    if (item.questionnaireId === Number(pollId)) {
       if (pollCounts[item.result]) {
         pollCounts[item.result]++;
       } else {
@@ -45,7 +45,7 @@ const PollRanking = () => {
     (async () => {
       try {
         const response = await fetch(
-          `http://localhost:8880/polls?questionnaireId=${id}`
+          `http://localhost:8880/polls?questionnaireId=${pollId}`
         );
         const data = await response.json();
         setPolls(data);
@@ -53,14 +53,14 @@ const PollRanking = () => {
         console.error(error);
       }
     })();
-  }, [id]);
+  }, [pollId]);
 
   //questionner取得
   useEffect(() => {
     (async () => {
       try {
         const response = await fetch(
-          `http://localhost:8880/questionnaire/${id}`
+          `http://localhost:8880/questionnaire/${pollId}`
         );
         const data = await response.json();
         setQuestionnaire(data);
@@ -68,8 +68,42 @@ const PollRanking = () => {
         console.error(error);
       }
     })();
-  }, [id]);
-
+  }, [pollId]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:8880/questionnaire/`);
+        const data = await response.json();
+        setStartDate(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
+  // 先月のアンケートidを取得し。その中からランダムで表示
+  useEffect(() => {
+    if (startDate) {
+      const now = new Date();
+      const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+      const lastMonth = new Date(
+        firstDayOfMonth.getFullYear(),
+        firstDayOfMonth.getMonth() - 1,
+        1
+      );
+      const startDates = startDate
+        .filter(
+          (questionnaire: Questionnaire) =>
+            new Date(questionnaire.startDate) > lastMonth &&
+            new Date(questionnaire.startDate) < firstDayOfMonth
+        )
+        .map((questionnaire: Questionnaire) => questionnaire.id);
+      const randomId =
+        startDates[Math.floor(Math.random() * startDates.length)];
+      setPollId(randomId);
+      console.log(pollId, "random");
+    }
+  }, [startDate, pollId]);
   //Items取得
   useEffect(() => {
     (async () => {
@@ -81,7 +115,7 @@ const PollRanking = () => {
         console.error(error);
       }
     })();
-  }, [id]);
+  }, [pollId]);
 
   //questionnerに登録されているpolledItemsのidを取得
   useEffect(() => {
@@ -97,59 +131,114 @@ const PollRanking = () => {
       });
       setPollCounts(polllCountItems);
     }
-  }, [id, questionnaire]);
+  }, [polls, questionnaire, items, pollId]);
 
   return (
-     <>
-      <Paper>
-        {Object.keys(pollCounts).length >=1 ?
-         <>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-around",
-            flexWrap: "wrap",
-            mt:5
-          }}
+    <>
+      <Card
+        sx={{
+          p: 1,
+          backgroundColor: "#fff",
+          border: "4px dotted #ffdead ",
+          textAlign: "center",
+          width: "60%",
+          borderRadius: "20px",
+          m: "auto",
+        }}
+      >
+        <Typography
+          gutterBottom
+          component="div"
+          sx={{ m: 2, color: "#595857", fontSize: "25px" }}
         >
-          {values.slice(0, 3).map(
-            (data, index:number) =>
-              // インデックスが3未満の場合にのみBox要素を描画（３位まで）
-              index < 3 && (
-                <Box key={index} sx={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-                  <Box
-                    sx={{
-                      p: 5,
-                      backgroundImage: `url(/crown${index + 1}.png)`,
-                      backgroundRepeat: "no-repeat",
-                      backgroundSize: "70px",
-                      backgroundPosition: "center",
-                    }}
-                  ></Box>
-                  <Box sx={{ fontSize: "25px", textAlign: "center" ,ml:5,mt:2,background: "linear-gradient(transparent 70%, #fffacd 70%)",
-                  width: "100px",}}>
-                    {values[index]}票
-                  </Box>
-                </Box>
-              )
-          )}
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-around",
-            flexWrap: "wrap",
-          }}
-        >
-        {pollCount.length > 0 && <ItemCard data={pollCount.slice(0, 3)} sxStyle={{ maxWidth: 260, minWidth:260,mx:5, mb:1 }} />}
-        </Box>
-        </>
-        :
-        <Box sx={{textAlign:"center",fontSize:"30px", py:10}}>今回の投票結果はありませんでした。</Box>
-        }
-      </Paper>
-    </>
-  )
-}
+          ランキング
+        </Typography>
 
-export default PollRanking
+        {questionnaire?.name ? (
+          <Typography
+            gutterBottom
+            component="div"
+            sx={{ m: 2, color: "#595857", fontSize: "16px" }}
+          >
+            「{questionnaire?.name}」アンケートの投票結果はこちら
+          </Typography>
+        ) : (
+          ""
+        )}
+      </Card>
+
+      {Object.keys(pollCounts).length >= 1 ? (
+        <>
+          <Paper>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-around",
+                flexWrap: "wrap",
+                mt: 5,
+              }}
+            >
+              {values.slice(0, 3).map(
+                (data, index: number) =>
+                  // インデックスが3未満の場合にのみBox要素を描画（３位まで）
+                  index < 3 && (
+                    <Box
+                      key={index}
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          p: 5,
+                          backgroundImage: `url(/crown${index + 1}.png)`,
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: "70px",
+                          backgroundPosition: "center",
+                        }}
+                      ></Box>
+                      <Box
+                        sx={{
+                          fontSize: "25px",
+                          textAlign: "center",
+                          ml: 5,
+                          mt: 2,
+                          background:
+                            "linear-gradient(transparent 70%, #fffacd 70%)",
+                          width: "100px",
+                        }}
+                      >
+                        {values[index]}票
+                      </Box>
+                    </Box>
+                  )
+              )}
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-around",
+                flexWrap: "wrap",
+              }}
+            >
+              {pollCount.length > 0 && (
+                <ItemCard
+                  data={pollCount.slice(0, 3)}
+                  sxStyle={{ maxWidth: 220, minWidth: 220, mx: 5, mb: 1 }}
+                />
+              )}
+            </Box>
+          </Paper>
+        </>
+      ) : (
+        <Box sx={{ textAlign: "center", fontSize: "30px", py: 10 }}>
+          今回の投票結果は現在集計中です！
+        </Box>
+      )}
+    </>
+  );
+};
+
+export default PollRanking;
