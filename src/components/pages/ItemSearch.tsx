@@ -15,19 +15,18 @@ import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 type Props = {};
 
 const ItemSearch: FC<Props> = memo((props) => {
-
-  const authId = Cookies.get("authId")!;
-  const loginUser = useLoginUserFetch({ authId: authId });
   const location = useLocation();
   const navigate = useNavigate();
+// 管理者の判定
+  const authId = Cookies.get("authId")!;
+  const loginUser = useLoginUserFetch({ authId: authId });
+  
   const [searchParams, setSearchParams] = useSearchParams();
-  const page = searchParams.get("page");
   const [selectedItem, setSelectedItem] = useState<Items[]>();
   const [allItem, setAllItem] = useState<Items[]>();
   const [selectedValue, setSelectedValue] = useState("name");
   const [categoryName, setCategoryName] = useState<string>();
-  console.log(selectedValue);
-
+  const page = searchParams.get("page");
   const handlePullDown = async (event: any) => {
     const value = event.target.value;
     setSelectedValue(value);
@@ -75,8 +74,6 @@ const ItemSearch: FC<Props> = memo((props) => {
 
   const perPage = 6;
   let currentPage = 1;
-  console.log(selectedItem, "item");
-  console.log(allItem, "allitem");
 
   // カテゴリタブを押したときの初期データ
   useEffect(() => {
@@ -109,7 +106,7 @@ const ItemSearch: FC<Props> = memo((props) => {
     };
     categoryFilterData();
   }, [category, setSelectedItem, keyword]);
-  console.log("select", selectedItem);
+  
   // ページング
   const handlePageChange = async (
     event: React.SyntheticEvent,
@@ -150,9 +147,9 @@ const ItemSearch: FC<Props> = memo((props) => {
         let url = `http://localhost:8880/items?&otherItem=false`;
         
         if (selectedValue === "intheOffice") {
-          url += "&intheOffice=true"; // Append intheOffice parameter
+          url += "&intheOffice=true"; 
         }else if(selectedValue === "intheOfficeNone") {
-          url += "&intheOffice=false"; // Append intheOffice parameter
+          url += "&intheOffice=false"; 
         }
   
         const params = {
@@ -174,7 +171,7 @@ const ItemSearch: FC<Props> = memo((props) => {
   }, [category, keyword, selectedValue]);
  
 
-  // Todo カテゴリ検索リファクタリングする
+
   useEffect(() => {
     let categoryName = "";
     let selectedValue = "name";
@@ -246,13 +243,7 @@ const ItemSearch: FC<Props> = memo((props) => {
             onChange={handlePullDown}
           >
             <MenuItem value="選択する" disabled>
-              {/* <Box sx={{ display: "flex" }}>
-                <Typography sx={{ color: "rgba(0,0,0,0.6)" }}>
-                  選択する
-                </Typography>
-              </Box> */}
             </MenuItem>
-            {/* <MenuItem value="popular">人気順</MenuItem> */}
             <MenuItem value="name">名前順</MenuItem>
             <MenuItem value="intheOffice">社内あり</MenuItem>
             <MenuItem value="intheOfficeNone">社内なし</MenuItem>

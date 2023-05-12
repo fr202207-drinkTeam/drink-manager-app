@@ -111,7 +111,7 @@ const Top: FC<Props> = memo((props) => {
           <PollRanking />
           <ActivePinkButton
             event={() => {
-              navigate("/home/poll");
+              navigate("/home/poll/pollresult");
             }}
             sxStyle={{ width: "20%", py: 2, my: 10 }}
           >
