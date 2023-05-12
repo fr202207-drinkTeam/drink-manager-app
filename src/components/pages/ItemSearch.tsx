@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { FC, memo } from "react";
-import ItemCard from "../card/ItemCard";
+import ItemCard from "../organisms/card/ItemCard";
 import { MenuItem, Select, Typography } from "@mui/material";
 import type { Items, Polls, Questionnaire } from "../../types/type";
 import Paginate from "../atoms/paginate/Paginate";

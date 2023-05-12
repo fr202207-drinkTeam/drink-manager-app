@@ -3,20 +3,20 @@ import CardActionArea from "@mui/material/CardActionArea";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { ActiveBeigeButton, InactiveButton } from "../atoms/button/Button";
+import { ActiveBeigeButton, InactiveButton } from "../../atoms/button/Button";
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
+import { useLoginUserFetch } from "../../../hooks/useLoginUserFetch";
 //cookie
 import Cookies from "js-cookie";
 //types
-import { Items, Polls } from "../../types/type";
+import { Items, Polls } from "../../../types/type";
 //icon
 import SearchIcon from "@mui/icons-material/Search";
 import SwitchAccessShortcutAddIcon from "@mui/icons-material/SwitchAccessShortcutAdd";
-import ModalWindow from "../organisms/ModalWindow";
+import ModalWindow from "../ModalWindow";
 //hooks
-import useGetPollCategoryData from "../../hooks/useGetPollCategoryData";
+import useGetPollCategoryData from "../../../hooks/useGetPollCategoryData";
 import { useEffect, useState } from "react";
 
 type PollCardProps = {
@@ -231,7 +231,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                   OthersPollData.some(
                     (data) => data.questionnaireId === pollNum
                   )) ||
-                (loginUser.id === 1 )? (
+                (loginUser.isAdmin === true )? (
                   <InactiveButton
                     sx={{
                       background: "#e29399",

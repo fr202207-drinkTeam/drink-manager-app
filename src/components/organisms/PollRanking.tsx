@@ -1,6 +1,6 @@
 import { Paper, Box, Card, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import ItemCard from "../card/ItemCard";
+import ItemCard from "./card/ItemCard";
 import { Items, Polls, Questionnaire } from "../../types/type";
 import { useParams } from "react-router-dom";
 

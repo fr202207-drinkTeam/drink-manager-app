@@ -1,7 +1,6 @@
-import { FC, memo } from "react";
-import { useState } from "react";
+import { FC, memo, useState } from "react";
 import useGetAnItem from "../../hooks/useGetAnItem";
-import { NavigateFunction, useNavigate, useParams } from "react-router";
+import { NavigateFunction, Params, useNavigate, useParams } from "react-router";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
 import { ActiveDarkBlueButton } from "../atoms/button/Button";
@@ -12,15 +11,9 @@ import TimelineCorner from "../organisms/TimelineCorner";
 
 const ItemDetail: FC = memo(() => {
   const [loading, setLoading] = useState<boolean>(true);
-  // 受け手
-  // const location = useLocation();
-  // const { itemId } = location.state as State;
-
-  const paramsData = useParams();
-  const itemId = Number(paramsData.id);
-
+  const paramsData: Readonly<Params<string>> = useParams();
+  const itemId: number = Number(paramsData.id);
   const navigate: NavigateFunction = useNavigate();
-
   const getAnItemComplete = (isComplete: boolean) => {
     setLoading(isComplete);
   };
@@ -30,12 +23,11 @@ const ItemDetail: FC = memo(() => {
   });
 
   // 投稿削除処理(削除ボタン)
-  const onClickDeleteItem = async () => {
+  const onClickDeleteItem: () => Promise<void> = async () => {
     fetch(`http://localhost:8880/items/${itemId}`, {
       method: "DELETE",
     })
       .then((res) => {
-        console.log("delete success", res);
         navigate("/adminhome");
       })
       .catch((error) => {
@@ -55,6 +47,7 @@ const ItemDetail: FC = memo(() => {
               <Box
                 sx={{ display: "flex", mb: 5, alignItems: "center", ml: 10 }}
               >
+                <Box id="top" />
                 <FreeBreakfastIcon fontSize="large" />
                 <Typography variant="h3" component="p" sx={{ ml: 2 }}>
                   {getAnItemResult.itemData.name}

@@ -5,8 +5,8 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
 import { Box } from '@mui/material';
-import { Items } from '../../types/type';
-import { StockInput } from '../atoms/input/StockInput';
+import { Items } from '../../../types/type';
+import { StockInput } from '../../atoms/input/StockInput';
 
 type Props = {
   itemData: Array<Items>;

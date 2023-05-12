@@ -2,20 +2,23 @@ import { useState, useEffect } from "react";
 import { Items } from "../types/type";
 
 
-const useGetAllItem = () => {
+const useGetAllItem = (trigger: boolean) => {
   const [items, setItems] = useState<Items[]>([]);
- //Items取得
-useEffect(() => {
-  (async () => {
-    try {
-      const response = await fetch(`http://localhost:8880/items`);
-      const data = await response.json();
-      setItems(data);
-    } catch (error) {
-      console.error(error);
-    }
-  })();
-}, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:8880/items`);
+        const data = await response.json();
+        setItems(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [trigger]);
+
   return items;
 };
 
