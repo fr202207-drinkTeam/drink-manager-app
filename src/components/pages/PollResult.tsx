@@ -58,7 +58,6 @@ const PollResult = memo(() => {
       setPollCounts(polllCountItems);
     }
   }, [id, questionnaire]);
-
   return (
     <>
       <Paper>

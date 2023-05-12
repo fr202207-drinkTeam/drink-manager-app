@@ -25,10 +25,10 @@ const PollDescriptionInput: FC<PollDescriptionInputProps> = ({
         label="投票詳細"
         helperText={`${pollDescription.length}/31`}
         inputProps={{ maxLength: 31 }}
+        placeholder="投票詳細"
         onChange={(e: any) => {
           setPollDescription(e.target.value);
         }}
-        placeHolder="投票詳細"
         required
       />
     </Box>
