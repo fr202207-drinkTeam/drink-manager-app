@@ -2,7 +2,7 @@ import  { useEffect, useState } from "react";
 import { Questionnaire } from "../types/type";
 
 const useGetAnQuestionnaire = (id:number) => {
-  const [questionnaire, setQuestionnaire] = useState<Questionnaire>();
+  const [questionnaire, setQuestionnaire] = useState<any>();
     useEffect(() => {
       (async () => {
         try {

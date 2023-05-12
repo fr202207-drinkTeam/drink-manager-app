@@ -16,7 +16,6 @@ import useGetQuestionnaire from "../../hooks/useGetQuestipnnaire";
 import AddItem from "./AddItem";
 import useGetAllItems from "../../hooks/useGetAllItems";
 
-
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
