@@ -256,6 +256,12 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                     title={`${drink.name}に投票してもよろしいですか？？`}
                     content={"⚠️一つの投票につき一回までしか投票できません"}
                     openButtonColor={"pink"}
+                    openButtonIcon={
+                      <>
+                        <SwitchAccessShortcutAddIcon />
+                        &nbsp;&nbsp;
+                      </>
+                    }
                     completeButtonColor={"blue"}
                     completeButtonName={`投票する`}
                     completeAction={() => submitPoll(drink.id)}

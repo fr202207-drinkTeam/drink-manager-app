@@ -30,6 +30,7 @@ const Header = () => {
     { label: "Top", href: "/home" },
     { label: "ご利用ガイド", href: "/home/guide" },
     { label: "投票", href: "/home/poll" },
+    { label: "タイムライン", href: "/home/timeline" },
     { label: "お問い合わせ", href: "/home/contact" },
   ];
   const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -72,7 +73,7 @@ const Header = () => {
   console.log(auth, "auth");
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
-  console.log(loginUser, "user");
+  // console.log(loginUser, "user");
   const onLogoutClick = () => {
     signOut(auth)
       .then(() => {
@@ -98,9 +99,7 @@ const Header = () => {
           alignItems: "center",
         }}
       >
-        {loginUser?.firstName === "" ? (
-          <></>
-        ) : loginUser?.isAdmin ? (
+        {loginUser?.isAdmin ? (
           <Typography>こんにちは管理者さん</Typography>
         ) : (
           <Typography>こんにちは {loginUser?.firstName}さん</Typography>
@@ -122,28 +121,12 @@ const Header = () => {
             }}
           />
         </div>
-        {/* {loginUser?.firstName === "" ? (
-          <></>
-        ) : loginUser?.isAdmin ? (
-          <div style={{ marginLeft: "auto" }}>
-            <Link to="/adminhome">
-              <ActiveDarkBlueButton
-                event={onLogoutClick}
-                sxStyle={{ borderRadius: 10 }}
-              >
-                管理者用TOP
-              </ActiveDarkBlueButton>
-            </Link>
-          </div>
-        ) : (
-          ""
-        )} */}
         {loginUser?.isAdmin ? (
           <div style={{ marginLeft: "auto" }}>
             <Link to="/adminhome">
               <ActiveDarkBlueButton
-                event={onLogoutClick}
                 sxStyle={{ borderRadius: 10 }}
+                event={function (): void {}}
               >
                 管理者用TOP
               </ActiveDarkBlueButton>
