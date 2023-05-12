@@ -11,10 +11,16 @@ export const AdminRouter = [
   { path: "/consumption", element: <Consumption /> },
   { path: "/addition", element: <Addition /> },
   { path: "/history", element: <History /> },
-  { path: "/additem", element: <AddItem setTrigger={function (value: SetStateAction<boolean>): void {
-    throw new Error("Function not implemented.");
-  } } /> },
+  {
+    path: "/additem",
+    element: (
+      <AddItem
+        setTrigger={function (value: SetStateAction<boolean>): void {
+          throw new Error("Function not implemented.");
+        }}
+      />
+    ),
+  },
   { path: "/addpoll", element: <AddPoll /> },
   { path: "/itemedit/:id", element: <ItemEdit /> },
-  // { path: "/", element: <AdminHome /> },
 ];
