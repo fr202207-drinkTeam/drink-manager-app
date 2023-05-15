@@ -15,6 +15,7 @@ import Faq from "../components/pages/Faq";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../hooks/useLoginUserFetch";
 import ScrollTop from "../components/atoms/ScrollTop";
+import NotFound from "../components/pages/NotFound";
 const MainRoute = [
   {
     path: "/adminlogin",
@@ -27,6 +28,14 @@ const MainRoute = [
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/",
+    element: <NotFound />,
+  },
+  {
+    path: "/*",
+    element: <NotFound />,
   },
   // ヘッダー不必要のため仮置
   {
