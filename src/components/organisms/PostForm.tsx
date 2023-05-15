@@ -111,7 +111,7 @@ const PostForm: FC<Props> = memo((props) => {
         setPostError(false);
         setEditPostData(null);
         setReloadPost(!reloadPost);
-        postForm.current![0].value = "";
+        postForm.current.reset();
         setSelectedItemId(0);
         setInputImages([]);
       });
@@ -136,7 +136,7 @@ const PostForm: FC<Props> = memo((props) => {
       console.log("success");
       setPostError(false);
       setReloadPost(!reloadPost);
-      postForm.current![0].value = "";
+      postForm.current.reset();
       setSelectedItemId(0);
       setInputImages([]);
     });
@@ -160,16 +160,22 @@ const PostForm: FC<Props> = memo((props) => {
         ref={postForm}
       >
         <Box sx={{ position: "relative" }}>
+          <InputLabel
+            variant="standard"
+            htmlFor="writeContent"
+            sx={[
+              { "&:hover": { cursor: "pointer" } },
+              { display: "flex", pl: "5px" },
+            ]}
+          >
+            <Create />
+            <Typography sx={{ color: "rgba(0,0,0,0.6)" }}>投稿</Typography>
+          </InputLabel>
           <TextField
             fullWidth
+            id="writeContent"
             rows={3}
             multiline
-            label={
-              <Box sx={{ display: "flex", ml: "5px" }}>
-                <Create />
-                <Typography sx={{ color: "rgba(0,0,0,0.6)" }}>投稿</Typography>
-              </Box>
-            }
             variant="standard"
             sx={{ p: "0" }}
           />
