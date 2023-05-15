@@ -88,7 +88,6 @@ const LoginForm: FC<Props> = (props) => {
       setErrorUser(true);
     }
   };
-  console.log(loginUser, 199);
 
   return (
     <Container maxWidth="sm" sx={{ alignItems: "center", mt: "80px" }}>
