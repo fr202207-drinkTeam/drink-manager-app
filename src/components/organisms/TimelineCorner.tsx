@@ -2,7 +2,6 @@ import { FC, memo, useEffect, useState } from "react";
 import { Box } from "@mui/system";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import type { Post } from "../../types/type";
-import { Like } from "../../types/type";
 import { Link } from "react-router-dom";
 
 type Props = {
@@ -60,7 +59,6 @@ const TimelineCorner: FC<Props> = memo((props) => {
       const maxLikesLengthArray: Like[] = allLikes.reduce((acc, cur) => {
         return acc.length > cur.length ? acc : cur;
       }, []);
-
       if(maxLikesLengthArray.length === 0) {
         setDisplayPostId(postData[0].id)
         return;
@@ -127,7 +125,7 @@ const TimelineCorner: FC<Props> = memo((props) => {
                 }}
               >
                 <Typography variant="body2" component="p">
-                  {displayPostData.content}
+                  {displayPostData.content.replace(/\n<a href=.*/,"")}
                 </Typography>
               </CardContent>
             </Box>

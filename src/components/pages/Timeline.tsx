@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useState } from "react";
+import { FC, memo, useEffect, useRef, useState } from "react";
 import {
   Box,
   CircularProgress,
@@ -15,15 +15,11 @@ import TimelineHeader from "../organisms/TimelineHeader";
 import useGetItems from "../../hooks/useGetItems";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
+import { useLocation, useNavigate } from "react-router";
 
 type Props = {};
 
 const Timeline: FC<Props> = memo((props) => {
-  // TODO 受け手
-  // const location = useLocation();
-  // const itemId = location.state;
-  // console.log("itemId", itemId);
-
   // ログイン情報取得
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
@@ -40,9 +36,8 @@ const Timeline: FC<Props> = memo((props) => {
   const [postSearch, setPostSearch] = useState<string>("");
   // 投稿データ取得時のクエリパラメータ
   const [postParams, setPostParams] = useState<string>(
-    `?${postUserAdmin}${postSearch}_sort=createdAt&_order=desc&_start=${postParamsNum}&_end=${
-      postParamsNum + 3
-    }`
+    `?${postUserAdmin}${postSearch}_sort=createdAt&_order=desc&_start=${postParamsNum}&_end=${postParamsNum +
+      3}`
   );
 
   // 投稿データ格納
@@ -54,17 +49,82 @@ const Timeline: FC<Props> = memo((props) => {
   // 投稿を編集する際にその投稿を格納
   const [editPostData, setEditPostData] = useState<Post | null>(null);
 
+  // 投稿が更新された際の投稿取得トリガー用
+  const [reloadPost, setReloadPost] = useState<boolean>(false);
+
   // 取得した投稿データ、パラメータが更新されるたびに投稿データ取得
   const { fetchPostData, postLoading } = useGetPosts(postParams);
 
+  // 商品詳細画面から遷移した場合、その商品のいいね数の一番多い投稿を表示
+  const itemId = useRef<number>(0);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  useEffect(() => {
+    (async () => {
+      const itemInfo = location.state;
+      if (itemInfo) {
+        // 商品の投稿を全権取得
+        const fetchItemPostData = await fetch(
+          `http://localhost:8880/posts?itemId=${itemInfo.itemId}`,
+          {
+            method: "GET",
+          }
+        );
+        const itemPostData = await fetchItemPostData.json();
+        // 投稿を元にいいね数を取得
+        const fetchLikes = async () => {
+          const allLikes: any[] = await Promise.all(
+            itemPostData.map(async (post: Post) => {
+              try {
+                const res = await fetch(
+                  `http://localhost:8880/likes?postId=${post.id}`,
+                  {
+                    method: "GET",
+                  }
+                );
+                const data = await res.json();
+                return data;
+              } catch (error) {
+                console.error("Error:", error);
+              }
+            })
+          );
+          // いいね数の比較
+          const maxLikesLengthArray = allLikes.reduce((acc, cur) => {
+            return acc.length > cur.length ? acc : cur;
+          }, []);
+          // どの投稿にもいいねがなかった場合
+          if (maxLikesLengthArray.length === 0) {
+            setPostData([itemPostData[0]]);
+            return;
+          }
+          // いいねがあった場合、その投稿を表示
+          const displayPost = itemPostData.find(
+            (post: Post) => post.id === maxLikesLengthArray[0].postId
+          );
+          setPostData([displayPost]);
+        };
+        fetchLikes();
+        // 商品idがあるかどうかの設定
+        itemId.current = itemInfo.itemId;
+      }
+    })();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // 各クエリパラメータ要素のstateが変わるたびに新しいパラメータをセット
   useEffect(() => {
+    console.log("before", itemId.current, location.state)
+    if (location.state && location.state.itemId !== 0) {
+      return;
+    }
     setPostParams(
-      `?${postUserAdmin}${postSearch}_sort=createdAt&_order=desc&_start=${postParamsNum}&_end=${
-        postParamsNum + 3
-      }`
+      `?${postUserAdmin}${postSearch}_sort=createdAt&_order=desc&_start=${postParamsNum}&_end=${postParamsNum +
+        3}&${reloadPost}`
     );
-  }, [postParamsNum, postSearch, postUserAdmin]);
+  }, [location.state, postParamsNum, postSearch, postUserAdmin, reloadPost]);
 
   // 新しく取得した投稿データと既に取得していたデータをまとめる
   useEffect(() => {
@@ -78,13 +138,18 @@ const Timeline: FC<Props> = memo((props) => {
         return [...postData];
       } else {
         setNoMoreData(false);
+
         // 新規、既存のデータが同じでないことを確認
         const preventDuplication = postData.some((post: Post) => {
-          return post.id === fetchPostData[0].id;
+          return (
+            post.id === fetchPostData[0].id ||
+            (fetchPostData[1] && post.id === fetchPostData[1].id) ||
+            (fetchPostData[2] && post.id === fetchPostData[2].id)
+          );
         });
         // 新規、既存のデータが同じだった場合、既存データを返す
         if (preventDuplication) {
-          return postData;
+          return [...fetchPostData];
         }
         // 新規、既存のデータが同じでない場合、まとめたものを返す
         return [...postData, ...fetchPostData];
@@ -105,9 +170,12 @@ const Timeline: FC<Props> = memo((props) => {
     ) => {
       // ヘッダーのボタンの場合は投稿3件取得
       if (isHeaderButton) {
-        window.location.reload();
+        setReloadPost(!reloadPost);
       } else {
-        if (noMoreData) {
+        if (noMoreData || itemId.current !== 0) {
+          setReloadPost(!reloadPost);
+          navigate(location.state, {});
+          itemId.current = 0;
           return;
         }
         // 画面下のボタンの場合は現在の表示に追加で3件取得
@@ -142,11 +210,11 @@ const Timeline: FC<Props> = memo((props) => {
         break;
       case "投稿":
         setpostParamsNum(0);
-        setPostUserAdmin("userId_ne=2&");
+        setPostUserAdmin("userId_ne=1&");
         break;
       case "お知らせ":
         setpostParamsNum(0);
-        setPostUserAdmin("userId=2&");
+        setPostUserAdmin("userId=1&");
         break;
     }
   };
@@ -181,6 +249,8 @@ const Timeline: FC<Props> = memo((props) => {
           loginUser={loginUser}
           editPostData={editPostData}
           setEditPostData={setEditPostData}
+          reloadPost={reloadPost}
+          setReloadPost={setReloadPost}
         />
 
         {/* 初期ロード時 */}
@@ -198,6 +268,8 @@ const Timeline: FC<Props> = memo((props) => {
             isComment={true}
             loginUser={loginUser}
             setEditPostData={setEditPostData}
+            reloadPost={reloadPost}
+            setReloadPost={setReloadPost}
           />
         ))}
 
