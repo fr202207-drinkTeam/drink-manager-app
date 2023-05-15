@@ -6,26 +6,34 @@ import {
   ImageList,
   ImageListItem,
   Box,
-  Button,
   Grid,
+  IconButton,
 } from "@mui/material";
 import Comment from "./Comment";
 import parse from "html-react-parser";
 import Likes from "../molecules/Likes";
 import { EditNote } from "@mui/icons-material";
-import { ActiveDarkBlueButton } from "../atoms/button/Button";
-import ModalWindow from "./ModalWindow";
+import MenuButtons from "../molecules/MenuButtons";
 
 // 投稿データ、コメント表示有無、ログインユーザー情報、投稿編集のset関数
 type Props = {
   postData: Post;
   isComment: boolean;
   loginUser: Users;
-  setEditPostData: React.Dispatch<React.SetStateAction<Post | null>>;
+  setEditPostData: React.Dispatch<React.SetStateAction<Post | null>> | null;
+  reloadPost?: boolean;
+  setReloadPost?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const PostData: FC<Props> = memo((props) => {
-  const { postData, isComment, loginUser, setEditPostData } = props;
+  const {
+    postData,
+    isComment,
+    loginUser,
+    setEditPostData,
+    reloadPost,
+    setReloadPost,
+  } = props;
 
   // それぞれの投稿のユーザー情報格納
   const [userData, setUserData] = useState<Users | null>(null);
@@ -34,7 +42,7 @@ const PostData: FC<Props> = memo((props) => {
   // ログインユーザーの投稿だった場合、メニューの表示
   const [menu, setMenu] = useState<boolean>(false);
 
-  const [reloadComment, setReloadComment] = useState<boolean>(false)
+  const [reloadComment, setReloadComment] = useState<boolean>(false);
 
   useEffect(() => {
     // 投稿のユーザー情報取得
@@ -73,7 +81,7 @@ const PostData: FC<Props> = memo((props) => {
   // 投稿編集処理
   const editPost = () => {
     setMenu(false);
-    setEditPostData(postData);
+    setEditPostData!(postData);
     return;
   };
   // 投稿削除処理
@@ -116,6 +124,10 @@ const PostData: FC<Props> = memo((props) => {
             console.log("Error:", error);
           });
       })
+      .then(() => {
+        console.log("delete come")
+        setReloadPost!(!reloadPost);
+      })
       .catch((error) => {
         console.log("Error:", error);
       });
@@ -125,81 +137,79 @@ const PostData: FC<Props> = memo((props) => {
   return (
     <Paper elevation={3} sx={{ mt: 2, height: "auto", py: "3px" }}>
       <Box sx={{ borderBottom: "1px solid", mx: "5px", pb: "5px" }}>
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography
-            variant="body1"
-            sx={{ fontWeight: "bolder", color: "blue" }}
-          >
-            {/* ユーザー情報取得次第、名前を表示 */}
-            {userData && `${userData.firstName} ${userData.lastName}`}
-          </Typography>
+        <Box sx={{ display: "flex" }}>
+          <Box sx={{ flexGrow: 1 }}>
+            <Box sx={{ display: "flex", mt: "3px" }}>
+              <Typography
+                variant="body1"
+                sx={{ fontWeight: "bolder", color: "blue" }}
+              >
+                {/* ユーザー情報取得次第、名前を表示 */}
+                {userData && `${userData.firstName} ${userData.lastName}`}
+              </Typography>
+              <Box sx={{ alignItems: "flex-end", mx: 2 }}>
+                <Typography variant="caption">
+                  {new Date(postData.createdAt).toLocaleString()}
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
           {/* ログインユーザーの投稿の場合、メニュー画面を表示 */}
-          {userData && loginUser.id === userData.id && !menu && (
-            <Grid item xs={2}>
-              <Button
-                size="small"
-                sx={{ color: "gray" }}
+          {userData && loginUser.id === userData.id && !menu && isComment && (
+            <Grid>
+              <IconButton
+                component="label"
+                sx={{
+                  color: "white",
+                  background: "#ea6f00",
+                  borderRadius: "3px",
+                  mr: 1,
+                }}
                 onClick={() => {
                   setMenu(true);
                 }}
+                size="small"
               >
-                <EditNote />
-              </Button>
+                <EditNote fontSize="small" />
+              </IconButton>
             </Grid>
           )}
           {menu && (
-            <Grid item xs={2}>
-              <ActiveDarkBlueButton event={editPost}>編集</ActiveDarkBlueButton>
-              <ModalWindow
-                title=""
-                content="内容は破棄されますがよろしいですか？"
-                openButtonColor="red"
-                completeButtonColor="red"
-                completeButtonName="確定"
-                buttonName="削除"
-                completeAction={deletePost}
-                cancelButtonColor="gray"
-              />
-            </Grid>
+            <MenuButtons editHandler={editPost} deleteHandler={deletePost} />
           )}
-        </Box>
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box>
-            <Typography variant="caption">
-              {new Date(postData.createdAt).toLocaleString()}
-            </Typography>
+            {/* ユーザーが管理者かどうかでそれぞれの投稿にタグ付け */}
+            {userData && userData.isAdmin && (
+              <Typography
+                variant="body2"
+                sx={{
+                  color: "white",
+                  background: "#ea6f00",
+                  mr: "10px",
+                  px: "3px",
+                  borderRadius: "2px",
+                }}
+              >
+                お知らせ
+              </Typography>
+            )}
+            {userData && !userData.isAdmin && (
+              <Typography
+                variant="body2"
+                sx={{
+                  color: "white",
+                  background: "#C89F81",
+                  mr: "10px",
+                  px: "3px",
+                  borderRadius: "2px",
+                }}
+              >
+                投稿
+              </Typography>
+            )}
           </Box>
-
-          {/* ユーザーが管理者かどうかでそれぞれの投稿にタグ付け */}
-          {userData && userData.isAdmin && (
-            <Typography
-              variant="body2"
-              sx={{
-                color: "white",
-                background: "#ea6f00",
-                mr: "10px",
-                px: "3px",
-                borderRadius: "2px",
-              }}
-            >
-              お知らせ
-            </Typography>
-          )}
-          {userData && !userData.isAdmin && (
-            <Typography
-              variant="body2"
-              sx={{
-                color: "white",
-                background: "#C89F81",
-                mr: "10px",
-                px: "3px",
-                borderRadius: "2px",
-              }}
-            >
-              投稿
-            </Typography>
-          )}
         </Box>
+
         <Box>
           <Typography variant="body1">{parse(content)}</Typography>
         </Box>

@@ -1,9 +1,8 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Grid, IconButton, Stack, Typography } from "@mui/material";
 import { FC, memo, useEffect, useState } from "react";
 import { Comment as CommentType, Users } from "../../types/type";
 import { EditNote } from "@mui/icons-material";
-import { ActiveDarkBlueButton } from "../atoms/button/Button";
-import ModalWindow from "./ModalWindow";
+import MenuButtons from "../molecules/MenuButtons";
 
 // コメントデータ、ログイン情報、編集コメントのset関数
 type Props = {
@@ -85,32 +84,33 @@ const CommentData: FC<Props> = memo((props) => {
         {/* ログインユーザーの投稿だった場合、メニューボタンを表示 */}
         {userData && loginUser.id === userData.id && !menu && (
           <Grid item xs={2}>
-            <Button
-              size="small"
-              sx={{ color: "gray" }}
+            <Stack direction="row" justifyContent="end" sx={{mx: 1}}>
+            <IconButton
+              component="label"
+              sx={{
+                color: "white",
+                background: "#ea6f00",
+                borderRadius: "3px",
+                mr: 1,
+              }}
               onClick={() => {
                 setMenu(true);
               }}
+              size="small"
             >
-              <EditNote />
-            </Button>
+              <EditNote fontSize="small" />
+            </IconButton>
+            </Stack>
           </Grid>
         )}
         {menu && (
           <Grid item xs={2}>
-            <ActiveDarkBlueButton event={editComment}>
-              編集
-            </ActiveDarkBlueButton>
-            <ModalWindow
-              title=""
-              content="内容は破棄されますがよろしいですか？"
-              openButtonColor="red"
-              completeButtonColor="red"
-              completeButtonName="確定"
-              buttonName="削除"
-              completeAction={deleteComment}
-              cancelButtonColor="gray"
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            <MenuButtons
+              editHandler={editComment}
+              deleteHandler={deleteComment}
             />
+          </Box>
           </Grid>
         )}
       </Grid>

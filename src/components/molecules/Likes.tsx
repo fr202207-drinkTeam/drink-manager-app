@@ -113,11 +113,33 @@ const Likes: FC<Props> = memo((props) => {
         </Grid>
         <Grid item xs={3}>
           {liked ? (
-            <Button sx={{ p: "0px", color: "blue" }} onClick={postLike}>
-              いいね
+            <Button
+              sx={{
+                p: "0px",
+                color: "black",
+                backgroundColor: "#C89F81",
+                my: "3px",
+                fontWeight: "bold",
+              }}
+              onClick={postLike}
+            >
+              いいね済
             </Button>
           ) : (
-            <Button sx={{ p: "0px", color: "gray" }} onClick={postLike}>
+            <Button
+              sx={[{
+                p: "0px",
+                color: "white",
+                backgroundColor: "#ea6f00",
+                my: "3px",
+                fontWeight: "bold",
+              }, {
+                "&:hover": {
+                  color: "black",
+                },
+              }]}
+              onClick={postLike}
+            >
               いいね
             </Button>
           )}
