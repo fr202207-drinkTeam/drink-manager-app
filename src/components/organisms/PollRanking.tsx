@@ -58,6 +58,9 @@ const PollRanking = () => {
   //questionner取得
   useEffect(() => {
     (async () => {
+      if (!pollId) {
+        return;
+      }
       try {
         const response = await fetch(
           `http://localhost:8880/questionnaire/${pollId}`
@@ -146,13 +149,11 @@ const PollRanking = () => {
           m: "auto",
         }}
       >
-        <Typography
-          gutterBottom
-          component="div"
-          sx={{ m: 2, color: "#595857", fontSize: "25px" }}
+        <span
+          style={{ fontSize: "34px", fontWeight: "bold", color: "#F3BF87" }}
         >
           ランキング
-        </Typography>
+        </span>
 
         {questionnaire?.name ? (
           <Typography

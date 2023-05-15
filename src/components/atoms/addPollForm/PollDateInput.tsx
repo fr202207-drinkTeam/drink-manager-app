@@ -67,6 +67,7 @@ const PollDateInput:FC<PollDateInputProps> = ({
                 name="startdate"
                 value={startPeriodDate}
                 onChange={handleStartDateChange}
+                placeholder="日付"
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -89,6 +90,7 @@ const PollDateInput:FC<PollDateInputProps> = ({
                 name="enddate"
                 value={endPeriodDate}
                 onChange={handleEndDateChange}
+                placeholder="日付"
                 InputLabelProps={{
                   shrink: true,
                 }}

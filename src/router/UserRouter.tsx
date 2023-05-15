@@ -7,6 +7,7 @@ import ItemSearch from "../components/pages/ItemSearch";
 import Poll from "../components/pages/Poll";
 import PollResult from "../components/pages/PollResult";
 import Timeline from "../components/pages/Timeline";
+import NotFound from "../components/pages/NotFound";
 
 export const UserRouter = [
   { path: "/timeline", element: <Timeline /> },
@@ -18,4 +19,5 @@ export const UserRouter = [
   { path: "/poll", element: <Poll /> },
   { path: "/poll/:id", element: <PollResult /> },
   { path: "/poll/pollresult", element: <PollResultFiltering /> },
+  { path: "/home/*", element: <NotFound /> },
 ];
