@@ -252,29 +252,15 @@
       "name": "ホットココア",
       "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）",
       "image": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/cf8b890d-08cc-45dd-bcb9-4d7f77dfb9db?alt=media&token=0b614d53-a47c-4410-8ae5-53af71adddb2",
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/e10244fc-c696-441c-a121-fd633739a09d?alt=media&token=4d364d57-1ffc-4b37-8a4d-f7ae9c45c681"
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/873f3e7e-4727-4a33-b130-c0d60e7ca36c?alt=media&token=265e83e3-ad6c-4632-894b-e8894319b8c0",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/fe1e586c-1aa2-4ddf-9f66-411758f1fcae?alt=media&token=56f98f90-43ae-4469-8040-4aaed912fb5d"
       ],
       "itemCategory": 6,
-      "createdAt": "2023-05-10T05:06:04.851Z",
+      "createdAt": "2023-05-12T01:22:02.531Z",
       "inTheOffice": false,
       "author": 1,
       "otherItem": false,
       "id": 17
-    },
-    {
-      "name": "商品20",
-      "description": "20",
-      "image": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/e115c928-9b70-4d9f-acd4-5548945c4c97?alt=media&token=66dd0e20-dbff-4119-b686-75679db2c55f",
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/215ebfdb-e458-4e68-933c-15667627c3d4?alt=media&token=6a65986a-c897-4be3-b0e0-a6c2ff0fe158"
-      ],
-      "itemCategory": 5,
-      "createdAt": "2023-05-10T00:15:00.461Z",
-      "inTheOffice": false,
-      "author": 1,
-      "otherItem": false,
-      "id": 20
     },
     {
       "name": "おっとっと",
@@ -340,6 +326,19 @@
       "author": 1,
       "otherItem": true,
       "id": 25
+    },
+    {
+      "name": "ビスコ",
+      "description": "みんなにやさしい、クリームサンドビスケット♪\n●ほんのりレモン風味のクリームを、あっさりプレーンなビスケットでサンドしました。\n●どこか懐かしい、素朴な味わいです。",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/570672fa-b7bc-4f22-bc9c-9b5927efb4cc?alt=media&token=c5d38bab-6270-4e6b-a504-c4e29c30d4b4"
+      ],
+      "itemCategory": 6,
+      "createdAt": "2023-05-12T04:42:56.450Z",
+      "inTheOffice": false,
+      "author": 4,
+      "otherItem": true,
+      "id": 26
     }
   ],
   "itemCategory": [
@@ -962,6 +961,470 @@
       "id": 9
     },
     {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 9,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 9,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 9,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 9,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 7,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 4,
+      "userId": 7,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 4,
+      "userId": 7,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 4,
+      "userId": 7,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 9,
+      "category": 3,
+      "result": 5,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 7
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 10,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 7
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 7,
+      "category": 7,
+      "result": 2,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 6
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 8,
+      "category": 3,
+      "result": 1,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 7
+    },
+    {
+      "questionnaireId": 5,
+      "userId": 8,
+      "category": 3,
+      "result": 1,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 8
+    },
+    {
+      "questionnaireId": 5,
+      "userId": 7,
+      "category": 3,
+      "result": 1,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 9,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 9,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 9,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 9,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 7,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 4,
+      "userId": 7,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 4,
+      "userId": 7,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 4,
+      "userId": 7,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 9,
+      "category": 3,
+      "result": 5,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 7
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 10,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 7
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 7,
+      "category": 7,
+      "result": 2,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 6
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 8,
+      "category": 3,
+      "result": 1,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 7
+    },
+    {
+      "questionnaireId": 5,
+      "userId": 8,
+      "category": 3,
+      "result": 1,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 8
+    },
+    {
+      "questionnaireId": 5,
+      "userId": 7,
+      "category": 3,
+      "result": 1,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 9,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 9,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 9,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 9,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 7,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 4,
+      "userId": 7,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 4,
+      "userId": 7,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 4,
+      "userId": 7,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 9,
+      "category": 3,
+      "result": 5,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 7
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 10,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 7
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 7,
+      "category": 7,
+      "result": 2,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 6
+    },
+    {
+      "questionnaireId": 2,
+      "userId": 8,
+      "category": 3,
+      "result": 1,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 7
+    },
+    {
+      "questionnaireId": 5,
+      "userId": 8,
+      "category": 3,
+      "result": 1,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 8
+    },
+    {
+      "questionnaireId": 5,
+      "userId": 7,
+      "category": 3,
+      "result": 1,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 9,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 9,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 9,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 9,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 7,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 3,
+      "userId": 7,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 4,
+      "userId": 7,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 4,
+      "userId": 7,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
+      "questionnaireId": 4,
+      "userId": 7,
+      "category": 3,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 9
+    },
+    {
       "questionnaireId": 2,
       "userId": 9,
       "category": 3,
@@ -1002,20 +1465,76 @@
       "id": 7
     },
     {
-      "questionnaireId": 6,
-      "userId": 1,
-      "category": 1,
-      "result": 8,
-      "createdAt": "2023-05-04T05:47:49.540Z",
-      "id": 10
+      "questionnaireId": 4,
+      "userId": 2,
+      "category": 2,
+      "result": 4,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 12
     },
     {
-      "questionnaireId": 8,
-      "userId": null,
+      "questionnaireId": 4,
+      "userId": 3,
       "category": 2,
-      "result": 25,
-      "createdAt": "2023-05-10T23:33:08.845Z",
-      "id": 11
+      "result": 2,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 13
+    },
+    {
+      "questionnaireId": 1,
+      "userId": 4,
+      "category": 2,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 14
+    },
+    {
+      "questionnaireId": 1,
+      "userId": 6,
+      "category": 2,
+      "result": 5,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 15
+    },
+    {
+      "questionnaireId": 1,
+      "userId": 6,
+      "category": 2,
+      "result": 7,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 15
+    },
+    {
+      "questionnaireId": 1,
+      "userId": 6,
+      "category": 2,
+      "result": 6,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 15
+    },
+    {
+      "questionnaireId": 1,
+      "userId": 6,
+      "category": 2,
+      "result": 5,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 15
+    },
+    {
+      "questionnaireId": 1,
+      "userId": 6,
+      "category": 2,
+      "result": 5,
+      "createdAt": "2023-04-28T01:59:00.194Z",
+      "id": 15
+    },
+    {
+      "questionnaireId": 6,
+      "userId": 5,
+      "category": 1,
+      "result": 1,
+      "createdAt": "2023-05-14T14:01:59.542Z",
+      "id": 16
     }
   ],
   "contact": [],
@@ -1175,7 +1694,7 @@
       "id": 12,
       "itemId": 13,
       "quantity": 5,
-      "day": "2023-05-03T02:50:27.944Z",
+      "day": "2023-05-04T02:57:27.944Z",
       "incOrDec": false,
       "stockAmount": 10
     },
@@ -1183,25 +1702,25 @@
       "id": 13,
       "itemId": 13,
       "quantity": 6,
-      "day": "2023-05-03T02:50:27.944Z",
+      "day": "2023-05-04T02:58:27.944Z",
       "incOrDec": false,
       "stockAmount": 12
     },
     {
       "id": 14,
+      "itemId": 13,
+      "quantity": 6,
+      "day": "2023-05-04T02:59:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 20
+    },
+    {
+      "id": 15,
       "itemId": 17,
       "quantity": 6,
       "day": "2023-05-03T02:50:27.944Z",
       "incOrDec": false,
       "stockAmount": 12
-    }
-  ],
-  "stockAmount": [
-    {
-      "id": 1,
-      "itemId": 5,
-      "day": "2023-05-02T02:50:27.944Z",
-      "amount": 100
     }
   ],
   "addition": [

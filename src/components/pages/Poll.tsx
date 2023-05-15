@@ -1,13 +1,12 @@
 import { memo } from "react";
-import { Box, ListItem, ListItemText, Paper } from "@mui/material";
-import { ActiveBeigeButton } from "../atoms/button/Button";
+import { Box, Paper } from "@mui/material";
 import { Items, Questionnaire } from "../../types/type";
 import PollTitle from "../molecules/poll/PollTitle";
-import PollCard from "../card/PollCard";
+import PollCard from "../organisms/card/PollCard";
 import useGetPollCategoryItem from "../../hooks/useGetPollCategoryItem";
 import useGetPollLatestTitle from "../../hooks/useGetPollLatestTitle";
-import { useNavigate } from "react-router-dom";
 import PollDetail from "../molecules/poll/PollDetail";
+import PollAgenda from "../molecules/poll/PollAgenda";
 
 const Poll = memo(() => {
   //当月（開催中）のアンケートだけ表示。それ以外は非表示
@@ -15,15 +14,13 @@ const Poll = memo(() => {
   const OtheritemData: Items[] = useGetPollCategoryItem(2);
   const PopularPollTitle: Questionnaire[] = useGetPollLatestTitle(1);
   const OtherPollTitle: Questionnaire[] = useGetPollLatestTitle(2);
-  const navigate = useNavigate();
-  const pollTitle=[PopularPollTitle[0]].concat(OtherPollTitle[0])
+  const pollTitle = [PopularPollTitle[0]].concat(OtherPollTitle[0]);
   const now = new Date();
   return (
     <>
       <Paper
         sx={{ mb: 5, width: "100%", minWidth: 500, maxWidth: 1200, pb: 13 }}
       >
-        <div id="top"></div>
         <Box
           sx={{
             textAlign: "center",
@@ -37,105 +34,37 @@ const Poll = memo(() => {
             pt: 10,
           }}
         >
-          <Box
-            sx={{
-              textAlign: "center",
-              fontSize: "30px",
-              mt: 5,
-              maxWidth: 600,
-              minWidth: 600,
-            }}
-          >
-            ＼現在開催中の
-            <span style={{ fontSize: "40px", fontWeight: "bold", color: "#F3BF87" }}>
-            &nbsp;投票&nbsp;
-            </span>
-            はこちら／
-          </Box>
-          <Box>
-            {pollTitle.map((title)=>(
-              <>
-              {!(title?.endDate <= now) ? (
-                <Box key={title?.id} sx={{ textAlign: "center" }}>
-                  <ListItem
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      p: 1,
-                      maxWidth: 700,
-                      minWidth: 700,
-                      mt: 1,
-                    }}
-                    button
-                    component="a"
-                    href={`#popular`}
-                  >
-                    <ListItemText
-                      primaryTypographyProps={{
-                        textAlign: "center",
-                        fontSize: "40px",
-                        border: "double #C89F81",
-                        p: 1,
-                      }}
-                    >
-                      {title?.name}
-                      <span
-                        style={{
-                          display: "flex",
-                          flexWrap: "wrap",
-                          justifyContent: "center",
-                          fontSize: "20px",
-                          paddingBottom: 1,
-                        }}
-                      >
-                        投票期間：
-                        {title?.startDate.toLocaleDateString()}~
-                        {title?.endDate.toLocaleDateString()}
-                      </span>
-                    </ListItemText>
-                  </ListItem>
-                </Box>
-              ) : (
-                <Box></Box>
-              )}
-              </>
-            ))}
-          </Box>
-        </Box>
-        <Box sx={{ textAlign: "center", my: 5, mb: 10 }}>
-          <ActiveBeigeButton
-            event={() => navigate("/home/poll/pollresult")}
-            style={{ padding: 15, width: 300, height: 80, fontSize: "23px" }}
-          >
-            過去の投票結果を見る!
-          </ActiveBeigeButton>
+          <PollAgenda pollTitle={pollTitle}/>
         </Box>
         {!(PopularPollTitle[0]?.endDate <= now) ? (
           <>
             <div id="popular"></div>
             <PollTitle poll={PopularPollTitle} />
-            <PollDetail PopularitemData={PopularitemData}/>
+            <PollDetail PopularitemData={PopularitemData} titleText={PopularPollTitle[0]?.description}/>
             <PollCard
               data={PopularitemData}
               pollNum={PopularPollTitle[0]?.id}
               pollCategory={PopularPollTitle[0]?.category}
-              sxStyle={{mb:3 }}
+              sxStyle={{ mb: 3 }}
             />
           </>
         ) : (
-          <></>
+          <Box
+          sx={{ textAlign: "center", fontSize: "25px", mb: 10, border: 1 }}
+        >
+          現在開催中の投票はありません。
+        </Box>
         )}
         {!(OtherPollTitle[0]?.endDate <= now) ? (
           <>
             <div id="others"></div>
             <PollTitle poll={OtherPollTitle} />
-            <PollDetail OtheritemData={OtheritemData}/>
+            <PollDetail OtheritemData={OtheritemData} titleText={OtherPollTitle[0]?.description}/>
             <PollCard
               data={OtheritemData}
               pollNum={OtherPollTitle[0]?.id}
               pollCategory={OtherPollTitle[0]?.category}
-              sxStyle={{mb:3 }}
+              sxStyle={{ mb: 3 }}
             />
           </>
         ) : (

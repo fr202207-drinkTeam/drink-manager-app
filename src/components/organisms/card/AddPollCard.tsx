@@ -3,8 +3,8 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
-import { Items } from "../../types/type";
-import { ActiveBorderButton, ActiveDarkBlueButton } from "../atoms/button/Button";
+import { Items } from "../../../types/type";
+import { ActiveBorderButton, ActiveDarkBlueButton } from "../../atoms/button/Button";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import CheckIcon from '@mui/icons-material/Check';
 

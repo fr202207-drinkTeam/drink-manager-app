@@ -5,15 +5,15 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
-import { Items } from "../../types/type";
+import { Items } from "../../../types/type";
 import { Link } from "react-router-dom";
 type ItemCardProps = {
   data: Items[];
-  sxStyle?:any;
-  sxBox?:any;
+  sxStyle?: any;
+  sxBox?: any;
 };
 
-const ItemCard = ({ data,sxStyle,sxBox }: ItemCardProps) => {
+const ItemCard = ({ data, sxStyle, sxBox }: ItemCardProps) => {
   return (
     <>
       <Box
@@ -25,10 +25,10 @@ const ItemCard = ({ data,sxStyle,sxBox }: ItemCardProps) => {
           ...sxBox,
         }}
       >
-        {data?.map((drink: Items,index) => (
+        {data?.map((drink: Items, index) => (
           <Card
             sx={{
-              width: 310,
+              width: 260,
               m: 2,
               boxShadow: "none",
               border: "solid 1px ",
@@ -38,35 +38,34 @@ const ItemCard = ({ data,sxStyle,sxBox }: ItemCardProps) => {
             key={index}
           >
             <Typography
-                variant="body2"
-                color="textSecondary"
-                component="p"
-                sx={{
-                  textAlign: "center",
-                  fontSize: "13px",
-                  backgroundColor: "#d6c6af",
-                  width: 80,
-                  p: "3px",
-                  color: "#000",
-                  borderRadius: "3px",
-                }}
-              >
-
+              variant="body2"
+              color="textSecondary"
+              component="p"
+              sx={{
+                textAlign: "center",
+                fontSize: "13px",
+                backgroundColor: "#d6c6af",
+                width: 80,
+                p: "3px",
+                color: "#000",
+                borderRadius: "3px",
+              }}
+            >
               {(() => {
                 if (
                   Number(drink.itemCategory) >= 1 &&
                   Number(drink.itemCategory) <= 4
-                  ) {
-                    return "コーヒー";
-                  } else if (drink.itemCategory === 5) {
-                    return "ティー";
-                  } else if (drink.itemCategory === 6) {
-                    return "ココア";
-                  } else {
-                    return "その他";
-                  }
-                })()}
-                </Typography>
+                ) {
+                  return "コーヒー";
+                } else if (drink.itemCategory === 5) {
+                  return "ティー";
+                } else if (drink.itemCategory === 6) {
+                  return "ココア";
+                } else {
+                  return "その他";
+                }
+              })()}
+            </Typography>
             <CardActionArea component="a" href={`/home/search/${drink.id}`}>
               <CardMedia
                 component="img"
@@ -75,16 +74,16 @@ const ItemCard = ({ data,sxStyle,sxBox }: ItemCardProps) => {
                 width="140"
                 image={drink.image[0]}
                 title="商品名"
-                  sx={{
-                    display: "block",
-                    width: 200,
-                    height: 200,
-                    p:1,
-                    objectFit: "cover",
-                    m: "auto",
-                  }}
+                sx={{
+                  display: "block",
+                  width: 200,
+                  height: 200,
+                  p: 1,
+                  objectFit: "cover",
+                  m: "auto",
+                }}
               />
-              <CardContent sx={{height:200}}>
+              <CardContent sx={{ height: 200 }}>
                 {drink.intheOffice ? (
                   <Typography
                     variant="body2"
@@ -129,7 +128,7 @@ const ItemCard = ({ data,sxStyle,sxBox }: ItemCardProps) => {
                     fontFamily: "Georgia",
                     fontWeight: "bold",
                     height: "200",
-                    mt:1
+                    mt: 1,
                   }}
                 >
                   {drink.name}
@@ -142,7 +141,7 @@ const ItemCard = ({ data,sxStyle,sxBox }: ItemCardProps) => {
                 >
                   {drink.description}
                 </Typography>
-                </CardContent>
+              </CardContent>
             </CardActionArea>
           </Card>
         ))}

@@ -17,9 +17,9 @@ const DottedMemo = ({text,information,fontSize,maxWidth,minWidth,margin}:DottedM
     sx={{
       p: 1,
       mb: 5,
-      backgroundColor:"#ffdead",
+      backgroundColor:"#fde8d0",
       border: "2px dashed #fff ",
-      boxShadow: " 0 0 0 8px #ffdead",
+      boxShadow: " 0 0 0 8px #fde8d0",
       width: "100%",
       maxWidth,
       minWidth,

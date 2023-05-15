@@ -1,6 +1,6 @@
 import { Button, Paper, Typography } from '@mui/material';
 import { FC, memo } from 'react';
-import StockCard from '../card/StockCard';
+import StockCard from '../organisms/card/StockCard';
 import useGetOfficeItems from '../../hooks/useGetOfficeItems';
 
 type Props = {};

@@ -26,7 +26,6 @@ const ImgPathConversion = async (props: Props) => {
         },
         () => {
           getDownloadURL(storageRef).then((url) => {
-            console.log(url);
             resolve(url);
           });
         }
@@ -35,7 +34,6 @@ const ImgPathConversion = async (props: Props) => {
   });
 
   const imagePaths = await Promise.all(promises);
-  console.log(imagePaths);
   return imagePaths;
 };
 

@@ -1,7 +1,7 @@
 import { Box, CircularProgress, Paper, Alert, AlertTitle } from '@mui/material';
 
 import { FC, memo, useEffect, useState } from 'react';
-import StockCard from '../card/StockCard';
+import StockCard from '../organisms/card/StockCard';
 import  useGetItems  from '../../hooks/useGetItems';
 import AdmTitleText from '../atoms/text/AdmTitleText';
 import { ActiveDarkBlueButton } from '../atoms/button/Button';

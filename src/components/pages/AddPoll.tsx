@@ -1,20 +1,20 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { memo, useEffect, useRef, useState } from "react";
 import AdmTitleText from "../atoms/text/AdmTitleText";
-import {Backdrop,Box,Fade,Modal,Paper} from "@mui/material";
+import {Backdrop,Box,Fade,Modal,Paper, Toolbar} from "@mui/material";
 import { Items, Questionnaire } from "../../types/type";
-import AddPollCard from "../card/AddPollCard";
+import AddPollCard from "../organisms/card/AddPollCard";
 import {ActiveBorderButton,ActiveDarkBlueButton,} from "../atoms/button/Button";
-import AddItem from "./AddItem";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PollNameInput from "../atoms/addPollForm/PollNameInput";
 import PollDescriptionInput from "../atoms/addPollForm/PollDescriptionInput";
 import PollCategorySelect from "../atoms/addPollForm/PollCategorySelect";
 import PollDateInput from "../atoms/addPollForm/PollDateInput";
-import { CircularProgress } from "@mui/material";
 import useGetQuestionnaire from "../../hooks/useGetQuestipnnaire";
+import AddItem from "./AddItem";
+import useGetAllItems from "../../hooks/useGetAllItems";
 
 const style = {
   position: "absolute" as "absolute",
@@ -35,45 +35,30 @@ const AddPoll = memo(() => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
   const [startPeriodDate, setStartPeriodDate] = useState("");
   const [endPeriodDate, setEndPeriodDate] = useState("");
-  const [items, setItems] = useState<Items[]>([]);
-  const [pollFlag, setPollFlag] = useState(false);
   const [pollCategory, setPollCategory] =useState("投票種別を選択してください");
   const [pollName, setPollName] = useState("");
   const [pollDescription, setPollDescription] = useState("");
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
-  const [questionnaire, setQuestionnaire] = useState<Questionnaire[]>([]);
+  const [trigger, setTrigger] = useState(false);
+  //バリデーション
   const [pollNameError, setPollNameError] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
   const [categoryError, setCategoryError] = useState("");
   const [dateError, setDateError] = useState("");
   const [selectedItemsError, setSelectedItemsError] = useState("");
-  const [adding, setAdding] = useState<boolean>(false);
-
+  //hooks
   const questionnaireData: Questionnaire[] = useGetQuestionnaire();
-
+  const items: Items[]= useGetAllItems(trigger);
   //login
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
   const isFirstRender = useRef(true);
   const navigate = useNavigate();
 
-  //Items取得
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await fetch(`http://localhost:8880/items`);
-        const data = await response.json();
-        setItems(data);
-      } catch (error) {
-        console.error(error);
-      }
-    })();
-  }, [items]);
-
   //バリデーション
+  //投票名
   const validatePollName = () => {
     if (!pollName) {
       setPollNameError("*投票名を入力してください");
@@ -82,6 +67,7 @@ const AddPoll = memo(() => {
     setPollNameError("");
     return true;
   };
+  //投票詳細
   const validateDescription = () => {
     if (!pollDescription) {
       setDescriptionError("*投票詳細を入力してください");
@@ -90,6 +76,7 @@ const AddPoll = memo(() => {
     setDescriptionError("");
     return true;
   };
+  //投票カテゴリー
   const validateCategory = () => {
     if (pollCategory === "投票種別を選択してください") {
       setCategoryError("*投票種別を選択してください");
@@ -98,6 +85,7 @@ const AddPoll = memo(() => {
     setCategoryError("");
     return true;
   };
+  //投票期間
   const validateDate = () => {
     if (!startPeriodDate || !endPeriodDate) {
       setDateError("*投票期間を入れてください");
@@ -122,6 +110,7 @@ const AddPoll = memo(() => {
     setDateError("");
     return true;
   };
+  ///投票選択商品
   const validateSelectedItems = () => {
     if (selectedItems.length === 0) {
       setSelectedItemsError("*投票に追加する商品を選択してください");
@@ -133,7 +122,6 @@ const AddPoll = memo(() => {
 
   //アンケート情報登録
   const onClickAddPollData: () => Promise<void> = async () => {
-    setAdding(true)
     const isNameValid = validatePollName();
     const isDescriptionValid = validateDescription();
     const isCategoryValid = validateCategory();
@@ -173,49 +161,41 @@ const AddPoll = memo(() => {
         console.log(e)
       });
     }
-    setAdding(false)
   };
 
   return (
     <>
       <Paper sx={{ p: 3 }}>
-      {adding ? (
-          <>
-            <div style={{ margin: "200px", textAlign: "center" }}>
-              <p>登録中</p>
-              <CircularProgress />
-            </div>
-          </>
-        ) : (
-          <>
+        <Box id="top" />
         <AdmTitleText children={"投票追加"} />
         <Box sx={{ mb: 1 }}>⚠︎ ここで追加した商品は商品一覧には表示されません。</Box>
-        <ActiveDarkBlueButton event={handleOpen} sxStyle={{width:280,height:80,fontSize:"20px"}}>
-          投票用新規商品登録
-        </ActiveDarkBlueButton>
+        <ActiveDarkBlueButton event={handleOpen} sxStyle={{ width: 280, height: 80, fontSize: "20px" }}>
+        投票用新規商品登録
+      </ActiveDarkBlueButton>
         <Modal
-          aria-labelledby="transition-modal-title"
-          aria-describedby="transition-modal-description"
-          open={open}
-          onClose={handleClose}
-          closeAfterTransition
-          slots={{ backdrop: Backdrop }}
-          slotProps={{
-            backdrop: {
-              timeout: 500,
-            },
-          }}
-        >
-          <Fade in={open}>
-            <Box sx={style}>
-              <AddItem
-                pollFlag={true}
-                setPollFlag={setPollFlag}
-                handleClose={handleClose}
-              />
-            </Box>
-          </Fade>
-        </Modal>
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        slots={{ backdrop: Backdrop }}
+        slotProps={{
+          backdrop: {
+            timeout: 500,
+          },
+        }}
+      >
+        <Fade in={open}>
+          <Box sx={style}>
+            <AddItem
+              pollFlag={true}
+              handleClose={handleClose}
+              trigger={trigger}
+              setTrigger={setTrigger}
+            />
+          </Box>
+        </Fade>
+      </Modal>
         <PollNameInput pollName={pollName} setPollName={setPollName} pollNameError={pollNameError} setPollNameError={setPollNameError}/>
         <PollDescriptionInput pollDescription={pollDescription} setPollDescription={setPollDescription} descriptionError={descriptionError} setDescriptionError={setDescriptionError}/>
         <PollCategorySelect pollCategory={pollCategory} setPollCategory={setPollCategory} categoryError={categoryError} setCategoryError={setCategoryError}/>
@@ -236,8 +216,7 @@ const AddPoll = memo(() => {
           <ActiveBorderButton event={onClickAddPollData}>
             &nbsp;投票追加&nbsp;
           </ActiveBorderButton>
-        </Box> 
-        </>)}
+        </Box>
       </Paper>
     </>
   );
