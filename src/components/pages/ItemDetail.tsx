@@ -88,7 +88,7 @@ const ItemDetail: FC = memo(() => {
                   >
                     【商品説明】
                     <br />
-                    {getAnItemResult.itemData.description}
+                    {getAnItemResult.itemData.description.replace(/\n<a href=.*/, "")}
                   </Typography>
 
                   <Typography

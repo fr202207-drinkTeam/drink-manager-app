@@ -44,6 +44,7 @@ const ItemSearchForm: React.FC<Props> = ({ searchWord, setSearchWord }) => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setSearchWord(e.target.value);
           }}
+          type="text"
         />
         <ActiveOrangeButton
           event={onSearchButtonClick}

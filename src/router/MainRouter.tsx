@@ -1,11 +1,4 @@
-import {
-  Link,
-  Navigate,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 
 import { AdminRouter } from "./AdminRouter";
 import { UserRouter } from "./UserRouter";
@@ -21,13 +14,9 @@ import DefaultLayout from "../components/layout/DefaultLayout";
 import Faq from "../components/pages/Faq";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../hooks/useLoginUserFetch";
-import { useEffect, useState } from "react";
 import ScrollTop from "../components/atoms/ScrollTop";
+import NotFound from "../components/pages/NotFound";
 const MainRoute = [
-  // {
-  //   path: "/main",
-  //   element: <MainMock />,
-  // },
   {
     path: "/adminlogin",
     element: <AdminLogin />,
@@ -41,12 +30,12 @@ const MainRoute = [
     element: <Register />,
   },
   {
-    path: "/adminhome",
-    element: <AdminHome />,
+    path: "/",
+    element: <NotFound />,
   },
   {
-    path: "/home",
-    element: <Top />,
+    path: "/*",
+    element: <NotFound />,
   },
   // ヘッダー不必要のため仮置
   {
@@ -55,9 +44,8 @@ const MainRoute = [
   },
 ];
 
-export const MainRouter = (props:any) => {
+export const MainRouter = (props: any) => {
   //Cookie
-
   const authId = Cookies.get("authId")!;
   const isAdmin = Cookies.get("isAdmin")!;
   const loginUser = useLoginUserFetch({ authId: authId });
@@ -74,7 +62,17 @@ export const MainRouter = (props:any) => {
           <Route
             key={index}
             path={`/adminhome${route.path}`}
-            element={<DefaultLayout>{route.element}</DefaultLayout>}
+            element={
+              authId ? (
+                loginUser && isAdmin ? (
+                  <DefaultLayout>{route.element}</DefaultLayout>
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
           />
         ))}
         {/* home配下のルーティング */}
@@ -82,51 +80,27 @@ export const MainRouter = (props:any) => {
           <Route
             key={index}
             path={`/home${route.path}`}
-            element={<DefaultLayout>{route.element}</DefaultLayout>}
+            element={
+              authId ? (
+                <DefaultLayout>{route.element}</DefaultLayout>
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
           />
         ))}
+        {/* {その他ルーティング} */}
+        <Route
+          path={`/adminhome`}
+          element={
+            authId && isAdmin ? <AdminHome /> : <Navigate to="/login" replace />
+          }
+        />
+        <Route
+          path={`/home`}
+          element={authId ? <Top /> : <Navigate to="/login" replace />}
+        />
       </Routes>
     </>
   );
-  //ログイン認証あり
-  // return (
-  //   <Routes>
-  //     {MainRoute.map((route, index) => (
-  //       <Route key={index} path={route.path} element={route.element} />
-  //     ))}
-  //     {/* adminhome配下のルーティング */}
-  //     {AdminRouter.map((route, index) => (
-  //       <Route
-  //         key={index}
-  //         // path={`/${route.path}`}
-  //         path={`/adminhome${route.path}`}
-  //         element={
-  //           authId ? (
-  //             loginUser && isAdmin ? (
-  //               <DefaultLayout>{route.element}</DefaultLayout>
-  //             ) : (
-  //               <Navigate to="/login" replace />
-  //             )
-  //           ) : (
-  //             <Navigate to="/login" replace />
-  //           )
-  //         }
-  //       />
-  //     ))}
-  //     {/* home配下のルーティング */}
-  //     {UserRouter.map((route, index) => (
-  //       <Route
-  //         key={index}
-  //         path={`/home${route.path}`}
-  //         element={
-  //           authId ? (
-  //             <DefaultLayout>{route.element}</DefaultLayout>
-  //           ) : (
-  //             <Navigate to="/login" replace />
-  //           )
-  //         }
-  //       />
-  //     ))}
-  //   </Routes>
-  // );
 };
