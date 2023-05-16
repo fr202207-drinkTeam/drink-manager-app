@@ -1,18 +1,26 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Grid, IconButton, Stack, Typography } from "@mui/material";
 import { FC, memo, useEffect, useState } from "react";
 import { Comment as CommentType, Users } from "../../types/type";
 import { EditNote } from "@mui/icons-material";
-import { ActiveDarkBlueButton, ActiveRedButton } from "../atoms/button/Button";
+import MenuButtons from "../molecules/MenuButtons";
 
 // コメントデータ、ログイン情報、編集コメントのset関数
 type Props = {
   commentData: CommentType;
   loginUser: Users;
   setEditCommentData: React.Dispatch<React.SetStateAction<CommentType | null>>;
+  reloadComment: boolean;
+  setReloadComment: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const CommentData: FC<Props> = memo((props) => {
-  const { commentData, loginUser, setEditCommentData } = props;
+  const {
+    commentData,
+    loginUser,
+    setEditCommentData,
+    reloadComment,
+    setReloadComment,
+  } = props;
   // コメントのユーザー情報格納
   const [userData, setUserData] = useState<Users | null>(null);
   // ログインユーザーのコメントだった場合、メニューボタン表示
@@ -46,6 +54,7 @@ const CommentData: FC<Props> = memo((props) => {
       .then(() => {
         console.log("delete");
         setMenu(false);
+        setReloadComment(!reloadComment);
       })
       .catch((error) => {
         console.log("Error:", error);
@@ -75,23 +84,33 @@ const CommentData: FC<Props> = memo((props) => {
         {/* ログインユーザーの投稿だった場合、メニューボタンを表示 */}
         {userData && loginUser.id === userData.id && !menu && (
           <Grid item xs={2}>
-            <Button
-              size="small"
-              sx={{ color: "gray" }}
+            <Stack direction="row" justifyContent="end" sx={{mx: 1}}>
+            <IconButton
+              component="label"
+              sx={{
+                color: "white",
+                background: "#ea6f00",
+                borderRadius: "3px",
+                mr: 1,
+              }}
               onClick={() => {
                 setMenu(true);
               }}
+              size="small"
             >
-              <EditNote />
-            </Button>
+              <EditNote fontSize="small" />
+            </IconButton>
+            </Stack>
           </Grid>
         )}
         {menu && (
           <Grid item xs={2}>
-            <ActiveDarkBlueButton event={editComment}>
-              編集
-            </ActiveDarkBlueButton>
-            <ActiveRedButton event={deleteComment}>削除</ActiveRedButton>
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            <MenuButtons
+              editHandler={editComment}
+              deleteHandler={deleteComment}
+            />
+          </Box>
           </Grid>
         )}
       </Grid>

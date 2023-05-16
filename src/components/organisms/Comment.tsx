@@ -9,11 +9,14 @@ type Props = {
   commentData: CommentType[];
   postData: Post;
   loginUser: Users;
+  reloadComment: boolean;
+  setReloadComment: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 // TODO コメントコンポーネント
 const Comment: FC<Props> = memo((props) => {
-  const { commentData, postData, loginUser } = props;
+  const { commentData, postData, loginUser, reloadComment, setReloadComment } =
+    props;
 
   // コメント編集の場合、そのコメントを格納
   const [editCommentData, setEditCommentData] = useState<CommentType | null>(
@@ -66,6 +69,7 @@ const Comment: FC<Props> = memo((props) => {
         commentInput.current.childNodes[0].value = "";
         setCommentError(false);
         setEditCommentData(null);
+        setReloadComment(!reloadComment);
       });
 
       return;
@@ -87,6 +91,8 @@ const Comment: FC<Props> = memo((props) => {
     }).then(() => {
       console.log("post success");
       commentInput.current.childNodes[0].value = "";
+      setSeeComment(true);
+      setReloadComment(!reloadComment);
       setCommentError(false);
     });
   };
@@ -176,6 +182,8 @@ const Comment: FC<Props> = memo((props) => {
             commentData={comment}
             loginUser={loginUser}
             setEditCommentData={setEditCommentData}
+            reloadComment={reloadComment}
+            setReloadComment={setReloadComment}
           />
         ))}
     </>

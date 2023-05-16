@@ -8,6 +8,7 @@ import Slider from "../atoms/slider/Slider";
 import FreeBreakfastIcon from "@mui/icons-material/FreeBreakfast";
 import ModalWindow from "../organisms/ModalWindow";
 import TimelineCorner from "../organisms/TimelineCorner";
+import Cookies from "js-cookie";
 
 const ItemDetail: FC = memo(() => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -21,6 +22,7 @@ const ItemDetail: FC = memo(() => {
     itemId: itemId,
     onFetchComplete: getAnItemComplete,
   });
+  const isAdmin: string = Cookies.get("isAdmin")!;
 
   // 投稿削除処理(削除ボタン)
   const onClickDeleteItem: () => Promise<void> = async () => {
@@ -86,7 +88,7 @@ const ItemDetail: FC = memo(() => {
                   >
                     【商品説明】
                     <br />
-                    {getAnItemResult.itemData.description}
+                    {getAnItemResult.itemData.description.replace(/\n<a href=.*/, "")}
                   </Typography>
 
                   <Typography
@@ -101,7 +103,8 @@ const ItemDetail: FC = memo(() => {
                   <TimelineCorner itemId={itemId}></TimelineCorner>
                 </Box>
               </Box>
-              <Box sx={{ display: "flex", mr: 5 }}>
+              {isAdmin ? (
+                <Box sx={{ display: "flex", mr: 5 }}>
                 <ActiveDarkBlueButton
                   event={() => navigate(`/adminhome/itemedit/${itemId}`)}
                   sxStyle={{
@@ -125,6 +128,10 @@ const ItemDetail: FC = memo(() => {
                   }}
                 />
               </Box>
+              ) : (
+                <></>
+              )}
+              
             </>
           ) : (
             <div>該当する商品がありません</div>
