@@ -28,11 +28,15 @@ const EmailInput = (props: EmailProps) => {
     onBlur,
     onFocus,
   } = props;
+
   // コンポーネント内のisValidEmailの呼び出し部分
   const isValid = isValidEmail?.(email) ?? true;
+
   const location = useLocation();
   const currentLocation = location.pathname;
+
   const plaholderEmail = "example@" + process.env.REACT_APP_EMAIL + ".co.jp";
+
   return (
     <>
       <PrimaryInput

@@ -23,6 +23,7 @@ const ConfirmPasswordInput = (props: ConfirmPasswordProps) => {
     password,
     onBlur,
   } = props;
+
   return (
     <PrimaryInput
       name="confirmPassword"

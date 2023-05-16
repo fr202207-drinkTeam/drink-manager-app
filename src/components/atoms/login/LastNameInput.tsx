@@ -30,12 +30,17 @@ const LastNameInput = (props: LastNameProps) => {
         if (errorLastName && lastName === "") {
           return "名を入力してください";
         }
+        if (errorLastName && lastName.length > 10) {
+          return "10文字以内で入力してください";
+        }
         if (
-          (!errorLastName && errorFirstName && firstName === "") ||
+          (!errorLastName &&
+            errorFirstName &&
+            (firstName === "" || firstName.length > 10)) ||
+          (errorLastName && firstName.length > 10) ||
           (errorLastName &&
             errorFirstName &&
-            firstName === "" &&
-            lastName !== "")
+            firstName === "" && lastName !== "")
         ) {
           return " ";
         }
@@ -43,7 +48,7 @@ const LastNameInput = (props: LastNameProps) => {
       onChange={(e: ChangeEvent<HTMLInputElement>) =>
         setLastName(e.target.value)
       }
-      error={errorLastName && lastName === ""}
+      error={errorLastName && (lastName === "" || lastName.length > 10)}
       onBlur={onBlur}
       style={{ height: "100%" }}
     />
