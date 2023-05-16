@@ -130,7 +130,7 @@ const TimelineCorner: FC<Props> = memo((props) => {
                 </Typography>
               </CardContent>
             </Box>
-            {displayPostData.postImage && (
+            {displayPostData.postImage.length > 0 && (
               <CardMedia
                 component="img"
                 sx={{
