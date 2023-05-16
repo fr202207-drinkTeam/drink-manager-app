@@ -29,6 +29,7 @@ const Register: FC<Props> = memo((props) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfimPassword] = useState<boolean>(false);
   const [errorFraudEmail, setErrorFraudEmail] = useState<string>("");
+  const [authId, setAuthId] = useState<string>("");
 
   //入力フォーム
   const [userId, setUserId] = useState<string>("");
@@ -96,7 +97,7 @@ const Register: FC<Props> = memo((props) => {
         email,
         password
       );
-      const authId = userCredential.user.uid;
+      setAuthId(userCredential.user.uid);
 
       const data = {
         userId: userId,
@@ -122,21 +123,18 @@ const Register: FC<Props> = memo((props) => {
           },
           body: JSON.stringify(data),
         };
-        const user = await fetch("http://localhost:8880/users", request).then(
-          (res) => res.json()
-        );
+        const user = await fetch(
+          "http://localhost:8880/users",
+          request
+        ).then((res) => res.json());
         setLoginUser(user); //Recoil
         document.cookie = `authId=${authId}; max-age=86400`;
         navigate("/home");
       } else {
         setErrorFraudEmail("メールアドレスが既に存在しています");
       }
-    } catch (error: any) {
-      if (error.code === "auth/email-already-in-use") {
-        setErrorFraudEmail("メールアドレスが既に存在しています");
-      } else {
-        setErrorFraudEmail("未知のエラーです");
-      }
+    } catch (error) {
+      setErrorFraudEmail("メールアドレスが既に存在しています");
     }
   };
 
@@ -188,7 +186,6 @@ const Register: FC<Props> = memo((props) => {
           isValidEmail={isValidEmail}
           error={
             errorMail &&
-            // (email === "" || !email.includes("@") || email.length > 40)
             (email === "" || !isValidEmail(email) || email.length > 40)
               ? errorMail
               : null

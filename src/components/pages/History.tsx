@@ -102,7 +102,6 @@ const History: FC = memo(() => {
       //日付文字列を置き換え
       const dateMergeObj = mergeObj.map((item: Props) => {
         const dateOnly = item.day?.split("T")[0];
-        // const transformedDate = dateOnly.replace(/-/g, "/");
         return {
           ...item,
           day: dateOnly,
@@ -130,27 +129,18 @@ const History: FC = memo(() => {
       setSearchErrorMsg("");
     }
 
-    //日付・商品検索
+    //商品名検索
     let matchResult = originalItemName;
     if (selectItem) {
       matchResult = matchResult.filter((item) => item.name === selectItem);
     }
+    //日付検索
     if (startDate && endDate) {
       matchResult = matchResult.filter(
         (item) => item.day >= startDate && item.day <= endDate
       );
     }
     setFilterItemName(matchResult);
-    console.log(matchResult, 912);
-  };
-  console.log(filterItemName, 91);
-
-  const searchReset = () => {
-    setSelectItem("");
-    setStartDate("");
-    setEndDate("");
-    setSearchErrorMsg("");
-    setFilterItemName(originalItemName);
   };
 
   //ページネーション
@@ -164,11 +154,21 @@ const History: FC = memo(() => {
     const newOffset = ((page - 1) * itemsPerPage) % filterItemName.length;
     setItemsOffset(newOffset);
   };
+  console.log(itemsOffset, 98);
 
+  //終了日の自動入力
   const dateConfirm = () => {
     if (endDate === "") {
       setEndDate(startDate);
     }
+  };
+
+  const searchReset = () => {
+    setSelectItem("");
+    setStartDate("");
+    setEndDate("");
+    setSearchErrorMsg("");
+    setFilterItemName(originalItemName);
   };
 
   return (
@@ -176,6 +176,7 @@ const History: FC = memo(() => {
       <Box>
         <Card>
           <Box sx={{ m: "30px" }}>
+            <Box id="top" />
             <AdmTitleText children="在庫履歴確認" />
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <label
@@ -263,6 +264,9 @@ const History: FC = memo(() => {
                     <ActiveDarkBlueButton
                       children="履歴検索"
                       event={searchHistory}
+                      disabled={
+                        selectItem === "" && startDate === "" && endDate === ""
+                      }
                     />
                   </Box>
                   <Box>
@@ -296,11 +300,11 @@ const History: FC = memo(() => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {currentItems.map((history: Props) => {
+              {currentItems.map((history: Props, index: number) => {
                 return (
                   <TableRow
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    key={history.id}
+                    key={index}
                   >
                     <TableCell component="th" scope="row">
                       {history.name}
@@ -317,15 +321,16 @@ const History: FC = memo(() => {
                   </TableRow>
                 );
               })}
+
+              {currentItems.length === 0 &&
+                (startDate || endDate || selectItem) && (
+                  <TableRow>
+                    <TableCell colSpan={5} align="center">
+                      <p style={{ marginLeft: "20px" }}>検索結果がありません</p>
+                    </TableCell>
+                  </TableRow>
+                )}
             </TableBody>
-            {filterItemName.length === 0 &&
-              (startDate || endDate || selectItem) && (
-                <TableRow>
-                  <TableCell colSpan={5} align="center">
-                    <p style={{ marginLeft: "20px" }}>検索結果がありません</p>
-                  </TableCell>
-                </TableRow>
-              )}
           </Table>
         </TableContainer>
         <Paginate
