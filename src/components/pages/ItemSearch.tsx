@@ -11,7 +11,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import queryString from "query-string";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
-import useItemSearch from "../../hooks/useItemSearch";
+
 
 type Props = {};
 
@@ -82,7 +82,7 @@ const ItemSearch: FC<Props> = memo((props) => {
   useEffect(() => {
     const categoryFilterData = async () => {
       try {
-        let url = `http://localhost:8880/items?&otherItem=false&_sort=name&_page=${currentPage}&_limit=${perPage}`;
+        let url = `${baseUrl}&_sort=name&_page=${currentPage}&_limit=${perPage}`;
         if (category !== "all") {
           url += `&itemCategory=${category}`;
         }
@@ -98,7 +98,7 @@ const ItemSearch: FC<Props> = memo((props) => {
         }
         if (location.search.includes("keyword")) {
           const keyword = new URLSearchParams(location.search).get("keyword");
-          let url = `http://localhost:8880/items?&otherItem=false&_page=${currentPage}&_limit=${perPage}&name_like=${keyword}`;
+          let url = `${baseUrl}&_sort=name&_page=${currentPage}&_limit=${perPage}&name_like=${keyword}`;
           const response = await fetch(url);
           const data = await response.json();
           setSelectedItem(data);
@@ -132,7 +132,7 @@ const ItemSearch: FC<Props> = memo((props) => {
       const query = queryString.stringify(params, { skipNull: true });
 
       const sortValue = selectedValue === "name" ? "name" : "popular";
-      const url = `http://localhost:8880/items?&otherItem=false&_sort=${sortValue}&_order=asc&_page=${newValue}&_limit=6&${query}`;
+      const url = `${baseUrl}&_sort=${sortValue}&_order=asc&_page=${newValue}&_limit=6&${query}`;
 
       navigate(`/home/search?${queryParams.toString()}`);
 
@@ -148,7 +148,7 @@ const ItemSearch: FC<Props> = memo((props) => {
   useEffect(() => { 
     const categoryData = async () => {
       try {
-        let url = `http://localhost:8880/items?&otherItem=false`;
+        let url = baseUrl;
         
         if (selectedValue === "intheOffice") {
           url += "&intheOffice=true"; 
