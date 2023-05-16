@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { FC, memo } from "react";
 import ItemCard from "../organisms/card/ItemCard";
-import { MenuItem, Select, Typography } from "@mui/material";
+import { MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material";
 import type { Items, Polls, Questionnaire } from "../../types/type";
 import Paginate from "../atoms/paginate/Paginate";
 import Box from "@mui/material/Box";
@@ -11,10 +11,12 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import queryString from "query-string";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
+import useItemSearch from "../../hooks/useItemSearch";
 
 type Props = {};
 
 const ItemSearch: FC<Props> = memo((props) => {
+  
   const location = useLocation();
   const navigate = useNavigate();
 // 管理者の判定
@@ -27,7 +29,8 @@ const ItemSearch: FC<Props> = memo((props) => {
   const [selectedValue, setSelectedValue] = useState("name");
   const [categoryName, setCategoryName] = useState<string>();
   const page = searchParams.get("page");
-  const handlePullDown = async (event: any) => {
+  const baseUrl = "http://localhost:8880/items?&otherItem=false";
+  const handlePullDown = async (event: SelectChangeEvent<string>) => {
     const value = event.target.value;
     setSelectedValue(value);
 
@@ -43,7 +46,7 @@ const ItemSearch: FC<Props> = memo((props) => {
         itemCategory: category === "all" ? undefined : category,
         name_like: keyword,
       };
-      let apiUrl = `http://localhost:8880/items?&otherItem=false&_limit=${perPage}`;
+      let apiUrl = `${baseUrl}&_limit=${perPage}`;
       
       //  名前順
       if (value === "name") {
@@ -86,12 +89,12 @@ const ItemSearch: FC<Props> = memo((props) => {
         const response = await fetch(url);
         const data = await response.json();
         if (category === "all") {
-          setSelectedItem(data.filter((item: any) => !item.otherItem));
+          setSelectedItem(data);
         } else {
           const filteredData = data.filter(
-            (item: any) => item.itemCategory === Number(category)
+            (item:Items) => item.itemCategory === Number(category)
           );
-          setSelectedItem(filteredData.filter((item: any) => !item.otherItem));
+          setSelectedItem(filteredData);
         }
         if (location.search.includes("keyword")) {
           const keyword = new URLSearchParams(location.search).get("keyword");
@@ -120,6 +123,7 @@ const ItemSearch: FC<Props> = memo((props) => {
         itemCategory: category === "all" ? undefined : category,
         name_like: keyword,
       };
+   
       if (selectedValue === "intheOffice") {
         params.intheOffice = true;
       } else if (selectedValue === "intheOfficeNone") {
@@ -217,7 +221,7 @@ const ItemSearch: FC<Props> = memo((props) => {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
-          width:"880px"
+          width:"1030px"
         }}
       >
         <Box >
@@ -270,7 +274,7 @@ const ItemSearch: FC<Props> = memo((props) => {
       ) : (
         "該当する商品がありません"
       )}
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+      <div style={{ display: "flex", justifyContent: "flex-end",width:"1030px" }} >
         {loginUser?.isAdmin ? (
           <Link to="/adminhome/additem">
             <ActiveDarkBlueButton event={function (): void {}}>
