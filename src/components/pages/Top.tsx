@@ -2,15 +2,8 @@ import { FC, memo } from "react";
 import React from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import DefaultLayout from "../layout/DefaultLayout";
-
-import { useRecoilValue } from "recoil";
-import { loginUserState } from "../../store/loginUserState";
 import { Grid } from "@mui/material";
 import ItemCard from "../organisms/card/ItemCard";
 import { Paper } from "@mui/material";
@@ -21,10 +14,8 @@ import {
   ActivePinkButton,
 } from "../atoms/button/Button";
 import { useState, useEffect } from "react";
-
 import { useNavigate } from "react-router-dom";
 import PollRanking from "../organisms/PollRanking";
-import PostsData from "../organisms/PostData ";
 import { Post } from "../../types/type";
 import PostData from "../organisms/PostData ";
 import useGetPosts from "../../hooks/useGetPosts";
