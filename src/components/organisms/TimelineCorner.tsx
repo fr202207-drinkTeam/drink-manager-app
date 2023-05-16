@@ -157,7 +157,9 @@ const TimelineCorner: FC<Props> = memo((props) => {
           </>
         )}
       </Card>
-      <Link
+      {postData.length > 0 && displayPostData ? (
+        <>
+        <Link
         to={"/home/timeline"}
         state={{ itemId: props.itemId }}
         style={{ margin: "10px",  textDecoration: "underline", display: "block", textAlign: "end", fontSize: "14px"
@@ -165,6 +167,18 @@ const TimelineCorner: FC<Props> = memo((props) => {
       >
         タイムラインへ移動
       </Link>
+        </>
+      ) : (
+        <>
+        <Link
+        to={"/home/timeline"}
+        style={{ margin: "10px",  textDecoration: "underline", display: "block", textAlign: "end", fontSize: "14px"
+        }}
+      >
+        タイムラインへ移動
+      </Link>
+        </>
+      )}
     </>
   );
 });
