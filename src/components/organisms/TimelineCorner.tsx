@@ -3,6 +3,7 @@ import { Box } from "@mui/system";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import type { Post } from "../../types/type";
 import { Link } from "react-router-dom";
+import { Like } from "../../types/type";
 
 type Props = {
   itemId: number;
