@@ -1,8 +1,7 @@
 import { FC, memo, useEffect, useState } from "react";
 import { Box } from "@mui/system";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
-import type { Post } from "../../types/type";
-import { Like } from "../../types/type";
+import type { Like, Post } from "../../types/type";
 import { Link } from "react-router-dom";
 
 type Props = {
