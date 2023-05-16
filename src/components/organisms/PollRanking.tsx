@@ -227,7 +227,12 @@ const PollRanking = () => {
               {pollCount.length > 0 && (
                 <ItemCard
                   data={pollCount.slice(0, 3)}
-                  sxStyle={{ maxWidth: 220, minWidth: 220, mx: 5, mb: 1 }}
+                  sxStyle={{
+                    maxWidth: "310px",
+                    minWidth: "310px",
+                    mx: "16px",
+                    mb: "10px",
+                  }}
                 />
               )}
             </Box>

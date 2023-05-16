@@ -63,8 +63,9 @@ const Timeline: FC<Props> = memo((props) => {
   useEffect(() => {
     (async () => {
       const itemInfo = location.state;
+      console.log("itemInfo", itemInfo);
       if (itemInfo) {
-        // 商品の投稿を全権取得
+        // 商品の投稿を全件取得
         const fetchItemPostData = await fetch(
           `http://localhost:8880/posts?itemId=${itemInfo.itemId}`,
           {
@@ -116,7 +117,6 @@ const Timeline: FC<Props> = memo((props) => {
 
   // 各クエリパラメータ要素のstateが変わるたびに新しいパラメータをセット
   useEffect(() => {
-    console.log("before", itemId.current, location.state)
     if (location.state && location.state.itemId !== 0) {
       return;
     }
@@ -171,14 +171,19 @@ const Timeline: FC<Props> = memo((props) => {
       // ヘッダーのボタンの場合は投稿3件取得
       if (isHeaderButton) {
         setReloadPost(!reloadPost);
-      } else {
-        if (noMoreData || itemId.current !== 0) {
+      }
+      // 画面下のボタンの場合は現在の表示に追加で3件取得Ï
+      else {
+        if (noMoreData) {
+          return;
+        }
+        if (itemId.current !== 0) {
           setReloadPost(!reloadPost);
           navigate(location.state, {});
+          setPostData([]);
           itemId.current = 0;
           return;
         }
-        // 画面下のボタンの場合は現在の表示に追加で3件取得
         setpostParamsNum(postParamsNum + 3);
       }
     };
