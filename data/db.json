@@ -1576,9 +1576,15 @@
       "id": 7
     }
   ],
-  "comments": [
+  "comments": [],
+  "likes": [
+    {
+      "postId": 7,
+      "userId": 3,
+      "time": "2023-05-16T04:55:37.974Z",
+      "id": 1
+    }
   ],
-  "likes": [],
   "stockhistory": [
     {
       "id": 1,
