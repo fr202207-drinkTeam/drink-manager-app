@@ -70,11 +70,9 @@ const Header = () => {
 
   // ログアウト
   const auth = getAuth();
-  console.log(auth, "auth");
   const authId = Cookies.get("authId")!;
   const isAdmin = Cookies.get("isAdmin")!;
   const loginUser = useLoginUserFetch({ authId: authId });
-  // console.log(loginUser, "user");
   const onLogoutClick = () => {
     signOut(auth)
       .then(() => {

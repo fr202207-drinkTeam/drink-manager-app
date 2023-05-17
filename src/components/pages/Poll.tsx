@@ -68,10 +68,7 @@ const Poll = memo(() => {
             />
           </>
         ) : (
-          <Box
-            sx={{ textAlign: "center", fontSize: "25px", mb: 10, border: 1 }}
-          >
-            現在開催中の投票はありません。
+          <Box>
           </Box>
         )}
       </Paper>

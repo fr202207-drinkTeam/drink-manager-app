@@ -126,7 +126,6 @@ const PostData: FC<Props> = memo((props) => {
           });
       })
       .then(() => {
-        console.log("delete come");
         setReloadPost!(!reloadPost);
       })
       .catch((error) => {
