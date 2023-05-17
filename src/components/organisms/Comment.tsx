@@ -65,7 +65,6 @@ const Comment: FC<Props> = memo((props) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editedComment),
       }).then(() => {
-        console.log("edit success");
         commentInput.current.childNodes[0].value = "";
         setCommentError(false);
         setEditCommentData(null);
@@ -89,7 +88,6 @@ const Comment: FC<Props> = memo((props) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newComment),
     }).then(() => {
-      console.log("post success");
       commentInput.current.childNodes[0].value = "";
       setSeeComment(true);
       setReloadComment(!reloadComment);

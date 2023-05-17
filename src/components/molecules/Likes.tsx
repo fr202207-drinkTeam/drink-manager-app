@@ -73,7 +73,6 @@ const Likes: FC<Props> = memo((props) => {
         body: JSON.stringify(newLike),
       })
         .then(() => {
-          console.log("success");
           setLiked(true);
           if (!likedQuantity) {
             return;
@@ -90,7 +89,6 @@ const Likes: FC<Props> = memo((props) => {
         method: "DELETE",
       })
         .then(() => {
-          console.log("delete");
           setLiked(false);
           if (!likedQuantity) {
             return;
