@@ -128,7 +128,7 @@ const Register: FC<Props> = memo((props) => {
           request
         ).then((res) => res.json());
         setLoginUser(user); //Recoil
-        document.cookie = `authId=${authId}; max-age=86400`;
+        document.cookie = `authId=${authId}; max-age=3600`;
         navigate("/home");
       } else {
         setErrorFraudEmail("メールアドレスが既に存在しています");
