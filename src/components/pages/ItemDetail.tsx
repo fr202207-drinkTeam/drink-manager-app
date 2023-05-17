@@ -1,7 +1,6 @@
-import { FC, memo } from "react";
-import { useState } from "react";
+import { FC, memo, useState } from "react";
 import useGetAnItem from "../../hooks/useGetAnItem";
-import { NavigateFunction, useNavigate, useParams } from "react-router";
+import { NavigateFunction, Params, useNavigate, useParams } from "react-router";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
 import { ActiveDarkBlueButton } from "../atoms/button/Button";
@@ -9,18 +8,13 @@ import Slider from "../atoms/slider/Slider";
 import FreeBreakfastIcon from "@mui/icons-material/FreeBreakfast";
 import ModalWindow from "../organisms/ModalWindow";
 import TimelineCorner from "../organisms/TimelineCorner";
+import Cookies from "js-cookie";
 
 const ItemDetail: FC = memo(() => {
   const [loading, setLoading] = useState<boolean>(true);
-  // 受け手
-  // const location = useLocation();
-  // const { itemId } = location.state as State;
-
-  const paramsData = useParams();
-  const itemId = Number(paramsData.id);
-
+  const paramsData: Readonly<Params<string>> = useParams();
+  const itemId: number = Number(paramsData.id);
   const navigate: NavigateFunction = useNavigate();
-
   const getAnItemComplete = (isComplete: boolean) => {
     setLoading(isComplete);
   };
@@ -28,14 +22,14 @@ const ItemDetail: FC = memo(() => {
     itemId: itemId,
     onFetchComplete: getAnItemComplete,
   });
+  const isAdmin: string = Cookies.get("isAdmin")!;
 
   // 投稿削除処理(削除ボタン)
-  const onClickDeleteItem = async () => {
+  const onClickDeleteItem: () => Promise<void> = async () => {
     fetch(`http://localhost:8880/items/${itemId}`, {
       method: "DELETE",
     })
       .then((res) => {
-        console.log("delete success", res);
         navigate("/adminhome");
       })
       .catch((error) => {
@@ -55,6 +49,7 @@ const ItemDetail: FC = memo(() => {
               <Box
                 sx={{ display: "flex", mb: 5, alignItems: "center", ml: 10 }}
               >
+                <Box id="top" />
                 <FreeBreakfastIcon fontSize="large" />
                 <Typography variant="h3" component="p" sx={{ ml: 2 }}>
                   {getAnItemResult.itemData.name}
@@ -93,7 +88,7 @@ const ItemDetail: FC = memo(() => {
                   >
                     【商品説明】
                     <br />
-                    {getAnItemResult.itemData.description}
+                    {getAnItemResult.itemData.description.replace(/\n<a href=.*/, "")}
                   </Typography>
 
                   <Typography
@@ -108,7 +103,8 @@ const ItemDetail: FC = memo(() => {
                   <TimelineCorner itemId={itemId}></TimelineCorner>
                 </Box>
               </Box>
-              <Box sx={{ display: "flex", mr: 5 }}>
+              {isAdmin ? (
+                <Box sx={{ display: "flex", mr: 5 }}>
                 <ActiveDarkBlueButton
                   event={() => navigate(`/adminhome/itemedit/${itemId}`)}
                   sxStyle={{
@@ -132,6 +128,10 @@ const ItemDetail: FC = memo(() => {
                   }}
                 />
               </Box>
+              ) : (
+                <></>
+              )}
+              
             </>
           ) : (
             <div>該当する商品がありません</div>

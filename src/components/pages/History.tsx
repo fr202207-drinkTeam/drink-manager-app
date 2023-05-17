@@ -15,7 +15,7 @@ import {
   Typography,
 } from "@mui/material";
 import { ChangeEvent, FC, memo, useEffect, useState } from "react";
-import { Items } from "../../types/type";
+import { Items, StockHistory } from "../../types/type";
 import { ActiveDarkBlueButton, ActiveRedButton } from "../atoms/button/Button";
 import { SecondaryInput } from "../atoms/input/Input";
 import Paginate from "../atoms/paginate/Paginate";
@@ -24,11 +24,15 @@ import AdmTitleText from "../atoms/text/AdmTitleText";
 type Props = {
   itemId: number;
   day: string;
-  id: number;
+  id?: number;
   incOrDecTrue: number;
   incOrDecFalse: number;
   name: string;
   stockAmount: number;
+};
+
+type StockHistoryWithName = StockHistory & {
+  name: string;
 };
 
 const History: FC = memo(() => {
@@ -40,7 +44,7 @@ const History: FC = memo(() => {
   const [selectItem, setSelectItem] = useState<string>("");
   const [itemsOffset, setItemsOffset] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [searchErrorMsg, setSearchErrorMsg] = useState("");
+  const [searchErrorMsg, setSearchErrorMsg] = useState<string>("");
 
   useEffect(() => {
     const historyDataFetch = async () => {
@@ -58,8 +62,45 @@ const History: FC = memo(() => {
         );
         return items ? { ...history, name: items.name } : history;
       });
+
+      //消費データと補充データを合わせる（itemIdとdayの一致）
+      const mergeObj: Props[] = Object.values(
+        itemObj.reduce(
+          (acc: { [key: string]: Props }, obj: StockHistoryWithName) => {
+            const key = obj.itemId + "-" + obj.day.split("T")[0];
+            if (!acc[key]) {
+              acc[key] = {
+                itemId: obj.itemId,
+                day: obj.day,
+                name: obj.name,
+                incOrDecTrue: obj.incOrDec === true ? obj.quantity : 0, //補充数
+                incOrDecFalse: obj.incOrDec === false ? obj.quantity : 0, //消費数
+                stockAmount: obj.stockAmount,
+              };
+            } else {
+              //incOrDecのリネーム
+              if (obj.incOrDec === true) {
+                acc[key].incOrDecTrue += obj.quantity;
+              } else {
+                acc[key].incOrDecFalse += obj.quantity;
+              }
+              //最新日付（時間）を比較するため
+              const currentDateTime = new Date(obj.day).getTime();
+              const existingDateTime = new Date(acc[key].day).getTime();
+              if (currentDateTime > existingDateTime) {
+                // 日付が最新の場合のみ更新する
+                acc[key].day = obj.day;
+                acc[key].stockAmount = obj.stockAmount;
+              }
+            }
+            return acc;
+          },
+          {}
+        )
+      );
+
       //日付文字列を置き換え
-      const dateMergeObj = itemObj.map((item: Props) => {
+      const dateMergeObj = mergeObj.map((item: Props) => {
         const dateOnly = item.day?.split("T")[0];
         return {
           ...item,
@@ -67,86 +108,39 @@ const History: FC = memo(() => {
         };
       });
 
-      //消費と補充を合わせる
-      const mergeObj = Object.values(
-        dateMergeObj.reduce((acc: any, obj: any) => {
-          const key = obj.itemId + "-" + obj.day;
-          if (!acc[key]) {
-            acc[key] = {
-              day: obj.day,
-              name: obj.name,
-              incOrDecTrue: obj.incOrDec === true ? obj.quantity : 0, //補充数
-              incOrDecFalse: obj.incOrDec === false ? obj.quantity : 0, //消費数
-              stockAmount: obj.stockAmount,
-            };
-          } else {
-            if (obj.incOrDec === true) {
-              acc[key].incOrDecTrue += obj.quantity;
-            } else {
-              acc[key].incOrDecFalse += obj.quantity;
-            }
-          }
-          return acc;
-        }, {})
-      );
-
       // 日付最新順に並び替える
-      mergeObj.sort((a: any, b: any) => {
+      dateMergeObj.sort((a: Props, b: Props) => {
         return new Date(b.day).getTime() - new Date(a.day).getTime();
       });
 
-      // //在庫合計を合わせる※途中
-      const stockAmountResponse = await fetch(
-        "http://localhost:8880/stockAmount"
-      );
-      const stockAmountData = await stockAmountResponse.json();
-      console.log(stockAmountData, 98);
-
-      const result = mergeObj.reduce((acc: any, obj1: any) => {
-        const obj2 = stockAmountData.find(
-          (obj2: any) => obj2.itemId === obj1.itemId && obj2.day === obj1.day
-        );
-        if (obj2) {
-          acc.push({ ...obj1, amount: obj2.amount });
-        } else {
-          acc.push(obj1);
-        }
-        return acc;
-      }, []);
-
-      console.log(result, 132);
-
-      setOriginalItemName(mergeObj as Props[]); //初期履歴データ
-      setFilterItemName(mergeObj as Props[]); //検索用履歴データ
+      setOriginalItemName(dateMergeObj as Props[]); //初期履歴データ
+      setFilterItemName(dateMergeObj as Props[]); //検索用履歴データ
     };
     historyDataFetch();
   }, []);
 
   const searchHistory = () => {
-    const todayDate = new Date().toISOString().split("T")[0];
-    if (todayDate < startDate || todayDate < endDate || startDate > endDate) {
-      setSearchErrorMsg("未来の日付もしくは片方の期間のみでは検索できません");
+    if (
+      (startDate === "" && endDate !== "") ||
+      (startDate !== "" && endDate === "")
+    ) {
+      setSearchErrorMsg("期間は全て選択してください");
     } else {
-      //日付・商品検索
-      let matchResult = originalItemName;
-      if (selectItem) {
-        matchResult = matchResult.filter((item) => item.name === selectItem);
-      }
-      if (startDate && endDate) {
-        matchResult = matchResult.filter(
-          (item) => item.day >= startDate && item.day <= endDate
-        );
-      }
-      setFilterItemName(matchResult);
+      setSearchErrorMsg("");
     }
-  };
 
-  const searchRecet = () => {
-    setSelectItem("");
-    setStartDate("");
-    setEndDate("");
-    setSearchErrorMsg("");
-    setFilterItemName(originalItemName);
+    //商品名検索
+    let matchResult = originalItemName;
+    if (selectItem) {
+      matchResult = matchResult.filter((item) => item.name === selectItem);
+    }
+    //日付検索
+    if (startDate && endDate) {
+      matchResult = matchResult.filter(
+        (item) => item.day >= startDate && item.day <= endDate
+      );
+    }
+    setFilterItemName(matchResult);
   };
 
   //ページネーション
@@ -155,10 +149,26 @@ const History: FC = memo(() => {
   const currentItems = filterItemName.slice(itemsOffset, endOffset);
   const pageCount = Math.ceil(filterItemName.length / itemsPerPage); //繰り上げ
 
-  const handlePageClick = (e: any, page: number) => {
+  const handlePageClick = (e: ChangeEvent, page: number) => {
     setCurrentPage(page);
     const newOffset = ((page - 1) * itemsPerPage) % filterItemName.length;
     setItemsOffset(newOffset);
+  };
+  console.log(itemsOffset, 98);
+
+  //終了日の自動入力
+  const dateConfirm = () => {
+    if (endDate === "") {
+      setEndDate(startDate);
+    }
+  };
+
+  const searchReset = () => {
+    setSelectItem("");
+    setStartDate("");
+    setEndDate("");
+    setSearchErrorMsg("");
+    setFilterItemName(originalItemName);
   };
 
   return (
@@ -166,6 +176,7 @@ const History: FC = memo(() => {
       <Box>
         <Card>
           <Box sx={{ m: "30px" }}>
+            <Box id="top" />
             <AdmTitleText children="在庫履歴確認" />
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <label
@@ -182,6 +193,7 @@ const History: FC = memo(() => {
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setStartDate(e.target.value)
                 }
+                onBlur={dateConfirm}
               />
               <span
                 style={{
@@ -201,7 +213,7 @@ const History: FC = memo(() => {
                 }
               />
             </Box>
-            <p>{searchErrorMsg}</p>
+            <p style={{ fontSize: "14px", color: "red" }}>{searchErrorMsg}</p>
             <Box sx={{ mt: "40px" }}>
               <Stack
                 direction="row"
@@ -252,12 +264,15 @@ const History: FC = memo(() => {
                     <ActiveDarkBlueButton
                       children="履歴検索"
                       event={searchHistory}
+                      disabled={
+                        selectItem === "" && startDate === "" && endDate === ""
+                      }
                     />
                   </Box>
                   <Box>
                     <ActiveRedButton
                       children="検索リセット"
-                      event={searchRecet}
+                      event={searchReset}
                     />
                   </Box>
                 </Stack>
@@ -269,46 +284,53 @@ const History: FC = memo(() => {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow sx={{ backgroundColor: "#C0C0C0", fontWeight: "bold" }}>
-                <TableCell sx={{ width: "150px" }}>商品名</TableCell>
-                <TableCell align="right">登録日</TableCell>
-                <TableCell align="right" sx={{ width: "150px" }}>
+                <TableCell sx={{ width: "250px" }}>商品名</TableCell>
+                <TableCell align="right" sx={{ width: "120px" }}>
+                  登録日
+                </TableCell>
+                <TableCell align="right" sx={{ width: "120px" }}>
                   消費数
                 </TableCell>
-                <TableCell align="right" sx={{ width: "150px" }}>
+                <TableCell align="right" sx={{ width: "120px" }}>
                   補充数
                 </TableCell>
-                <TableCell align="right" sx={{ width: "150px" }}>
+                <TableCell align="right" sx={{ width: "120px" }}>
                   在庫合計
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {currentItems.map((history: Props) => {
+              {currentItems.map((history: Props, index: number) => {
                 return (
                   <TableRow
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    key={history.id}
+                    key={index}
                   >
                     <TableCell component="th" scope="row">
                       {history.name}
                     </TableCell>
 
-                    <TableCell align="right">{history.day}</TableCell>
+                    <TableCell align="right">
+                      {history.day
+                        .replace(/(^|[^0-9])0+/g, "$1")
+                        .replace(/-/g, "/")}
+                    </TableCell>
                     <TableCell align="right">{history.incOrDecFalse}</TableCell>
                     <TableCell align="right">{history.incOrDecTrue}</TableCell>
                     <TableCell align="right">{history.stockAmount}</TableCell>
                   </TableRow>
                 );
               })}
+
+              {currentItems.length === 0 &&
+                (startDate || endDate || selectItem) && (
+                  <TableRow>
+                    <TableCell colSpan={5} align="center">
+                      <p style={{ marginLeft: "20px" }}>検索結果がありません</p>
+                    </TableCell>
+                  </TableRow>
+                )}
             </TableBody>
-            {filterItemName.length === 0 &&
-              (startDate || endDate || selectItem) && (
-                <TableRow>
-                  <TableCell colSpan={5} align="center">
-                    <p style={{ marginLeft: "20px" }}>検索結果がありません</p>
-                  </TableCell>
-                </TableRow>
-              )}
           </Table>
         </TableContainer>
         <Paginate

@@ -1,4 +1,4 @@
-import { AddPhotoAlternate, Coffee } from "@mui/icons-material";
+import { AddPhotoAlternate, Coffee, Create } from "@mui/icons-material";
 import {
   Box,
   Grid,
@@ -7,6 +7,7 @@ import {
   Paper,
   Select,
   SelectChangeEvent,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material";
@@ -24,11 +25,20 @@ type Props = {
   loginUser: Users;
   editPostData: Post | null;
   setEditPostData: React.Dispatch<React.SetStateAction<Post | null>>;
+  reloadPost: boolean;
+  setReloadPost: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const PostForm: FC<Props> = memo((props) => {
-  const { itemData, itemError, loginUser, editPostData, setEditPostData } =
-    props;
+  const {
+    itemData,
+    itemError,
+    loginUser,
+    editPostData,
+    setEditPostData,
+    reloadPost,
+    setReloadPost,
+  } = props;
 
   // 入力した画像ファイル格納
   const [inputImages, setInputImages] = useState<File[]>([]);
@@ -44,10 +54,9 @@ const PostForm: FC<Props> = memo((props) => {
     if (!editPostData) {
       return;
     }
-    postForm.current![0].value = editPostData.content.replace(
-      /\n<a href=.*/,
-      ""
-    );
+    postForm.current![0].value = editPostData.content
+      .replace(/\n<a href=.*/, "")
+      .replace(/\/nameS.*/, "");
     setSelectedItemId(editPostData.itemId);
 
     setInputImages(editPostData.postImage.map((image) => new File([], image)));
@@ -101,7 +110,10 @@ const PostForm: FC<Props> = memo((props) => {
         console.log("edit success");
         setPostError(false);
         setEditPostData(null);
-        window.location.reload();
+        setReloadPost(!reloadPost);
+        postForm.current.reset();
+        setSelectedItemId(0);
+        setInputImages([]);
       });
 
       return;
@@ -123,7 +135,10 @@ const PostForm: FC<Props> = memo((props) => {
     }).then(() => {
       console.log("success");
       setPostError(false);
-      window.location.reload();
+      setReloadPost(!reloadPost);
+      postForm.current.reset();
+      setSelectedItemId(0);
+      setInputImages([]);
     });
   };
 
@@ -145,19 +160,30 @@ const PostForm: FC<Props> = memo((props) => {
         ref={postForm}
       >
         <Box sx={{ position: "relative" }}>
+          <InputLabel
+            variant="standard"
+            htmlFor="writeContent"
+            sx={[
+              { "&:hover": { cursor: "pointer" } },
+              { display: "flex", pl: "5px" },
+            ]}
+          >
+            <Create />
+            <Typography sx={{ color: "rgba(0,0,0,0.6)" }}>投稿</Typography>
+          </InputLabel>
           <TextField
             fullWidth
+            id="writeContent"
             rows={3}
             multiline
-            label="投稿"
             variant="standard"
             sx={{ p: "0" }}
           />
         </Box>
         <Select
+          value={selectedItemId}
           variant="standard"
           fullWidth
-          value={selectedItemId}
           onChange={(event: SelectChangeEvent<number>) => {
             if (typeof event.target.value === "string") {
               return;
@@ -183,7 +209,7 @@ const PostForm: FC<Props> = memo((props) => {
                 </Typography>
               </Box>
             ) : (
-              <Box sx={{ display: "flex" }}>
+              <Box sx={{ display: "flex", color: "rgba(0,0,0,0.6)" }}>
                 <Coffee />
                 <Typography sx={{ color: "rgba(0,0,0,0.6)" }}>
                   商品を選択
@@ -209,7 +235,7 @@ const PostForm: FC<Props> = memo((props) => {
             height={"164px"}
           />
         )}
-        <Grid container alignItems="center" spacing={5}>
+        <Grid container alignItems="center">
           <Grid item xs={10}>
             <InputLabel
               variant="standard"
@@ -234,16 +260,18 @@ const PostForm: FC<Props> = memo((props) => {
           </Grid>
 
           <Grid item xs={2}>
-            <ModalWindow
-              title="投稿してもよろしいですか？"
-              content=""
-              openButtonColor="blue"
-              openButtonSxStyle={{ my: "3px" }}
-              completeButtonColor="blue"
-              completeButtonName="投稿"
-              completeAction={postPostData}
-              cancelButtonColor="gray"
-            />
+            <Stack direction="row" justifyContent="end" sx={{ mx: 1 }}>
+              <ModalWindow
+                title="投稿してもよろしいですか？"
+                content=""
+                openButtonColor="blue"
+                openButtonSxStyle={{ my: "3px" }}
+                completeButtonColor="blue"
+                completeButtonName="投稿"
+                completeAction={postPostData}
+                cancelButtonColor="gray"
+              />
+            </Stack>
           </Grid>
         </Grid>
       </Paper>

@@ -19,6 +19,7 @@ export type Items = {
   createdAt?: Date | null;
   intheOffice: boolean;
   author?: string | null;
+  otherItem?: boolean | null;
 };
 
 export type Questionnaire = {
@@ -48,15 +49,6 @@ export type Polls = {
   category: number;
 };
 
-export type StockHistory = {
-  id: number;
-  itemId: number;
-  quantity: number;
-  day: Date;
-  incOrDec: boolean;
-  stockAmount: number;
-};
-
 export type Post = {
   id: number;
   userId: number;
@@ -74,6 +66,15 @@ export type Comment = {
   postId: number;
   createdAt: Date;
   updatedAt: Date;
+};
+
+export type StockHistory = {
+  id: number;
+  itemId: number;
+  quantity: number;
+  day: string;
+  incOrDec: boolean;
+  stockAmount: number;
 };
 
 export type Like = {

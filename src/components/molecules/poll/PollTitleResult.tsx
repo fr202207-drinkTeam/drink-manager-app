@@ -1,20 +1,19 @@
 import { Box } from "@mui/material";
-import React from "react";
 import { Questionnaire } from "../../../types/type";
-import DottedMemo from "../../atoms/memo/DottedMemo";
 
 type PollTitleProps = {
-  poll: Questionnaire|undefined;
+  poll: Questionnaire;
 };
 
 const PollTitleResult = ({ poll }: PollTitleProps) => {
+  const startData=new Date(poll?.startDate).toLocaleDateString()
+  const endData=new Date(poll?.endDate).toLocaleDateString()
 
   return (
     <>
       <Box
           sx={{
             background: "#fff9f5",
-            // p: 5,
             backgroundImage: "url(/iwai.png)",
             backgroundSize: "110px",
             backgroundRepeat: "no-repeat",
@@ -27,7 +26,6 @@ const PollTitleResult = ({ poll }: PollTitleProps) => {
             sx={{
               fontSize: "40px",
               textAlign: "center",
-              // mt: 10,
               fontWeight: "bold",
               letterSpacing:5,
             }}
@@ -44,8 +42,8 @@ const PollTitleResult = ({ poll }: PollTitleProps) => {
               letterSpacing:5,
             }}
           >
-            開催期間: {poll?.startDate.toLocaleString()}&nbsp;〜&nbsp;
-            {poll?.endDate.toLocaleString()}
+            開催期間: {startData}&nbsp;〜&nbsp;
+            {endData}
           </Box>
         </Box>
     </>

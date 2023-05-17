@@ -17,6 +17,7 @@ import {
   ActiveGrayButton,
   ActiveBorderButton,
 } from "../atoms/button/Button";
+import { Button } from "@mui/material";
 
 const style = {
   position: "absolute" as "absolute",
@@ -131,6 +132,12 @@ const ModalWindow: FC<Props> = memo((props: Props) => {
             {label}
           </ActiveBorderButton>
         );
+      case "nomal":
+        return (
+          <Button onClick={action} sx={openButtonSxStyle}>
+            {label}
+          </Button>
+        );
       default:
         return <Fragment />;
     }
@@ -138,7 +145,7 @@ const ModalWindow: FC<Props> = memo((props: Props) => {
 
   // モーダル表示ボタン
   const OpenButton = () => {
-    if(buttonName) {
+    if (buttonName) {
       return buttonSetting(
         openButtonColor,
         handleOpen,
@@ -153,7 +160,6 @@ const ModalWindow: FC<Props> = memo((props: Props) => {
         openButtonSxStyle
       );
     }
-    
   };
 
   // 完了ボタン

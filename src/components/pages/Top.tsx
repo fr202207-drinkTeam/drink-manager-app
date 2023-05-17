@@ -2,17 +2,10 @@ import { FC, memo } from "react";
 import React from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import DefaultLayout from "../layout/DefaultLayout";
-
-import { useRecoilValue } from "recoil";
-import { loginUserState } from "../../store/loginUserState";
 import { Grid } from "@mui/material";
-import ItemCard from "../card/ItemCard";
+import ItemCard from "../organisms/card/ItemCard";
 import { Paper } from "@mui/material";
 import Container from "@mui/material";
 import {
@@ -21,10 +14,8 @@ import {
   ActivePinkButton,
 } from "../atoms/button/Button";
 import { useState, useEffect } from "react";
-
 import { useNavigate } from "react-router-dom";
 import PollRanking from "../organisms/PollRanking";
-import PostsData from "../organisms/PostData ";
 import { Post } from "../../types/type";
 import PostData from "../organisms/PostData ";
 import useGetPosts from "../../hooks/useGetPosts";
@@ -71,7 +62,7 @@ const Top: FC<Props> = memo((props) => {
             <Typography
               gutterBottom
               component="div"
-              sx={{ m: 4, color: "#595857", fontSize: "25px" }}
+              sx={{ mt: 4, color: "#595857", fontSize: "25px" }}
             >
               みんなの投票で会社に設置してある<br></br>
               <Typography
@@ -90,7 +81,7 @@ const Top: FC<Props> = memo((props) => {
             <Typography
               gutterBottom
               component="div"
-              sx={{ m: 4, color: "#595857", fontSize: "16px" }}
+              sx={{ mb: 4, color: "#595857", fontSize: "16px" }}
             >
               好きなドリンクを教えてね。<br></br>
               あなたの一票で結果が変わるかも!?
@@ -102,21 +93,33 @@ const Top: FC<Props> = memo((props) => {
             event={() => {
               navigate("/home/poll");
             }}
-            sxStyle={{ width: "20%", py: 2, my: 10 }}
+            style={{
+              padding: 15,
+              width: 300,
+              height: 80,
+              fontSize: "23px",
+              margin: "50px",
+            }}
           >
             投票する
           </ActivePinkButton>
         </Box>
         <Box sx={{ textAlign: "center" }}>
           <PollRanking />
-          <ActivePinkButton
+          <ActiveBeigeButton
             event={() => {
-              navigate("/home/poll");
+              navigate("/home/poll/pollresult");
             }}
-            sxStyle={{ width: "20%", py: 2, my: 10 }}
+            style={{
+              padding: 15,
+              width: 300,
+              height: 80,
+              fontSize: "23px",
+              margin: "50px",
+            }}
           >
             過去の投票結果を見る
-          </ActivePinkButton>
+          </ActiveBeigeButton>
         </Box>
         <Card
           sx={{
@@ -152,23 +155,27 @@ const Top: FC<Props> = memo((props) => {
                 postData={postData}
                 isComment={false}
                 loginUser={loginUser}
-                setEditPostData={function(
-                  value: React.SetStateAction<Post | null>
-                ): void {}}
+                setEditPostData={null}
               />
             ))}
           </Box>
         </Paper>
         <Box sx={{ textAlign: "center", mt: 4 }}>
           <Grid container spacing={2}></Grid>
-          <ActiveBeigeButton
+          <ActiveBlueButton
             event={() => {
               navigate("/home/timeline");
             }}
-            sxStyle={{ width: "20%", py: 2, mt: 10 }}
+            style={{
+              padding: 15,
+              width: 300,
+              height: 80,
+              fontSize: "23px",
+              margin: "50px",
+            }}
           >
             タイムラインを見る
-          </ActiveBeigeButton>
+          </ActiveBlueButton>
         </Box>
       </DefaultLayout>
     </>

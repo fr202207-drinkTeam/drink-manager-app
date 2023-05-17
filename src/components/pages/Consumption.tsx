@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { FC, memo, useEffect, useState } from 'react';
 
-import StockCard from '../card/StockCard';
 // import { useGetOfficeItems1 } from '../../hooks/useGetOfficeItems1';
+import StockCard from '../organisms/card/StockCard';
 import AdmTitleText from '../atoms/text/AdmTitleText';
 import axios from 'axios';
 import { StockHistory } from '../../types/type';

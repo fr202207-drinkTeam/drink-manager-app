@@ -1,6 +1,6 @@
 import { Paper, Box, Card, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import ItemCard from "../card/ItemCard";
+import ItemCard from "./card/ItemCard";
 import { Items, Polls, Questionnaire } from "../../types/type";
 import { useParams } from "react-router-dom";
 
@@ -58,6 +58,9 @@ const PollRanking = () => {
   //questionner取得
   useEffect(() => {
     (async () => {
+      if (!pollId) {
+        return;
+      }
       try {
         const response = await fetch(
           `http://localhost:8880/questionnaire/${pollId}`
@@ -146,13 +149,11 @@ const PollRanking = () => {
           m: "auto",
         }}
       >
-        <Typography
-          gutterBottom
-          component="div"
-          sx={{ m: 2, color: "#595857", fontSize: "25px" }}
+        <span
+          style={{ fontSize: "34px", fontWeight: "bold", color: "#F3BF87" }}
         >
           ランキング
-        </Typography>
+        </span>
 
         {questionnaire?.name ? (
           <Typography
@@ -226,7 +227,12 @@ const PollRanking = () => {
               {pollCount.length > 0 && (
                 <ItemCard
                   data={pollCount.slice(0, 3)}
-                  sxStyle={{ maxWidth: 220, minWidth: 220, mx: 5, mb: 1 }}
+                  sxStyle={{
+                    maxWidth: "310px",
+                    minWidth: "310px",
+                    mx: "16px",
+                    mb: "10px",
+                  }}
                 />
               )}
             </Box>

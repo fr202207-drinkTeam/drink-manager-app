@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom';
 
 import { FC, memo, useEffect, useState } from 'react';
 
-import StockCard from '../card/StockCard';
 // import { useGetOfficeItems1 } from '../../hooks/useGetOfficeItems1';
 import AdmTitleText from '../atoms/text/AdmTitleText';
 import axios from 'axios';
 import { StockHistory } from '../../types/type';
 import useGetItems from '../../hooks/useGetItems';
 import ModalWindow from '../organisms/ModalWindow';
+import StockCard from '../organisms/card/StockCard';
+import useGetOfficeItems from '../../hooks/useGetOfficeItems';
 
 type Props = {};
 
@@ -106,8 +107,9 @@ const Consumption: FC<Props> = memo((props) => {
     console.log('送信しました。');
 
     try {
-      await Promise.all(
+      await Promise.all(  
         itemData.map(async (item, index) => {
+          console.log("index", index)
           await axios.post('http://localhost:8880/stockhistory', {
             itemId: item.id,
             quantity: inputValueArr[index],

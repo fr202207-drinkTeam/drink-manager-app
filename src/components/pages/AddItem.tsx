@@ -1,6 +1,5 @@
-import { FC, memo } from "react";
+import { FC, memo, useState } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
@@ -12,15 +11,17 @@ import ItemForm from "../organisms/ItemForm";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 import { CircularProgress } from "@mui/material";
+import { Users } from "../../types/type";
 
 type Props = {
   //投票から商品追加したかどうか
   pollFlag?: boolean;
-  setPollFlag?: React.Dispatch<React.SetStateAction<boolean>>;
   handleClose?: any;
+  trigger?:boolean;
+  setTrigger:React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const AddItem: FC<Props> = memo(({ pollFlag, setPollFlag, handleClose }) => {
+const AddItem: FC<Props> = memo(({ pollFlag, handleClose,trigger,setTrigger }) => {
   const navigate: NavigateFunction = useNavigate();
   const [itemName, setItemName] = useState<string>("");
   const [itemDescription, setItemDescription] = useState<string>("");
@@ -28,9 +29,10 @@ const AddItem: FC<Props> = memo(({ pollFlag, setPollFlag, handleClose }) => {
   const [itemImages, setItemImages] = useState<File[]>([]);
   const [adding, setAdding] = useState<boolean>(false);
 
+
   // recoilからログインユーザー情報を取得
-  const authId = Cookies.get("authId")!;
-  const loginUser = useLoginUserFetch({ authId: authId });
+  const authId: string = Cookies.get("authId")!;
+  const loginUser: Users = useLoginUserFetch({ authId: authId });
 
   // データ追加処理(確定ボタン)
   const onClickAddItemData: () => Promise<void> = async () => {
@@ -55,16 +57,16 @@ const AddItem: FC<Props> = memo(({ pollFlag, setPollFlag, handleClose }) => {
       }),
     }).then(() => {
       if(pollFlag){
+        setTrigger(!trigger)
         handleClose()
       }else{
         navigate("/adminhome");
       }
-      console.log("success");
     });
   };
 
   //投票から削除押した場合
-  const handleDelete = () => {
+  const handleDelete: () => void = () => {
     if (pollFlag) {
       handleClose();
     } else {
@@ -75,7 +77,9 @@ const AddItem: FC<Props> = memo(({ pollFlag, setPollFlag, handleClose }) => {
   return (
     <>
       <Paper sx={{ p: 5, width: "80%", m: "auto" }}>
+      
         <AdmTitleText>商品追加</AdmTitleText>
+        <Box id="top"/>
         {adding ? (
           <>
             <div style={{ margin: "200px", textAlign: "center" }}>
@@ -86,10 +90,15 @@ const AddItem: FC<Props> = memo(({ pollFlag, setPollFlag, handleClose }) => {
         ) : (
           <>
             <ItemForm
+              itemName={itemName}
               setItemName={setItemName}
+              itemDescription={itemDescription}
               setItemDescription={setItemDescription}
+              itemCategory={itemCategory}
               setItemCategory={setItemCategory}
+              itemImages={itemImages}
               setItemImages={setItemImages}
+
             />
             {itemName &&
             itemDescription &&

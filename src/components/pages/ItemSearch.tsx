@@ -1,8 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { FC, memo } from "react";
-import ItemCard from "../card/ItemCard";
-import { MenuItem, Select, Typography } from "@mui/material";
+import ItemCard from "../organisms/card/ItemCard";
+import { MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material";
 import type { Items, Polls, Questionnaire } from "../../types/type";
 import Paginate from "../atoms/paginate/Paginate";
 import Box from "@mui/material/Box";
@@ -12,23 +12,25 @@ import queryString from "query-string";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 
+
 type Props = {};
 
 const ItemSearch: FC<Props> = memo((props) => {
-
-  const authId = Cookies.get("authId")!;
-  const loginUser = useLoginUserFetch({ authId: authId });
+  
   const location = useLocation();
   const navigate = useNavigate();
+// 管理者の判定
+  const authId = Cookies.get("authId")!;
+  const loginUser = useLoginUserFetch({ authId: authId });
+  
   const [searchParams, setSearchParams] = useSearchParams();
-  const page = searchParams.get("page");
   const [selectedItem, setSelectedItem] = useState<Items[]>();
   const [allItem, setAllItem] = useState<Items[]>();
   const [selectedValue, setSelectedValue] = useState("name");
   const [categoryName, setCategoryName] = useState<string>();
-  console.log(selectedValue);
-
-  const handlePullDown = async (event: any) => {
+  const page = searchParams.get("page");
+  const baseUrl = "http://localhost:8880/items?&otherItem=false";
+  const handlePullDown = async (event: SelectChangeEvent<string>) => {
     const value = event.target.value;
     setSelectedValue(value);
 
@@ -44,7 +46,7 @@ const ItemSearch: FC<Props> = memo((props) => {
         itemCategory: category === "all" ? undefined : category,
         name_like: keyword,
       };
-      let apiUrl = `http://localhost:8880/items?&otherItem=false&_limit=${perPage}`;
+      let apiUrl = `${baseUrl}&_limit=${perPage}`;
       
       //  名前順
       if (value === "name") {
@@ -75,30 +77,28 @@ const ItemSearch: FC<Props> = memo((props) => {
 
   const perPage = 6;
   let currentPage = 1;
-  console.log(selectedItem, "item");
-  console.log(allItem, "allitem");
 
   // カテゴリタブを押したときの初期データ
   useEffect(() => {
     const categoryFilterData = async () => {
       try {
-        let url = `http://localhost:8880/items?&otherItem=false&_sort=name&_page=${currentPage}&_limit=${perPage}`;
+        let url = `${baseUrl}&_sort=name&_page=${currentPage}&_limit=${perPage}`;
         if (category !== "all") {
           url += `&itemCategory=${category}`;
         }
         const response = await fetch(url);
         const data = await response.json();
         if (category === "all") {
-          setSelectedItem(data.filter((item: any) => !item.otherItem));
+          setSelectedItem(data);
         } else {
           const filteredData = data.filter(
-            (item: any) => item.itemCategory === Number(category)
+            (item:Items) => item.itemCategory === Number(category)
           );
-          setSelectedItem(filteredData.filter((item: any) => !item.otherItem));
+          setSelectedItem(filteredData);
         }
         if (location.search.includes("keyword")) {
           const keyword = new URLSearchParams(location.search).get("keyword");
-          let url = `http://localhost:8880/items?&otherItem=false&_page=${currentPage}&_limit=${perPage}&name_like=${keyword}`;
+          let url = `${baseUrl}&_sort=name&_page=${currentPage}&_limit=${perPage}&name_like=${keyword}`;
           const response = await fetch(url);
           const data = await response.json();
           setSelectedItem(data);
@@ -109,7 +109,7 @@ const ItemSearch: FC<Props> = memo((props) => {
     };
     categoryFilterData();
   }, [category, setSelectedItem, keyword]);
-  console.log("select", selectedItem);
+  
   // ページング
   const handlePageChange = async (
     event: React.SyntheticEvent,
@@ -123,6 +123,7 @@ const ItemSearch: FC<Props> = memo((props) => {
         itemCategory: category === "all" ? undefined : category,
         name_like: keyword,
       };
+   
       if (selectedValue === "intheOffice") {
         params.intheOffice = true;
       } else if (selectedValue === "intheOfficeNone") {
@@ -131,7 +132,7 @@ const ItemSearch: FC<Props> = memo((props) => {
       const query = queryString.stringify(params, { skipNull: true });
 
       const sortValue = selectedValue === "name" ? "name" : "popular";
-      const url = `http://localhost:8880/items?&otherItem=false&_sort=${sortValue}&_order=asc&_page=${newValue}&_limit=6&${query}`;
+      const url = `${baseUrl}&_sort=${sortValue}&_order=asc&_page=${newValue}&_limit=6&${query}`;
 
       navigate(`/home/search?${queryParams.toString()}`);
 
@@ -147,12 +148,12 @@ const ItemSearch: FC<Props> = memo((props) => {
   useEffect(() => { 
     const categoryData = async () => {
       try {
-        let url = `http://localhost:8880/items?&otherItem=false`;
+        let url = baseUrl;
         
         if (selectedValue === "intheOffice") {
-          url += "&intheOffice=true"; // Append intheOffice parameter
+          url += "&intheOffice=true"; 
         }else if(selectedValue === "intheOfficeNone") {
-          url += "&intheOffice=false"; // Append intheOffice parameter
+          url += "&intheOffice=false"; 
         }
   
         const params = {
@@ -174,34 +175,44 @@ const ItemSearch: FC<Props> = memo((props) => {
   }, [category, keyword, selectedValue]);
  
 
-  // Todo カテゴリ検索リファクタリングする
+
   useEffect(() => {
-    if (category === "all") {
-      setCategoryName("すべて");
-      setSelectedValue("name");
-    } else if (category === "1") {
-      setCategoryName("ダーク（深煎り）");
-      setSelectedValue("name");
-    } else if (category === "2") {
-      setCategoryName("ミディアム（中煎り）");
-      setSelectedValue("name");
-    } else if (category === "3") {
-      setCategoryName("ライト（浅煎り）");
-      setSelectedValue("name");
-    } else if (category === "4") {
-      setCategoryName("カフェインレス");
-      setSelectedValue("name");
-    } else if (category === "5") {
-      setCategoryName("ティー");
-      setSelectedValue("name");
-    } else if (category === "6") {
-      setCategoryName("ココア");
-      setSelectedValue("name");
-    } else if (category === "7") {
-      setCategoryName("その他");
-      setSelectedValue("name");
+    let categoryName = "";
+    let selectedValue = "name";
+  
+    switch (category) {
+      case "all":
+        categoryName = "すべて";
+        selectedValue = "name";
+        break;
+      case "1":
+        categoryName = "ダーク（深煎り）";
+        break;
+      case "2":
+        categoryName = "ミディアム（中煎り）";
+        break;
+      case "3":
+        categoryName = "ライト（浅煎り）";
+        break;
+      case "4":
+        categoryName = "カフェインレス";
+        break;
+      case "5":
+        categoryName = "ティー";
+        break;
+      case "6":
+        categoryName = "ココア";
+        break;
+      case "7":
+        categoryName = "その他";
+        break;
+      default:
+        break;
     }
-  }, [category, setSelectedValue]);
+  
+    setCategoryName(categoryName);
+    setSelectedValue(selectedValue);
+  }, [category]);
 
   return (
     <>
@@ -210,9 +221,10 @@ const ItemSearch: FC<Props> = memo((props) => {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
+          width:"1030px"
         }}
       >
-        <Box>
+        <Box >
           {category ? (
             <Typography variant="h6" sx={{ mb: 2 }}>
               「{categoryName}」の検索結果一覧
@@ -229,7 +241,7 @@ const ItemSearch: FC<Props> = memo((props) => {
             検索結果：{allItem?.length}件
           </Typography>
         </Box>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box sx={{ display: "flex", alignItems: "center", }}>
           <Select
             size="small"
             value={selectedValue}
@@ -237,20 +249,14 @@ const ItemSearch: FC<Props> = memo((props) => {
             onChange={handlePullDown}
           >
             <MenuItem value="選択する" disabled>
-              {/* <Box sx={{ display: "flex" }}>
-                <Typography sx={{ color: "rgba(0,0,0,0.6)" }}>
-                  選択する
-                </Typography>
-              </Box> */}
             </MenuItem>
-            {/* <MenuItem value="popular">人気順</MenuItem> */}
             <MenuItem value="name">名前順</MenuItem>
             <MenuItem value="intheOffice">社内あり</MenuItem>
             <MenuItem value="intheOfficeNone">社内なし</MenuItem>
           </Select>
         </Box>
       </Box>
-      <Box sx={{ mx: "16px" }}></Box>
+      <Box sx={{ mx: "16px" }}></Box><Box id="top" /> 
       {selectedItem ? (
         <>
           {selectedItem && <ItemCard data={selectedItem} />}
@@ -268,13 +274,14 @@ const ItemSearch: FC<Props> = memo((props) => {
       ) : (
         "該当する商品がありません"
       )}
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+      <div style={{ display: "flex", justifyContent: "flex-end",width:"1030px" }} >
         {loginUser?.isAdmin ? (
           <Link to="/adminhome/additem">
             <ActiveDarkBlueButton event={function (): void {}}>
               商品追加
             </ActiveDarkBlueButton>
           </Link>
+          
         ) : (
           ""
         )}
