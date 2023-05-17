@@ -248,10 +248,10 @@
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/8b4f2c9d-a9d6-45f0-bf8f-b5bd96ec4461?alt=media&token=96f2cbda-a7ba-45e5-aba7-70cfe8fbcd5f"
       ],
       "itemCategory": 7,
-      "createdAt": "2023-05-10T02:06:04.847Z",
+      "createdAt": "2023-05-12T03:01:31.537Z",
       "inTheOffice": false,
-      "author": 1,
-      "otherItem": true,
+      "author": null,
+      "otherItem": false,
       "id": 25
     },
     {
@@ -1548,119 +1548,159 @@
       "quantity": 1,
       "day": "2023-05-02T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 1
+      "stockAmount": 10
     },
     {
       "id": 2,
       "itemId": 2,
       "quantity": 1,
-      "day": "2023-05-02T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 1
-    },
-    {
-      "id": 3,
-      "itemId": 2,
-      "quantity": 1,
-      "day": "2023-05-02T02:50:27.944Z",
-      "incOrDec": false,
-      "stockAmount": 1
-    },
-    {
-      "id": 4,
-      "itemId": 5,
-      "quantity": 1,
-      "day": "2023-05-02T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 1
-    },
-    {
-      "id": 5,
-      "itemId": 5,
-      "quantity": 10,
-      "day": "2023-05-02T02:50:27.944Z",
-      "incOrDec": false,
-      "stockAmount": 10
-    },
-    {
-      "id": 6,
-      "itemId": 2,
-      "quantity": 1,
-      "day": "2023-05-03T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 1
-    },
-    {
-      "id": 7,
-      "itemId": 10,
-      "quantity": 5,
-      "day": "2023-05-03T02:50:27.944Z",
-      "incOrDec": false,
-      "stockAmount": 10
-    },
-    {
-      "id": 8,
-      "itemId": 7,
-      "quantity": 5,
-      "day": "2023-05-03T02:50:27.944Z",
-      "incOrDec": false,
-      "stockAmount": 10
-    },
-    {
-      "id": 9,
-      "itemId": 11,
-      "quantity": 5,
-      "day": "2023-05-03T02:50:27.944Z",
-      "incOrDec": false,
-      "stockAmount": 10
-    },
-    {
-      "id": 10,
-      "itemId": 9,
-      "quantity": 5,
-      "day": "2023-05-03T02:50:27.944Z",
-      "incOrDec": false,
-      "stockAmount": 10
-    },
-    {
-      "id": 11,
-      "itemId": 12,
-      "quantity": 5,
-      "day": "2023-05-03T02:50:27.944Z",
-      "incOrDec": false,
-      "stockAmount": 10
-    },
-    {
-      "id": 12,
-      "itemId": 13,
-      "quantity": 5,
-      "day": "2023-05-04T02:57:27.944Z",
-      "incOrDec": false,
-      "stockAmount": 10
-    },
-    {
-      "id": 13,
-      "itemId": 13,
-      "quantity": 6,
-      "day": "2023-05-04T02:58:27.944Z",
-      "incOrDec": false,
-      "stockAmount": 12
-    },
-    {
-      "id": 14,
-      "itemId": 13,
-      "quantity": 6,
-      "day": "2023-05-04T02:59:27.944Z",
+      "day": "2023-05-2T02:50:27.944Z",
       "incOrDec": true,
       "stockAmount": 20
     },
     {
+      "id": 3,
+      "itemId": 3,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 30
+    },
+    {
+      "id": 4,
+      "itemId": 4,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 40
+    },
+    {
+      "id": 5,
+      "itemId": 5,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 50
+    },
+    {
+      "id": 6,
+      "itemId": 6,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 60
+    },
+    {
+      "id": 7,
+      "itemId": 7,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 70
+    },
+    {
+      "id": 8,
+      "itemId": 8,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 80
+    },
+    {
+      "id": 9,
+      "itemId": 14,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 140
+    },
+    {
+      "id": 10,
+      "itemId": 15,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 150
+    },
+    {
+      "id": 11,
+      "itemId": 1,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 110
+    },
+    {
+      "id": 12,
+      "itemId": 2,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 120
+    },
+    {
+      "id": 13,
+      "itemId": 3,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 130
+    },
+    {
+      "id": 14,
+      "itemId": 4,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 140
+    },
+    {
       "id": 15,
-      "itemId": 17,
-      "quantity": 6,
-      "day": "2023-05-03T02:50:27.944Z",
-      "incOrDec": false,
-      "stockAmount": 12
+      "itemId": 5,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 150
+    },
+    {
+      "id": 16,
+      "itemId": 6,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 160
+    },
+    {
+      "id": 17,
+      "itemId": 7,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 170
+    },
+    {
+      "id": 18,
+      "itemId": 8,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 180
+    },
+    {
+      "id": 19,
+      "itemId": 14,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 190
+    },
+    {
+      "id": 20,
+      "itemId": 15,
+      "quantity": 1,
+      "day": "2023-05-2T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 200
     }
   ],
   "addition": [
