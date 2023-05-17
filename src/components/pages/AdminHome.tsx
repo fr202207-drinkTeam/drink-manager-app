@@ -25,6 +25,7 @@ const AdminHome: FC<Props> = memo((props) => {
             padding: '50px',
           }}
         >
+          <Box id="top" />
           <AdmTitleText>管理者MENU</AdmTitleText>
           <Stack
             direction="row"

@@ -50,7 +50,8 @@ export const StockInput: FC<Props> = (props) => {
     <>
       <TextField
         key={index}
-        sx={{ width: '250px', margin: '10px' }}
+        // sx={{ width: '250px', margin: '10px' }}
+        sx={{ width: '250px', margin: "10px 0px 10px 30px" }}
         id="outlined-basic"
         label={inputLabel}
         variant="outlined"

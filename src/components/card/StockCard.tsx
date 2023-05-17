@@ -16,20 +16,35 @@ type Props = {
 };
 
 const StockCard: FC<Props> = (props) => {
-  const { itemData, inTheOfficeItemArr, inputValueArr, setInputValueArr } =
-    props;
+  const {
+    itemData,
+    inTheOfficeItemArr,
+    inputValueArr,
+    setInputValueArr,
+  } = props;
   // console.log(inTheOfficeItemArr);
   // console.log(itemData);
   const intheOfficeItemAmount = itemData.length;
   const [inputStatusArr, setInputStatusArr] = useState<boolean[]>([]);
 
+  // const testFunc = (drinkId: number) => {
+  //   for (let i = 0; i < inTheOfficeItemArr.length; i++) {
+  //     if (inTheOfficeItemArr[i].itemId === drinkId) {
+  //       // console.log(inTheOfficeItemArr[i].stockAmount);
+  //       return inTheOfficeItemArr[i].stockAmount;
+  //     }
+  //   }
+  // };
+
   const testFunc = (drinkId: number) => {
-    for (let i = 0; i < inTheOfficeItemArr.length; i++) {
-      if (inTheOfficeItemArr[i].itemId === drinkId) {
-        // console.log(inTheOfficeItemArr[i].stockAmount);
-        return inTheOfficeItemArr[i].stockAmount;
+    if (inTheOfficeItemArr.length > 0) {
+      for (let i = 0; i < inTheOfficeItemArr.length; i++) {
+        if (inTheOfficeItemArr[i].itemId === drinkId) {
+          return inTheOfficeItemArr[i].stockAmount;
+        }
       }
     }
+    return 0;
   };
 
   return (
@@ -82,8 +97,10 @@ const StockCard: FC<Props> = (props) => {
                 </Typography>
               </CardContent>
               <Typography sx={{ marginLeft: '36px' }}>
-                現在の在庫数は
-                <span style={{ fontWeight: 'bold' }}>{testFunc(drink.id)}</span>
+                ※現在の在庫数は
+                <span style={{ fontWeight: 'bold', alignItems: 'center' }}>
+                  {testFunc(drink.id)}
+                </span>
                 個です
               </Typography>
               <StockInput
