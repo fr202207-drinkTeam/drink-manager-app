@@ -10,7 +10,6 @@ const useGetPosts = (
   const [postError, setPostError] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log("params", params)
     setPostLoading(true);
     // データ取得
     fetch(`http://localhost:8880/posts${params}`, { method: "GET" })

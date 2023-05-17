@@ -22,19 +22,22 @@ const AdminHome: FC<Props> = memo((props) => {
             minWidth: 500,
             maxWidth: 1200,
             minHeight: 600,
-            padding: "50px",
+            // padding: '50px',
           }}
         >
-          <AdmTitleText>管理者MENU</AdmTitleText>
+          <Box id="top" />
+          <Box sx={{ p: "30px" }}>
+            <AdmTitleText>管理者MENU</AdmTitleText>
+          </Box>
           <Stack
             direction="row"
             justifyContent="center"
             alignItems="center"
             spacing={8}
             flexWrap="wrap"
-            marginTop="110px"
+            marginTop="10px"
           >
-            <Link to="/adminhome/consumption">
+            <Link to="/adminhome/addition">
               <Box
                 sx={{
                   width: 200,
@@ -67,7 +70,7 @@ const AdminHome: FC<Props> = memo((props) => {
                 </Typography>
               </Box>
             </Link>
-            <Link to="/adminhome/addition">
+            <Link to="/adminhome/consumption">
               <Box
                 sx={{
                   width: 200,

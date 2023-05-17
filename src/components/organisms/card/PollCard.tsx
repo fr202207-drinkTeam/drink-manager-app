@@ -62,7 +62,6 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
       const responseData = await response.json();
       navigate("/home")
       alert(`投票を受け付けました。投票ありがとうございました！`)
-      console.log(responseData);
     } catch (err) {
       console.log(err, "エラー");
     }
@@ -75,8 +74,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "flex-start",
-          ml: 5,
-          // mt: 2,
+          ml: 3,
         }}
       >
         {data &&

@@ -23,7 +23,6 @@ function DefaultLayout({ children,props }: { children: any,props?:any }) {
   const handleButtonClick = () => {};
   // パスの取得
   const location = useLocation();
-  console.log(location.pathname);
   const images = ["../top.png", "../top.png", "../top.png"];
   const [searchWord, setSearchWord] = useState("");
   const [searchResults, setSearchResults] = useState<Items[]>();

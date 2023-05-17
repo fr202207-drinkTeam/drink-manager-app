@@ -1,46 +1,24 @@
-# Getting Started with Create React App
+## アプリ概要
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+社内に設置されている社内リフレッシュメント施設を、より一層活用してもらうためのシステム
 
-## Available Scripts
+・製品の人気投票機能
 
-In the project directory, you can run:
+・社内交流機能（レコメンド）
 
-### `npm start`
+・管理者機能
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 起動方法
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### `yarn start`
 
-### `npm test`
+localhost:3000 にて起動
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### `yarn mock-api`
 
-### `npm run build`
+localhost:8880 にて起動
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 環境情報
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+・yarn 1.22.19</br>
+・[React](https://ja.reactjs.org/) 1.22.19</br>・[Recoil](https://recoiljs.org/) 0.7.7</br>・[React Router](https://reactrouter.com/en/main) 6.10.0</br>・[TypeScript](https://www.typescriptlang.org/) 4.9.5</br>・[MUI](https://mui.com/) 5.12.1</br>・Firebase(Authettication/Cloud Storage) 9.20.0</br>・JSON Server 0.17.3
