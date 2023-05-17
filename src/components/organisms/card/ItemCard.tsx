@@ -141,6 +141,7 @@ const ItemCard = ({ data, sxStyle, sxBox }: ItemCardProps) => {
                 >
                   {drink.description}
                 </Typography>
+                
               </CardContent>
             </CardActionArea>
           </Card>
