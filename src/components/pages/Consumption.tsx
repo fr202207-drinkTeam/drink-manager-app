@@ -11,7 +11,6 @@ type Props = {};
 
 const Consumption: FC<Props> = memo((props) => {
   const { itemData, itemLoading, itemError } = useGetItems("?intheOffice=true");
-  console.log("itemData",itemData)
   const [latestStockAmount, setLatestStockAmount] = useState<number>();
 
   const onClickExport = () => {
@@ -32,8 +31,6 @@ const Consumption: FC<Props> = memo((props) => {
   useEffect(() => {
     getStockAmount();
   }, []);
-
-  console.log(latestStockAmount);
 
   return (
     <Paper

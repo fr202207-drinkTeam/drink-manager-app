@@ -14,7 +14,7 @@ type Props = {
 const ItemSearchForm: React.FC<Props> = ({ searchWord, setSearchWord }) => {
   const navigate = useNavigate();
   const [searchResults, setSearchResults] = useState<any>([]);
-  console.log(searchResults, "result");
+
   const onSearchButtonClick = async () => {
     try {
       const response = await fetch(

@@ -29,12 +29,10 @@ const PollRanking = () => {
   const sortedPolls = Object.entries(pollCounts).sort(
     (a: any, b: any) => b[1] - a[1]
   );
-  console.log(sortedPolls, "sorr");
   const result = sortedPolls.map((subArr) => {
     return subArr[0];
   });
   const pollResult = result.map(Number);
-  console.log(pollResult, "pollresult");
 
   //value票の数を多い順に並び替え
   const values = Object.values(pollCounts).map(Number);
@@ -104,7 +102,6 @@ const PollRanking = () => {
       const randomId =
         startDates[Math.floor(Math.random() * startDates.length)];
       setPollId(randomId);
-      console.log(pollId, "random");
     }
   }, [startDate, pollId]);
   //Items取得
@@ -227,7 +224,12 @@ const PollRanking = () => {
               {pollCount.length > 0 && (
                 <ItemCard
                   data={pollCount.slice(0, 3)}
-                  sxStyle={{ maxWidth: 220, minWidth: 220, mx: 5, mb: 1 }}
+                  sxStyle={{
+                    maxWidth: "310px",
+                    minWidth: "310px",
+                    mx: "8px",
+                    mb: "10px",
+                  }}
                 />
               )}
             </Box>

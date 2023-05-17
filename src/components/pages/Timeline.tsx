@@ -116,7 +116,6 @@ const Timeline: FC<Props> = memo((props) => {
 
   // 各クエリパラメータ要素のstateが変わるたびに新しいパラメータをセット
   useEffect(() => {
-    console.log("before", itemId.current, location.state)
     if (location.state && location.state.itemId !== 0) {
       return;
     }

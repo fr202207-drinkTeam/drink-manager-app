@@ -107,7 +107,6 @@ const PostForm: FC<Props> = memo((props) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editedComment),
       }).then(() => {
-        console.log("edit success");
         setPostError(false);
         setEditPostData(null);
         setReloadPost(!reloadPost);
@@ -133,7 +132,6 @@ const PostForm: FC<Props> = memo((props) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newPost),
     }).then(() => {
-      console.log("success");
       setPostError(false);
       setReloadPost(!reloadPost);
       postForm.current.reset();
