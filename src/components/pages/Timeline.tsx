@@ -235,7 +235,9 @@ const Timeline: FC<Props> = memo((props) => {
     ) {
       return;
     }
-
+    if (event.target[0].value.length > 20) {
+      return;
+    }
     setPostSearch(`q=${event.target[0].value}&`);
   };
 
