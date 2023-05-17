@@ -55,6 +55,11 @@ const Register: FC<Props> = memo((props) => {
     );
   };
 
+  //社員IDの入力形式チェック
+  const isValidUserId = (userId: string) => {
+    return inputCheckNumber.test(userId);
+  };
+
   //メールアドレスの入力チェック
   const emailRegex = new RegExp(
     `^[^\\s@]+@${process.env.REACT_APP_EMAIL}\\.co\\.jp$`
@@ -152,6 +157,7 @@ const Register: FC<Props> = memo((props) => {
         <UserIdInput
           userId={userId}
           errorId={errorId}
+          isValidUserId={isValidUserId}
           setUserId={setUserId}
           onBlur={onBlur}
         />
