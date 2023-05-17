@@ -71,15 +71,15 @@ const LoginForm: FC<Props> = (props) => {
         loginedUser.uid === user[0].authId &&
         user[0].isAdmin === true
       ) {
-        document.cookie = `authId=${loginedUser.uid}; max-age=86400`;
-        document.cookie = `isAdmin=true; max-age=86400`;
+        document.cookie = `authId=${loginedUser.uid}; max-age=3600`;
+        document.cookie = `isAdmin=true; max-age=3600`;
         navigate("/adminhome");
       } else if (
         currentLocation.startsWith("/login") &&
         loginedUser.uid === user[0].authId &&
         user[0].isAdmin === false
       ) {
-        document.cookie = `authId=${loginedUser.uid}; max-age=86400`;
+        document.cookie = `authId=${loginedUser.uid}; max-age=3600`;
         navigate("/home");
       } else {
         setErrorUser(true);

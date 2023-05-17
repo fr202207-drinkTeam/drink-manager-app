@@ -55,6 +55,11 @@ const Register: FC<Props> = memo((props) => {
     );
   };
 
+  //社員IDの入力形式チェック
+  const isValidUserId = (userId: string) => {
+    return inputCheckNumber.test(userId);
+  };
+
   //メールアドレスの入力チェック
   const emailRegex = new RegExp(
     `^[^\\s@]+@${process.env.REACT_APP_EMAIL}\\.co\\.jp$`
@@ -128,7 +133,7 @@ const Register: FC<Props> = memo((props) => {
           request
         ).then((res) => res.json());
         setLoginUser(user); //Recoil
-        document.cookie = `authId=${authId}; max-age=86400`;
+        document.cookie = `authId=${authId}; max-age=3600`;
         navigate("/home");
       } else {
         setErrorFraudEmail("メールアドレスが既に存在しています");
@@ -152,6 +157,7 @@ const Register: FC<Props> = memo((props) => {
         <UserIdInput
           userId={userId}
           errorId={errorId}
+          isValidUserId={isValidUserId}
           setUserId={setUserId}
           onBlur={onBlur}
         />
