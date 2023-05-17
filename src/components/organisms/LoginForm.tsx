@@ -2,13 +2,13 @@ import React, { FC } from "react";
 import { Box, Container } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ActiveOrangeButton } from "../button/Button";
+import { ActiveOrangeButton } from "../atoms/button/Button";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../Firebase";
+import { auth } from "../../Firebase";
 import { useRecoilState } from "recoil";
-import { loginUserState } from "../../../store/loginUserState";
-import EmailInput from "./EmailInput";
-import PasswordInput from "./PasswordInput";
+import { loginUserState } from "../../store/loginUserState";
+import EmailInput from "../atoms/login/EmailInput";
+import PasswordInput from "../atoms/login/PasswordInput";
 
 type Props = {
   loginTitle: string;
@@ -65,7 +65,7 @@ const LoginForm: FC<Props> = (props) => {
       const user = await response.json();
       // Recoil
       setLoginUser(user[0]);
-      //管理者判定しcookieセット
+      //管理者判定しcookieセット、画面遷移
       if (
         currentLocation.startsWith("/adminlogin") &&
         loginedUser.uid === user[0].authId &&

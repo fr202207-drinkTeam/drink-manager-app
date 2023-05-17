@@ -1,16 +1,22 @@
 import { TextField } from '@mui/material';
-import { FC, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useState } from 'react';
 
 type Props = {
   index: number;
+  inputStatusArr: boolean[];
+  setInputStatusArr: Dispatch<SetStateAction<boolean[]>>;
+  inputValueArr: Array<number>;
+  setInputValueArr: Dispatch<SetStateAction<number[]>>;
 };
 
 export const StockInput: FC<Props> = (props) => {
-  const { index } = props;
-  const firstInputStatusArr = [...Array(5)].map(() => false);
-
-  const [inputStatusArr, setInputStatusArr] =
-    useState<boolean[]>(firstInputStatusArr);
+  const {
+    index,
+    inputStatusArr,
+    setInputStatusArr,
+    inputValueArr,
+    setInputValueArr,
+  } = props;
 
   const [inputLabel, setInputLabel] =
     useState<string>('消費在庫数を入力してください ');
@@ -32,13 +38,20 @@ export const StockInput: FC<Props> = (props) => {
         return newState;
       });
       event.target.value = value;
+      setInputValueArr(() => {
+        const newState = [...inputValueArr]
+        newState[index] = Number(value)
+        return newState
+      })
     };
+  // console.log(inputStatusArr);
 
   return (
     <>
       <TextField
         key={index}
-        sx={{ width: '250px', margin: '10px' }}
+        // sx={{ width: '250px', margin: '10px' }}
+        sx={{ width: '250px', margin: "10px 0px 10px 30px" }}
         id="outlined-basic"
         label={inputLabel}
         variant="outlined"
@@ -67,80 +80,3 @@ export const StockInput: FC<Props> = (props) => {
     </>
   );
 };
-
-// import { InputAdornment, TextField } from '@mui/material';
-// import { FC } from 'react';
-
-// type Props = {
-//   inputLabel: string;
-//   inputError: boolean;
-//   setInputLabel: React.Dispatch<React.SetStateAction<string>>;
-//   setInputError: React.Dispatch<React.SetStateAction<boolean>>;
-//   itemId: Number;
-//   isFocused: boolean;
-//   setFocusItemId: React.Dispatch<React.SetStateAction<Number | null>>;
-// };
-
-// export const StockInput: FC<Props> = (props) => {
-//   const {
-//     inputLabel,
-//     inputError,
-//     setInputLabel,
-//     setInputError,
-//     itemId,
-//     isFocused,
-//     setFocusItemId,
-//   } = props;
-
-//   const onChaneInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     const inputValue = parseInt(e.target.value, 10);
-//     if (inputValue > 999) {
-//       setInputLabel('999以下の整数で入力してください');
-//       setInputError(true);
-//       e.target.value = '0';
-//     } else {
-//       setInputLabel('消費在庫を入力してください');
-//       setInputError(false);
-//     }
-//   };
-
-//   const onFocusInput = () => {
-//     setFocusItemId(itemId);
-//   };
-
-//   const onBlurInput = () => {
-//     setFocusItemId(null);
-//   };
-
-//   return (
-//     <TextField
-//       onChange={isFocused ? onChaneInput : undefined}
-//       onFocus={onFocusInput}
-//       sx={{ width: '250px', margin: '10px' }}
-//       id="outlined-basic"
-//       label={inputLabel}
-//       variant="outlined"
-//       type="number"
-//       error={inputError}
-//       InputLabelProps={{
-//         shrink: true,
-//       }}
-//       InputProps={{
-//         inputProps: {
-//           min: 0,
-//           max: 999,
-//           inputMode: 'numeric',
-//           pattern: '[0-9]*',
-//           startAdornment: <InputAdornment position="end">個</InputAdornment>,
-//         },
-//         onBlur: onBlurInput,
-
-//         onKeyPress: (e) => {
-//           if (e.key === '-' || e.key === '+') {
-//             e.preventDefault();
-//           }
-//         },
-//       }}
-//     />
-//   );
-// };

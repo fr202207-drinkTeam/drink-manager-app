@@ -52,7 +52,6 @@ const CommentData: FC<Props> = memo((props) => {
       method: "DELETE",
     })
       .then(() => {
-        console.log("delete");
         setMenu(false);
         setReloadComment(!reloadComment);
       })
