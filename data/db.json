@@ -241,7 +241,7 @@
       ],
       "itemCategory": 7,
       "createdAt": "2023-05-08T06:12:15.214Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": true,
       "id": 21
@@ -254,7 +254,7 @@
       ],
       "itemCategory": 7,
       "createdAt": "2023-05-08T06:38:56.851Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": true,
       "id": 22
@@ -267,7 +267,7 @@
       ],
       "itemCategory": 7,
       "createdAt": "2023-05-08T06:40:36.593Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": true,
       "id": 23
@@ -280,7 +280,7 @@
       ],
       "itemCategory": 7,
       "createdAt": "2023-05-08T06:42:44.461Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": true,
       "id": 24
@@ -293,9 +293,9 @@
       ],
       "itemCategory": 7,
       "createdAt": "2023-05-12T03:01:31.537Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": null,
-      "otherItem": false,
+      "otherItem": true,
       "id": 25
     },
     {
@@ -306,10 +306,88 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-12T04:42:56.450Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 4,
       "otherItem": true,
       "id": 26
+    },
+    {
+      "name": "煎茶",
+      "description": "緑茶の説明が入ります",
+      "image": [
+        "/item.png"
+      ],
+      "itemCategory": 7,
+      "createdAt": "2023-05-12T04:42:56.450Z",
+      "intheOffice": true,
+      "author": 4,
+      "otherItem": false,
+      "id": 27
+    },
+    {
+      "name": "紅茶",
+      "description": "紅茶の説明が入ります",
+      "image": [
+        "/item.png"
+      ],
+      "itemCategory": 7,
+      "createdAt": "2023-05-12T04:42:56.450Z",
+      "intheOffice": true,
+      "author": 4,
+      "otherItem": false,
+      "id": 28
+    },
+    {
+      "name": "コーンポタージュ",
+      "description": "コーンポタージュの説明が入ります",
+      "image": [
+        "/item.png"
+      ],
+      "itemCategory": 7,
+      "createdAt": "2023-05-12T04:42:56.450Z",
+      "intheOffice": true,
+      "author": 4,
+      "otherItem": false,
+      "id": 29
+    },
+    {
+      "name": "さわやかドリンクヨーグルト風味",
+      "description": "さわやかドリンクヨーグルト風味の説明が入ります",
+      "image": [
+        "/item.png"
+      ],
+      "itemCategory": 7,
+      "createdAt": "2023-05-12T04:42:56.450Z",
+      "intheOffice": true,
+      "author": 4,
+      "otherItem": false,
+      "id": 30
+    },
+    {
+      "name": "コンソメスープ",
+      "description": "コンソメスープの説明が入ります",
+      "image": [
+        "/item.png"
+      ],
+      "itemCategory": 7,
+      "createdAt": "2023-05-12T04:42:56.450Z",
+      "intheOffice": true,
+      "author": 4,
+      "otherItem": false,
+      "id": 31
+    },
+    {
+      "name": "アップルジュース",
+      "description": "アップルジュースの説明が入ります",
+      "image": [
+        "/item.png"
+      ],
+      "itemCategory": 7,
+      "createdAt": "2023-05-12T04:42:56.450Z",
+      "intheOffice": true,
+      "author": 4,
+      "otherItem": false,
+      "id": 32
     }
   ],
   "itemCategory": [
