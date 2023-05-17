@@ -42,6 +42,7 @@ const PostData: FC<Props> = memo((props) => {
   // ログインユーザーの投稿だった場合、メニューの表示
   const [menu, setMenu] = useState<boolean>(false);
 
+  // コメントリロードトリガー
   const [reloadComment, setReloadComment] = useState<boolean>(false);
 
   useEffect(() => {
@@ -125,7 +126,7 @@ const PostData: FC<Props> = memo((props) => {
           });
       })
       .then(() => {
-        console.log("delete come")
+        console.log("delete come");
         setReloadPost!(!reloadPost);
       })
       .catch((error) => {
@@ -139,7 +140,38 @@ const PostData: FC<Props> = memo((props) => {
       <Box sx={{ borderBottom: "1px solid", mx: "5px", pb: "5px" }}>
         <Box sx={{ display: "flex" }}>
           <Box sx={{ flexGrow: 1 }}>
-            <Box sx={{ display: "flex", mt: "3px" }}>
+            <Box sx={{ display: "flex"}}>
+              <Box sx={{mt: "2px"}}>
+                {/* ユーザーが管理者かどうかでそれぞれの投稿にタグ付け */}
+                {userData && userData.isAdmin && (
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: "white",
+                      background: "#ea6f00",
+                      mr: "10px",
+                      px: "3px",
+                      borderRadius: "2px",
+                    }}
+                  >
+                    お知らせ
+                  </Typography>
+                )}
+                {userData && !userData.isAdmin && (
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: "white",
+                      background: "#C89F81",
+                      mr: "10px",
+                      px: "3px",
+                      borderRadius: "2px",
+                    }}
+                  >
+                    投稿
+                  </Typography>
+                )}
+              </Box>
               <Typography
                 variant="body1"
                 sx={{ fontWeight: "bolder", color: "blue" }}
@@ -177,37 +209,6 @@ const PostData: FC<Props> = memo((props) => {
           {menu && (
             <MenuButtons editHandler={editPost} deleteHandler={deletePost} />
           )}
-          <Box>
-            {/* ユーザーが管理者かどうかでそれぞれの投稿にタグ付け */}
-            {userData && userData.isAdmin && (
-              <Typography
-                variant="body2"
-                sx={{
-                  color: "white",
-                  background: "#ea6f00",
-                  mr: "10px",
-                  px: "3px",
-                  borderRadius: "2px",
-                }}
-              >
-                お知らせ
-              </Typography>
-            )}
-            {userData && !userData.isAdmin && (
-              <Typography
-                variant="body2"
-                sx={{
-                  color: "white",
-                  background: "#C89F81",
-                  mr: "10px",
-                  px: "3px",
-                  borderRadius: "2px",
-                }}
-              >
-                投稿
-              </Typography>
-            )}
-          </Box>
         </Box>
 
         <Box>
