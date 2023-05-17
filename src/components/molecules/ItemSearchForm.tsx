@@ -22,7 +22,6 @@ const ItemSearchForm: React.FC<Props> = ({ searchWord, setSearchWord }) => {
       );
       const data = await response.json();
       setSearchResults(data);
-      // navigate(`/home/search?category=${category}&page=1`);
       navigate(`/home/search?keyword=${searchWord}&page=1`);
       setSearchWord("");
     } catch (error) {
@@ -39,12 +38,13 @@ const ItemSearchForm: React.FC<Props> = ({ searchWord, setSearchWord }) => {
         <TextField
           id="outlined-basic"
           variant="outlined"
+          type="text"
           sx={{ my: 4, width: "100%", backgroundColor: "#fff" }}
           value={searchWord}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setSearchWord(e.target.value);
           }}
-          type="text"
+          autoComplete="off"
         />
         <ActiveOrangeButton
           event={onSearchButtonClick}

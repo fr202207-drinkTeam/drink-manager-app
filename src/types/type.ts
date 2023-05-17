@@ -19,6 +19,7 @@ export type Items = {
   createdAt?: Date | null;
   intheOffice: boolean;
   author?: string | null;
+  otherItem?: boolean | null;
 };
 
 export type Questionnaire = {
