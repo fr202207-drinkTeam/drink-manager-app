@@ -1,12 +1,12 @@
 ## アプリ概要
 
-社内に設置されているコーヒーサーバーを、より一層活用してもらうためのシステム
+社内に設置されている社内リフレッシュメント施設を、より一層活用してもらうためのシステム
 
-・コーヒーフレーバーの人気投票機能
+・製品の人気投票機能
 
-・タイムライン機能（コーヒー、お菓子の紹介等）
+・社内交流機能（レコメンド）
 
-・管理者用の在庫管理機能
+・管理者機能
 
 ## 起動方法
 
@@ -21,4 +21,4 @@ localhost:8880 にて起動
 ## 環境情報
 
 ・yarn: 1.22.19</br>
-・ [React](https://ja.reactjs.org/) 1.22.19</br>・[Recoil](https://recoiljs.org/) 0.7.7</br>・[TypeScript](https://www.typescriptlang.org/) 4.9.5</br>・[MUI](https://mui.com/) 5.12.1</br>・Firebase(Authettication/Cloud Storage)</br>・JSON Server　0.17.3
+・ [React](https://ja.reactjs.org/) 1.22.19</br>・[Recoil](https://recoiljs.org/) 0.7.7</br>・[TypeScript](https://www.typescriptlang.org/) 4.9.5</br>・[MUI](https://mui.com/) 5.12.1</br>・Firebase(Authettication/Cloud Storage) 9.20.0</br>・JSON Server　0.17.3
