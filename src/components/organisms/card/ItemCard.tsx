@@ -27,7 +27,7 @@ const ItemCard = ({ data, sxStyle, sxBox }: ItemCardProps) => {
       >
         <Grid container spacing={2}>
           {data?.map((drink: Items, index) => (
-            <Grid item xs={4} md={4}>
+            <Grid key={index} item xs={4} md={4}>
               <Card
                 sx={{
                   m: 2,
