@@ -138,12 +138,12 @@ const Consumption: FC<Props> = memo((props) => {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: '50px',
+        paddingBottom: '30px',
       }}
     >
       <Box id="top" />
-      <Box sx={{ width: '60%' }}>
-        <AdmTitleText>補充在庫入力</AdmTitleText>
+      <Box sx={{ width: '60%', p: '30px' }}>
+        <AdmTitleText>消費在庫入力</AdmTitleText>
       </Box>
       {itemError ? (
         <Alert severity="error" sx={{ marginTop: '30px', fontSize: '20px' }}>
