@@ -16,7 +16,7 @@ localhost:3000 にて起動
 
 ### `yarn mock-api`
 
-localhost:8880 にて起動
+localhost:8880 にてモックサーバー起動
 
 ## 環境情報
 
