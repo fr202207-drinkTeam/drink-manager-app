@@ -22,3 +22,7 @@ localhost:8880 にてモックサーバー起動
 
 ・yarn 1.22.19</br>
 ・[React](https://ja.reactjs.org/) 1.22.19</br>・[Recoil](https://recoiljs.org/) 0.7.7</br>・[React Router](https://reactrouter.com/en/main) 6.10.0</br>・[TypeScript](https://www.typescriptlang.org/) 4.9.5</br>・[MUI](https://mui.com/) 5.12.1</br>・Firebase(Authettication/Cloud Storage) 9.20.0</br>・JSON Server 0.17.3
+
+## アーキテクチャー図
+
+https://github.com/fr202207-drinkTeam/drink-manager-app/assets/109854906/b12eae87-21a8-4d59-afc0-0a93e0a63541
