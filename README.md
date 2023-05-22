@@ -28,6 +28,7 @@ localhost:8880 にてモックサーバー起動
 <img width="500" alt="アーキテクチャー図" src="https://github.com/fr202207-drinkTeam/drink-manager-app/assets/109854906/b12eae87-21a8-4d59-afc0-0a93e0a63541">
 
 ## Demo
+<img width="500" alt="アーキテクチャー図" src="https://github.com/watanabekanako/front-household/assets/109854906/80b25021-0b8b-4ec6-88a1-50b6b08e93ad"><br>
 <img width="500" alt="アーキテクチャー図" src="https://github.com/watanabekanako/front-household/assets/109854906/c399feb0-341f-4e14-bf70-638424255693"><br>
-<img width="500" alt="アーキテクチャー図" src="https://github.com/watanabekanako/front-household/assets/109854906/e9356812-527a-42ad-b30c-258a01e743d6">
-
+<img width="500" alt="アーキテクチャー図" src="https://github.com/watanabekanako/front-household/assets/109854906/e9356812-527a-42ad-b30c-258a01e743d6"><br>
+<img width="500" alt="アーキテクチャー図" src="https://github.com/watanabekanako/front-household/assets/109854906/d805526e-d02a-4956-bc24-22cb13c99636"><br>
