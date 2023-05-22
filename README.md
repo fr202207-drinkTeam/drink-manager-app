@@ -27,3 +27,5 @@ localhost:8880 にてモックサーバー起動
 
 <img width="500" alt="アーキテクチャー図" src="https://github.com/fr202207-drinkTeam/drink-manager-app/assets/109854906/b12eae87-21a8-4d59-afc0-0a93e0a63541">
 
+
+<img width="500" alt="アーキテクチャー図" src="https://github.com/watanabekanako/front-household/assets/109854906/c399feb0-341f-4e14-bf70-638424255693">
