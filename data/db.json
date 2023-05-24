@@ -388,6 +388,19 @@
       "author": 4,
       "otherItem": false,
       "id": 32
+    },
+    {
+      "name": "HTML特殊文字テスト",
+      "description": "〠 &#10014;",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/ff9c1313-e742-4d84-a511-3fbae1607535?alt=media&token=f9ef7a02-34ae-45cd-b11b-fd04f13e7f17"
+      ],
+      "itemCategory": 2,
+      "createdAt": "2023-05-24T01:29:08.661Z",
+      "inTheOffice": false,
+      "author": 1,
+      "otherItem": false,
+      "id": 33
     }
   ],
   "itemCategory": [
@@ -1650,7 +1663,7 @@
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/a1a6f445-9967-4428-b5db-324f97934fab?alt=media&token=ba7abab7-bce2-4043-842c-872f0205f140"
       ],
       "createdAt": "2023-05-16T00:45:28.190Z",
-      "updatedAt": "2023-05-16T00:45:28.190Z",
+      "updatedAt": "2023-05-19T05:15:26.633Z",
       "id": 7
     }
   ],
@@ -1661,6 +1674,12 @@
       "userId": 3,
       "time": "2023-05-16T04:55:37.974Z",
       "id": 1
+    },
+    {
+      "postId": 7,
+      "userId": 2,
+      "time": "2023-05-19T05:41:06.612Z",
+      "id": 2
     }
   ],
   "stockhistory": [

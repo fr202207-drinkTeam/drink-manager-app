@@ -69,6 +69,7 @@ const ItemForm: FC<Props> = memo((props) => {
                 type="file"
                 style={{ display: "none" }}
                 id="itemImageFeild"
+                accept=".png, .jpg, .jpeg"
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                   previewImages(event, props.itemImages, props.setItemImages);
                 }}
