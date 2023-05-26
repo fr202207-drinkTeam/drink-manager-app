@@ -28,6 +28,7 @@ const AddItem: FC<Props> = memo(({ pollFlag, handleClose,trigger,setTrigger }) =
   const [itemCategory, setItemCategory] = useState<number>(0);
   const [itemImages, setItemImages] = useState<File[]>([]);
   const [adding, setAdding] = useState<boolean>(false);
+  const [isDuplicateData, setIsDuplicateData] = useState<boolean>(false);
 
 
   // recoilからログインユーザー情報を取得

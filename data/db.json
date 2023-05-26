@@ -241,7 +241,7 @@
       ],
       "itemCategory": 7,
       "createdAt": "2023-05-08T06:12:15.214Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": true,
       "id": 21
@@ -254,7 +254,7 @@
       ],
       "itemCategory": 7,
       "createdAt": "2023-05-08T06:38:56.851Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": true,
       "id": 22
@@ -267,7 +267,7 @@
       ],
       "itemCategory": 7,
       "createdAt": "2023-05-08T06:40:36.593Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": true,
       "id": 23
@@ -280,7 +280,7 @@
       ],
       "itemCategory": 7,
       "createdAt": "2023-05-08T06:42:44.461Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": true,
       "id": 24
@@ -293,9 +293,9 @@
       ],
       "itemCategory": 7,
       "createdAt": "2023-05-12T03:01:31.537Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": null,
-      "otherItem": false,
+      "otherItem": true,
       "id": 25
     },
     {
@@ -306,10 +306,101 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-12T04:42:56.450Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 4,
       "otherItem": true,
       "id": 26
+    },
+    {
+      "name": "煎茶",
+      "description": "緑茶の説明が入ります",
+      "image": [
+        "/item.png"
+      ],
+      "itemCategory": 7,
+      "createdAt": "2023-05-12T04:42:56.450Z",
+      "intheOffice": true,
+      "author": 4,
+      "otherItem": false,
+      "id": 27
+    },
+    {
+      "name": "紅茶",
+      "description": "紅茶の説明が入ります",
+      "image": [
+        "/item.png"
+      ],
+      "itemCategory": 7,
+      "createdAt": "2023-05-12T04:42:56.450Z",
+      "intheOffice": true,
+      "author": 4,
+      "otherItem": false,
+      "id": 28
+    },
+    {
+      "name": "コーンポタージュ",
+      "description": "コーンポタージュの説明が入ります",
+      "image": [
+        "/item.png"
+      ],
+      "itemCategory": 7,
+      "createdAt": "2023-05-12T04:42:56.450Z",
+      "intheOffice": true,
+      "author": 4,
+      "otherItem": false,
+      "id": 29
+    },
+    {
+      "name": "さわやかドリンクヨーグルト風味",
+      "description": "さわやかドリンクヨーグルト風味の説明が入ります",
+      "image": [
+        "/item.png"
+      ],
+      "itemCategory": 7,
+      "createdAt": "2023-05-12T04:42:56.450Z",
+      "intheOffice": true,
+      "author": 4,
+      "otherItem": false,
+      "id": 30
+    },
+    {
+      "name": "コンソメスープ",
+      "description": "コンソメスープの説明が入ります",
+      "image": [
+        "/item.png"
+      ],
+      "itemCategory": 7,
+      "createdAt": "2023-05-12T04:42:56.450Z",
+      "intheOffice": true,
+      "author": 4,
+      "otherItem": false,
+      "id": 31
+    },
+    {
+      "name": "アップルジュース",
+      "description": "アップルジュースの説明が入ります",
+      "image": [
+        "/item.png"
+      ],
+      "itemCategory": 7,
+      "createdAt": "2023-05-12T04:42:56.450Z",
+      "intheOffice": true,
+      "author": 4,
+      "otherItem": false,
+      "id": 32
+    },
+    {
+      "name": "HTML特殊文字テスト",
+      "description": "〠 &#10014;",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/ff9c1313-e742-4d84-a511-3fbae1607535?alt=media&token=f9ef7a02-34ae-45cd-b11b-fd04f13e7f17"
+      ],
+      "itemCategory": 2,
+      "createdAt": "2023-05-24T01:29:08.661Z",
+      "inTheOffice": false,
+      "author": 1,
+      "otherItem": false,
+      "id": 33
     }
   ],
   "itemCategory": [
@@ -2829,7 +2920,7 @@
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/a1a6f445-9967-4428-b5db-324f97934fab?alt=media&token=ba7abab7-bce2-4043-842c-872f0205f140"
       ],
       "createdAt": "2023-05-16T00:45:28.190Z",
-      "updatedAt": "2023-05-16T00:45:28.190Z",
+      "updatedAt": "2023-05-19T05:15:26.633Z",
       "id": 7
     }
   ],
@@ -2840,6 +2931,12 @@
       "userId": 3,
       "time": "2023-05-16T04:55:37.974Z",
       "id": 1
+    },
+    {
+      "postId": 7,
+      "userId": 2,
+      "time": "2023-05-19T05:41:06.612Z",
+      "id": 2
     }
   ],
   "stockhistory": [
