@@ -31,16 +31,35 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
   //login
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
+  //カテゴリ別票のデータ
   const PopularPollData: Polls[] = useGetPollCategoryData(1);
   const OthersPollData: Polls[] = useGetPollCategoryData(2);
 
-  //userIdがログインユーザと一致しているかしていないか
+  //票のuserIdがログインユーザと一致しているかしていないか（ログインユーザが投票しているデータはあるか）
   const popularData = PopularPollData?.filter((pop) => {
     return pop.userId === loginUser.id;
   });
+
   const othersData = OthersPollData?.filter((other) => {
     return other.userId === loginUser.id;
   });
+
+  //現在表示されている人気投票アンケートに投票しているか
+const isPopularQuestionnaireData =popularData.filter((p)=>{
+ return p.questionnaireId===pollNum
+})
+  //ユーザが今表示されている人気投票に投票した商品
+const popularItem=isPopularQuestionnaireData.map((p)=>{
+return p.result
+})
+  //現在表示されているその他投票アンケートに投票しているか
+const isOthersQuestionnaireData=othersData.filter((o)=>{
+  return o.questionnaireId===pollNum
+})
+  //ユーザが今表示されているその他投票に投票した商品
+const othersItem=isOthersQuestionnaireData.map((o)=>{
+return o.result
+})
 
   //投票ボタン
   const submitPoll = async (drinkId: number) => {
@@ -230,7 +249,24 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                     (data) => data.questionnaireId === pollNum
                   )) ||
                 (loginUser.isAdmin === true )? (
-                  <InactiveButton
+                  (popularItem[0]===drink.id)||(othersItem[0]===drink.id)?(   <InactiveButton
+                    sx={{
+                      background: "#e29399",
+                      width: 200,
+                      textAlign: "center",
+                      mb: 2,
+                      boxShadow: "none",
+                      border: "solid 2px red",
+                      fontWeight: "bold",
+                      ml: 6.5,
+                      ":hover": {
+                        background: "#e29399",
+                        cursor: "pointer",
+                      },
+                    }}
+                  >
+                    &nbsp;投票した商品です
+                  </InactiveButton>):(   <InactiveButton
                     sx={{
                       background: "#e29399",
                       width: 200,
@@ -246,9 +282,9 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                       },
                     }}
                   >
-                    
-                    &nbsp;投票しました
-                  </InactiveButton>
+                    &nbsp;投票完了
+                  </InactiveButton>)
+                 
                 ) : (
                   <ModalWindow
                     title={`${drink.name}に投票してもよろしいですか？？`}
