@@ -32,6 +32,17 @@
       "authId": "oKsqLoFafFX3YVTSqG2DhWKKHPB2",
       "isAdmin": false,
       "id": 3
+    },
+    {
+      "userId": "1111",
+      "firstName": "テスト",
+      "lastName": "太郎",
+      "email": "example5@rakus-partners.co.jp",
+      "password": "Example5",
+      "confirmPassword": "Example5",
+      "authId": "",
+      "isAdmin": false,
+      "id": 4
     }
   ],
   "items": [
@@ -1579,6 +1590,22 @@
       "result": 1,
       "createdAt": "2023-05-14T14:01:59.542Z",
       "id": 16
+    },
+    {
+      "questionnaireId": 6,
+      "userId": 2,
+      "category": 1,
+      "result": 1,
+      "createdAt": "2023-05-19T04:53:39.251Z",
+      "id": 17
+    },
+    {
+      "questionnaireId": 8,
+      "userId": 2,
+      "category": 2,
+      "result": 21,
+      "createdAt": "2023-05-19T04:54:53.801Z",
+      "id": 18
     }
   ],
   "contact": [],
@@ -1644,13 +1671,13 @@
     },
     {
       "userId": 2,
-      "content": "みなさん今月の投票は何にしましたか？私はじゃがりこにしました！！！\n<a href=\"/home/search/23\" style=\"color:blue;\">#じゃがりこ</a>/nameS/テスト 花子/nameE/",
+      "content": "みなさん今月の投票は何にしましたか？私はじゃがりこにしました！！！a\n<a href=\"/home/search/23\" style=\"color:blue;\">#じゃがりこ</a>/nameS/テスト 花子/nameE/",
       "itemId": "23",
       "postImage": [
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/a1a6f445-9967-4428-b5db-324f97934fab?alt=media&token=ba7abab7-bce2-4043-842c-872f0205f140"
       ],
       "createdAt": "2023-05-16T00:45:28.190Z",
-      "updatedAt": "2023-05-16T00:45:28.190Z",
+      "updatedAt": "2023-05-19T05:16:10.963Z",
       "id": 7
     }
   ],
@@ -1674,155 +1701,91 @@
     },
     {
       "id": 2,
-      "itemId": 2,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-03T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 20
+      "stockAmount": 10
     },
     {
       "id": 3,
-      "itemId": 3,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-04T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 30
+      "stockAmount": 10
     },
     {
       "id": 4,
-      "itemId": 4,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-05T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 40
+      "stockAmount": 10
     },
     {
       "id": 5,
-      "itemId": 5,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-06T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 50
+      "stockAmount": 10
     },
     {
       "id": 6,
-      "itemId": 6,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-07T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 60
+      "stockAmount": 10
     },
     {
       "id": 7,
-      "itemId": 7,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-08T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 70
+      "stockAmount": 10
     },
     {
       "id": 8,
-      "itemId": 8,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-09T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 80
+      "stockAmount": 10
     },
     {
       "id": 9,
-      "itemId": 14,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-10T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 140
+      "stockAmount": 10
     },
     {
       "id": 10,
-      "itemId": 15,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-11T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 150
+      "stockAmount": 10
     },
     {
       "id": 11,
-      "itemId": 1,
+      "itemId": 2,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-12T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 110
+      "stockAmount": 10
     },
     {
       "id": 12,
-      "itemId": 2,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 120
-    },
-    {
-      "id": 13,
       "itemId": 3,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-13T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 130
-    },
-    {
-      "id": 14,
-      "itemId": 4,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 140
-    },
-    {
-      "id": 15,
-      "itemId": 5,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 150
-    },
-    {
-      "id": 16,
-      "itemId": 6,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 160
-    },
-    {
-      "id": 17,
-      "itemId": 7,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 170
-    },
-    {
-      "id": 18,
-      "itemId": 8,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 180
-    },
-    {
-      "id": 19,
-      "itemId": 14,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 190
-    },
-    {
-      "id": 20,
-      "itemId": 15,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 200
+      "stockAmount": 10
     }
   ],
   "addition": [
