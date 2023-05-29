@@ -147,19 +147,27 @@ const Top: FC<Props> = memo((props) => {
             ラクスパートナーズのみんなの投稿がとどいてるよ !
           </Typography>
         </Card>
-        <Paper sx={{ p: "20px", background: "#eae5e3", mt: "50px" }}>
-          <Box sx={{ overflowY: "scroll", height: "500px", px: "20px" }}>
-            {postData.map((postData: Post) => (
-              <PostData
-                key={postData.id}
-                postData={postData}
-                isComment={false}
-                loginUser={loginUser}
-                setEditPostData={null}
-              />
-            ))}
+        {postData.length > 0 ? (
+          <Paper sx={{ p: "20px", background: "#eae5e3", mt: "50px" }}>
+            <Box sx={{ overflowY: "scroll", height: "500px", px: "20px" }}>
+              <>
+                {postData.map((postData: Post) => (
+                  <PostData
+                    key={postData.id}
+                    postData={postData}
+                    isComment={false}
+                    loginUser={loginUser}
+                    setEditPostData={null}
+                  />
+                ))}
+              </>
+            </Box>
+          </Paper>
+        ) : (
+          <Box sx={{ textAlign: "center", my: 6 }}>
+            まだ投稿がありません。ぜひ投稿してみてね！
           </Box>
-        </Paper>
+        )}
         <Box sx={{ textAlign: "center", mt: 4 }}>
           <Grid container spacing={2}></Grid>
           <ActiveBlueButton
