@@ -49,6 +49,7 @@ const AddPoll = memo(() => {
   const [categoryError, setCategoryError] = useState("");
   const [dateError, setDateError] = useState("");
   const [selectedItemsError, setSelectedItemsError] = useState("");
+  const [allError, setAllError] = useState("");
   //hooks
   const questionnaireData: Questionnaire[] = useGetQuestionnaire();
   const items: Items[] = useGetAllItems(trigger);
@@ -63,6 +64,10 @@ const AddPoll = memo(() => {
   const validatePollName = () => {
     if (!pollName) {
       setPollNameError("*投票名を入力してください");
+      return false;
+    }
+    if (pollName.length<=5) {
+      setPollNameError("*5文字以上の入力が必要です");
       return false;
     }
     setPollNameError("");
@@ -173,6 +178,8 @@ const AddPoll = memo(() => {
       }).catch((e) => {
         console.log(e)
       });
+    }else{
+      setAllError("*入力内容の確認をしてください");
     }
   };
 
@@ -225,6 +232,11 @@ const AddPoll = memo(() => {
             setSelectedItems={setSelectedItems}
           />
         </Box>
+        {allError && (
+          <Box style={{ color: "red", fontSize: 15, marginBottom: 1 }} sx={{textAlign:"center",mt:2}}>
+            {allError}
+          </Box>
+        )}
         <Box sx={{ textAlign: "center", my: 5 }}>
           <ModalWindow
             title={`本当に登録してもよろしいですか？`}
