@@ -42,8 +42,6 @@ const Poll = memo(() => {
     return o.questionnaireId === OtherPollTitle[0]?.id
   })
 
-  console.log(isOthersQuestionnaireData.length,1)
-  console.log(isPopularQuestionnaireData.length,2)
 
   const now = new Date();
   return (
@@ -70,7 +68,7 @@ const Poll = memo(() => {
           <>
             <div id="popular"></div>
             {isPopularQuestionnaireData.length===0?<PollTitle poll={PopularPollTitle} />:<PollComplateTitle poll={PopularPollTitle}/>}
-            <PollDetail PopularitemData={PopularitemData} titleText={PopularPollTitle[0]?.description} />
+            {isPopularQuestionnaireData.length===0?  <PollDetail PopularitemData={PopularitemData} titleText={PopularPollTitle[0]?.description} />:<Box></Box>}
             <PollCard
               data={PopularitemData}
               pollNum={PopularPollTitle[0]?.id}
@@ -89,7 +87,7 @@ const Poll = memo(() => {
           <>
             <div id="others"></div>
             {isOthersQuestionnaireData.length===0?<PollTitle poll={OtherPollTitle} />:<PollComplateTitle poll={OtherPollTitle}/>}
-            <PollDetail OtheritemData={OtheritemData} titleText={OtherPollTitle[0]?.description} />
+            {isOthersQuestionnaireData.length===0?<PollDetail OtheritemData={OtheritemData} titleText={OtherPollTitle[0]?.description} />:<Box></Box>}
             <PollCard
               data={OtheritemData}
               pollNum={OtherPollTitle[0]?.id}

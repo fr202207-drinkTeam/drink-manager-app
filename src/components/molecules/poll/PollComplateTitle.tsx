@@ -52,6 +52,7 @@ const PollComplateTitle = ({ poll }: PollTitleProps) => {
                   zIndex: 1,
                   textAlign: "center",
                   width: "100%",
+                  fontSize:"40px"
                 }}
               >
                 投票ありがとうございました！！
