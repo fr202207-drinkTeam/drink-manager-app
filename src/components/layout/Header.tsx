@@ -74,21 +74,23 @@ const Header = () => {
   const isAdmin = Cookies.get("isAdmin")!;
   const loginUser = useLoginUserFetch({ authId: authId });
   const onLogoutClick = () => {
-    signOut(auth)
-      .then(() => {
-        document.cookie = `authId=; max-age=0`;
-        document.cookie = `isAdmin=; max-age=0`;
-        // ログアウト時の画面遷移の分岐
-        if (loginUser?.isAdmin) {
-          navigate("/adminlogin");
-        } else {
-          navigate("/login");
-        }
-      })
-      .catch((error) => {
-        // An error happened.
-      });
+    signOut(auth);
+
+    if (loginUser?.isAdmin === false) {
+      const date = new Date("2020-12-31T23:59:59Z");
+      document.cookie = `authId=;path=/;expires=${date.toUTCString()};`;
+      navigate("/login");
+      window.location.reload();
+    }
+    if (loginUser?.isAdmin === true) {
+      const date = new Date("2020-12-31T23:59:59Z");
+      document.cookie = `authId=;path=/;expires=${date.toUTCString()};`;
+      document.cookie = `isAdmin=;path=/;expires=${date.toUTCString()};`;
+      navigate("/adminlogin");
+      window.location.reload();
+    }
   };
+
   return (
     <>
       <Paper
@@ -128,7 +130,7 @@ const Header = () => {
             <Link to="/adminhome">
               <ActiveDarkBlueButton
                 sxStyle={{ borderRadius: 10 }}
-                event={function (): void {}}
+                event={function(): void {}}
               >
                 管理者用TOP
               </ActiveDarkBlueButton>
