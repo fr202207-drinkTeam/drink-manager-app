@@ -39,7 +39,7 @@ const StockCard: FC<Props> = (props) => {
   const testFunc = (drinkId: number) => {
     if (inTheOfficeItemArr.length > 0) {
       for (let i = 0; i < inTheOfficeItemArr.length; i++) {
-        if (inTheOfficeItemArr[i].itemId === drinkId) {
+        if (inTheOfficeItemArr[i]?.itemId === drinkId) {
           return inTheOfficeItemArr[i].stockAmount;
         }
       }

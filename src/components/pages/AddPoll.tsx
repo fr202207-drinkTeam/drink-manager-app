@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { memo, useEffect, useRef, useState } from "react";
 import AdmTitleText from "../atoms/text/AdmTitleText";
-import {Backdrop,Box,Fade,Modal,Paper, Toolbar} from "@mui/material";
+import { Backdrop, Box, Fade, Modal, Paper, Toolbar } from "@mui/material";
 import { Items, Questionnaire } from "../../types/type";
 import AddPollCard from "../organisms/card/AddPollCard";
-import {ActiveBorderButton,ActiveDarkBlueButton,} from "../atoms/button/Button";
+import { ActiveBorderButton, ActiveDarkBlueButton, } from "../atoms/button/Button";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 import { useNavigate, useParams } from "react-router-dom";
@@ -15,6 +15,7 @@ import PollDateInput from "../atoms/addPollForm/PollDateInput";
 import useGetQuestionnaire from "../../hooks/useGetQuestipnnaire";
 import AddItem from "./AddItem";
 import useGetAllItems from "../../hooks/useGetAllItems";
+import ModalWindow from "../organisms/ModalWindow";
 
 const style = {
   position: "absolute" as "absolute",
@@ -37,7 +38,7 @@ const AddPoll = memo(() => {
   const handleClose = () => setOpen(false);
   const [startPeriodDate, setStartPeriodDate] = useState("");
   const [endPeriodDate, setEndPeriodDate] = useState("");
-  const [pollCategory, setPollCategory] =useState("投票種別を選択してください");
+  const [pollCategory, setPollCategory] = useState("投票種別を選択してください");
   const [pollName, setPollName] = useState("");
   const [pollDescription, setPollDescription] = useState("");
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
@@ -50,7 +51,7 @@ const AddPoll = memo(() => {
   const [selectedItemsError, setSelectedItemsError] = useState("");
   //hooks
   const questionnaireData: Questionnaire[] = useGetQuestionnaire();
-  const items: Items[]= useGetAllItems(trigger);
+  const items: Items[] = useGetAllItems(trigger);
   //login
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
@@ -71,6 +72,10 @@ const AddPoll = memo(() => {
   const validateDescription = () => {
     if (!pollDescription) {
       setDescriptionError("*投票詳細を入力してください");
+      return false;
+    }
+    if (pollDescription.length<=5) {
+      setDescriptionError("*5文字以上の入力が必要です");
       return false;
     }
     setDescriptionError("");
@@ -116,6 +121,14 @@ const AddPoll = memo(() => {
       setSelectedItemsError("*投票に追加する商品を選択してください");
       return false;
     }
+    if (selectedItems.length >= 15) {
+      setSelectedItemsError("*投票に追加できる商品は15件までです");
+      return false;
+    }
+    if (selectedItems.length === 1) {
+      setSelectedItemsError("*投票商品が1件の状態では登録できません");
+      return false;
+    }
     setSelectedItemsError("");
     return true;
   };
@@ -157,7 +170,7 @@ const AddPoll = memo(() => {
         }),
       }).then(() => {
         navigate("/adminhome");
-      }).catch((e)=>{
+      }).catch((e) => {
         console.log(e)
       });
     }
@@ -170,36 +183,36 @@ const AddPoll = memo(() => {
         <AdmTitleText children={"投票追加"} />
         <Box sx={{ mb: 1 }}>⚠︎ ここで追加した商品は商品一覧には表示されません。</Box>
         <ActiveDarkBlueButton event={handleOpen} sxStyle={{ width: 280, height: 80, fontSize: "20px" }}>
-        投票用新規商品登録
-      </ActiveDarkBlueButton>
+          投票用新規商品登録
+        </ActiveDarkBlueButton>
         <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        slots={{ backdrop: Backdrop }}
-        slotProps={{
-          backdrop: {
-            timeout: 500,
-          },
-        }}
-      >
-        <Fade in={open}>
-          <Box sx={style}>
-            <AddItem
-              pollFlag={true}
-              handleClose={handleClose}
-              trigger={trigger}
-              setTrigger={setTrigger}
-            />
-          </Box>
-        </Fade>
-      </Modal>
-        <PollNameInput pollName={pollName} setPollName={setPollName} pollNameError={pollNameError} setPollNameError={setPollNameError}/>
-        <PollDescriptionInput pollDescription={pollDescription} setPollDescription={setPollDescription} descriptionError={descriptionError} setDescriptionError={setDescriptionError}/>
-        <PollCategorySelect pollCategory={pollCategory} setPollCategory={setPollCategory} categoryError={categoryError} setCategoryError={setCategoryError}/>
-        <PollDateInput startPeriodDate={startPeriodDate} endPeriodDate={endPeriodDate} setStartPeriodDate={setStartPeriodDate} setEndPeriodDate={setEndPeriodDate} dateError={dateError} setDateError={setDateError}/>
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          slots={{ backdrop: Backdrop }}
+          slotProps={{
+            backdrop: {
+              timeout: 500,
+            },
+          }}
+        >
+          <Fade in={open}>
+            <Box sx={style}>
+              <AddItem
+                pollFlag={true}
+                handleClose={handleClose}
+                trigger={trigger}
+                setTrigger={setTrigger}
+              />
+            </Box>
+          </Fade>
+        </Modal>
+        <PollNameInput pollName={pollName} setPollName={setPollName} pollNameError={pollNameError} setPollNameError={setPollNameError} />
+        <PollDescriptionInput pollDescription={pollDescription} setPollDescription={setPollDescription} descriptionError={descriptionError} setDescriptionError={setDescriptionError} />
+        <PollCategorySelect pollCategory={pollCategory} setPollCategory={setPollCategory} categoryError={categoryError} setCategoryError={setCategoryError} />
+        <PollDateInput startPeriodDate={startPeriodDate} endPeriodDate={endPeriodDate} setStartPeriodDate={setStartPeriodDate} setEndPeriodDate={setEndPeriodDate} dateError={dateError} setDateError={setDateError} />
         <Box sx={{ m: "auto" }}>
           {selectedItemsError && (
             <Box sx={{ color: "red", fontSize: 15, mt: 3 }}>
@@ -213,9 +226,25 @@ const AddPoll = memo(() => {
           />
         </Box>
         <Box sx={{ textAlign: "center", my: 5 }}>
-          <ActiveBorderButton event={onClickAddPollData}>
-            &nbsp;投票追加&nbsp;
-          </ActiveBorderButton>
+          <ModalWindow
+            title={`本当に登録してもよろしいですか？`}
+            openButtonColor={"pink"}
+            completeButtonColor={"blue"}
+            completeButtonName={`投票登録`}
+            completeAction={onClickAddPollData}
+            cancelButtonColor={"red"}
+            openButtonSxStyle={{
+              background: "#fff",
+              fontWeight: "bold",
+              border: "1px solid #E83929",
+              color: "#E83929",
+              ":hover": {
+                background: "#fff",
+                opacity: 0.7,
+                cursor: "pointer",
+              },
+              fontFamily: "'M PLUS 1p', sans-serif",
+            }} content={"⚠︎取り消しはできない為ご注意ください"} />
         </Box>
       </Paper>
     </>
