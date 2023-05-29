@@ -114,7 +114,7 @@ const ItemForm: FC<Props> = memo((props) => {
         <MenuItem value={4}>コーヒー/カフェインレス</MenuItem>
         <MenuItem value={5}>ティー</MenuItem>
         <MenuItem value={6}>ココア</MenuItem>
-        <MenuItem value={6}>その他</MenuItem>
+        <MenuItem value={7}>その他</MenuItem>
       </Select>
     </>
   );
