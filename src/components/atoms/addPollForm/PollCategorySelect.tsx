@@ -31,7 +31,7 @@ const PollCategorySelect: FC<PollCategorySelectProps> = ({
               投票種別を選択してください
             </MenuItem>
             <MenuItem value="1">人気投票</MenuItem>
-            <MenuItem value="2">その他</MenuItem>
+            <MenuItem value="2">その他投票</MenuItem>
           </Select>
         </Box>
   );

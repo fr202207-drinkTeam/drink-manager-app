@@ -1187,8 +1187,8 @@
       "description": "テスト！",
       "category": 1,
       "createdAt": "2023-05-10T08:16:34.851Z",
-      "startDate": "2023-06-01",
-      "endDate": "2023-06-30",
+      "startDate": "2023-09-01",
+      "endDate": "2023-09-30",
       "polledItems": [
         {
           "itemId": 21
