@@ -16,6 +16,7 @@ import useGetQuestionnaire from "../../hooks/useGetQuestipnnaire";
 import AddItem from "./AddItem";
 import useGetAllItems from "../../hooks/useGetAllItems";
 import ModalWindow from "../organisms/ModalWindow";
+import useGetPollCategoryPeriod from "../../hooks/useGetPollCategoryPeriod";
 
 const style = {
   position: "absolute" as "absolute",
@@ -51,8 +52,13 @@ const AddPoll = memo(() => {
   const [selectedItemsError, setSelectedItemsError] = useState("");
   const [allError, setAllError] = useState("");
   //hooks
-  const questionnaireData: Questionnaire[] = useGetQuestionnaire();
+  const popularQuestionnaireData: Questionnaire[] = useGetPollCategoryPeriod(1);
+  const othersQuestionnaireData: Questionnaire[] = useGetPollCategoryPeriod(2);
   const items: Items[] = useGetAllItems(trigger);
+  console.log(popularQuestionnaireData,4444)
+  const questionnaireData: Questionnaire[] = useGetQuestionnaire();
+  console.log(questionnaireData,5555)
+
   //login
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
@@ -66,7 +72,7 @@ const AddPoll = memo(() => {
       setPollNameError("*投票名を入力してください");
       return false;
     }
-    if (pollName.length<=5) {
+    if (pollName.length<5) {
       setPollNameError("*5文字以上の入力が必要です");
       return false;
     }
@@ -79,7 +85,7 @@ const AddPoll = memo(() => {
       setDescriptionError("*投票詳細を入力してください");
       return false;
     }
-    if (pollDescription.length<=5) {
+    if (pollDescription.length<5) {
       setDescriptionError("*5文字以上の入力が必要です");
       return false;
     }
@@ -105,15 +111,24 @@ const AddPoll = memo(() => {
       setDateError("*投票期間が正しくありません。再度確認してください。");
       return false;
     }
-    const isOverlapping = questionnaireData.some(question => {
-      const questionStartDate = new Date(question.startDate);
-      const questionEndDate = new Date(question.endDate);
-      const inputStartDate = new Date(startPeriodDate);
-      const inputEndDate = new Date(endPeriodDate);
-      // 期間が重複している場合はtrueを返す
-      return inputStartDate <= questionEndDate && inputEndDate >= questionStartDate;
+    const isPopularOverlapping = popularQuestionnaireData.some(question => {
+      const popularQuestionStartDate = new Date(question.startDate);
+      const popularQuestionEndDate = new Date(question.endDate);
+      const popularInputStartDate = new Date(startPeriodDate);
+      const popularInputEndDate = new Date(endPeriodDate);
+      // 期間が人気投票が重複している場合はtrueを返す
+      return popularInputStartDate <= popularQuestionEndDate && popularInputEndDate >= popularQuestionStartDate;
     });
-    if (isOverlapping) {
+    const isOthersOverlapping = othersQuestionnaireData.some(question => {
+      const othersQuestionStartDate = new Date(question.startDate);
+      const othersQuestionEndDate = new Date(question.endDate);
+      const othersInputStartDate = new Date(startPeriodDate);
+      const othersInputEndDate = new Date(endPeriodDate);
+      // 期間がその他投票が重複している場合はtrueを返す
+      return othersInputStartDate <= othersQuestionEndDate && othersInputEndDate >= othersQuestionStartDate;
+    });
+
+    if (isPopularOverlapping&&isOthersOverlapping) {
       setDateError("*投票期間が被っています。投票期間を再度確認してください。");
       return false;
     }

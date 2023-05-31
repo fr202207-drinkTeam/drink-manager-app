@@ -22,13 +22,15 @@ const useGetPollCategoryItem = (id: number) => {
         const data = await response.json();
         const Categoryperiod = data.map((question: Questionnaire) => {
           const endDate = new Date(question.endDate);
+          endDate.setHours(0, 0, 0, 0); 
           const startDate = new Date(question.startDate);
+          startDate.setHours(0, 0, 0, 0); 
           const isValidPeriod = startDate < now && endDate >= now;
           return {
             ...question,
             isValidPeriod: isValidPeriod,
-            endDate: endDate,
-            startDate:startDate
+            startDate,
+            endDate,
           };
         });
         const filteredData = Categoryperiod.filter((poll: Questionnaire) => {
