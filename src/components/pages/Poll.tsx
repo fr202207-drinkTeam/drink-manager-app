@@ -42,8 +42,9 @@ const Poll = memo(() => {
     return o.questionnaireId === OtherPollTitle[0]?.id
   })
 
-
   const now = new Date();
+  now.setHours(0, 0, 0, 0);
+
   return (
     <>
       <Paper
@@ -64,7 +65,7 @@ const Poll = memo(() => {
         >
           <PollAgenda pollTitle={pollTitle} />
         </Box>
-        {!(PopularPollTitle[0]?.endDate <= now) ? (
+        {(PopularPollTitle[0]?.endDate >= now) ? (
           <>
             <div id="popular"></div>
             {isPopularQuestionnaireData.length===0?<PollTitle poll={PopularPollTitle} />:<PollComplateTitle poll={PopularPollTitle}/>}
@@ -78,12 +79,10 @@ const Poll = memo(() => {
           </>
         ) : (
           <Box
-            sx={{ textAlign: "center", fontSize: "25px", mb: 10, border: 1 }}
           >
-            現在開催中の投票はありません。
           </Box>
         )}
-        {!(OtherPollTitle[0]?.endDate <= now) ? (
+        {(OtherPollTitle[0]?.endDate >= now) ? (
           <>
             <div id="others"></div>
             {isOthersQuestionnaireData.length===0?<PollTitle poll={OtherPollTitle} />:<PollComplateTitle poll={OtherPollTitle}/>}
@@ -96,8 +95,9 @@ const Poll = memo(() => {
             />
           </>
         ) : (
-          <Box>
-          </Box>
+          <Box
+        >
+        </Box>
         )}
       </Paper>
     </>

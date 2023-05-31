@@ -835,7 +835,7 @@
       "description": "一番気になる、好きなドリンクに投票しよう！",
       "category": 1,
       "startDate": "2023-05-01",
-      "endDate": "2023-05-30",
+      "endDate": "2023-05-31",
       "author": 1
     },
     {
@@ -844,7 +844,7 @@
       "category": 2,
       "createdAt": "2023-05-08T08:04:41.780Z",
       "startDate": "2023-05-01",
-      "endDate": "2023-05-30",
+      "endDate": "2023-05-31",
       "polledItems": [
         {
           "itemId": 21
