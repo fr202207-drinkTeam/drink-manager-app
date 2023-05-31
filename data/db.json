@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "userId": "1111",
+      "userId": 1111,
       "firstName": "テスト",
       "lastName": "太郎",
       "email": "example1@rakus-partners.co.jp",
@@ -12,7 +12,7 @@
       "id": 1
     },
     {
-      "userId": "1112",
+      "userId": 1112,
       "firstName": "テスト",
       "lastName": "花子",
       "email": "example2@rakus-partners.co.jp",
@@ -23,7 +23,7 @@
       "id": 2
     },
     {
-      "userId": "1113",
+      "userId": 1113,
       "firstName": "テスト",
       "lastName": "次郎",
       "email": "example3@rakus-partners.co.jp",
@@ -32,6 +32,16 @@
       "authId": "oKsqLoFafFX3YVTSqG2DhWKKHPB2",
       "isAdmin": false,
       "id": 3
+    },
+    {
+      "userId": 1111,
+      "firstName": "テスト",
+      "lastName": "テスト",
+      "email": "example5@rakus-partners.co.jp",
+      "password": "Example5",
+      "authId": "3C2KCSTHLeQpcZG6U2DVI9EvzRY2",
+      "isAdmin": false,
+      "id": 4
     }
   ],
   "items": [
@@ -39,11 +49,7 @@
       "id": 1,
       "name": "ブライトブレンド",
       "description": "ミディアムローストの豆をブレンドしたブライトブレンドは、キャラメル、ベリー、はちみつのバランスのとれたほんのり甘い香りが楽しめる一杯です。",
-      "image": [
-        "/bright.png",
-        "/item.png",
-        "/item.png"
-      ],
+      "image": ["/bright.png", "/item.png", "/item.png"],
       "itemCategory": 2,
       "createdAt": "",
       "intheOffice": true,
@@ -54,11 +60,7 @@
       "id": 2,
       "name": "LAVAZZA CLASSICO",
       "description": "しっかりとした珈琲感とドライフルーツの風味が特徴のミディアムローストコーヒー。バランスのとれたリッチな味わいがお好みの方へオススメです。",
-      "image": [
-        "/crassico.png",
-        "/item.png",
-        "/coffee.png"
-      ],
+      "image": ["/crassico.png", "/item.png", "/coffee.png"],
       "itemCategory": 2,
       "createdAt": "",
       "intheOffice": true,
@@ -69,10 +71,7 @@
       "id": 3,
       "name": "LAVAZZA INTENSO",
       "description": "スモーキーで香ばしい力強いフレーバーのダークローストコーヒー。キャラメリゼしたような風味と濃厚な味わいはリアルミルクフロスとも相性抜群です。",
-      "image": [
-        "/item.png",
-        "dummybanner.jpg"
-      ],
+      "image": ["/item.png", "dummybanner.jpg"],
       "itemCategory": 1,
       "createdAt": "",
       "intheOffice": true,
@@ -83,11 +82,7 @@
       "id": 4,
       "name": "プレミアム スムースロースト",
       "description": "ほど良いコクと軽やかで優しいアフターテイスト。一日のどんな気分にも寄り添う、プレミアムにスムーズな一杯です。",
-      "image": [
-        "/premiam.jpg",
-        "/item.png",
-        "s4.png"
-      ],
+      "image": ["/premiam.jpg", "/item.png", "s4.png"],
       "itemCategory": 3,
       "createdAt": "",
       "intheOffice": true,
@@ -98,10 +93,7 @@
       "id": 5,
       "name": "アメリカンロースト",
       "description": "口当たりの良い さわやかな酸味。ほのかな甘いノートが最後に残ります。",
-      "image": [
-        "/american.jpg",
-        "/item.png"
-      ],
+      "image": ["/american.jpg", "/item.png"],
       "itemCategory": 3,
       "createdAt": "",
       "intheOffice": true,
@@ -112,10 +104,7 @@
       "id": 6,
       "name": "コロンビア",
       "description": "100%南米コロンビア産の生豆使用。香ばしい香りと酸味・甘味・コクのバランスはマイルドそのものです。",
-      "image": [
-        "/colombia.png",
-        "/item.png"
-      ],
+      "image": ["/colombia.png", "/item.png"],
       "itemCategory": 2,
       "createdAt": "",
       "intheOffice": true,
@@ -126,9 +115,7 @@
       "id": 7,
       "name": "スマトラ",
       "description": "100%スマトラ島産アラビカ豆。火山性土で育った豆からの力強い個性的なアロマは、複雑で深いコク、そしてほのかな甘みへと続きます。",
-      "image": [
-        "/sumatra.png"
-      ],
+      "image": ["/sumatra.png"],
       "itemCategory": 1,
       "createdAt": "",
       "intheOffice": true,
@@ -139,10 +126,7 @@
       "id": 8,
       "name": "プレミアスムースデカフ",
       "description": "市場のニーズが高まっているデカフェコーヒー。フルーティーな軽さの中に程よいコクがアフターテイストを満たします。",
-      "image": [
-        "/decaf.jpg",
-        "/item.png"
-      ],
+      "image": ["/decaf.jpg", "/item.png"],
       "itemCategory": 4,
       "createdAt": "",
       "intheOffice": true,
@@ -153,10 +137,7 @@
       "id": 9,
       "name": "イングリッシュブレックファスト",
       "description": "バランスのよい渋味。しっかりとした味わい豊かな紅茶。",
-      "image": [
-        "/bright.jpg",
-        "/item.png"
-      ],
+      "image": ["/bright.jpg", "/item.png"],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
@@ -167,10 +148,7 @@
       "id": 10,
       "name": "アールグレイ",
       "description": "爽やかなベルガモットの香りとほどよい風味が特徴的なお茶。シトラスとフルーツの香りとほのかに感じるスモーキーな香りのブレンドを楽しんでいただけます。",
-      "image": [
-        "/argray.png",
-        "/item.png"
-      ],
+      "image": ["/argray.png", "/item.png"],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
@@ -181,10 +159,7 @@
       "id": 11,
       "name": "レモンハーブ",
       "description": "軽やかなレモンと柑橘系の香りに、フローラルなハチミツの風味が華を添えるノンカフェインのハーブティーです。",
-      "image": [
-        "/lemon.png",
-        "/item.png"
-      ],
+      "image": ["/lemon.png", "/item.png"],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
@@ -195,10 +170,7 @@
       "id": 12,
       "name": "ジャスミン茶",
       "description": "ジャスミンの芳香を採りいれた渋みの少ないさっぱりとした緑茶です。",
-      "image": [
-        "/jasmin.jpg",
-        "/item.png"
-      ],
+      "image": ["/jasmin.jpg", "/item.png"],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
@@ -209,10 +181,7 @@
       "id": 13,
       "name": "緑茶",
       "description": "豊かな香りとコク、まろやかな風味。深蒸し煎茶から引き出される ほど良い渋味と旨味は日本人の好みにぴったり。 国産茶葉100%使用。",
-      "image": [
-        "/green.jpg",
-        "/item.png"
-      ],
+      "image": ["/green.jpg", "/item.png"],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
@@ -223,10 +192,7 @@
       "id": 14,
       "name": "ホットココア",
       "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）",
-      "image": [
-        "/cocoa.png",
-        "/item.png"
-      ],
+      "image": ["/cocoa.png", "/item.png"],
       "itemCategory": 6,
       "createdAt": "",
       "intheOffice": true,
@@ -314,9 +280,7 @@
     {
       "name": "煎茶",
       "description": "緑茶の説明が入ります",
-      "image": [
-        "/item.png"
-      ],
+      "image": ["/item.png"],
       "itemCategory": 7,
       "createdAt": "2023-05-12T04:42:56.450Z",
       "intheOffice": true,
@@ -327,9 +291,7 @@
     {
       "name": "紅茶",
       "description": "紅茶の説明が入ります",
-      "image": [
-        "/item.png"
-      ],
+      "image": ["/item.png"],
       "itemCategory": 7,
       "createdAt": "2023-05-12T04:42:56.450Z",
       "intheOffice": true,
@@ -340,9 +302,7 @@
     {
       "name": "コーンポタージュ",
       "description": "コーンポタージュの説明が入ります",
-      "image": [
-        "/item.png"
-      ],
+      "image": ["/item.png"],
       "itemCategory": 7,
       "createdAt": "2023-05-12T04:42:56.450Z",
       "intheOffice": true,
@@ -353,9 +313,7 @@
     {
       "name": "さわやかドリンクヨーグルト風味",
       "description": "さわやかドリンクヨーグルト風味の説明が入ります",
-      "image": [
-        "/item.png"
-      ],
+      "image": ["/item.png"],
       "itemCategory": 7,
       "createdAt": "2023-05-12T04:42:56.450Z",
       "intheOffice": true,
@@ -366,9 +324,7 @@
     {
       "name": "コンソメスープ",
       "description": "コンソメスープの説明が入ります",
-      "image": [
-        "/item.png"
-      ],
+      "image": ["/item.png"],
       "itemCategory": 7,
       "createdAt": "2023-05-12T04:42:56.450Z",
       "intheOffice": true,
@@ -379,9 +335,7 @@
     {
       "name": "アップルジュース",
       "description": "アップルジュースの説明が入ります",
-      "image": [
-        "/item.png"
-      ],
+      "image": ["/item.png"],
       "itemCategory": 7,
       "createdAt": "2023-05-12T04:42:56.450Z",
       "intheOffice": true,
@@ -3123,7 +3077,7 @@
     },
     {
       "userId": 2,
-      "content": "みなさん今月の投票は何にしましたか？私はじゃがりこにしました！！！\n<a href=\"/home/search/23\" style=\"color:blue;\">#じゃがりこ</a>/nameS/テスト 花子/nameE/",
+      "content": "みなさん今月の投票は何にしましたか？私はじゃがりこにしました！！！aaaaaa\n<a href=\"/home/search/23\" style=\"color:blue;\">#じゃがりこ</a>/nameS/テスト 花子/nameE/",
       "itemId": "23",
       "postImage": [
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/a1a6f445-9967-4428-b5db-324f97934fab?alt=media&token=ba7abab7-bce2-4043-842c-872f0205f140"
@@ -3475,155 +3429,91 @@
     },
     {
       "id": 2,
-      "itemId": 2,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-03T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 20
+      "stockAmount": 10
     },
     {
       "id": 3,
-      "itemId": 3,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-04T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 30
+      "stockAmount": 10
     },
     {
       "id": 4,
-      "itemId": 4,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-05T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 40
+      "stockAmount": 10
     },
     {
       "id": 5,
-      "itemId": 5,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-06T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 50
+      "stockAmount": 10
     },
     {
       "id": 6,
-      "itemId": 6,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-07T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 60
+      "stockAmount": 10
     },
     {
       "id": 7,
-      "itemId": 7,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-08T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 70
+      "stockAmount": 10
     },
     {
       "id": 8,
-      "itemId": 8,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-09T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 80
+      "stockAmount": 10
     },
     {
       "id": 9,
-      "itemId": 14,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-10T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 140
+      "stockAmount": 10
     },
     {
       "id": 10,
-      "itemId": 15,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-11T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 150
+      "stockAmount": 10
     },
     {
       "id": 11,
-      "itemId": 1,
+      "itemId": 2,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-12T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 110
+      "stockAmount": 10
     },
     {
       "id": 12,
-      "itemId": 2,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 120
-    },
-    {
-      "id": 13,
       "itemId": 3,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-13T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 130
-    },
-    {
-      "id": 14,
-      "itemId": 4,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 140
-    },
-    {
-      "id": 15,
-      "itemId": 5,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 150
-    },
-    {
-      "id": 16,
-      "itemId": 6,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 160
-    },
-    {
-      "id": 17,
-      "itemId": 7,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 170
-    },
-    {
-      "id": 18,
-      "itemId": 8,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 180
-    },
-    {
-      "id": 19,
-      "itemId": 14,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 190
-    },
-    {
-      "id": 20,
-      "itemId": 15,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 200
+      "stockAmount": 10
     }
   ],
   "addition": [
