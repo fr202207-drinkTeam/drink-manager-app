@@ -249,6 +249,7 @@ const PostForm: FC<Props> = memo((props) => {
             <TextField
               id="addImage"
               type="file"
+              inputProps={{ accept: "image/*" }}
               sx={{ p: "0", display: "none" }}
               size="small"
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {

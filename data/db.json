@@ -3624,12 +3624,79 @@
       "day": "2023-05-2T02:50:27.944Z",
       "incOrDec": true,
       "stockAmount": 200
+    },
+    {
+      "itemId": 1,
+      "quantity": 1,
+      "day": "2023-05-31T02:56:23.394Z",
+      "incOrDec": true,
+      "stockAmount": 109,
+      "id": 21
+    },
+    {
+      "itemId": 3,
+      "quantity": 1,
+      "day": "2023-05-31T02:56:23.394Z",
+      "incOrDec": true,
+      "stockAmount": 129,
+      "id": 22
+    },
+    {
+      "itemId": 4,
+      "quantity": 1,
+      "day": "2023-05-31T02:56:23.394Z",
+      "incOrDec": true,
+      "stockAmount": 139,
+      "id": 23
+    },
+    {
+      "itemId": 5,
+      "quantity": 1,
+      "day": "2023-05-31T02:56:23.394Z",
+      "incOrDec": true,
+      "stockAmount": 149,
+      "id": 24
+    },
+    {
+      "itemId": 6,
+      "quantity": 0,
+      "day": "2023-05-31T02:56:23.394Z",
+      "incOrDec": true,
+      "stockAmount": 160,
+      "id": 25
+    },
+    {
+      "itemId": 7,
+      "quantity": 1,
+      "day": "2023-05-31T02:56:23.394Z",
+      "incOrDec": true,
+      "stockAmount": 169,
+      "id": 26
+    },
+    {
+      "itemId": 8,
+      "quantity": 0,
+      "day": "2023-05-31T02:56:23.394Z",
+      "incOrDec": true,
+      "stockAmount": 180,
+      "id": 27
+    },
+    {
+      "itemId": 14,
+      "quantity": 0,
+      "day": "2023-05-31T02:56:23.394Z",
+      "incOrDec": true,
+      "stockAmount": 190,
+      "id": 28
+    },
+    {
+      "itemId": 2,
+      "quantity": 0,
+      "day": "2023-05-31T02:56:23.394Z",
+      "incOrDec": true,
+      "stockAmount": 120,
+      "id": 29
     }
   ],
-  "addition": [
-    {
-      "id": 1,
-      "contactKinds": ""
-    }
-  ]
+  "addition": []
 }
