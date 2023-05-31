@@ -147,6 +147,7 @@ const ItemEdit: FC = memo(() => {
                         type="file"
                         style={{ display: "none" }}
                         id={`newImage`}
+                        accept=".png, .jpg, .jpeg"
                         onChange={(
                           event: React.ChangeEvent<HTMLInputElement>
                         ) => {
