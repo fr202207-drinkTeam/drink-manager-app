@@ -101,10 +101,9 @@ const Register: FC<Props> = memo((props) => {
         email,
         password
       );
-      console.log(userCredential, 91);
       const authId = userCredential.user.uid;
       const data = {
-        userId: userId,
+        userId: Number(userId),
         firstName: firstName,
         lastName: lastName,
         email: email,

@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "userId": "1111",
+      "userId": 1111,
       "firstName": "テスト",
       "lastName": "太郎",
       "email": "example1@rakus-partners.co.jp",
@@ -12,7 +12,7 @@
       "id": 1
     },
     {
-      "userId": "1112",
+      "userId": 1112,
       "firstName": "テスト",
       "lastName": "花子",
       "email": "example2@rakus-partners.co.jp",
@@ -23,7 +23,7 @@
       "id": 2
     },
     {
-      "userId": "1113",
+      "userId": 1113,
       "firstName": "テスト",
       "lastName": "次郎",
       "email": "example3@rakus-partners.co.jp",
@@ -34,13 +34,12 @@
       "id": 3
     },
     {
-      "userId": "1111",
+      "userId": 1111,
       "firstName": "テスト",
-      "lastName": "太郎",
+      "lastName": "テスト",
       "email": "example5@rakus-partners.co.jp",
       "password": "Example5",
-      "confirmPassword": "Example5",
-      "authId": "",
+      "authId": "3C2KCSTHLeQpcZG6U2DVI9EvzRY2",
       "isAdmin": false,
       "id": 4
     }

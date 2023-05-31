@@ -20,6 +20,7 @@ import { ActiveDarkBlueButton, ActiveRedButton } from "../atoms/button/Button";
 import { SecondaryInput } from "../atoms/input/Input";
 import Paginate from "../atoms/paginate/Paginate";
 import AdmTitleText from "../atoms/text/AdmTitleText";
+
 type Props = {
   itemId: number;
   day: string;
@@ -29,6 +30,7 @@ type Props = {
   name: string;
   stockAmount: number;
 };
+
 type StockHistoryWithName = StockHistory & {
   name: string;
 };
@@ -41,6 +43,7 @@ const History: FC = memo(() => {
   const [selectItem, setSelectItem] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchErrorMsg, setSearchErrorMsg] = useState<string>("");
+
   useEffect(() => {
     const historyDataFetch = async () => {
       const historyResponse = await fetch("http://localhost:8880/stockhistory");
@@ -109,6 +112,7 @@ const History: FC = memo(() => {
     };
     historyDataFetch();
   }, []);
+
   const searchHistory = () => {
     setCurrentPage(1);
     if (
@@ -132,23 +136,27 @@ const History: FC = memo(() => {
     }
     setFilterItemName(matchResult);
   };
+
   //ページネーション
   const itemsPerPage = 10; // 1ページに表示するオブジェクトの数
   const pageCount = Math.ceil(filterItemName.length / itemsPerPage); //繰り上げ
   const handlePageClick = (e: ChangeEvent, page: number) => {
     setCurrentPage(page);
   };
+
   // フィルタリングされたデータを取得
   const filteredItems = filterItemName.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
   //終了日の自動入力
   const dateConfirm = () => {
     if (endDate === "") {
       setEndDate(startDate);
     }
   };
+
   const searchReset = () => {
     setCurrentPage(1);
     setSelectItem("");
@@ -157,6 +165,7 @@ const History: FC = memo(() => {
     setSearchErrorMsg("");
     setFilterItemName(originalItemName);
   };
+
   return (
     <>
       <Box>
