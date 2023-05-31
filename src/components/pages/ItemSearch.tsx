@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { FC, memo } from "react";
 import ItemCard from "../organisms/card/ItemCard";
 import { MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material";
-import type { Items, Polls, Questionnaire } from "../../types/type";
+import type { Items } from "../../types/type";
 import Paginate from "../atoms/paginate/Paginate";
 import Box from "@mui/material/Box";
 import { ActiveDarkBlueButton } from "../atoms/button/Button";
@@ -16,7 +16,6 @@ import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 type Props = {};
 
 const ItemSearch: FC<Props> = memo((props) => {
-  
   const location = useLocation();
   const navigate = useNavigate();
 // 管理者の判定
@@ -39,24 +38,22 @@ const ItemSearch: FC<Props> = memo((props) => {
     // プルダウンでの選択時に1ページ目に戻る　パラメーター　page=1にする
     searchParams.set("page", "1"); 
     navigate(`${location.pathname}?${searchParams}`);
-  
-
     try {
       const params = {
         itemCategory: category === "all" ? undefined : category,
         name_like: keyword,
       };
       let apiUrl = `${baseUrl}&_limit=${perPage}`;
-      
+
       //  名前順
       if (value === "name") {
         apiUrl += `&_sort=name&_order=asc`;
       } else if (value === "intheOffice") {
         // 社内あり
-        apiUrl += `&intheOffice=true`;
+        apiUrl += `&_sort=name&intheOffice=true`;
       } else if (value === "intheOfficeNone") {
         // 社内なし
-        apiUrl += `&intheOffice=false`;
+        apiUrl += `&_sort=name&intheOffice=false`;
       } else {
         apiUrl += `&_sort=${value}&_order=asc`;
       }
@@ -119,9 +116,10 @@ const ItemSearch: FC<Props> = memo((props) => {
     queryParams.set("page", newValue);
 
     try {
-      const params: any = {
+      const params: {itemCategory:string|null|undefined,name_like:string|null,intheOffice:boolean} = {
         itemCategory: category === "all" ? undefined : category,
         name_like: keyword,
+        intheOffice:false
       };
    
       if (selectedValue === "intheOffice") {
@@ -131,7 +129,7 @@ const ItemSearch: FC<Props> = memo((props) => {
       }
       const query = queryString.stringify(params, { skipNull: true });
 
-      const sortValue = selectedValue === "name" ? "name" : "popular";
+      const sortValue = selectedValue === "name" ? "name" : "";
       const url = `${baseUrl}&_sort=${sortValue}&_order=asc&_page=${newValue}&_limit=6&${query}`;
 
       navigate(`/home/search?${queryParams.toString()}`);
@@ -237,9 +235,9 @@ const ItemSearch: FC<Props> = memo((props) => {
           ) : (
             ""
           )}
-          <Typography sx={{ mx: "16px" }}>
-            検索結果：{allItem?.length}件
-          </Typography>
+         
+         <Typography >
+            検索結果：{allItem?.length}件   </Typography>
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", }}>
           <Select
@@ -248,8 +246,6 @@ const ItemSearch: FC<Props> = memo((props) => {
             sx={{ border: "none", backgroundColor: "white", mr: "16px" }}
             onChange={handlePullDown}
           >
-            <MenuItem value="選択する" disabled>
-            </MenuItem>
             <MenuItem value="name">名前順</MenuItem>
             <MenuItem value="intheOffice">社内あり</MenuItem>
             <MenuItem value="intheOfficeNone">社内なし</MenuItem>
@@ -272,16 +268,13 @@ const ItemSearch: FC<Props> = memo((props) => {
           )}
         </>
       ) : (
-        "該当する商品がありません"
+        ""
       )}
       <div style={{ display: "flex", justifyContent: "flex-end",width:"1030px" }} >
-        {loginUser?.isAdmin ? (
-          <Link to="/adminhome/additem">
-            <ActiveDarkBlueButton event={function (): void {}}>
+        {loginUser?.isAdmin ? (    
+            <ActiveDarkBlueButton   event={() => navigate(`/adminhome/additem`)}>
               商品追加
             </ActiveDarkBlueButton>
-          </Link>
-          
         ) : (
           ""
         )}

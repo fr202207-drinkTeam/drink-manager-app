@@ -9,11 +9,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import { ActiveBlueButton, ActiveDarkBlueButton } from "../atoms/button/Button";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import ModalWindow from "../organisms/ModalWindow";
 import Cookies from "js-cookie";
@@ -33,6 +31,9 @@ const Header = () => {
     { label: "タイムライン", href: "/home/timeline" },
     { label: "お問い合わせ", href: "/home/contact" },
   ];
+  const filteredAdminHeader = pages.filter(
+    (page) => page.label !== "お問い合わせ"
+  );
   const settings = ["Profile", "Account", "Dashboard", "Logout"];
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -79,6 +80,7 @@ const Header = () => {
     if (loginUser?.isAdmin === false) {
       const date = new Date("2020-12-31T23:59:59Z");
       document.cookie = `authId=;path=/;expires=${date.toUTCString()};`;
+      document.cookie = `isAdmin=;path=/;expires=${date.toUTCString()};`;
       navigate("/login");
       window.location.reload();
     }
@@ -130,7 +132,7 @@ const Header = () => {
             <Link to="/adminhome">
               <ActiveDarkBlueButton
                 sxStyle={{ borderRadius: 10 }}
-                event={function(): void {}}
+                event={() => navigate(`/adminhome/`)}
               >
                 管理者用TOP
               </ActiveDarkBlueButton>
@@ -188,7 +190,6 @@ const Header = () => {
                 ))}
               </Menu>
             </Box>
-            <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
             <Typography
               variant="h5"
               noWrap
@@ -205,24 +206,49 @@ const Header = () => {
                 textDecoration: "none",
               }}
             ></Typography>
+            {/* 管理者ログイン時のヘッダー */}
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {pages.map((page) => (
-                <Link to={page.href} key={page.label}>
-                  <Button
-                    onClick={handleCloseNavMenu}
-                    sx={{
-                      my: 2,
-                      color: "white",
-                      display: "block",
-                      fontWeight: "bold",
-                      fontSize: 16,
-                      textAlign: "center",
-                    }}
-                  >
-                    {page.label}
-                  </Button>
-                </Link>
-              ))}
+              {!isAdmin ? (
+                <>
+                  {pages.map((page) => (
+                    <Link to={page.href} key={page.label}>
+                      <Button
+                        onClick={handleCloseNavMenu}
+                        sx={{
+                          my: 2,
+                          color: "white",
+                          display: "block",
+                          fontWeight: "bold",
+                          fontSize: 16,
+                          textAlign: "center",
+                        }}
+                      >
+                        {page.label}
+                      </Button>
+                    </Link>
+                  ))}
+                </>
+              ) : (
+                <>
+                  {filteredAdminHeader.map((page) => (
+                    <Link to={page.href} key={page.label}>
+                      <Button
+                        onClick={handleCloseNavMenu}
+                        sx={{
+                          my: 2,
+                          color: "white",
+                          display: "block",
+                          fontWeight: "bold",
+                          fontSize: 16,
+                          textAlign: "center",
+                        }}
+                      >
+                        {page.label}
+                      </Button>
+                    </Link>
+                  ))}
+                </>
+              )}
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
