@@ -20,7 +20,6 @@ import { ActiveDarkBlueButton, ActiveRedButton } from "../atoms/button/Button";
 import { SecondaryInput } from "../atoms/input/Input";
 import Paginate from "../atoms/paginate/Paginate";
 import AdmTitleText from "../atoms/text/AdmTitleText";
-
 type Props = {
   itemId: number;
   day: string;
@@ -30,11 +29,9 @@ type Props = {
   name: string;
   stockAmount: number;
 };
-
 type StockHistoryWithName = StockHistory & {
   name: string;
 };
-
 const History: FC = memo(() => {
   const [itemDatas, setItemDatas] = useState<Items[]>([]);
   const [originalItemName, setOriginalItemName] = useState<Props[]>([]);
@@ -42,19 +39,17 @@ const History: FC = memo(() => {
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
   const [selectItem, setSelectItem] = useState<string>("");
-  const [itemsOffset, setItemsOffset] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchErrorMsg, setSearchErrorMsg] = useState<string>("");
-
   useEffect(() => {
     const historyDataFetch = async () => {
       const historyResponse = await fetch("http://localhost:8880/stockhistory");
       const historyData = await historyResponse.json();
-
-      const itemResponse = await fetch("http://localhost:8880/items");
+      const itemResponse = await fetch(
+        "http://localhost:8880/items?&otherItem=false"
+      );
       const itemData = await itemResponse.json();
       setItemDatas(itemData);
-
       //商品名入りのオブジェクト作成
       const itemObj = historyData.map((history: { itemId: number }) => {
         const items = itemData.find(
@@ -62,7 +57,6 @@ const History: FC = memo(() => {
         );
         return items ? { ...history, name: items.name } : history;
       });
-
       //消費データと補充データを合わせる（itemIdとdayの一致）
       const mergeObj: Props[] = Object.values(
         itemObj.reduce(
@@ -98,7 +92,6 @@ const History: FC = memo(() => {
           {}
         )
       );
-
       //日付文字列を置き換え
       const dateMergeObj = mergeObj.map((item: Props) => {
         const dateOnly = item.day?.split("T")[0];
@@ -107,19 +100,17 @@ const History: FC = memo(() => {
           day: dateOnly,
         };
       });
-
       // 日付最新順に並び替える
       dateMergeObj.sort((a: Props, b: Props) => {
         return new Date(b.day).getTime() - new Date(a.day).getTime();
       });
-
       setOriginalItemName(dateMergeObj as Props[]); //初期履歴データ
       setFilterItemName(dateMergeObj as Props[]); //検索用履歴データ
     };
     historyDataFetch();
   }, []);
-
   const searchHistory = () => {
+    setCurrentPage(1);
     if (
       (startDate === "" && endDate !== "") ||
       (startDate !== "" && endDate === "")
@@ -128,7 +119,6 @@ const History: FC = memo(() => {
     } else {
       setSearchErrorMsg("");
     }
-
     //商品名検索
     let matchResult = originalItemName;
     if (selectItem) {
@@ -142,35 +132,31 @@ const History: FC = memo(() => {
     }
     setFilterItemName(matchResult);
   };
-
   //ページネーション
   const itemsPerPage = 10; // 1ページに表示するオブジェクトの数
-  const endOffset = itemsOffset + itemsPerPage;
-  const currentItems = filterItemName.slice(itemsOffset, endOffset);
   const pageCount = Math.ceil(filterItemName.length / itemsPerPage); //繰り上げ
-
   const handlePageClick = (e: ChangeEvent, page: number) => {
     setCurrentPage(page);
-    const newOffset = ((page - 1) * itemsPerPage) % filterItemName.length;
-    setItemsOffset(newOffset);
   };
-  console.log(itemsOffset, 98);
-
+  // フィルタリングされたデータを取得
+  const filteredItems = filterItemName.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
   //終了日の自動入力
   const dateConfirm = () => {
     if (endDate === "") {
       setEndDate(startDate);
     }
   };
-
   const searchReset = () => {
+    setCurrentPage(1);
     setSelectItem("");
     setStartDate("");
     setEndDate("");
     setSearchErrorMsg("");
     setFilterItemName(originalItemName);
   };
-
   return (
     <>
       <Box>
@@ -300,7 +286,7 @@ const History: FC = memo(() => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {currentItems.map((history: Props, index: number) => {
+              {filteredItems.map((history: Props, index: number) => {
                 return (
                   <TableRow
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -309,7 +295,6 @@ const History: FC = memo(() => {
                     <TableCell component="th" scope="row">
                       {history.name}
                     </TableCell>
-
                     <TableCell align="right">
                       {history.day
                         .replace(/(^|[^0-9])0+/g, "$1")
@@ -321,8 +306,7 @@ const History: FC = memo(() => {
                   </TableRow>
                 );
               })}
-
-              {currentItems.length === 0 &&
+              {filteredItems.length === 0 &&
                 (startDate || endDate || selectItem) && (
                   <TableRow>
                     <TableCell colSpan={5} align="center">
@@ -342,5 +326,4 @@ const History: FC = memo(() => {
     </>
   );
 });
-
 export default History;

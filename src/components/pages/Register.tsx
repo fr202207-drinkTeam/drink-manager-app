@@ -29,7 +29,6 @@ const Register: FC<Props> = memo((props) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfimPassword] = useState<boolean>(false);
   const [errorFraudEmail, setErrorFraudEmail] = useState<string>("");
-  const [authId, setAuthId] = useState<string>("");
 
   //入力フォーム
   const [userId, setUserId] = useState<string>("");
@@ -102,15 +101,14 @@ const Register: FC<Props> = memo((props) => {
         email,
         password
       );
-      setAuthId(userCredential.user.uid);
-
+      console.log(userCredential, 91);
+      const authId = userCredential.user.uid;
       const data = {
         userId: userId,
         firstName: firstName,
         lastName: lastName,
         email: email,
         password: password,
-        confirmPassword: confirmPassword,
         authId: authId,
         isAdmin: false,
       };

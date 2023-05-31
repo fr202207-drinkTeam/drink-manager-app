@@ -50,7 +50,7 @@ const EmailInput = (props: EmailProps) => {
             return "メールアドレスを入力してください";
           }
           if (
-            currentLocation.startsWith("/login") &&
+            !currentLocation.startsWith("/register") &&
             ((errorMail && !email.includes("@")) || email.length > 40)
           ) {
             return "＠を含んだ40文字以内で入力してください";
