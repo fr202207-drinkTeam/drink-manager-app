@@ -15,8 +15,13 @@ type Props = {
 
 // TODO コメントコンポーネント
 const Comment: FC<Props> = memo((props) => {
-  const { commentData, postData, loginUser, reloadComment, setReloadComment } =
-    props;
+  const {
+    commentData,
+    postData,
+    loginUser,
+    reloadComment,
+    setReloadComment,
+  } = props;
 
   // コメント編集の場合、そのコメントを格納
   const [editCommentData, setEditCommentData] = useState<CommentType | null>(
@@ -129,6 +134,7 @@ const Comment: FC<Props> = memo((props) => {
         <Grid container alignItems="center">
           <Grid item xs={7}>
             <InputBase
+              name="commentInput"
               sx={{ flex: 1, border: "1px solid" }}
               placeholder="コメント"
               fullWidth
