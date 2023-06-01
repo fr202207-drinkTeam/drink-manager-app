@@ -54,7 +54,8 @@
       "createdAt": "",
       "intheOffice": true,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 2,
@@ -65,7 +66,8 @@
       "createdAt": "",
       "intheOffice": true,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 3,
@@ -74,9 +76,10 @@
       "image": ["/item.png", "dummybanner.jpg"],
       "itemCategory": 1,
       "createdAt": "",
-      "intheOffice": true,
+      "intheOffice": false,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 4,
@@ -85,9 +88,10 @@
       "image": ["/premiam.jpg", "/item.png", "s4.png"],
       "itemCategory": 3,
       "createdAt": "",
-      "intheOffice": true,
+      "intheOffice": false,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 5,
@@ -98,7 +102,8 @@
       "createdAt": "",
       "intheOffice": true,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 6,
@@ -107,9 +112,10 @@
       "image": ["/colombia.png", "/item.png"],
       "itemCategory": 2,
       "createdAt": "",
-      "intheOffice": true,
+      "intheOffice": false,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 7,
@@ -120,7 +126,8 @@
       "createdAt": "",
       "intheOffice": true,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 8,
@@ -129,9 +136,10 @@
       "image": ["/decaf.jpg", "/item.png"],
       "itemCategory": 4,
       "createdAt": "",
-      "intheOffice": true,
+      "intheOffice": false,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 9,
@@ -142,7 +150,8 @@
       "createdAt": "",
       "intheOffice": false,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 10,
@@ -153,7 +162,8 @@
       "createdAt": "",
       "intheOffice": false,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 11,
@@ -164,7 +174,8 @@
       "createdAt": "",
       "intheOffice": false,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 12,
@@ -175,7 +186,8 @@
       "createdAt": "",
       "intheOffice": false,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 13,
@@ -184,9 +196,10 @@
       "image": ["/green.jpg", "/item.png"],
       "itemCategory": 5,
       "createdAt": "",
-      "intheOffice": false,
+      "intheOffice": true,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 14,
@@ -197,7 +210,8 @@
       "createdAt": "",
       "intheOffice": true,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "name": "おっとっと",
@@ -210,7 +224,8 @@
       "intheOffice": false,
       "author": 1,
       "otherItem": true,
-      "id": 21
+      "id": 21,
+      "isDiscontinued": false
     },
     {
       "name": "ポテロング",
@@ -223,7 +238,8 @@
       "intheOffice": false,
       "author": 1,
       "otherItem": true,
-      "id": 22
+      "id": 22,
+      "isDiscontinued": false
     },
     {
       "name": "じゃがりこ",
@@ -236,7 +252,8 @@
       "intheOffice": false,
       "author": 1,
       "otherItem": true,
-      "id": 23
+      "id": 23,
+      "isDiscontinued": false
     },
     {
       "name": "堅あげポテト",
@@ -249,7 +266,8 @@
       "intheOffice": false,
       "author": 1,
       "otherItem": true,
-      "id": 24
+      "id": 24,
+      "isDiscontinued": false
     },
     {
       "name": "ポテトチップス　のりしお",
@@ -262,7 +280,8 @@
       "intheOffice": false,
       "author": null,
       "otherItem": true,
-      "id": 25
+      "id": 25,
+      "isDiscontinued": false
     },
     {
       "name": "ビスコ",
@@ -275,7 +294,8 @@
       "intheOffice": false,
       "author": 4,
       "otherItem": true,
-      "id": 26
+      "id": 26,
+      "isDiscontinued": false
     },
     {
       "name": "煎茶",
@@ -283,10 +303,11 @@
       "image": ["/item.png"],
       "itemCategory": 7,
       "createdAt": "2023-05-12T04:42:56.450Z",
-      "intheOffice": true,
+      "intheOffice": false,
       "author": 4,
       "otherItem": false,
-      "id": 27
+      "id": 27,
+      "isDiscontinued": false
     },
     {
       "name": "紅茶",
@@ -294,10 +315,11 @@
       "image": ["/item.png"],
       "itemCategory": 7,
       "createdAt": "2023-05-12T04:42:56.450Z",
-      "intheOffice": true,
+      "intheOffice": false,
       "author": 4,
       "otherItem": false,
-      "id": 28
+      "id": 28,
+      "isDiscontinued": false
     },
     {
       "name": "コーンポタージュ",
@@ -308,7 +330,8 @@
       "intheOffice": true,
       "author": 4,
       "otherItem": false,
-      "id": 29
+      "id": 29,
+      "isDiscontinued": false
     },
     {
       "name": "さわやかドリンクヨーグルト風味",
@@ -319,7 +342,8 @@
       "intheOffice": true,
       "author": 4,
       "otherItem": false,
-      "id": 30
+      "id": 30,
+      "isDiscontinued": false
     },
     {
       "name": "コンソメスープ",
@@ -327,10 +351,11 @@
       "image": ["/item.png"],
       "itemCategory": 7,
       "createdAt": "2023-05-12T04:42:56.450Z",
-      "intheOffice": true,
+      "intheOffice": false,
       "author": 4,
       "otherItem": false,
-      "id": 31
+      "id": 31,
+      "isDiscontinued": false
     },
     {
       "name": "アップルジュース",
@@ -338,10 +363,11 @@
       "image": ["/item.png"],
       "itemCategory": 7,
       "createdAt": "2023-05-12T04:42:56.450Z",
-      "intheOffice": true,
+      "intheOffice": false,
       "author": 4,
       "otherItem": false,
-      "id": 32
+      "id": 32,
+      "isDiscontinued": false
     },
     {
       "name": "HTML特殊文字テスト",
@@ -351,10 +377,25 @@
       ],
       "itemCategory": 2,
       "createdAt": "2023-05-24T01:29:08.661Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 33
+      "id": 33,
+      "isDiscontinued": false
+    },
+    {
+      "name": "商品名を商品編集テスト商品A",
+      "description": "商品詳細テスト商品Aの説明",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/f1aec5f0-3a46-4d8b-ae74-93b183f5d75a?alt=media&token=f40a5493-644b-446b-89c9-5866c80bffc8"
+      ],
+      "itemCategory": 6,
+      "createdAt": "2023-05-25T07:48:21.163Z",
+      "intheOffice": false,
+      "author": 1,
+      "otherItem": false,
+      "id": 34,
+      "isDiscontinued": false
     },
     {
       "name": "商品詳細テスト商品A",
@@ -364,10 +405,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-25T07:48:21.163Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 35
+      "id": 35,
+      "isDiscontinued": false
     },
     {
       "name": "商品詳細テスト商品B",
@@ -378,10 +420,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-25T09:05:15.985Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 36
+      "id": 36,
+      "isDiscontinued": false
     },
     {
       "name": "商品詳細テスト商品C商品詳細テスト商",
@@ -393,10 +436,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-29T00:38:23.469Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 37
+      "id": 37,
+      "isDiscontinued": false
     },
     {
       "name": "商品50",
@@ -406,10 +450,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-26T00:22:43.228Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 50
+      "id": 50,
+      "isDiscontinued": false
     },
     {
       "name": "商品51",
@@ -420,10 +465,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-26T00:23:19.650Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 51
+      "id": 51,
+      "isDiscontinued": false
     },
     {
       "name": "商品52",
@@ -435,10 +481,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-26T00:24:02.225Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 52
+      "id": 52,
+      "isDiscontinued": false
     },
     {
       "name": "商品53",
@@ -448,10 +495,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-26T00:24:36.188Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 53
+      "id": 53,
+      "isDiscontinued": false
     },
     {
       "name": "商品54",
@@ -462,10 +510,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-26T00:25:08.113Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 54
+      "id": 54,
+      "isDiscontinued": false
     },
     {
       "name": "商品55",
@@ -477,10 +526,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-26T00:25:39.442Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 55
+      "id": 55,
+      "isDiscontinued": false
     },
     {
       "name": "商品56",
@@ -490,10 +540,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-26T00:26:27.306Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 56
+      "id": 56,
+      "isDiscontinued": false
     },
     {
       "name": "商品57",
@@ -504,10 +555,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-26T00:26:53.982Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 57
+      "id": 57,
+      "isDiscontinued": false
     },
     {
       "name": "商品58",
@@ -519,10 +571,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-26T00:27:37.984Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 58
+      "id": 58,
+      "isDiscontinued": false
     },
     {
       "name": "商品A",
@@ -532,10 +585,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-26T08:02:40.170Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 59
+      "id": 59,
+      "isDiscontinued": false
     },
     {
       "name": "商品B",
@@ -545,10 +599,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-26T08:07:04.891Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 60
+      "id": 60,
+      "isDiscontinued": false
     },
     {
       "name": "商品C",
@@ -560,10 +615,67 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-26T08:08:00.665Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 61
+      "id": 61,
+      "isDiscontinued": false
+    },
+    {
+      "name": "削除テスト商品",
+      "description": "削除テスト",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/5b5db735-e3cc-416d-afac-a7ebea72783b?alt=media&token=7ecd41b5-dcec-45d3-9548-208ede9d96cc"
+      ],
+      "itemCategory": 6,
+      "createdAt": "2023-05-31T00:10:08.088Z",
+      "intheOffice": false,
+      "author": 1,
+      "otherItem": false,
+      "id": 62,
+      "isDiscontinued": true
+    },
+    {
+      "name": "社内なしに変更",
+      "description": "社内",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/982d6080-2076-4333-84d0-df1d79f582a2?alt=media&token=922dd4b9-98b9-4222-b461-0c6acc659281"
+      ],
+      "itemCategory": 6,
+      "createdAt": "2023-05-31T07:12:48.326Z",
+      "intheOffice": false,
+      "author": 1,
+      "otherItem": false,
+      "id": 63,
+      "isDiscontinued": true
+    },
+    {
+      "name": "社内なし",
+      "description": "社内なし",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/a49546b1-16b5-4c93-836b-d29b4b6afb51?alt=media&token=9109a907-4908-48db-b85d-733373547bd4"
+      ],
+      "itemCategory": 6,
+      "createdAt": "2023-05-31T07:08:58.674Z",
+      "intheOffice": false,
+      "author": 1,
+      "otherItem": false,
+      "id": 64,
+      "isDiscontinued": true
+    },
+    {
+      "name": "社内あり商品",
+      "description": "あ",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/6ce585ee-edae-4a8e-988b-f0f1dfbab675?alt=media&token=39b527af-4daf-4f94-b762-897ee3481b13"
+      ],
+      "itemCategory": 6,
+      "createdAt": "2023-05-31T07:10:03.261Z",
+      "intheOffice": true,
+      "author": 1,
+      "otherItem": false,
+      "id": 65,
+      "isDiscontinued": false
     }
   ],
   "itemCategory": [
@@ -3100,181 +3212,24 @@
       "id": 7
     }
   ],
-  "comments": [],
   "likes": [
     {
-      "postId": 7,
-      "userId": 3,
-      "time": "2023-05-16T04:55:37.974Z",
+      "postId": 1,
+      "userId": 1,
+      "time": "2023-05-30T08:51:40.317Z",
       "id": 1
     },
     {
-      "postId": 7,
-      "userId": 2,
-      "time": "2023-05-19T05:41:06.612Z",
+      "postId": 2,
+      "userId": 1,
+      "time": "2023-05-30T08:51:41.277Z",
       "id": 2
     },
     {
-      "postId": 50,
+      "postId": 3,
       "userId": 1,
-      "time": "2023-05-19T05:41:06.612Z",
+      "time": "2023-05-30T08:51:42.338Z",
       "id": 3
-    },
-    {
-      "postId": 50,
-      "userId": 2,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 4
-    },
-    {
-      "postId": 50,
-      "userId": 3,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 5
-    },
-    {
-      "postId": 52,
-      "userId": 1,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 6
-    },
-    {
-      "postId": 53,
-      "userId": 1,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 7
-    },
-    {
-      "postId": 53,
-      "userId": 2,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 8
-    },
-    {
-      "postId": 54,
-      "userId": 1,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 9
-    },
-    {
-      "postId": 54,
-      "userId": 2,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 10
-    },
-    {
-      "postId": 54,
-      "userId": 3,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 11
-    },
-    {
-      "postId": 58,
-      "userId": 1,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 12
-    },
-    {
-      "postId": 58,
-      "userId": 2,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 13
-    },
-    {
-      "postId": 58,
-      "userId": 3,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 14
-    },
-    {
-      "postId": 59,
-      "userId": 1,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 15
-    },
-    {
-      "postId": 59,
-      "userId": 2,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 16
-    },
-    {
-      "postId": 59,
-      "userId": 3,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 17
-    },
-    {
-      "postId": 60,
-      "userId": 1,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 18
-    },
-    {
-      "postId": 60,
-      "userId": 2,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 19
-    },
-    {
-      "postId": 60,
-      "userId": 3,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 20
-    },
-    {
-      "postId": 61,
-      "userId": 1,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 21
-    },
-    {
-      "postId": 61,
-      "userId": 2,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 22
-    },
-    {
-      "postId": 61,
-      "userId": 3,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 23
-    },
-    {
-      "postId": 62,
-      "userId": 1,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 24
-    },
-    {
-      "postId": 62,
-      "userId": 2,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 25
-    },
-    {
-      "postId": 62,
-      "userId": 3,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 26
-    },
-    {
-      "postId": 63,
-      "userId": 1,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 27
-    },
-    {
-      "postId": 63,
-      "userId": 2,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 28
-    },
-    {
-      "postId": 63,
-      "userId": 3,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 29
     }
   ],
   "stockhistory": [
