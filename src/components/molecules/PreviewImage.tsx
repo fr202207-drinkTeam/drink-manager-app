@@ -95,6 +95,7 @@ const PreviewImage: FC<Props> = memo((props) => {
         {inputImages.map((item: File, index: number) => {
           let itemUrl;
           // firebaseのurlから作成したFile型のitemの場合、sizeが0になるため、item.name(firebaseのurl)を使用
+          console.log("image", item)
           if (item.size === 0) {
             itemUrl = item.name;
           }
