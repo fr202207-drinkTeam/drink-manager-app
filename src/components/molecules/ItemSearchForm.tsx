@@ -3,7 +3,7 @@ import { TextField } from "@mui/material";
 import { ActiveOrangeButton } from "../atoms/button/Button";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { PrimaryInput } from "../atoms/input/Input";
+import { Items } from "../../types/type";
 type Props = {
   searchWord: string;
   setSearchWord: React.Dispatch<React.SetStateAction<string>>;
@@ -13,8 +13,7 @@ type Props = {
 
 const ItemSearchForm: React.FC<Props> = ({ searchWord, setSearchWord }) => {
   const navigate = useNavigate();
-  const [searchResults, setSearchResults] = useState<any>([]);
-
+  const [searchResults, setSearchResults] = useState<Items[]>([]);
   const onSearchButtonClick = async () => {
     try {
       const response = await fetch(
@@ -44,7 +43,9 @@ const ItemSearchForm: React.FC<Props> = ({ searchWord, setSearchWord }) => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setSearchWord(e.target.value);
           }}
+          placeholder="18文字以内で入力してください"
           autoComplete="off"
+          inputProps={{ maxLength: 18 }}
         />
         <ActiveOrangeButton
           event={onSearchButtonClick}

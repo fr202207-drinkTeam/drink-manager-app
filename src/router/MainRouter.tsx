@@ -16,6 +16,7 @@ import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../hooks/useLoginUserFetch";
 import ScrollTop from "../components/atoms/ScrollTop";
 import NotFound from "../components/pages/NotFound";
+import Contact from "../components/pages/Contact";
 const MainRoute = [
   {
     path: "/adminlogin",
@@ -36,11 +37,6 @@ const MainRoute = [
   {
     path: "/*",
     element: <NotFound />,
-  },
-  // ヘッダー不必要のため仮置
-  {
-    path: "/faq",
-    element: <Faq />,
   },
 ];
 
@@ -97,8 +93,24 @@ export const MainRouter = (props: any) => {
           }
         />
         <Route
+          path={`/home/faq`}
+          element={authId ? <Faq /> : <Navigate to="/login" replace />}
+        />
+        <Route
           path={`/home`}
           element={authId ? <Top /> : <Navigate to="/login" replace />}
+        />
+        <Route
+          path={`/home/contact`}
+          element={
+            authId && !isAdmin ? (
+              <DefaultLayout>
+                <Contact />
+              </DefaultLayout>
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
         />
       </Routes>
     </>
