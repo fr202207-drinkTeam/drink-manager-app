@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { FC, memo } from "react";
 import ItemCard from "../organisms/card/ItemCard";
 import { MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material";
-import type { Items } from "../../types/type";
+import type { Items, Polls, Questionnaire } from "../../types/type";
 import Paginate from "../atoms/paginate/Paginate";
 import Box from "@mui/material/Box";
 import { ActiveDarkBlueButton } from "../atoms/button/Button";
@@ -16,6 +16,7 @@ import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 type Props = {};
 
 const ItemSearch: FC<Props> = memo((props) => {
+  
   const location = useLocation();
   const navigate = useNavigate();
 // 管理者の判定
@@ -28,7 +29,7 @@ const ItemSearch: FC<Props> = memo((props) => {
   const [selectedValue, setSelectedValue] = useState("name");
   const [categoryName, setCategoryName] = useState<string>();
   const page = searchParams.get("page");
-  const baseUrl = "http://localhost:8880/items?&otherItem=false";
+  const baseUrl = "http://localhost:8880/items?&otherItem=false&isDiscontinued=false";
   const handlePullDown = async (event: SelectChangeEvent<string>) => {
     const value = event.target.value;
     setSelectedValue(value);
@@ -38,22 +39,24 @@ const ItemSearch: FC<Props> = memo((props) => {
     // プルダウンでの選択時に1ページ目に戻る　パラメーター　page=1にする
     searchParams.set("page", "1"); 
     navigate(`${location.pathname}?${searchParams}`);
+  
+
     try {
       const params = {
         itemCategory: category === "all" ? undefined : category,
         name_like: keyword,
       };
       let apiUrl = `${baseUrl}&_limit=${perPage}`;
-
+      
       //  名前順
       if (value === "name") {
         apiUrl += `&_sort=name&_order=asc`;
       } else if (value === "intheOffice") {
         // 社内あり
-        apiUrl += `&_sort=name&intheOffice=true`;
+        apiUrl += `&intheOffice=true`;
       } else if (value === "intheOfficeNone") {
         // 社内なし
-        apiUrl += `&_sort=name&intheOffice=false`;
+        apiUrl += `&intheOffice=false`;
       } else {
         apiUrl += `&_sort=${value}&_order=asc`;
       }
@@ -116,10 +119,9 @@ const ItemSearch: FC<Props> = memo((props) => {
     queryParams.set("page", newValue);
 
     try {
-      const params: {itemCategory:string|null|undefined,name_like:string|null,intheOffice:boolean} = {
+      const params: any = {
         itemCategory: category === "all" ? undefined : category,
         name_like: keyword,
-        intheOffice:false
       };
    
       if (selectedValue === "intheOffice") {
@@ -129,7 +131,7 @@ const ItemSearch: FC<Props> = memo((props) => {
       }
       const query = queryString.stringify(params, { skipNull: true });
 
-      const sortValue = selectedValue === "name" ? "name" : "";
+      const sortValue = selectedValue === "name" ? "name" : "popular";
       const url = `${baseUrl}&_sort=${sortValue}&_order=asc&_page=${newValue}&_limit=6&${query}`;
 
       navigate(`/home/search?${queryParams.toString()}`);
@@ -235,9 +237,9 @@ const ItemSearch: FC<Props> = memo((props) => {
           ) : (
             ""
           )}
-         
-         <Typography >
-            検索結果：{allItem?.length}件   </Typography>
+          <Typography sx={{ mx: "16px" }}>
+            検索結果：{allItem?.length}件
+          </Typography>
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", }}>
           <Select
@@ -246,6 +248,8 @@ const ItemSearch: FC<Props> = memo((props) => {
             sx={{ border: "none", backgroundColor: "white", mr: "16px" }}
             onChange={handlePullDown}
           >
+            <MenuItem value="選択する" disabled>
+            </MenuItem>
             <MenuItem value="name">名前順</MenuItem>
             <MenuItem value="intheOffice">社内あり</MenuItem>
             <MenuItem value="intheOfficeNone">社内なし</MenuItem>
@@ -268,13 +272,16 @@ const ItemSearch: FC<Props> = memo((props) => {
           )}
         </>
       ) : (
-        ""
+""
       )}
       <div style={{ display: "flex", justifyContent: "flex-end",width:"1030px" }} >
-        {loginUser?.isAdmin ? (    
-            <ActiveDarkBlueButton   event={() => navigate(`/adminhome/additem`)}>
+        {loginUser?.isAdmin ? (
+          <Link to="/adminhome/additem">
+            <ActiveDarkBlueButton event={function (): void {}}>
               商品追加
             </ActiveDarkBlueButton>
+          </Link>
+          
         ) : (
           ""
         )}

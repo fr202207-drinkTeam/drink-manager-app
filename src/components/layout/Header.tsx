@@ -77,17 +77,15 @@ const Header = () => {
   const onLogoutClick = () => {
     signOut(auth);
 
+    signOut(auth);
     if (loginUser?.isAdmin === false) {
-      const date = new Date("2020-12-31T23:59:59Z");
-      document.cookie = `authId=;path=/;expires=${date.toUTCString()};`;
-      document.cookie = `isAdmin=;path=/;expires=${date.toUTCString()};`;
+      document.cookie = `authId=; max-age=0`;
       navigate("/login");
       window.location.reload();
     }
     if (loginUser?.isAdmin === true) {
-      const date = new Date("2020-12-31T23:59:59Z");
-      document.cookie = `authId=;path=/;expires=${date.toUTCString()};`;
-      document.cookie = `isAdmin=;path=/;expires=${date.toUTCString()};`;
+      document.cookie = `authId=; max-age=0`;
+      document.cookie = `isAdmin=; max-age=0`;
       navigate("/adminlogin");
       window.location.reload();
     }
@@ -181,13 +179,35 @@ const Header = () => {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                {pages.map((page) => (
-                  <MenuItem key={page.label} onClick={handleCloseNavMenu}>
-                    <Box sx={{ textAlign: "center !important" }}>
-                      <Typography fontWeight="bold">{page.label}</Typography>
-                    </Box>
-                  </MenuItem>
-                ))}
+                {!isAdmin ? (
+                  <>
+                    {pages.map((page) => (
+                      <Link to={page.href} key={page.label}>
+                        <MenuItem key={page.label}>
+                          <Box sx={{ textAlign: "center !important" }}>
+                            <Typography fontWeight="bold">
+                              {page.label}
+                            </Typography>
+                          </Box>
+                        </MenuItem>
+                      </Link>
+                    ))}
+                  </>
+                ) : (
+                  <>
+                    {filteredAdminHeader.map((page) => (
+                      <Link to={page.href} key={page.label}>
+                        <MenuItem key={page.label}>
+                          <Box sx={{ textAlign: "center !important" }}>
+                            <Typography fontWeight="bold">
+                              {page.label}
+                            </Typography>
+                          </Box>
+                        </MenuItem>
+                      </Link>
+                    ))}
+                  </>
+                )}
               </Menu>
             </Box>
             <Typography
