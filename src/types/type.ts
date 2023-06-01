@@ -10,6 +10,18 @@ export type Users = {
   polledOther?: Boolean | null;
 };
 
+// export type Items = {
+//   id: number;
+//   name: string;
+//   description: string;
+//   image: string[];
+//   itemCategory?: number | null;
+//   createdAt?: Date | null;
+//   intheOffice: boolean;
+//   author?: string | null;
+//   otherItem?: boolean | null;
+// };
+
 export type Items = {
   id: number;
   name: string;
@@ -20,6 +32,7 @@ export type Items = {
   intheOffice: boolean;
   author?: string | null;
   otherItem?: boolean | null;
+  isDiscontinued?: boolean;
 };
 
 export type Questionnaire = {

@@ -61,7 +61,8 @@ const TimelineCorner: FC<Props> = memo((props) => {
         return acc.length > cur.length ? acc : cur;
       }, []);
       if(maxLikesLengthArray.length === 0) {
-        setDisplayPostId(postData[0].id)
+        const postLastData = postData[postData.length - 1]
+        setDisplayPostId(postLastData.id)
         return;
       }
 

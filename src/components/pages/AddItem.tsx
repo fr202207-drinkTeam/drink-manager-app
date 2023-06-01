@@ -27,9 +27,9 @@ const AddItem: FC<Props> = memo(({ pollFlag, handleClose,trigger,setTrigger }) =
   const [itemDescription, setItemDescription] = useState<string>("");
   const [itemCategory, setItemCategory] = useState<number>(0);
   const [itemImages, setItemImages] = useState<File[]>([]);
+  const [presenceOrAbsence, setPresenceOrAbsence] = useState<boolean>(false);
   const [adding, setAdding] = useState<boolean>(false);
-  const [isDuplicateData, setIsDuplicateData] = useState<boolean>(false);
-
+  const [isDuplicateData, setIsDuplicateData] = useState<boolean>(false)
 
   // recoilからログインユーザー情報を取得
   const authId: string = Cookies.get("authId")!;
@@ -38,10 +38,20 @@ const AddItem: FC<Props> = memo(({ pollFlag, handleClose,trigger,setTrigger }) =
   // データ追加処理(確定ボタン)
   const onClickAddItemData: () => Promise<void> = async () => {
     setAdding(true)
+    const res = await fetch(`http://localhost:8880/items?name=${itemName}`,
+    {
+      method: "GET",
+    })
+    const data = await res.json();
+    if(data.length > 0){
+      setIsDuplicateData(true)
+      setAdding(false)
+      return;
+    }
     const imagePath = await ImgPathConversion({
       imgFiles: itemImages,
     });
-    fetch("http://localhost:8880/items", {
+    await fetch("http://localhost:8880/items", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,9 +62,10 @@ const AddItem: FC<Props> = memo(({ pollFlag, handleClose,trigger,setTrigger }) =
         image: imagePath,
         itemCategory: itemCategory,
         createdAt: new Date(),
-        inTheOffice: false,
+        intheOffice: presenceOrAbsence,
         author: loginUser.id,
         otherItem: pollFlag?true:false,
+        isDiscontinued: false
       }),
     }).then(() => {
       if(pollFlag){
@@ -99,8 +110,21 @@ const AddItem: FC<Props> = memo(({ pollFlag, handleClose,trigger,setTrigger }) =
               setItemCategory={setItemCategory}
               itemImages={itemImages}
               setItemImages={setItemImages}
-
+              presenceOrAbsence={presenceOrAbsence}
+              setPresenceOrAbsence={setPresenceOrAbsence}
             />
+            {isDuplicateData && 
+            <>
+            <Typography
+              variant="body1"
+              component="div"
+              textAlign="center"
+              sx={{ mb: 1, mt: 3, color: "red" }}
+            >
+            商品名が重複しています
+            </Typography>
+          </>
+          }
             {itemName &&
             itemDescription &&
             itemCategory !== 0 &&
