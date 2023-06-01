@@ -21,8 +21,8 @@ const PollTitle = ({ poll }: PollTitleProps) => {
           opacity: 0.8,
           mb: 5,
           mt: 4,
-          backgroundPosition: "left center",
-          // fontWeight: "bold",
+          backgroundPosition: "left 60px center",
+          mx: 2,
         }}
       >
         <Box
@@ -30,13 +30,10 @@ const PollTitle = ({ poll }: PollTitleProps) => {
             fontSize: "47px",
             textAlign: "center",
             mt: 1,
-            // backgroundColor: "white",
             py: 1,
             fontWeight:"bold",
             color:"#6B3906",
             letterSpacing:5,
-            // background:
-              // "-webkit-repeating-linear-gradient(-45deg, #fff, #d2691e 2px, #fff 2px, #fff 4px)",
           }}
         >
          {poll[0]?.name}
