@@ -45,7 +45,7 @@ const Consumption: FC<Props> = memo((props) => {
 
   //現在の在庫量を取得
   const getStockAmount = async () => {
-    const promises = inTheOfficeItemIdArr.map((test) => {
+    const promises = inTheOfficeItemIdArr?.map((test) => {
       return axios
         .get(
           `http://localhost:8880/stockhistory?&itemId=${test}&_sort=id&_order=desc&_limit=1`
