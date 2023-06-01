@@ -55,7 +55,6 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
   const popularItem = isPopularQuestionnaireData.map((p) => {
     return p.result
   })
-  console.log(popularItem,2)
   //現在表示されているその他投票アンケートに投票しているか
   const isOthersQuestionnaireData = othersData.filter((o) => {
     return o.questionnaireId === OtherPollTitle[0]?.id
@@ -64,9 +63,6 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
   const othersItem = isOthersQuestionnaireData.map((o) => {
     return o.result
   })
-  console.log(othersItem,222)
-  console.log(isOthersQuestionnaireData,333)
-  console.log(isPopularQuestionnaireData,444)
 
 
   //投票ボタン

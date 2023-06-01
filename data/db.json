@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "userId": "1111",
+      "userId": 1111,
       "firstName": "テスト",
       "lastName": "太郎",
       "email": "example1@rakus-partners.co.jp",
@@ -12,7 +12,7 @@
       "id": 1
     },
     {
-      "userId": "1112",
+      "userId": 1112,
       "firstName": "テスト",
       "lastName": "花子",
       "email": "example2@rakus-partners.co.jp",
@@ -23,7 +23,7 @@
       "id": 2
     },
     {
-      "userId": "1113",
+      "userId": 1113,
       "firstName": "テスト",
       "lastName": "次郎",
       "email": "example3@rakus-partners.co.jp",
@@ -32,6 +32,16 @@
       "authId": "oKsqLoFafFX3YVTSqG2DhWKKHPB2",
       "isAdmin": false,
       "id": 3
+    },
+    {
+      "userId": 1111,
+      "firstName": "テスト",
+      "lastName": "テスト",
+      "email": "example5@rakus-partners.co.jp",
+      "password": "Example5",
+      "authId": "3C2KCSTHLeQpcZG6U2DVI9EvzRY2",
+      "isAdmin": false,
+      "id": 4
     }
   ],
   "items": [
@@ -988,7 +998,7 @@
       "description": "一番気になる、好きなドリンクに投票しよう！",
       "category": 1,
       "startDate": "2023-05-01",
-      "endDate": "2023-05-30",
+      "endDate": "2023-05-31",
       "author": 1
     },
     {
@@ -997,7 +1007,7 @@
       "category": 2,
       "createdAt": "2023-05-08T08:04:41.780Z",
       "startDate": "2023-05-01",
-      "endDate": "2023-05-30",
+      "endDate": "2023-05-31",
       "polledItems": [
         {
           "itemId": 21
@@ -1131,8 +1141,8 @@
       "description": "テスト！",
       "category": 1,
       "createdAt": "2023-05-10T08:16:34.851Z",
-      "startDate": "2023-06-01",
-      "endDate": "2023-06-30",
+      "startDate": "2023-09-01",
+      "endDate": "2023-09-30",
       "polledItems": [
         {
           "itemId": 21
@@ -3069,8 +3079,8 @@
     },
     {
       "userId": 2,
-      "content": "ああああああああああああああああああああ\n<a href=\"/home/search/9\" style=\"color:blue;\">#イングリッシュブレックファスト</a>/nameS/テスト 花子/nameE/",
-      "itemId": "9",
+      "content": "みなさん今月の投票は何にしましたか？私はじゃがりこにしました！！！aaaaaa\n<a href=\"/home/search/23\" style=\"color:blue;\">#じゃがりこ</a>/nameS/テスト 花子/nameE/",
+      "itemId": "23",
       "postImage": [
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
       ],
@@ -3278,227 +3288,91 @@
     },
     {
       "id": 2,
-      "itemId": 2,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-03T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 20
+      "stockAmount": 10
     },
     {
       "id": 3,
-      "itemId": 3,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-04T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 30
+      "stockAmount": 10
     },
     {
       "id": 4,
-      "itemId": 4,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-05T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 40
+      "stockAmount": 10
     },
     {
       "id": 5,
-      "itemId": 5,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-06T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 50
+      "stockAmount": 10
     },
     {
       "id": 6,
-      "itemId": 6,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-07T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 60
+      "stockAmount": 10
     },
     {
       "id": 7,
-      "itemId": 7,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-08T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 70
+      "stockAmount": 10
     },
     {
       "id": 8,
-      "itemId": 8,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-09T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 80
+      "stockAmount": 10
     },
     {
       "id": 9,
-      "itemId": 14,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-10T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 140
+      "stockAmount": 10
     },
     {
       "id": 10,
-      "itemId": 15,
+      "itemId": 1,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-11T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 150
+      "stockAmount": 10
     },
     {
       "id": 11,
-      "itemId": 1,
+      "itemId": 2,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-12T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 110
+      "stockAmount": 10
     },
     {
       "id": 12,
-      "itemId": 2,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 120
-    },
-    {
-      "id": 13,
       "itemId": 3,
       "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
+      "day": "2023-05-13T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 130
-    },
-    {
-      "id": 14,
-      "itemId": 4,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 140
-    },
-    {
-      "id": 15,
-      "itemId": 5,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 150
-    },
-    {
-      "id": 16,
-      "itemId": 6,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 160
-    },
-    {
-      "id": 17,
-      "itemId": 7,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 170
-    },
-    {
-      "id": 18,
-      "itemId": 8,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 180
-    },
-    {
-      "id": 19,
-      "itemId": 14,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 190
-    },
-    {
-      "id": 20,
-      "itemId": 15,
-      "quantity": 1,
-      "day": "2023-05-2T02:50:27.944Z",
-      "incOrDec": true,
-      "stockAmount": 200
-    },
-    {
-      "itemId": 1,
-      "quantity": 1,
-      "day": "2023-05-31T02:56:23.394Z",
-      "incOrDec": true,
-      "stockAmount": 109,
-      "id": 21
-    },
-    {
-      "itemId": 3,
-      "quantity": 1,
-      "day": "2023-05-31T02:56:23.394Z",
-      "incOrDec": true,
-      "stockAmount": 129,
-      "id": 22
-    },
-    {
-      "itemId": 4,
-      "quantity": 1,
-      "day": "2023-05-31T02:56:23.394Z",
-      "incOrDec": true,
-      "stockAmount": 139,
-      "id": 23
-    },
-    {
-      "itemId": 5,
-      "quantity": 1,
-      "day": "2023-05-31T02:56:23.394Z",
-      "incOrDec": true,
-      "stockAmount": 149,
-      "id": 24
-    },
-    {
-      "itemId": 6,
-      "quantity": 0,
-      "day": "2023-05-31T02:56:23.394Z",
-      "incOrDec": true,
-      "stockAmount": 160,
-      "id": 25
-    },
-    {
-      "itemId": 7,
-      "quantity": 1,
-      "day": "2023-05-31T02:56:23.394Z",
-      "incOrDec": true,
-      "stockAmount": 169,
-      "id": 26
-    },
-    {
-      "itemId": 8,
-      "quantity": 0,
-      "day": "2023-05-31T02:56:23.394Z",
-      "incOrDec": true,
-      "stockAmount": 180,
-      "id": 27
-    },
-    {
-      "itemId": 14,
-      "quantity": 0,
-      "day": "2023-05-31T02:56:23.394Z",
-      "incOrDec": true,
-      "stockAmount": 190,
-      "id": 28
-    },
-    {
-      "itemId": 2,
-      "quantity": 0,
-      "day": "2023-05-31T02:56:23.394Z",
-      "incOrDec": true,
-      "stockAmount": 120,
-      "id": 29
+      "stockAmount": 10
     }
   ],
   "addition": []
