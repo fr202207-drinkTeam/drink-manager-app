@@ -80,6 +80,7 @@ const Header = () => {
     signOut(auth);
     if (loginUser?.isAdmin === false) {
       document.cookie = `authId=; max-age=0`;
+      document.cookie = `isAdmin=; max-age=0`;
       navigate("/login");
       window.location.reload();
     }
