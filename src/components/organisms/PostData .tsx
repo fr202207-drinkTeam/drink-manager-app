@@ -139,8 +139,8 @@ const PostData: FC<Props> = memo((props) => {
       <Box sx={{ borderBottom: "1px solid", mx: "5px", pb: "5px" }}>
         <Box sx={{ display: "flex" }}>
           <Box sx={{ flexGrow: 1 }}>
-            <Box sx={{ display: "flex"}}>
-              <Box sx={{mt: "2px"}}>
+            <Box sx={{ display: "flex" }}>
+              <Box sx={{ mt: "2px" }}>
                 {/* ユーザーが管理者かどうかでそれぞれの投稿にタグ付け */}
                 {userData && userData.isAdmin && (
                   <Typography
@@ -189,6 +189,7 @@ const PostData: FC<Props> = memo((props) => {
           {userData && loginUser.id === userData.id && !menu && isComment && (
             <Grid>
               <IconButton
+                aria-label="menuIcon"
                 component="label"
                 sx={{
                   color: "white",

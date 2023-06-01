@@ -9,6 +9,7 @@ const previewImages = (
   if (!event.target.files![0]) {
     return;
   }
+
   // 入力した画像に重複がないか判別
   const preventSameImage = imageFiles.some(
     (image: File) => image.name === event.target.files![0].name

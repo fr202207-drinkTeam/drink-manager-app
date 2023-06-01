@@ -10,7 +10,7 @@ import { useLoginUserFetch } from "../../../hooks/useLoginUserFetch";
 //cookie
 import Cookies from "js-cookie";
 //types
-import { Items, Polls } from "../../../types/type";
+import { Items, Polls, Questionnaire } from "../../../types/type";
 //icon
 import SearchIcon from "@mui/icons-material/Search";
 import SwitchAccessShortcutAddIcon from "@mui/icons-material/SwitchAccessShortcutAdd";
@@ -18,6 +18,7 @@ import ModalWindow from "../ModalWindow";
 //hooks
 import useGetPollCategoryData from "../../../hooks/useGetPollCategoryData";
 import { useEffect, useState } from "react";
+import useGetPollLatestTitle from "../../../hooks/useGetPollLatestTitle";
 
 type PollCardProps = {
   data: Items[];
@@ -34,6 +35,8 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
   //カテゴリ別票のデータ
   const PopularPollData: Polls[] = useGetPollCategoryData(1);
   const OthersPollData: Polls[] = useGetPollCategoryData(2);
+  const PopularPollTitle: Questionnaire[] = useGetPollLatestTitle(1);
+  const OtherPollTitle: Questionnaire[] = useGetPollLatestTitle(2);
 
   //票のuserIdがログインユーザと一致しているかしていないか（ログインユーザが投票しているデータはあるか）
   const popularData = PopularPollData?.filter((pop) => {
@@ -46,7 +49,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
 
   //現在表示されている人気投票アンケートに投票しているか
   const isPopularQuestionnaireData = popularData.filter((p) => {
-    return p.questionnaireId === pollNum
+    return  p.questionnaireId === PopularPollTitle[0]?.id
   })
   //ユーザが今表示されている人気投票に投票した商品
   const popularItem = isPopularQuestionnaireData.map((p) => {
@@ -54,12 +57,13 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
   })
   //現在表示されているその他投票アンケートに投票しているか
   const isOthersQuestionnaireData = othersData.filter((o) => {
-    return o.questionnaireId === pollNum
+    return o.questionnaireId === OtherPollTitle[0]?.id
   })
   //ユーザが今表示されているその他投票に投票した商品
   const othersItem = isOthersQuestionnaireData.map((o) => {
     return o.result
   })
+
 
   //投票ボタン
   const submitPoll = async (drinkId: number) => {
@@ -378,12 +382,12 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                   <SearchIcon />
                   気になる
                 </ActiveBeigeButton>
-                {(popularData.length >= 1 &&
+                {(isPopularQuestionnaireData.length >= 1 &&
                   pollCategory === 1 &&
                   PopularPollData.some(
                     (data) => data.questionnaireId === pollNum
                   )) ||
-                  (othersData.length >= 1 &&
+                  (isOthersQuestionnaireData.length >= 1 &&
                     pollCategory === 2 &&
                     OthersPollData.some(
                       (data) => data.questionnaireId === pollNum

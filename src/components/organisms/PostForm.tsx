@@ -153,6 +153,7 @@ const PostForm: FC<Props> = memo((props) => {
       )}
       <Paper
         component="form"
+        id="postForm"
         elevation={3}
         sx={{ mt: 2, mb: 5 }}
         ref={postForm}
@@ -179,6 +180,7 @@ const PostForm: FC<Props> = memo((props) => {
           />
         </Box>
         <Select
+          name="selectItemCategory"
           value={selectedItemId}
           variant="standard"
           fullWidth
@@ -249,8 +251,15 @@ const PostForm: FC<Props> = memo((props) => {
             <TextField
               id="addImage"
               type="file"
+              inputProps={{ accept: "image/*" }}
               sx={{ p: "0", display: "none" }}
               size="small"
+              onClick={(event: React.MouseEvent<HTMLInputElement>) => {
+                if (!(event.target instanceof HTMLInputElement)) {
+                  return;
+                }
+                event.target.value = "";
+              }}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 previewImages(event, inputImages, setInputImages);
               }}
