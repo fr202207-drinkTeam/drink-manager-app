@@ -55,15 +55,16 @@ const AddPoll = memo(() => {
   const popularQuestionnaireData: Questionnaire[] = useGetPollCategoryPeriod(1);
   const othersQuestionnaireData: Questionnaire[] = useGetPollCategoryPeriod(2);
   const items: Items[] = useGetAllItems(trigger);
-  console.log(popularQuestionnaireData, 4444)
-  const questionnaireData: Questionnaire[] = useGetQuestionnaire();
-  console.log(questionnaireData, 5555)
-
   //login
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
   const isFirstRender = useRef(true);
   const navigate = useNavigate();
+
+    //廃盤になっていない商品のみ表示
+    const isExistItems=items.filter((item)=>{
+      return item.isDiscontinued===false
+    })
 
   const isPopularOverlapping = popularQuestionnaireData.some(question => {
     const popularQuestionStartDate = new Date(question.startDate);
@@ -81,7 +82,6 @@ const AddPoll = memo(() => {
     // 期間がその他投票が重複している場合はtrueを返す
     return othersInputStartDate <= othersQuestionEndDate && othersInputEndDate >= othersQuestionStartDate;
   });
-  console.log(pollCategory === "1")
 
   //バリデーション
   //投票名
@@ -256,7 +256,7 @@ const AddPoll = memo(() => {
             </Box>
           )}
           <AddPollCard
-            data={items}
+            data={isExistItems}
             selectedItems={selectedItems}
             setSelectedItems={setSelectedItems}
           />

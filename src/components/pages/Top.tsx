@@ -164,7 +164,7 @@ const Top: FC<Props> = memo((props) => {
             </Box>
           </Paper>
         ) : (
-          <Box sx={{ textAlign: "center", my: 6 }}>
+          <Box sx={{ textAlign: "center", mt: 6 }}>
             まだ投稿がありません。ぜひ投稿してみてね！
           </Box>
         )}

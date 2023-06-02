@@ -29,7 +29,7 @@ const ItemSearch: FC<Props> = memo((props) => {
   const [selectedValue, setSelectedValue] = useState("name");
   const [categoryName, setCategoryName] = useState<string>();
   const page = searchParams.get("page");
-  const baseUrl = "http://localhost:8880/items?&otherItem=false";
+  const baseUrl = "http://localhost:8880/items?&otherItem=false&isDiscontinued=false";
   const handlePullDown = async (event: SelectChangeEvent<string>) => {
     const value = event.target.value;
     setSelectedValue(value);
@@ -221,7 +221,7 @@ const ItemSearch: FC<Props> = memo((props) => {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
-          width:"1030px"
+       
         }}
       >
         <Box >
@@ -240,12 +240,13 @@ const ItemSearch: FC<Props> = memo((props) => {
           <Typography sx={{ mx: "16px" }}>
             検索結果：{allItem?.length}件
           </Typography>
-        </Box>
+        </Box>   
         <Box sx={{ display: "flex", alignItems: "center", }}>
+      
           <Select
             size="small"
             value={selectedValue}
-            sx={{ border: "none", backgroundColor: "white", mr: "16px" }}
+            sx={{ border: "none", backgroundColor: "white", mx: "16px" }}
             onChange={handlePullDown}
           >
             <MenuItem value="選択する" disabled>
@@ -272,9 +273,9 @@ const ItemSearch: FC<Props> = memo((props) => {
           )}
         </>
       ) : (
-        "該当する商品がありません"
+""
       )}
-      <div style={{ display: "flex", justifyContent: "flex-end",width:"1030px" }} >
+      <Box sx={{ display: "flex", justifyContent: "flex-end",mr:"16px" ,my:6}} >
         {loginUser?.isAdmin ? (
           <Link to="/adminhome/additem">
             <ActiveDarkBlueButton event={function (): void {}}>
@@ -285,7 +286,7 @@ const ItemSearch: FC<Props> = memo((props) => {
         ) : (
           ""
         )}
-      </div>
+      </Box>
     </>
   );
 });
