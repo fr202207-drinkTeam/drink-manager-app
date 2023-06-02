@@ -1,6 +1,5 @@
 import { TextField } from "@mui/material";
 import { Dispatch, FC, SetStateAction, useState } from "react";
-import { createIf } from "typescript";
 
 type Props = {
   index: number;
@@ -27,13 +26,13 @@ export const StockInput: FC<Props> = (props) => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     let value = event.target.value;
-    const regex = /0{2,}/g, // 0が2つ以上連続する形を表す正規表現
-      regex2 = /[1-9][0-9]*$/; //先頭に0が2つ以上連続しないようにする表現
+    const regex = /0{1,}/g,
+      regex2 = /^[1-9][0-9]*$/;
     const isValidValue = (value: string) => {
       return regex.test(value) && !regex2.test(value);
     };
     if (isValidValue(value)) {
-      value = value.replace(regex, ""); // 0が2つ以上連続する形が含まれている場合は空文字列に変換する
+      value = value.replace(regex, ""); // 先頭0のvalueの場合空文字に変換する
     }
     setInputStatusArr(() => {
       const newState = [...inputStatusArr];
@@ -51,7 +50,6 @@ export const StockInput: FC<Props> = (props) => {
       return newState;
     });
   };
-  // console.log(inputStatusArr);
 
   const handleInputBlur = (index: number) => (
     event: React.FocusEvent<HTMLInputElement>
@@ -74,7 +72,6 @@ export const StockInput: FC<Props> = (props) => {
     <>
       <TextField
         key={index}
-        // sx={{ width: '250px', margin: '10px' }}
         sx={{ width: "250px", margin: "10px 0px 10px 30px" }}
         id="outlined-basic"
         label={inputLabel}
