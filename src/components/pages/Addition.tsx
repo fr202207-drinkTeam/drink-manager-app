@@ -114,17 +114,22 @@ const Consumption: FC<Props> = memo((props) => {
       await Promise.all(
         itemData.map(async (item, index) => {
           console.log("index", index);
+          let newStockAmount;
+          if (inTheOfficeItemArr[index]) {
+            newStockAmount =
+              inTheOfficeItemArr[index].stockAmount + inputValueArr[index];
+          } else {
+            newStockAmount = inputValueArr[index];
+          }
           await axios.post("http://localhost:8880/stockhistory", {
             itemId: item.id,
             quantity: inputValueArr[index],
             day: dateString,
             incOrDec: true,
-            stockAmount:
-              inTheOfficeItemArr[index].stockAmount + inputValueArr[index],
+            stockAmount: newStockAmount,
           });
         })
       );
-
       // 処理が全て完了した後に/adminhomeへ遷移
       navigate("/adminhome");
       // await restartJsonServer();
