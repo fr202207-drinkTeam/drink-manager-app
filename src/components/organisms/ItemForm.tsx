@@ -117,7 +117,6 @@ const ItemForm: FC<Props> = memo((props) => {
           id="itemCategoryField"
           value={props.itemCategory}
           label="商品カテゴリー"
-          placeholder="商品カテゴリーを選択して下さい"
           onChange={(e) => {
             props.setItemCategory(Number(e.target.value));
           }}

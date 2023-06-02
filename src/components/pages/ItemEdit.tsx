@@ -219,7 +219,6 @@ const ItemEdit: FC = memo(() => {
                 id="itemCategoryField"
                 value={itemCategory}
                 label="商品カテゴリー"
-                placeholder="商品カテゴリーを選択して下さい"
                 onChange={(e) => {
                   setItemCategory(Number(e.target.value));
                 }}

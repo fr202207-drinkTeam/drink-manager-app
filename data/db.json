@@ -702,6 +702,34 @@
       "otherItem": false,
       "id": 65,
       "isDiscontinued": false
+    },
+    {
+      "name": "テストで追加した商品",
+      "description": "あ",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/6ce585ee-edae-4a8e-988b-f0f1dfbab675?alt=media&token=39b527af-4daf-4f94-b762-897ee3481b13"
+      ],
+      "itemCategory": 6,
+      "createdAt": "2023-05-31T07:10:03.261Z",
+      "intheOffice": true,
+      "author": 1,
+      "otherItem": false,
+      "id": 66,
+      "isDiscontinued": false
+    },
+    {
+      "name": "テストで追加した商品",
+      "description": "あ",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/6ce585ee-edae-4a8e-988b-f0f1dfbab675?alt=media&token=39b527af-4daf-4f94-b762-897ee3481b13"
+      ],
+      "itemCategory": 6,
+      "createdAt": "2023-05-31T07:10:03.261Z",
+      "intheOffice": true,
+      "author": 1,
+      "otherItem": false,
+      "id": 66,
+      "isDiscontinued": true
     }
   ],
   "itemCategory": [
@@ -3152,17 +3180,37 @@
       "id": 17
     }
   ],
-  "contact": [],
-  "contactCategory": [
+  "contact": [
     {
-      "id": 1,
-      "contactKinds": ""
+      "category": "system",
+      "content": "システムについてのお問い合わせ",
+      "id": 1
+    },
+    {
+      "category": "service",
+      "content": "サービスについて",
+      "id": 2
+    },
+    {
+      "category": "server",
+      "content": "コーヒーサーバー",
+      "id": 3
+    },
+    {
+      "category": "other",
+      "content": "その他",
+      "id": 4
+    },
+    {
+      "category": "system",
+      "content": "最終テスト",
+      "id": 5
     }
   ],
   "posts": [
     {
       "userId": 1,
-      "content": "いいおああああああああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 太郎/nameE/",
+      "content": "id1あああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 太郎/nameE/",
       "itemId": "9",
       "postImage": [
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
@@ -3173,7 +3221,7 @@
     },
     {
       "userId": 2,
-      "content": "編あ集ああああああああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 花子/nameE/",
+      "content": "id2ああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 花子/nameE/",
       "itemId": "9",
       "postImage": [
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
@@ -3184,7 +3232,7 @@
     },
     {
       "userId": 2,
-      "content": "ああああああああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 花子/nameE/",
+      "content": "id3あああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 花子/nameE/",
       "itemId": "9",
       "postImage": [
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
@@ -3195,7 +3243,7 @@
     },
     {
       "userId": 1,
-      "content": "ああああああああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 太郎/nameE/",
+      "content": "id4ああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 太郎/nameE/",
       "itemId": "9",
       "postImage": [
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
@@ -3206,7 +3254,7 @@
     },
     {
       "userId": 1,
-      "content": "ああああああああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 太郎/nameE/",
+      "content": "id5ああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 太郎/nameE/",
       "itemId": "9",
       "postImage": [
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
@@ -3217,7 +3265,7 @@
     },
     {
       "userId": 2,
-      "content": "ああああああああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 花子/nameE/",
+      "content": "id6あああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 花子/nameE/",
       "itemId": "9",
       "postImage": [
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
@@ -3228,12 +3276,12 @@
     },
     {
       "userId": 2,
-      "content": "ああああああああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 花子/nameE/",
+      "content": "id7ああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 花子/nameE/",
       "itemId": "9",
       "postImage": [
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
       ],
-      "createdAt": "2023-05-25T08:28:48.616Z",
+      "createdAt": "2023-05-26T08:28:48.616Z",
       "updatedAt": "2023-05-25T08:28:48.616Z",
       "id": 7
     }
