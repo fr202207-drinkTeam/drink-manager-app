@@ -1,23 +1,23 @@
-import { Box, CircularProgress, Paper, Alert, AlertTitle } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Box, CircularProgress, Paper, Alert, AlertTitle } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-import { FC, memo, useEffect, useState } from 'react';
+import { FC, memo, useEffect, useState } from "react";
 
 // import { useGetOfficeItems1 } from '../../hooks/useGetOfficeItems1';
-import AdmTitleText from '../atoms/text/AdmTitleText';
-import axios from 'axios';
-import { StockHistory } from '../../types/type';
-import useGetItems from '../../hooks/useGetItems';
-import ModalWindow from '../organisms/ModalWindow';
-import StockCard from '../organisms/card/StockCard';
-import useGetOfficeItems from '../../hooks/useGetOfficeItems';
+import AdmTitleText from "../atoms/text/AdmTitleText";
+import axios from "axios";
+import { StockHistory } from "../../types/type";
+import useGetItems from "../../hooks/useGetItems";
+import ModalWindow from "../organisms/ModalWindow";
+import StockCard from "../organisms/card/StockCard";
+import useGetOfficeItems from "../../hooks/useGetOfficeItems";
 
 type Props = {};
 
 const Consumption: FC<Props> = memo((props) => {
   const navigate = useNavigate();
   // const { itemData, loading, error } = useGetOfficeItems1();
-  const { itemData, itemLoading, itemError } = useGetItems('?intheOffice=true');
+  const { itemData, itemLoading, itemError } = useGetItems("?intheOffice=true");
   const [inputValueArr, setInputValueArr] = useState<number[]>([]);
   const [inputValueArrError, setInputValueArrError] = useState("");
 
@@ -65,13 +65,13 @@ const Consumption: FC<Props> = memo((props) => {
     setInTheOfficeItemArr(newArr);
   };
 
-  const testArr = [{ test: 'テスト' }, { test1: 'テスト1' }];
+  const testArr = [{ test: "テスト" }, { test1: "テスト1" }];
   const submitTestArr = async () => {
     try {
       for (const item of testArr) {
-        await axios.post('http://localhost:8880/stockhistory', item);
+        await axios.post("http://localhost:8880/stockhistory", item);
       }
-      console.log('Data submitted successfully');
+      console.log("Data submitted successfully");
     } catch (error) {
       console.error(error);
     }
@@ -102,9 +102,6 @@ const Consumption: FC<Props> = memo((props) => {
   //   // 処理が全て完了した後に/adminhomeへ遷移
   //   navigate('/adminhome');
   // };
-
-  console.log(inputValueArr,111)
-
 
   const validateAddition = () => {
     const invalidValues = inputValueArr.filter(value => value >= 999);
@@ -159,27 +156,27 @@ const Consumption: FC<Props> = memo((props) => {
     <Paper
       sx={{
         mb: 5,
-        width: '100%',
+        width: "100%",
         minWidth: 500,
         maxWidth: 1200,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingBottom: '30px',
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        paddingBottom: "30px",
       }}
     >
       <Box id="top" />
-      <Box sx={{ width: '60%', p: '30px' }}>
+      <Box sx={{ width: "60%", p: "30px" }}>
         <AdmTitleText>補充在庫入力</AdmTitleText>
       </Box>
       {itemError ? (
-        <Alert severity="error" sx={{ marginTop: '30px', fontSize: '20px' }}>
+        <Alert severity="error" sx={{ marginTop: "30px", fontSize: "20px" }}>
           <AlertTitle>Error</AlertTitle>
           データが見つかりませんでした。
         </Alert>
       ) : itemLoading ? (
-        <CircularProgress sx={{ marginTop: '30px', marginBottom: '40px' }} />
+        <CircularProgress sx={{ marginTop: "30px", marginBottom: "40px" }} />
       ) : (
         <StockCard
           itemData={itemData}
@@ -188,21 +185,22 @@ const Consumption: FC<Props> = memo((props) => {
           setInputValueArr={setInputValueArr}
         />
       )}
-      <div style={{ display: 'inline-flex' }}></div>
+      <div style={{ display: "inline-flex" }}></div>
       <ModalWindow
         title="送信します、よろしいですか？"
-        content={''}
+        content={""}
         openButtonColor="blue"
         buttonName="送信"
-        completeButtonColor={'blue'}
+        completeButtonColor={"blue"}
         completeButtonName={`はい`}
         completeAction={onClickSubmit}
-        cancelButtonColor={'red'}
+        cancelButtonColor={"red"}
         openButtonSxStyle={{
-          px: 10,
-          py: 4,
-          borderRadius: '32px',
-          marginTop: '32px',
+          my: "50px",
+          py: "18px",
+          px: "60px",
+          fontSize: "20px",
+          borderRadius: 10,
         }}
       />
       {inputValueArrError && (

@@ -1,5 +1,8 @@
+
 import { Box, TextField } from '@mui/material';
 import { Dispatch, FC, SetStateAction, useState } from 'react';
+import { useLocation } from "react-router-dom";
+
 
 type Props = {
   index: number;
@@ -17,33 +20,41 @@ export const StockInput: FC<Props> = (props) => {
     inputValueArr,
     setInputValueArr,
   } = props;
+  const location = useLocation();
+  const [inputLabel, setInputLabel] = useState<string>("");
 
-  const [inputLabel, setInputLabel] =
-    useState<string>('消費在庫数を入力してください ');
+  useEffect(() => {
+    if (location.pathname === "/adminhome/addition") {
+      setInputLabel("補充数を入力してください");
+    } else if (location.pathname === "/adminhome/consumption") {
+      setInputLabel("消費数を入力してください");
+    }
+  }, []);
 
-  const handleInputChange =
-    (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      let value = event.target.value;
-      const regex = /0{2,}/g; // 0が2つ以上連続する形を表す正規表現
-      if (regex.test(value)) {
-        value = value.replace(regex, ''); // 0が2つ以上連続する形が含まれている場合は空文字列に変換する
+  const handleInputChange = (index: number) => (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    let value = event.target.value;
+    const regex = /0{2,}/g; // 0が2つ以上連続する形を表す正規表現
+    if (regex.test(value)) {
+      value = value.replace(regex, ""); // 0が2つ以上連続する形が含まれている場合は空文字列に変換する
+    }
+    setInputStatusArr(() => {
+      const newState = [...inputStatusArr];
+      if (Number(value) > 999) {
+        newState[index] = true;
+      } else {
+        newState[index] = false;
       }
-      setInputStatusArr(() => {
-        const newState = [...inputStatusArr];
-        if (Number(value) > 999) {
-          newState[index] = true;
-        } else {
-          newState[index] = false;
-        }
-        return newState;
-      });
-      event.target.value = value;
-      setInputValueArr(() => {
-        const newState = [...inputValueArr]
-        newState[index] = Number(value)
-        return newState
-      })
-    };
+      return newState;
+    });
+    event.target.value = value;
+    setInputValueArr(() => {
+      const newState = [...inputValueArr];
+      newState[index] = Number(value);
+      return newState;
+    });
+  };
   // console.log(inputStatusArr);
 
   return (
@@ -51,7 +62,7 @@ export const StockInput: FC<Props> = (props) => {
       <TextField
         key={index}
         // sx={{ width: '250px', margin: '10px' }}
-        sx={{ width: '250px', margin: "10px 0px 10px 30px" }}
+        sx={{ width: "250px", margin: "10px 0px 10px 30px" }}
         id="outlined-basic"
         label={inputLabel}
         variant="outlined"
@@ -62,7 +73,7 @@ export const StockInput: FC<Props> = (props) => {
         }}
         inputProps={{ min: 0, max: 999,className: 'no-spin'}}
         onChange={handleInputChange(index)}
-        helperText={inputStatusArr[index]! && '999以下の数値を入力してください'}
+        helperText={inputStatusArr[index]! && "999以下の数値を入力してください"}
         InputProps={{
           inputProps: {
             min: 0,
@@ -72,7 +83,7 @@ export const StockInput: FC<Props> = (props) => {
             className: 'no-spin',
           },
           onKeyPress: (e) => {
-            if (e.key === '-' || e.key === '+') {
+            if (e.key === "-" || e.key === "+") {
               e.preventDefault();
             }
           },
