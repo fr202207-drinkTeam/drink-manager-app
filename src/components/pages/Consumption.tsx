@@ -16,6 +16,7 @@ const Consumption: FC<Props> = memo((props) => {
   // const { itemData, loading, error } = useGetOfficeItems1();
   const { itemData, itemLoading, itemError } = useGetItems("?intheOffice=true");
   const [inputValueArr, setInputValueArr] = useState<number[]>([]);
+  const [inputValueArrError, setInputValueArrError] = useState("");
   useEffect(() => {
     const firstInputValueArr: number[] = [...Array(itemData.length)].map(
       () => 0
@@ -50,7 +51,7 @@ const Consumption: FC<Props> = memo((props) => {
           `http://localhost:8880/stockhistory?&itemId=${test}&_sort=id&_order=desc&_limit=1`
         )
         .then((res) => {
-          return res.data[0];
+          return res?.data[0];
         })
         .catch((error) => {
           console.log(error);
@@ -60,71 +61,50 @@ const Consumption: FC<Props> = memo((props) => {
     const newArr = await Promise.all(promises);
     setInTheOfficeItemArr(newArr);
   };
-  console.log(inTheOfficeItemArr, "これが");
-  console.log(inTheOfficeItemIdArr, "id");
-  const testArr = [{ test: "テスト" }, { test1: "テスト1" }];
-  const submitTestArr = async () => {
-    try {
-      for (const item of testArr) {
-        await axios.post("http://localhost:8880/stockhistory", item);
-      }
-      console.log("Data submitted successfully");
-    } catch (error) {
-      console.error(error);
+
+  const validateConsuption = () => {
+    const invalidValues = inputValueArr.filter((value, index) =>  value > inTheOfficeItemArr[index]?.stockAmount);
+    const invalidAllValues = inputValueArr.filter((value, index) => value === 0 );
+    if (invalidValues.length > 0) {
+      setInputValueArrError("*入力内容の確認をしてください");
+      return false;
     }
+    if (invalidAllValues.length === inputValueArr.length) {
+      setInputValueArrError("*入力をしてください");
+      return false;
+    }
+    setInputValueArrError("");
+    return true;
   };
-
-  //送信ボタン押下後の処理
-  // const onClickSubmit = async () => {
-  //   const now = new Date();
-  //   const dateString = now.toISOString();
-  //   console.log('送信しました。');
-  //   let i = 0;
-  //   try {
-  //     for (const item of itemData) {
-  //       await axios.post('http://localhost:8880/stockhistory', {
-  //         itemId: item.id,
-  //         quantity: inputValueArr[i],
-  //         day: dateString,
-  //         incOrDec: true,
-  //         stockAmount: inTheOfficeItemArr[i].stockAmount + inputValueArr[i],
-  //       });
-  //       i++;
-  //     }
-  //     console.log('Data submitted successfully');
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-
-  //   // 処理が全て完了した後に/adminhomeへ遷移
-  //   navigate('/adminhome');
-  // };
+    
 
   const onClickSubmit = async () => {
-    const now = new Date();
-    const dateString = now.toISOString();
-    console.log("送信しました。");
-    console.log(itemData, "data");
+    const isAdditionValid = validateConsuption();
+    if (isAdditionValid) {
+      const now = new Date();
+      const dateString = now.toISOString();
+      try {
+        await Promise.all(
+          itemData.map(async (item, index) => {
+            await axios.post('http://localhost:8880/stockhistory', {
+              itemId: item.id,
+              quantity: inputValueArr[index],
+              day: dateString,
+              incOrDec: true,
+              stockAmount:
+                inTheOfficeItemArr[index].stockAmount - inputValueArr[index],
+            });
+          })
+        );
 
-    try {
-      await Promise.all(
-        itemData.map(async (item, index) => {
-          await axios.post("http://localhost:8880/stockhistory", {
-            itemId: item.id,
-            quantity: inputValueArr[index],
-            day: dateString,
-            incOrDec: true,
-            stockAmount:
-              inTheOfficeItemArr[index].stockAmount - inputValueArr[index],
-          });
-        })
-      );
-
-      // 処理が全て完了した後に/adminhomeへ遷移
-      navigate("/adminhome");
-      // await restartJsonServer();
-    } catch (error) {
-      console.log(error);
+        // 処理が全て完了した後に/adminhomeへ遷移
+        navigate('/adminhome');
+        // await restartJsonServer();
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      setInputValueArrError("*入力内容の確認をしてください");
     }
   };
 
@@ -179,8 +159,40 @@ const Consumption: FC<Props> = memo((props) => {
           borderRadius: 10,
         }}
       />
+      {inputValueArrError && (
+        <Box sx={{ color: "red", fontSize: 15, marginBottom: 1, mt: 1 }}>
+          {inputValueArrError}
+        </Box>
+      )}
     </Paper>
   );
 });
 
 export default Consumption;
+
+
+  //送信ボタン押下後の処理
+  // const onClickSubmit = async () => {
+  //   const now = new Date();
+  //   const dateString = now.toISOString();
+  //   console.log('送信しました。');
+  //   let i = 0;
+  //   try {
+  //     for (const item of itemData) {
+  //       await axios.post('http://localhost:8880/stockhistory', {
+  //         itemId: item.id,
+  //         quantity: inputValueArr[i],
+  //         day: dateString,
+  //         incOrDec: true,
+  //         stockAmount: inTheOfficeItemArr[i].stockAmount + inputValueArr[i],
+  //       });
+  //       i++;
+  //     }
+  //     console.log('Data submitted successfully');
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+
+  //   // 処理が全て完了した後に/adminhomeへ遷移
+  //   navigate('/adminhome');
+  // };

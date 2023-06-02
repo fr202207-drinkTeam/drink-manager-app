@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -33,9 +33,13 @@ export const StockInput: FC<Props> = (props) => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     let value = event.target.value;
-    const regex = /0{2,}/g; // 0が2つ以上連続する形を表す正規表現
-    if (regex.test(value)) {
-      value = value.replace(regex, ""); // 0が2つ以上連続する形が含まれている場合は空文字列に変換する
+    const regex = /0{1,}/g,
+      regex2 = /^[1-9][0-9]*$/;
+    const isValidValue = (value: string) => {
+      return regex.test(value) && !regex2.test(value);
+    };
+    if (isValidValue(value)) {
+      value = value.replace(regex, ""); // 先頭0のvalueの場合空文字に変換する
     }
     setInputStatusArr(() => {
       const newState = [...inputStatusArr];
@@ -53,15 +57,30 @@ export const StockInput: FC<Props> = (props) => {
       return newState;
     });
   };
-  // console.log(inputStatusArr);
+
+  const handleInputBlur = (index: number) => (
+    event: React.FocusEvent<HTMLInputElement>
+  ) => {
+    let value = event.target.value;
+    const stringRegex = /^[0-9]+$/; //半角数字を表す正規表現
+
+    if (!stringRegex.test(value)) {
+      event.target.value = ""; // 入力値が半角数字ではない場合、値を空にする
+      setInputValueArr((prevInputValueArr) => {
+        //入力フィールドの値更新
+        const newState = [...prevInputValueArr];
+        newState[index] = 0;
+        return newState;
+      });
+    }
+  };
 
   return (
     <>
       <TextField
         key={index}
-        // sx={{ width: '250px', margin: '10px' }}
         sx={{ width: "250px", margin: "10px 0px 10px 30px" }}
-        id="outlined-basic"
+        id={`${index}`}
         label={inputLabel}
         variant="outlined"
         type="number"
@@ -69,8 +88,9 @@ export const StockInput: FC<Props> = (props) => {
         InputLabelProps={{
           shrink: true,
         }}
-        inputProps={{ min: 0, max: 999 }}
+        inputProps={{ min: 0, max: 999, className: "no-spin" }}
         onChange={handleInputChange(index)}
+        onBlur={handleInputBlur(index)}
         helperText={inputStatusArr[index]! && "999以下の数値を入力してください"}
         InputProps={{
           inputProps: {
@@ -78,6 +98,8 @@ export const StockInput: FC<Props> = (props) => {
             max: 999,
             inputMode: "numeric",
             pattern: "[0-9]*",
+            className: "no-spin",
+            onWheel: (e) => e.currentTarget.blur(),
           },
           onKeyPress: (e) => {
             if (e.key === "-" || e.key === "+") {
