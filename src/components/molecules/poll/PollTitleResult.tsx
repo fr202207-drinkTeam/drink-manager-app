@@ -18,7 +18,7 @@ const PollTitleResult = ({ poll }: PollTitleProps) => {
             backgroundImage: "url(/iwai.png)",
             backgroundSize: "110px",
             backgroundRepeat: "no-repeat",
-            backgroundPosition: "left ",
+            backgroundPosition: "left 20px center",
             py: 5,
             mb: 5,
           }}

@@ -29,7 +29,7 @@ const ItemSearch: FC<Props> = memo((props) => {
   const [selectedValue, setSelectedValue] = useState("name");
   const [categoryName, setCategoryName] = useState<string>();
   const page = searchParams.get("page");
-  const baseUrl = "http://localhost:8880/items?&otherItem=false";
+  const baseUrl = "http://localhost:8880/items?&otherItem=false&isDiscontinued=false";
   const handlePullDown = async (event: SelectChangeEvent<string>) => {
     const value = event.target.value;
     setSelectedValue(value);
@@ -272,7 +272,7 @@ const ItemSearch: FC<Props> = memo((props) => {
           )}
         </>
       ) : (
-        "該当する商品がありません"
+""
       )}
       <div style={{ display: "flex", justifyContent: "flex-end",width:"1030px" }} >
         {loginUser?.isAdmin ? (
