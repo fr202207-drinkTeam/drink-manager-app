@@ -1,5 +1,6 @@
-import { TextField } from "@mui/material";
-import { Dispatch, FC, SetStateAction, useState } from "react";
+import { Box, TextField } from "@mui/material";
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 type Props = {
   index: number;
@@ -17,10 +18,16 @@ export const StockInput: FC<Props> = (props) => {
     inputValueArr,
     setInputValueArr,
   } = props;
+  const location = useLocation();
+  const [inputLabel, setInputLabel] = useState<string>("");
 
-  const [inputLabel, setInputLabel] = useState<string>(
-    "消費在庫数を入力してください "
-  );
+  useEffect(() => {
+    if (location.pathname === "/adminhome/addition") {
+      setInputLabel("補充数を入力してください");
+    } else if (location.pathname === "/adminhome/consumption") {
+      setInputLabel("消費数を入力してください");
+    }
+  }, []);
 
   const handleInputChange = (index: number) => (
     event: React.ChangeEvent<HTMLInputElement>
@@ -81,7 +88,7 @@ export const StockInput: FC<Props> = (props) => {
         InputLabelProps={{
           shrink: true,
         }}
-        inputProps={{ min: 0, max: 999 }}
+        inputProps={{ min: 0, max: 999, className: "no-spin" }}
         onChange={handleInputChange(index)}
         onBlur={handleInputBlur(index)}
         helperText={inputStatusArr[index]! && "999以下の数値を入力してください"}
@@ -91,6 +98,8 @@ export const StockInput: FC<Props> = (props) => {
             max: 999,
             inputMode: "numeric",
             pattern: "[0-9]*",
+            className: "no-spin",
+            onWheel: (e) => e.currentTarget.blur(),
           },
           onKeyPress: (e) => {
             if (e.key === "-" || e.key === "+") {

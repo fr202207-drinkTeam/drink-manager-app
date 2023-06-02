@@ -1,5 +1,11 @@
 import { FC, memo, useEffect, useState } from "react";
-import { Comment as CommentType, Like, Post, Users } from "../../types/type";
+import {
+  Comment as CommentType,
+  Items,
+  Like,
+  Post,
+  Users,
+} from "../../types/type";
 import {
   Paper,
   Typography,
@@ -14,6 +20,7 @@ import parse from "html-react-parser";
 import Likes from "../molecules/Likes";
 import { EditNote } from "@mui/icons-material";
 import MenuButtons from "../molecules/MenuButtons";
+import { Link } from "react-router-dom";
 
 // 投稿データ、コメント表示有無、ログインユーザー情報、投稿編集のset関数
 type Props = {
@@ -37,8 +44,13 @@ const PostData: FC<Props> = memo((props) => {
 
   // それぞれの投稿のユーザー情報格納
   const [userData, setUserData] = useState<Users | null>(null);
+
+  // 商品名の格納
+  const [itemData, setItemData] = useState<Items | null>(null);
+
   // コメントデータの格納
   const [commentData, setCommentData] = useState<CommentType[]>([]);
+
   // ログインユーザーの投稿だった場合、メニューの表示
   const [menu, setMenu] = useState<boolean>(false);
 
@@ -55,6 +67,22 @@ const PostData: FC<Props> = memo((props) => {
       .catch((error) => {
         console.log("Error:", error);
       });
+    // 投稿の商品名取得
+    if (+postData.itemId !== 0) {
+      fetch(`http://localhost:8880/items/${postData.itemId}`, {
+        method: "GET",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setItemData(data);
+        })
+        .catch((error) => {
+          console.log("Error:", error);
+        });
+    } else {
+      setItemData(null);
+    }
+
     // 投稿のコメント取得
     fetch(`http://localhost:8880/comments?postId=${postData.id}`, {
       method: "GET",
@@ -74,7 +102,8 @@ const PostData: FC<Props> = memo((props) => {
     .replace("/nameE/", "</span>");
   if (postData.itemId) {
     content = postData.content
-      .replace("\n", "<br />")
+      .replace("/itemS/", "<span style='display:none;'>")
+      .replace("/itemE/", "</span>")
       .replace("/nameS/", "<span style='display:none;'>")
       .replace("/nameE/", "</span>");
   }
@@ -139,8 +168,8 @@ const PostData: FC<Props> = memo((props) => {
       <Box sx={{ borderBottom: "1px solid", mx: "5px", pb: "5px" }}>
         <Box sx={{ display: "flex" }}>
           <Box sx={{ flexGrow: 1 }}>
-            <Box sx={{ display: "flex"}}>
-              <Box sx={{mt: "2px"}}>
+            <Box sx={{ display: "flex" }}>
+              <Box sx={{ mt: "2px" }}>
                 {/* ユーザーが管理者かどうかでそれぞれの投稿にタグ付け */}
                 {userData && userData.isAdmin && (
                   <Typography
@@ -189,6 +218,7 @@ const PostData: FC<Props> = memo((props) => {
           {userData && loginUser.id === userData.id && !menu && isComment && (
             <Grid>
               <IconButton
+                aria-label="menuIcon"
                 component="label"
                 sx={{
                   color: "white",
@@ -212,6 +242,13 @@ const PostData: FC<Props> = memo((props) => {
 
         <Box>
           <Typography variant="body1">{parse(content)}</Typography>
+          {itemData && (
+            <Link to={`/home/search/${itemData.id}`}>
+              <Typography variant="body1" sx={{ color: "blue" }}>
+                # {itemData.name}
+              </Typography>
+            </Link>
+          )}
         </Box>
         {postData.postImage.length > 0 && (
           <ImageList

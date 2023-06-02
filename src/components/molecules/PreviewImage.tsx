@@ -23,8 +23,7 @@ type Props = {
 
 // 投稿、商品追加時の画像プレビューコンポーネント
 const PreviewImage: FC<Props> = memo((props) => {
-  let { inputImages, setInputImages, inputLength, width, height } =
-    props;
+  let { inputImages, setInputImages, inputLength, width, height } = props;
 
   // 画像削除ボタンコンポーネント
   const ImgDeleteButton = ({ imageIndex }: { imageIndex: number }) => {
@@ -52,13 +51,12 @@ const PreviewImage: FC<Props> = memo((props) => {
     );
   };
 
-
   // 画像編集ボタンコンポーネント
   const ImgChangeButton = ({ imageIndex }: { imageIndex: number }) => {
     const imageInput = useRef<any>(null);
     // 画像編集処理
     const changeImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-      previewImages(event, inputImages, setInputImages, imageIndex)
+      previewImages(event, inputImages, setInputImages, imageIndex);
     };
     return (
       <Box sx={{ textAlign: "center" }}>
@@ -80,6 +78,7 @@ const PreviewImage: FC<Props> = memo((props) => {
         <TextField
           id="changeImage"
           type="file"
+          inputProps={{ accept: "image/*" }}
           sx={{ p: "0", display: "none" }}
           size="small"
           onChange={changeImage}
@@ -98,7 +97,7 @@ const PreviewImage: FC<Props> = memo((props) => {
           // firebaseのurlから作成したFile型のitemの場合、sizeが0になるため、item.name(firebaseのurl)を使用
           if (item.size === 0) {
             itemUrl = item.name;
-          } 
+          }
           // inputからのfileの場合、Urlに変換
           else {
             itemUrl = URL.createObjectURL(item);

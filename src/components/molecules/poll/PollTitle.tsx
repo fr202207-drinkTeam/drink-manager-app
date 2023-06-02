@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import React from "react";
 import { Questionnaire } from "../../../types/type";
 
@@ -7,48 +7,58 @@ type PollTitleProps = {
 };
 
 const PollTitle = ({ poll }: PollTitleProps) => {
+  const theme = useTheme();
   return (
     <>
       <Box
         sx={{
-          pt:1,
-          borderTop:"double #81671C",
-          borderBottom:"double #81671C",
-          pb:1,
-          backgroundImage: "url(/coffee2.png)",
-          backgroundRepeat: "no-repeat",
+          pt: 1,
+          borderTop: 'double #81671C',
+          borderBottom: 'double #81671C',
+          pb: 1,
+          backgroundImage: {
+            xs: '',
+            sm:'',
+            md:'url(/coffee2.png)',
+          },
+          backgroundRepeat: 'no-repeat',
           backgroundSize: 120,
           opacity: 0.8,
           mb: 5,
           mt: 4,
-          backgroundPosition: "left center",
-          // fontWeight: "bold",
+          backgroundPosition: {
+            xs: '',
+            sm: 'left 40px center ',
+          },
+          mx: 2,
         }}
       >
         <Box
           sx={{
-            fontSize: "47px",
-            textAlign: "center",
+            fontSize: {
+              xs: theme.typography.pxToRem(35),
+              sm: theme.typography.pxToRem(47),
+            },
+            textAlign: 'center',
             mt: 1,
-            // backgroundColor: "white",
             py: 1,
-            fontWeight:"bold",
-            color:"#6B3906",
-            letterSpacing:5,
-            // background:
-              // "-webkit-repeating-linear-gradient(-45deg, #fff, #d2691e 2px, #fff 2px, #fff 4px)",
+            fontWeight: 'bold',
+            color: '#6B3906',
+            letterSpacing: 5,
           }}
         >
-         {poll[0]?.name}
+          {poll[0]?.name}
         </Box>
         <Box
           sx={{
-            fontSize: "20px",
-            textAlign: "center",
+            fontSize: {
+              xs: theme.typography.pxToRem(16),
+              sm: theme.typography.pxToRem(20),
+            },
+            textAlign: 'center',
             mt: 1,
-            // backgroundColor: "white",
-            fontWeight: "bold",
-            letterSpacing:3,
+            fontWeight: 'bold',
+            letterSpacing: 3,
             py: 1,
           }}
         >

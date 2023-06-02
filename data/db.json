@@ -49,199 +49,169 @@
       "id": 1,
       "name": "ブライトブレンド",
       "description": "ミディアムローストの豆をブレンドしたブライトブレンドは、キャラメル、ベリー、はちみつのバランスのとれたほんのり甘い香りが楽しめる一杯です。",
-      "image": [
-        "/bright.png",
-        "/item.png",
-        "/item.png"
-      ],
+      "image": ["/bright.png", "/item.png", "/item.png"],
       "itemCategory": 2,
       "createdAt": "",
       "intheOffice": true,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 2,
       "name": "LAVAZZA CLASSICO",
       "description": "しっかりとした珈琲感とドライフルーツの風味が特徴のミディアムローストコーヒー。バランスのとれたリッチな味わいがお好みの方へオススメです。",
-      "image": [
-        "/crassico.png",
-        "/item.png",
-        "/coffee.png"
-      ],
+      "image": ["/crassico.png", "/item.png", "/coffee.png"],
       "itemCategory": 2,
       "createdAt": "",
       "intheOffice": true,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 3,
       "name": "LAVAZZA INTENSO",
       "description": "スモーキーで香ばしい力強いフレーバーのダークローストコーヒー。キャラメリゼしたような風味と濃厚な味わいはリアルミルクフロスとも相性抜群です。",
-      "image": [
-        "/item.png",
-        "dummybanner.jpg"
-      ],
+      "image": ["/item.png", "dummybanner.jpg"],
       "itemCategory": 1,
       "createdAt": "",
-      "intheOffice": true,
+      "intheOffice": false,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 4,
       "name": "プレミアム スムースロースト",
       "description": "ほど良いコクと軽やかで優しいアフターテイスト。一日のどんな気分にも寄り添う、プレミアムにスムーズな一杯です。",
-      "image": [
-        "/premiam.jpg",
-        "/item.png",
-        "s4.png"
-      ],
+      "image": ["/premiam.jpg", "/item.png", "s4.png"],
       "itemCategory": 3,
       "createdAt": "",
-      "intheOffice": true,
+      "intheOffice": false,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 5,
       "name": "アメリカンロースト",
       "description": "口当たりの良い さわやかな酸味。ほのかな甘いノートが最後に残ります。",
-      "image": [
-        "/american.jpg",
-        "/item.png"
-      ],
+      "image": ["/american.jpg", "/item.png"],
       "itemCategory": 3,
       "createdAt": "",
       "intheOffice": true,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 6,
       "name": "コロンビア",
       "description": "100%南米コロンビア産の生豆使用。香ばしい香りと酸味・甘味・コクのバランスはマイルドそのものです。",
-      "image": [
-        "/colombia.png",
-        "/item.png"
-      ],
+      "image": ["/colombia.png", "/item.png"],
       "itemCategory": 2,
       "createdAt": "",
-      "intheOffice": true,
+      "intheOffice": false,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 7,
       "name": "スマトラ",
       "description": "100%スマトラ島産アラビカ豆。火山性土で育った豆からの力強い個性的なアロマは、複雑で深いコク、そしてほのかな甘みへと続きます。",
-      "image": [
-        "/sumatra.png"
-      ],
+      "image": ["/sumatra.png"],
       "itemCategory": 1,
       "createdAt": "",
       "intheOffice": true,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 8,
       "name": "プレミアスムースデカフ",
       "description": "市場のニーズが高まっているデカフェコーヒー。フルーティーな軽さの中に程よいコクがアフターテイストを満たします。",
-      "image": [
-        "/decaf.jpg",
-        "/item.png"
-      ],
+      "image": ["/decaf.jpg", "/item.png"],
       "itemCategory": 4,
       "createdAt": "",
-      "intheOffice": true,
+      "intheOffice": false,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 9,
       "name": "イングリッシュブレックファスト",
       "description": "バランスのよい渋味。しっかりとした味わい豊かな紅茶。",
-      "image": [
-        "/bright.jpg",
-        "/item.png"
-      ],
+      "image": ["/bright.jpg", "/item.png"],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 10,
       "name": "アールグレイ",
       "description": "爽やかなベルガモットの香りとほどよい風味が特徴的なお茶。シトラスとフルーツの香りとほのかに感じるスモーキーな香りのブレンドを楽しんでいただけます。",
-      "image": [
-        "/argray.png",
-        "/item.png"
-      ],
+      "image": ["/argray.png", "/item.png"],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 11,
       "name": "レモンハーブ",
       "description": "軽やかなレモンと柑橘系の香りに、フローラルなハチミツの風味が華を添えるノンカフェインのハーブティーです。",
-      "image": [
-        "/lemon.png",
-        "/item.png"
-      ],
+      "image": ["/lemon.png", "/item.png"],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 12,
       "name": "ジャスミン茶",
       "description": "ジャスミンの芳香を採りいれた渋みの少ないさっぱりとした緑茶です。",
-      "image": [
-        "/jasmin.jpg",
-        "/item.png"
-      ],
+      "image": ["/jasmin.jpg", "/item.png"],
       "itemCategory": 5,
       "createdAt": "",
       "intheOffice": false,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 13,
       "name": "緑茶",
       "description": "豊かな香りとコク、まろやかな風味。深蒸し煎茶から引き出される ほど良い渋味と旨味は日本人の好みにぴったり。 国産茶葉100%使用。",
-      "image": [
-        "/green.jpg",
-        "/item.png"
-      ],
+      "image": ["/green.jpg", "/item.png"],
       "itemCategory": 5,
       "createdAt": "",
-      "intheOffice": false,
+      "intheOffice": true,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "id": 14,
       "name": "ホットココア",
       "description": "口当たりがよく、滑らかな舌触りのココアです。コク深いミルクチョコレートの風味は、ほっと一息つくリラックスタイムにピッタリです。女性にうれしい低カロリードリンク。（1杯あたり66.1kcal）",
-      "image": [
-        "/cocoa.png",
-        "/item.png"
-      ],
+      "image": ["/cocoa.png", "/item.png"],
       "itemCategory": 6,
       "createdAt": "",
       "intheOffice": true,
       "author": "",
-      "otherItem": false
+      "otherItem": false,
+      "isDiscontinued": false
     },
     {
       "name": "おっとっと",
@@ -254,7 +224,8 @@
       "intheOffice": false,
       "author": 1,
       "otherItem": true,
-      "id": 21
+      "id": 21,
+      "isDiscontinued": false
     },
     {
       "name": "ポテロング",
@@ -267,7 +238,8 @@
       "intheOffice": false,
       "author": 1,
       "otherItem": true,
-      "id": 22
+      "id": 22,
+      "isDiscontinued": false
     },
     {
       "name": "じゃがりこ",
@@ -280,7 +252,8 @@
       "intheOffice": false,
       "author": 1,
       "otherItem": true,
-      "id": 23
+      "id": 23,
+      "isDiscontinued": false
     },
     {
       "name": "堅あげポテト",
@@ -293,7 +266,8 @@
       "intheOffice": false,
       "author": 1,
       "otherItem": true,
-      "id": 24
+      "id": 24,
+      "isDiscontinued": false
     },
     {
       "name": "ポテトチップス　のりしお",
@@ -306,7 +280,8 @@
       "intheOffice": false,
       "author": null,
       "otherItem": true,
-      "id": 25
+      "id": 25,
+      "isDiscontinued": false
     },
     {
       "name": "ビスコ",
@@ -314,90 +289,85 @@
       "image": [
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/570672fa-b7bc-4f22-bc9c-9b5927efb4cc?alt=media&token=c5d38bab-6270-4e6b-a504-c4e29c30d4b4"
       ],
-      "itemCategory": 6,
+      "itemCategory": 7,
       "createdAt": "2023-05-12T04:42:56.450Z",
       "intheOffice": false,
       "author": 4,
       "otherItem": true,
-      "id": 26
+      "id": 26,
+      "isDiscontinued": false
     },
     {
       "name": "煎茶",
       "description": "緑茶の説明が入ります",
-      "image": [
-        "/item.png"
-      ],
+      "image": ["/item.png"],
       "itemCategory": 7,
       "createdAt": "2023-05-12T04:42:56.450Z",
-      "intheOffice": true,
+      "intheOffice": false,
       "author": 4,
       "otherItem": false,
-      "id": 27
+      "id": 27,
+      "isDiscontinued": false
     },
     {
       "name": "紅茶",
       "description": "紅茶の説明が入ります",
-      "image": [
-        "/item.png"
-      ],
+      "image": ["/item.png"],
       "itemCategory": 7,
       "createdAt": "2023-05-12T04:42:56.450Z",
-      "intheOffice": true,
+      "intheOffice": false,
       "author": 4,
       "otherItem": false,
-      "id": 28
+      "id": 28,
+      "isDiscontinued": false
     },
     {
       "name": "コーンポタージュ",
       "description": "コーンポタージュの説明が入ります",
-      "image": [
-        "/item.png"
-      ],
+      "image": ["/item.png"],
       "itemCategory": 7,
       "createdAt": "2023-05-12T04:42:56.450Z",
       "intheOffice": true,
       "author": 4,
       "otherItem": false,
-      "id": 29
+      "id": 29,
+      "isDiscontinued": false
     },
     {
       "name": "さわやかドリンクヨーグルト風味",
       "description": "さわやかドリンクヨーグルト風味の説明が入ります",
-      "image": [
-        "/item.png"
-      ],
+      "image": ["/item.png"],
       "itemCategory": 7,
       "createdAt": "2023-05-12T04:42:56.450Z",
       "intheOffice": true,
       "author": 4,
       "otherItem": false,
-      "id": 30
+      "id": 30,
+      "isDiscontinued": false
     },
     {
       "name": "コンソメスープ",
       "description": "コンソメスープの説明が入ります",
-      "image": [
-        "/item.png"
-      ],
+      "image": ["/item.png"],
       "itemCategory": 7,
       "createdAt": "2023-05-12T04:42:56.450Z",
-      "intheOffice": true,
+      "intheOffice": false,
       "author": 4,
       "otherItem": false,
-      "id": 31
+      "id": 31,
+      "isDiscontinued": false
     },
     {
       "name": "アップルジュース",
       "description": "アップルジュースの説明が入ります",
-      "image": [
-        "/item.png"
-      ],
+      "image": ["/item.png"],
       "itemCategory": 7,
       "createdAt": "2023-05-12T04:42:56.450Z",
-      "intheOffice": true,
+      "intheOffice": false,
       "author": 4,
       "otherItem": false,
-      "id": 32
+      "id": 32,
+      "isDiscontinued": false
     },
     {
       "name": "HTML特殊文字テスト",
@@ -407,10 +377,25 @@
       ],
       "itemCategory": 2,
       "createdAt": "2023-05-24T01:29:08.661Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 33
+      "id": 33,
+      "isDiscontinued": false
+    },
+    {
+      "name": "商品編集テスト商品A",
+      "description": "商品編集テスト商品Aの説明",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/0b9ab3aa-e78c-4e89-a604-92fc99c5f77f?alt=media&token=46fc02a1-2257-4d18-8bfd-de3f5e27691f"
+      ],
+      "itemCategory": 6,
+      "createdAt": "2023-06-01T08:33:36.250Z",
+      "intheOffice": false,
+      "author": 1,
+      "otherItem": false,
+      "isDiscontinued": false,
+      "id": 34
     },
     {
       "name": "商品詳細テスト商品A",
@@ -420,10 +405,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-25T07:48:21.163Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 35
+      "id": 35,
+      "isDiscontinued": false
     },
     {
       "name": "商品詳細テスト商品B",
@@ -434,10 +420,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-25T09:05:15.985Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 36
+      "id": 36,
+      "isDiscontinued": false
     },
     {
       "name": "商品詳細テスト商品C商品詳細テスト商",
@@ -449,10 +436,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-29T00:38:23.469Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 37
+      "id": 37,
+      "isDiscontinued": false
     },
     {
       "name": "商品50",
@@ -462,10 +450,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-26T00:22:43.228Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 50
+      "id": 50,
+      "isDiscontinued": false
     },
     {
       "name": "商品51",
@@ -476,10 +465,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-26T00:23:19.650Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 51
+      "id": 51,
+      "isDiscontinued": false
     },
     {
       "name": "商品52",
@@ -491,10 +481,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-26T00:24:02.225Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 52
+      "id": 52,
+      "isDiscontinued": false
     },
     {
       "name": "商品53",
@@ -504,10 +495,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-26T00:24:36.188Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 53
+      "id": 53,
+      "isDiscontinued": false
     },
     {
       "name": "商品54",
@@ -518,10 +510,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-26T00:25:08.113Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 54
+      "id": 54,
+      "isDiscontinued": false
     },
     {
       "name": "商品55",
@@ -533,10 +526,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-26T00:25:39.442Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 55
+      "id": 55,
+      "isDiscontinued": false
     },
     {
       "name": "商品56",
@@ -546,10 +540,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-26T00:26:27.306Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 56
+      "id": 56,
+      "isDiscontinued": false
     },
     {
       "name": "商品57",
@@ -560,10 +555,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-26T00:26:53.982Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 57
+      "id": 57,
+      "isDiscontinued": false
     },
     {
       "name": "商品58",
@@ -575,10 +571,11 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-26T00:27:37.984Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 58
+      "id": 58,
+      "isDiscontinued": false
     },
     {
       "name": "商品A",
@@ -588,38 +585,95 @@
       ],
       "itemCategory": 6,
       "createdAt": "2023-05-26T08:02:40.170Z",
-      "inTheOffice": false,
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 59
+      "id": 59,
+      "isDiscontinued": false
     },
     {
-      "name": "商品B",
-      "description": "商品Bの説明",
+      "name": "削除テスト商品",
+      "description": "削除テスト",
       "image": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/ff27b19f-1ee0-429f-8a20-c11aa2e8e4de?alt=media&token=bdf3bbe9-ddbc-4a44-8277-d45d17d440e4"
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/5b5db735-e3cc-416d-afac-a7ebea72783b?alt=media&token=7ecd41b5-dcec-45d3-9548-208ede9d96cc"
       ],
       "itemCategory": 6,
-      "createdAt": "2023-05-26T08:07:04.891Z",
-      "inTheOffice": false,
+      "createdAt": "2023-05-31T00:10:08.088Z",
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 60
+      "id": 62,
+      "isDiscontinued": true
     },
     {
-      "name": "商品C",
-      "description": "商品Cの説明",
+      "name": "社内なしに変更",
+      "description": "社内",
       "image": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/e465ee39-e24a-4e3e-ab2e-7f8af514da2d?alt=media&token=64778f30-ce23-41b8-a090-6f253a079a0e",
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/33a4af62-622c-4727-8ff3-b09d2a427485?alt=media&token=8b5e043d-46d2-458b-a324-2c0a2eb3dcb9",
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/7f203036-b081-42b7-a0ab-3c3911b65fd3?alt=media&token=b23bb771-29bd-4822-852e-8fff634ba48c"
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/982d6080-2076-4333-84d0-df1d79f582a2?alt=media&token=922dd4b9-98b9-4222-b461-0c6acc659281"
       ],
       "itemCategory": 6,
-      "createdAt": "2023-05-26T08:08:00.665Z",
-      "inTheOffice": false,
+      "createdAt": "2023-05-31T07:12:48.326Z",
+      "intheOffice": false,
       "author": 1,
       "otherItem": false,
-      "id": 61
+      "id": 63,
+      "isDiscontinued": true
+    },
+    {
+      "name": "社内なし",
+      "description": "社内なし",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/a49546b1-16b5-4c93-836b-d29b4b6afb51?alt=media&token=9109a907-4908-48db-b85d-733373547bd4"
+      ],
+      "itemCategory": 6,
+      "createdAt": "2023-05-31T07:08:58.674Z",
+      "intheOffice": false,
+      "author": 1,
+      "otherItem": false,
+      "id": 64,
+      "isDiscontinued": true
+    },
+    {
+      "name": "社内あり商品",
+      "description": "あ",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/6ce585ee-edae-4a8e-988b-f0f1dfbab675?alt=media&token=39b527af-4daf-4f94-b762-897ee3481b13"
+      ],
+      "itemCategory": 6,
+      "createdAt": "2023-05-31T07:10:03.261Z",
+      "intheOffice": true,
+      "author": 1,
+      "otherItem": false,
+      "id": 65,
+      "isDiscontinued": false
+    },
+    {
+      "name": "テストで追加した商品",
+      "description": "あ",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/6ce585ee-edae-4a8e-988b-f0f1dfbab675?alt=media&token=39b527af-4daf-4f94-b762-897ee3481b13"
+      ],
+      "itemCategory": 6,
+      "createdAt": "2023-05-31T07:10:03.261Z",
+      "intheOffice": true,
+      "author": 1,
+      "otherItem": false,
+      "id": 66,
+      "isDiscontinued": false
+    },
+    {
+      "name": "テストで追加した商品",
+      "description": "あ",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/6ce585ee-edae-4a8e-988b-f0f1dfbab675?alt=media&token=39b527af-4daf-4f94-b762-897ee3481b13"
+      ],
+      "itemCategory": 6,
+      "createdAt": "2023-05-31T07:10:03.261Z",
+      "intheOffice": true,
+      "author": 1,
+      "otherItem": false,
+      "id": 66,
+      "isDiscontinued": true
     }
   ],
   "itemCategory": [
@@ -3070,410 +3124,114 @@
       "id": 17
     }
   ],
-  "contact": [],
-  "contactCategory": [
+  "contact": [
     {
-      "id": 1,
-      "contactKinds": ""
+      "category": "system",
+      "content": "システムについてのお問い合わせ",
+      "id": 1
+    },
+    {
+      "category": "service",
+      "content": "サービスについて",
+      "id": 2
+    },
+    {
+      "category": "server",
+      "content": "コーヒーサーバー",
+      "id": 3
+    },
+    {
+      "category": "other",
+      "content": "その他",
+      "id": 4
+    },
+    {
+      "category": "system",
+      "content": "最終テスト",
+      "id": 5
     }
   ],
   "posts": [
     {
-      "userId": 2,
-      "content": "私は最近紅茶にハマってます！香りが良くてとても美味しいので皆さんも是非飲んでみてください！\n<a href=\"/home/search/11\" style=\"color:blue;\">#レモンハーブ</a>/nameS/ラクス 太郎/nameE/",
-      "itemId": "11",
+      "userId": 1,
+      "content": "id1あああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 太郎/nameE/",
+      "itemId": "9",
       "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/8de139eb-64b0-494a-89f6-21befebf7cdf?alt=media&token=35a5e27b-f480-4c46-9fb7-cf7ac3f26f28"
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
       ],
-      "createdAt": "2023-05-08T03:07:27.304Z",
-      "updatedAt": "2023-05-08T03:07:27.304Z",
+      "createdAt": "2023-05-25T08:28:48.616Z",
+      "updatedAt": "2023-05-25T08:28:48.616Z",
       "id": 1
     },
     {
-      "userId": 1,
-      "content": "最近あったかくなってきたので、ホットコーヒーからアイスコーヒーに変えて飲んでいます。そんな私のおすすめはブライトブレンド！\n<a href=\"/home/search/1\" style=\"color:blue;\">#ブライトブレンド</a>/nameS/ラクス 太郎/nameE/",
-      "itemId": "1",
+      "userId": 2,
+      "content": "id2ああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 花子/nameE/",
+      "itemId": "9",
       "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/7768662d-a10d-48a2-90c1-f7dcf0818e92?alt=media&token=e96015bd-fe51-4fa6-bbb3-09f04d03bef6"
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
       ],
-      "createdAt": "2023-05-08T03:08:11.157Z",
-      "updatedAt": "2023-05-08T03:08:11.157Z",
+      "createdAt": "2023-05-25T08:28:48.616Z",
+      "updatedAt": "2023-05-25T08:28:48.616Z",
       "id": 2
     },
     {
-      "userId": 1,
-      "content": "LAVAZZA CLASSICOめちゃうまです！\n<a href=\"/home/search/2\" style=\"color:blue;\">#LAVAZZA CLASSICO</a>/nameS/ラクス 太郎/nameE/",
-      "itemId": "2",
-      "postImage": [],
-      "createdAt": "2023-05-08T03:08:31.904Z",
-      "updatedAt": "2023-05-08T03:08:31.904Z",
+      "userId": 2,
+      "content": "id3あああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 花子/nameE/",
+      "itemId": "9",
+      "postImage": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
+      ],
+      "createdAt": "2023-05-25T08:28:48.616Z",
+      "updatedAt": "2023-05-25T08:28:48.616Z",
       "id": 3
     },
     {
       "userId": 1,
-      "content": "ネギは美味しいネギは美味しいネギは美味しいネギは美味しいネギは美味しい\n<a href=\"/home/search/15\" style=\"color:blue;\">#ねぎ</a>/nameS/ラクス 太郎/nameE/",
-      "itemId": "15",
+      "content": "id4ああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 太郎/nameE/",
+      "itemId": "9",
       "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/d5f9edb0-7915-4ad5-a0a0-466663ae1aaf?alt=media&token=ade9f660-70b8-4400-89f2-aba022f62dc2"
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
       ],
-      "createdAt": "2023-05-08T03:07:27.304Z",
-      "updatedAt": "2023-05-08T03:07:27.304Z",
+      "createdAt": "2023-05-25T08:28:48.616Z",
+      "updatedAt": "2023-05-25T08:28:48.616Z",
       "id": 4
     },
     {
-      "userId": 2,
-      "content": "「編集」こんにちはこんにちはこんにちはこんにちはこんにちは\n<a href=\"/home/search/3\" style=\"color:blue;\">#LAVAZZA INTENSO</a>/nameS/テスト テスト/nameE/",
-      "itemId": "3",
+      "userId": 1,
+      "content": "id5ああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 太郎/nameE/",
+      "itemId": "9",
       "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/dd6deafb-5fc6-4842-986c-3532b8d5f5fe?alt=media&token=44769052-ce25-4501-83c0-eae9eb260156"
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
       ],
-      "createdAt": "2023-05-12T08:30:52.467Z",
-      "updatedAt": "2023-05-12T08:38:31.851Z",
+      "createdAt": "2023-05-25T08:28:48.616Z",
+      "updatedAt": "2023-05-25T08:28:48.616Z",
       "id": 5
     },
     {
       "userId": 2,
-      "content": "みなさん今月の投票は何にしましたか？私はじゃがりこにしました！！！aaaaaa\n<a href=\"/home/search/23\" style=\"color:blue;\">#じゃがりこ</a>/nameS/テスト 花子/nameE/",
-      "itemId": "23",
+      "content": "id6あああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 花子/nameE/",
+      "itemId": "9",
       "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/a1a6f445-9967-4428-b5db-324f97934fab?alt=media&token=ba7abab7-bce2-4043-842c-872f0205f140"
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
       ],
-      "createdAt": "2023-05-16T00:45:28.190Z",
-      "updatedAt": "2023-05-19T05:15:26.633Z",
-      "id": 7
-    },
-    {
-      "userId": 1,
-      "content": "投稿50投稿50投稿50投稿50投稿50\n<a href=\"/home/search/37\" style=\"color:blue;\">#商品50</a>/nameS/テスト 太郎/nameE/",
-      "itemId": "50",
-      "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/4d0f1cde-b141-4d62-a127-6f4f4f5debed?alt=media&token=188c04ae-7707-4864-a8b0-7cc8d7742b45"
-      ],
-      "createdAt": "2023-05-26T00:29:47.175Z",
-      "updatedAt": "2023-05-26T00:29:47.175Z",
-      "id": 50
-    },
-    {
-      "userId": 1,
-      "content": "投稿51投稿51投稿51投稿51投稿51\n<a href=\"/home/search/38\" style=\"color:blue;\">#商品51</a>/nameS/テスト 太郎/nameE/",
-      "itemId": "51",
-      "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/35ccf75c-1263-442d-8dc7-d285e0f46c6d?alt=media&token=07712377-c758-41ed-9957-556b47b6c05e"
-      ],
-      "createdAt": "2023-05-26T00:30:22.864Z",
-      "updatedAt": "2023-05-26T00:30:22.864Z",
-      "id": 51
-    },
-    {
-      "userId": 1,
-      "content": "投稿52投稿52投稿52投稿52投稿52\n<a href=\"/home/search/39\" style=\"color:blue;\">#商品52</a>/nameS/テスト 太郎/nameE/",
-      "itemId": "52",
-      "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/1ab59d65-d07d-48e9-8448-d4b028433aa5?alt=media&token=9eb62e13-f158-430a-a336-6c7d00f04c21"
-      ],
-      "createdAt": "2023-05-26T00:30:50.522Z",
-      "updatedAt": "2023-05-26T00:30:50.522Z",
-      "id": 52
-    },
-    {
-      "userId": 1,
-      "content": "投稿53投稿53投稿53投稿53投稿53\n<a href=\"/home/search/39\" style=\"color:blue;\">#商品52</a>/nameS/テスト 太郎/nameE/",
-      "itemId": "52",
-      "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/b7d2faf9-7eb4-4eaf-ba60-7ca4a943f723?alt=media&token=631799b8-2497-410b-a5fb-b90ab3296a66"
-      ],
-      "createdAt": "2023-05-26T00:31:17.224Z",
-      "updatedAt": "2023-05-26T00:31:17.224Z",
-      "id": 53
-    },
-    {
-      "userId": 1,
-      "content": "投稿54投稿54投稿54投稿54投稿54\n<a href=\"/home/search/39\" style=\"color:blue;\">#商品52</a>/nameS/テスト 太郎/nameE/",
-      "itemId": "52",
-      "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/f76c0560-c94e-4648-8ef5-15e46f9d22ca?alt=media&token=e451d9f9-5373-4ae7-ab89-bca9d251d6c0"
-      ],
-      "createdAt": "2023-05-26T00:31:36.501Z",
-      "updatedAt": "2023-05-26T00:31:36.501Z",
-      "id": 54
-    },
-    {
-      "userId": 1,
-      "content": "投稿55投稿55投稿55投稿55投稿55\n<a href=\"/home/search/40\" style=\"color:blue;\">#商品53</a>/nameS/テスト 太郎/nameE/",
-      "itemId": "53",
-      "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/2b43525e-4f8c-409a-a609-c33cc3093308?alt=media&token=7d35c317-84de-4888-972b-5b25e870a2be"
-      ],
-      "createdAt": "2023-05-26T00:31:58.339Z",
-      "updatedAt": "2023-05-26T00:31:58.339Z",
-      "id": 55
-    },
-    {
-      "userId": 1,
-      "content": "投稿56投稿56投稿56投稿56投稿56\n<a href=\"/home/search/40\" style=\"color:blue;\">#商品53</a>/nameS/テスト 太郎/nameE/",
-      "itemId": "53",
-      "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/614e75c2-4320-4f79-8159-b633bb682760?alt=media&token=9428a51c-4b49-4b0c-ab80-0e8f84013b51"
-      ],
-      "createdAt": "2023-05-26T00:32:19.667Z",
-      "updatedAt": "2023-05-26T00:32:19.667Z",
-      "id": 56
-    },
-    {
-      "userId": 1,
-      "content": "投稿57投稿57投稿57投稿57投稿57\n<a href=\"/home/search/40\" style=\"color:blue;\">#商品53</a>/nameS/テスト 太郎/nameE/",
-      "itemId": "53",
-      "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/e7f6ed8c-3846-4a85-b01e-56cc018325b8?alt=media&token=1f515190-b85e-4e0b-a1de-b37fe181af53"
-      ],
-      "createdAt": "2023-05-26T00:32:39.935Z",
-      "updatedAt": "2023-05-26T00:32:39.935Z",
-      "id": 57
-    },
-    {
-      "userId": 1,
-      "content": "投稿58投稿58投稿58投稿58投稿58\n<a href=\"/home/search/41\" style=\"color:blue;\">#商品54</a>/nameS/テスト 太郎/nameE/",
-      "itemId": "54",
-      "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/dbba39ae-5123-4d9b-8885-95f535b73231?alt=media&token=ec98f270-047c-4143-a005-5be6f4add954"
-      ],
-      "createdAt": "2023-05-26T00:32:58.696Z",
-      "updatedAt": "2023-05-26T00:32:58.696Z",
-      "id": 58
-    },
-    {
-      "userId": 1,
-      "content": "投稿59投稿59投稿59投稿59投稿59\n<a href=\"/home/search/41\" style=\"color:blue;\">#商品54</a>/nameS/テスト 太郎/nameE/",
-      "itemId": "54",
-      "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/af3698fe-ef06-4d30-afdf-ba84a1937d05?alt=media&token=85d40faa-f33b-4ee1-8ab5-f4f4ca9d9527"
-      ],
-      "createdAt": "2023-05-26T00:33:20.800Z",
-      "updatedAt": "2023-05-26T00:33:20.800Z",
-      "id": 59
-    },
-    {
-      "userId": 1,
-      "content": "投稿60投稿60投稿60投稿60投稿60\n<a href=\"/home/search/41\" style=\"color:blue;\">#商品54</a>/nameS/テスト 太郎/nameE/",
-      "itemId": "54",
-      "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/3445b930-9eb1-43ca-998d-5ac75e99b6b6?alt=media&token=45fa85c1-5bc2-48a6-901c-783e6fd91027"
-      ],
-      "createdAt": "2023-05-26T00:33:40.264Z",
-      "updatedAt": "2023-05-26T00:33:40.264Z",
-      "id": 60
-    },
-    {
-      "userId": 1,
-      "content": "投稿61投稿61投稿61投稿61投稿61\n<a href=\"/home/search/42\" style=\"color:blue;\">#商品55</a>/nameS/テスト 太郎/nameE/",
-      "itemId": "55",
-      "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/f4ad36c8-58e2-47ac-8b79-a079facfd5a5?alt=media&token=4ced391b-9b83-49cd-a898-600d8c1293c8",
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/299e9c34-99d9-477c-b7e2-c499204dd73c?alt=media&token=e21c2fb3-af95-4214-a590-c6f0f33f9336",
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/dc7ef2d7-c317-4d43-a012-bb8df6c64a82?alt=media&token=7a38be7e-44c6-4b82-a5d6-4667764cc3c9"
-      ],
-      "createdAt": "2023-05-26T00:34:12.603Z",
-      "updatedAt": "2023-05-26T00:34:12.603Z",
-      "id": 61
-    },
-    {
-      "userId": 1,
-      "content": "投稿62マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マ\n<a href=\"/home/search/43\" style=\"color:blue;\">#商品56</a>/nameS/テスト 太郎/nameE/",
-      "itemId": "56",
-      "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/b8cf5c1e-504e-4860-9362-e5d85d8303eb?alt=media&token=94a3a697-9031-4472-a243-81108f193707"
-      ],
-      "createdAt": "2023-05-26T00:34:32.484Z",
-      "updatedAt": "2023-05-26T00:34:32.484Z",
-      "id": 62
-    },
-    {
-      "userId": 1,
-      "content": "投稿63マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マ\n<a href=\"/home/search/44\" style=\"color:blue;\">#商品57</a>/nameS/テスト 太郎/nameE/",
-      "itemId": "57",
-      "postImage": [],
-      "createdAt": "2023-05-26T00:34:49.470Z",
-      "updatedAt": "2023-05-26T00:34:49.470Z",
-      "id": 63
-    }
-  ],
-  "comments": [],
-  "likes": [
-    {
-      "postId": 7,
-      "userId": 3,
-      "time": "2023-05-16T04:55:37.974Z",
-      "id": 1
-    },
-    {
-      "postId": 7,
-      "userId": 2,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 2
-    },
-    {
-      "postId": 50,
-      "userId": 1,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 3
-    },
-    {
-      "postId": 50,
-      "userId": 2,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 4
-    },
-    {
-      "postId": 50,
-      "userId": 3,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 5
-    },
-    {
-      "postId": 52,
-      "userId": 1,
-      "time": "2023-05-19T05:41:06.612Z",
+      "createdAt": "2023-05-25T08:28:48.616Z",
+      "updatedAt": "2023-05-25T08:28:48.616Z",
       "id": 6
     },
     {
-      "postId": 53,
-      "userId": 1,
-      "time": "2023-05-19T05:41:06.612Z",
+      "userId": 2,
+      "content": "id7ああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 花子/nameE/",
+      "itemId": "9",
+      "postImage": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
+      ],
+      "createdAt": "2023-05-26T08:28:48.616Z",
+      "updatedAt": "2023-05-25T08:28:48.616Z",
       "id": 7
-    },
-    {
-      "postId": 53,
-      "userId": 2,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 8
-    },
-    {
-      "postId": 54,
-      "userId": 1,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 9
-    },
-    {
-      "postId": 54,
-      "userId": 2,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 10
-    },
-    {
-      "postId": 54,
-      "userId": 3,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 11
-    },
-    {
-      "postId": 58,
-      "userId": 1,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 12
-    },
-    {
-      "postId": 58,
-      "userId": 2,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 13
-    },
-    {
-      "postId": 58,
-      "userId": 3,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 14
-    },
-    {
-      "postId": 59,
-      "userId": 1,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 15
-    },
-    {
-      "postId": 59,
-      "userId": 2,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 16
-    },
-    {
-      "postId": 59,
-      "userId": 3,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 17
-    },
-    {
-      "postId": 60,
-      "userId": 1,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 18
-    },
-    {
-      "postId": 60,
-      "userId": 2,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 19
-    },
-    {
-      "postId": 60,
-      "userId": 3,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 20
-    },
-    {
-      "postId": 61,
-      "userId": 1,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 21
-    },
-    {
-      "postId": 61,
-      "userId": 2,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 22
-    },
-    {
-      "postId": 61,
-      "userId": 3,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 23
-    },
-    {
-      "postId": 62,
-      "userId": 1,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 24
-    },
-    {
-      "postId": 62,
-      "userId": 2,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 25
-    },
-    {
-      "postId": 62,
-      "userId": 3,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 26
-    },
-    {
-      "postId": 63,
-      "userId": 1,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 27
-    },
-    {
-      "postId": 63,
-      "userId": 2,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 28
-    },
-    {
-      "postId": 63,
-      "userId": 3,
-      "time": "2023-05-19T05:41:06.612Z",
-      "id": 29
     }
   ],
+  "comments": [],
+  "likes": [],
   "stockhistory": [
     {
       "itemId": 1,
@@ -3956,10 +3714,5 @@
       "id": 60
     }
   ],
-  "addition": [
-    {
-      "id": 1,
-      "contactKinds": ""
-    }
-  ]
+  "addition": []
 }

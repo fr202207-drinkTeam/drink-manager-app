@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+.no-spin[type="number"]::-webkit-inner-spin-button,
+.no-spin[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

@@ -4,7 +4,7 @@ import {
   CircularProgress,
   IconButton,
   Paper,
-  SelectChangeEvent,
+  SelectChangeEvent
 } from "@mui/material";
 import { CachedOutlined } from "@mui/icons-material";
 import PostForm from "../organisms/PostForm";
@@ -52,6 +52,9 @@ const Timeline: FC<Props> = memo((props) => {
   // 投稿が更新された際の投稿取得トリガー用
   const [reloadPost, setReloadPost] = useState<boolean>(false);
 
+  // 投稿が更新された際の投稿取得トリガー用
+  const [searchError, setSearchError] = useState<boolean>(false);
+
   // 取得した投稿データ、パラメータが更新されるたびに投稿データ取得
   const { fetchPostData, postLoading } = useGetPosts(postParams);
 
@@ -63,7 +66,6 @@ const Timeline: FC<Props> = memo((props) => {
   useEffect(() => {
     (async () => {
       const itemInfo = location.state;
-      console.log("itemInfo", itemInfo);
       if (itemInfo) {
         // 商品の投稿を全件取得
         const fetchItemPostData = await fetch(
@@ -170,7 +172,9 @@ const Timeline: FC<Props> = memo((props) => {
     ) => {
       // ヘッダーのボタンの場合は投稿3件取得
       if (isHeaderButton) {
+        setPostData([]);
         setReloadPost(!reloadPost);
+        setpostParamsNum(0);
       }
       // 画面下のボタンの場合は現在の表示に追加で3件取得Ï
       else {
@@ -227,18 +231,23 @@ const Timeline: FC<Props> = memo((props) => {
   // 投稿の検索
   const searchPost = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setPostData([]);
-    setpostParamsNum(0);
+    setSearchError(false);
     if (
       !(event.target instanceof HTMLFormElement) ||
       !(event.target[0] instanceof HTMLInputElement)
     ) {
       return;
     }
-    if (event.target[0].value.length > 20) {
+    if (
+      event.target[0].value.length > 20
+    ) {
+      setSearchError(true);
       return;
     }
-    setPostSearch(`q=${event.target[0].value}&`);
+    setPostData([]);
+    setpostParamsNum(0);
+    setPostSearch(`content_like=${event.target[0].value}&`);
+    setReloadPost(!reloadPost);
   };
 
   return (
@@ -247,6 +256,7 @@ const Timeline: FC<Props> = memo((props) => {
         searchPost={searchPost}
         filterPosts={filterPosts}
         fetchPostsButton={<FetchPostsButton isHeaderButton={true} />}
+        searchError={searchError}
       />
 
       <Box sx={{ overflowY: "scroll", height: "1000px", px: "20px" }}>

@@ -55,7 +55,7 @@ const PostForm: FC<Props> = memo((props) => {
       return;
     }
     postForm.current![0].value = editPostData.content
-      .replace(/\n<a href=.*/, "")
+      .replace(/\/itemS.*/, "")
       .replace(/\/nameS.*/, "");
     setSelectedItemId(editPostData.itemId);
 
@@ -84,7 +84,7 @@ const PostForm: FC<Props> = memo((props) => {
     // 投稿内容の装飾
     let hashtagItem = "";
     if (item) {
-      hashtagItem = `\n<a href="/home/search/${item.id}" style="color:blue;">#${item.name}</a>`;
+      hashtagItem = `/itemS/${item.name}/itemE/`;
     }
     const userName = `/nameS/${loginUser.firstName} ${loginUser.lastName}/nameE/`;
 
@@ -153,6 +153,7 @@ const PostForm: FC<Props> = memo((props) => {
       )}
       <Paper
         component="form"
+        id="postForm"
         elevation={3}
         sx={{ mt: 2, mb: 5 }}
         ref={postForm}
@@ -179,14 +180,16 @@ const PostForm: FC<Props> = memo((props) => {
           />
         </Box>
         <Select
+          name="selectItemCategory"
           value={selectedItemId}
           variant="standard"
           fullWidth
           onChange={(event: SelectChangeEvent<number>) => {
+            let itemNum = event.target.value
             if (typeof event.target.value === "string") {
-              return;
+              itemNum = parseFloat(event.target.value)
             }
-            setSelectedItemId(event.target.value);
+            setSelectedItemId(+itemNum);
           }}
           sx={[
             {
@@ -197,7 +200,7 @@ const PostForm: FC<Props> = memo((props) => {
             { height: "40px", pl: "5px" },
           ]}
         >
-          <MenuItem value="0" disabled>
+          <MenuItem value="0">
             {/* 商品情報の取得ができたかどうか */}
             {itemError ? (
               <Box sx={{ display: "flex" }}>
@@ -249,8 +252,15 @@ const PostForm: FC<Props> = memo((props) => {
             <TextField
               id="addImage"
               type="file"
+              inputProps={{ accept: "image/*" }}
               sx={{ p: "0", display: "none" }}
               size="small"
+              onClick={(event: React.MouseEvent<HTMLInputElement>) => {
+                if (!(event.target instanceof HTMLInputElement)) {
+                  return;
+                }
+                event.target.value = "";
+              }}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 previewImages(event, inputImages, setInputImages);
               }}

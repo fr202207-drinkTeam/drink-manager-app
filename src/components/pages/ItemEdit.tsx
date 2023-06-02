@@ -1,8 +1,12 @@
 import {
   CircularProgress,
+  FormControlLabel,
+  FormLabel,
   InputLabel,
   MenuItem,
   Paper,
+  Radio,
+  RadioGroup,
   Select,
   Typography,
 } from "@mui/material";
@@ -31,6 +35,8 @@ const ItemEdit: FC = memo(() => {
   const [updating, setUpdating] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [inputImages, setInputImages] = useState<File[]>([]);
+  const [presenceOrAbsence, setPresenceOrAbsence] = useState<boolean>(false);
+  const [isDuplicateData, setIsDuplicateData] = useState<boolean>(false)
 
   // パラメーターのitemIdを元にデータ取得
   const paramsData: Readonly<Params<string>> = useParams();
@@ -47,6 +53,16 @@ const ItemEdit: FC = memo(() => {
   const authId: string = Cookies.get("authId")!;
   const loginUser: Users = useLoginUserFetch({ authId: authId });
 
+  // ラジオボタンの挙動
+  const onChangeInTheOffice = (e:any) => {
+    if(e.target.value === "absence"){
+      setPresenceOrAbsence(false)
+    } else {
+      setPresenceOrAbsence(true)
+    }
+  }
+  console.log(getAnItemResult.itemData)
+
   // データ取得後、内容をstateにセット
   useEffect(() => {
     if (getAnItemResult.itemData) {
@@ -58,12 +74,25 @@ const ItemEdit: FC = memo(() => {
       setItemName(getAnItemResult.itemData.name);
       setItemDescription(getAnItemResult.itemData.description);
       setItemCategory(getAnItemResult.itemData.itemCategory);
+      setPresenceOrAbsence(getAnItemResult.itemData.intheOffice)
     }
   }, [getAnItemResult.itemData]);
 
   // データ追加処理(確定ボタン)
   const onClickEditItemData: () => Promise<void> = async () => {
     setUpdating(true);
+    const res = await fetch(`http://localhost:8880/items?name=${itemName}`,
+    {
+      method: "GET",
+    })
+    const data = await res.json();
+    console.log(data)
+    if(data.length > 0){
+      setIsDuplicateData(true)
+      setUpdating(false)
+      return;
+    }
+
     if (isFirstRender.current) {
       isFirstRender.current = false;
     }
@@ -79,9 +108,10 @@ const ItemEdit: FC = memo(() => {
         image: imagePaths,
         itemCategory: itemCategory,
         createdAt: new Date(),
-        inTheOffice: false,
+        intheOffice: presenceOrAbsence,
         author: loginUser.id,
         otherItem: false,
+        isDiscontinued: false
       }),
     }).then(() => {
       setUpdating(false);
@@ -94,7 +124,11 @@ const ItemEdit: FC = memo(() => {
       {loading ? (
         <div>Loading...</div>
       ) : (
-        <Paper sx={{ p: 5, width: "80%", m: "auto" }}>
+        getAnItemResult.itemData ? (
+          getAnItemResult.itemData.isDiscontinued ? (
+            <div>該当する商品がありません</div>
+          ) : (
+            <Paper sx={{ p: 5, width: "80%", m: "auto" }}>
           <Box id="top"/>
           <AdmTitleText>商品編集</AdmTitleText>
           {updating ? (
@@ -148,6 +182,12 @@ const ItemEdit: FC = memo(() => {
                         style={{ display: "none" }}
                         id={`newImage`}
                         accept=".png, .jpg, .jpeg"
+                        onClick={(event: React.MouseEvent<HTMLInputElement>) => {
+                          if (!(event.target instanceof HTMLInputElement)) {
+                            return;
+                          }
+                          event.target.value = "";
+                        }}
                         onChange={(
                           event: React.ChangeEvent<HTMLInputElement>
                         ) => {
@@ -179,7 +219,6 @@ const ItemEdit: FC = memo(() => {
                 id="itemCategoryField"
                 value={itemCategory}
                 label="商品カテゴリー"
-                placeholder="商品カテゴリーを選択して下さい"
                 onChange={(e) => {
                   setItemCategory(Number(e.target.value));
                 }}
@@ -194,6 +233,43 @@ const ItemEdit: FC = memo(() => {
                 <MenuItem value={6}>ココア</MenuItem>
                 <MenuItem value={7}>その他</MenuItem>
               </Select>
+              <div>
+                <FormLabel id="in-the-office">社内有無 *</FormLabel>
+                {presenceOrAbsence ? 
+                <RadioGroup
+                  row
+                  aria-labelledby="in-the-office"
+                  name="in-the-office"
+                  defaultValue="presence"
+                  onChange={(e) => onChangeInTheOffice(e)}
+                >
+                  <FormControlLabel value="absence" control={<Radio />} label="社内なし" />
+                  <FormControlLabel value="presence" control={<Radio />} label="社内あり" />
+                </RadioGroup> : 
+                  <RadioGroup
+                  row
+                  aria-labelledby="in-the-office"
+                  name="in-the-office"
+                  defaultValue="presence"
+                  onChange={(e) => onChangeInTheOffice(e)}
+                >
+                  <FormControlLabel value="absence" control={<Radio />} label="社内なし" />
+                  <FormControlLabel value="presence" control={<Radio />} label="社内あり" />
+                </RadioGroup>
+                }
+              </div>
+              {isDuplicateData && 
+                <>
+                  <Typography
+                    variant="body1"
+                    component="div"
+                    textAlign="center"
+                    sx={{ mb: 1, mt: 3, color: "red" }}
+                  >
+                  商品名が重複しています
+                  </Typography>
+                </>
+              }
               {itemName &&
               itemDescription &&
               itemCategory !== 0 &&
@@ -230,6 +306,7 @@ const ItemEdit: FC = memo(() => {
                     fontSize: "16px",
                   }}
                 />
+                
                 {itemName &&
                 itemDescription &&
                 itemCategory !== 0 &&
@@ -263,6 +340,12 @@ const ItemEdit: FC = memo(() => {
             </>
           )}
         </Paper>
+          )
+          
+        ) :(
+          <div>該当する商品がありません</div>
+        )
+        
       )}
     </>
   );
