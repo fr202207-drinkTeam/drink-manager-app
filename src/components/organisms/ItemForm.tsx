@@ -80,6 +80,12 @@ const ItemForm: FC<Props> = memo((props) => {
                   style={{ display: "none" }}
                   id="itemImageFeild"
                   accept=".png, .jpg, .jpeg"
+                  onClick={(event: React.MouseEvent<HTMLInputElement>) => {
+                    if (!(event.target instanceof HTMLInputElement)) {
+                      return;
+                    }
+                    event.target.value = "";
+                  }}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                     previewImages(event, props.itemImages, props.setItemImages);
                   }}
