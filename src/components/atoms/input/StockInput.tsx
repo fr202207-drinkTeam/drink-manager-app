@@ -1,6 +1,8 @@
-import { TextField } from "@mui/material";
-import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
+
+import { Box, TextField } from '@mui/material';
+import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { useLocation } from "react-router-dom";
+
 
 type Props = {
   index: number;
@@ -69,15 +71,16 @@ export const StockInput: FC<Props> = (props) => {
         InputLabelProps={{
           shrink: true,
         }}
-        inputProps={{ min: 0, max: 999 }}
+        inputProps={{ min: 0, max: 999,className: 'no-spin'}}
         onChange={handleInputChange(index)}
         helperText={inputStatusArr[index]! && "999以下の数値を入力してください"}
         InputProps={{
           inputProps: {
             min: 0,
             max: 999,
-            inputMode: "numeric",
-            pattern: "[0-9]*",
+            inputMode: 'numeric',
+            pattern: '[0-9]*',
+            className: 'no-spin',
           },
           onKeyPress: (e) => {
             if (e.key === "-" || e.key === "+") {

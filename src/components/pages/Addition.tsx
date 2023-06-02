@@ -19,6 +19,8 @@ const Consumption: FC<Props> = memo((props) => {
   // const { itemData, loading, error } = useGetOfficeItems1();
   const { itemData, itemLoading, itemError } = useGetItems("?intheOffice=true");
   const [inputValueArr, setInputValueArr] = useState<number[]>([]);
+  const [inputValueArrError, setInputValueArrError] = useState("");
+
   useEffect(() => {
     const firstInputValueArr: number[] = [...Array(itemData.length)].map(
       () => 0
@@ -46,13 +48,13 @@ const Consumption: FC<Props> = memo((props) => {
 
   //現在の在庫量を取得
   const getStockAmount = async () => {
-    const promises = inTheOfficeItemIdArr.map((test) => {
+    const promises = inTheOfficeItemIdArr?.map((test) => {
       return axios
         .get(
           `http://localhost:8880/stockhistory?&itemId=${test}&_sort=id&_order=desc&_limit=1`
         )
         .then((res) => {
-          return res.data[0];
+          return res?.data[0];
         })
         .catch((error) => {
           console.log(error);
@@ -101,31 +103,52 @@ const Consumption: FC<Props> = memo((props) => {
   //   navigate('/adminhome');
   // };
 
+  const validateAddition = () => {
+    const invalidValues = inputValueArr.filter(value => value >= 999);
+    const invalidAllValues = inputValueArr.filter(value => value === 0);
+    console.log(invalidAllValues,1234)
+    if (invalidValues.length > 0) {
+      setInputValueArrError("*入力内容の確認をしてください");
+      return false;
+    }
+    if (invalidAllValues.length === inputValueArr.length) {
+      setInputValueArrError("*入力をしてください");
+      return false;
+    }
+    setInputValueArrError("");
+    return true;
+  };
+  
+
   const onClickSubmit = async () => {
-    const now = new Date();
-    const dateString = now.toISOString();
-    console.log("送信しました。");
+    const isAdditionValid = validateAddition();
+    if (isAdditionValid) {
+      const now = new Date();
+      const dateString = now.toISOString();
+      try {
+        await Promise.all(
+          itemData.map(async (item, index) => {
+            console.log("index", index)
+            await axios.post('http://localhost:8880/stockhistory', {
+              itemId: item.id,
+              quantity: inputValueArr[index],
+              day: dateString,
+              incOrDec: true,
+              stockAmount:
+                inTheOfficeItemArr[index].stockAmount + inputValueArr[index],
+            });
+          })
+        );
 
-    try {
-      await Promise.all(
-        itemData.map(async (item, index) => {
-          console.log("index", index);
-          await axios.post("http://localhost:8880/stockhistory", {
-            itemId: item.id,
-            quantity: inputValueArr[index],
-            day: dateString,
-            incOrDec: true,
-            stockAmount:
-              inTheOfficeItemArr[index].stockAmount + inputValueArr[index],
-          });
-        })
-      );
-
-      // 処理が全て完了した後に/adminhomeへ遷移
-      navigate("/adminhome");
-      // await restartJsonServer();
-    } catch (error) {
-      console.log(error);
+        // 処理が全て完了した後に/adminhomeへ遷移
+        navigate('/adminhome');
+        console.log("OK")
+        // await restartJsonServer();
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      setInputValueArrError("*入力内容の確認をしてください");
     }
   };
 
@@ -180,6 +203,11 @@ const Consumption: FC<Props> = memo((props) => {
           borderRadius: 10,
         }}
       />
+      {inputValueArrError && (
+        <Box sx={{ color: "red", fontSize: 15, marginBottom: 1,mt:1 }}>
+          {inputValueArrError}
+        </Box>
+      )}
     </Paper>
   );
 });
