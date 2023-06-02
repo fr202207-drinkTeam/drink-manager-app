@@ -63,13 +63,13 @@ const Consumption: FC<Props> = memo((props) => {
   };
 
   const validateConsuption = () => {
-    const invalidValues = inputValueArr.filter((value, index) => value === 0 || value > inTheOfficeItemArr[index]?.stockAmount);
-    console.log(invalidValues, 1234)
+    const invalidValues = inputValueArr.filter((value, index) =>  value > inTheOfficeItemArr[index]?.stockAmount);
+    const invalidAllValues = inputValueArr.filter((value, index) => value === 0 );
     if (invalidValues.length > 0) {
       setInputValueArrError("*入力内容の確認をしてください");
       return false;
     }
-    if (invalidValues.length === inputValueArr.length) {
+    if (invalidAllValues.length === inputValueArr.length) {
       setInputValueArrError("*入力をしてください");
       return false;
     }
