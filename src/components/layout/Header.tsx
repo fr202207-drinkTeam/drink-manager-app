@@ -180,9 +180,19 @@ const Header = () => {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                {!isAdmin ? (
-                  <>
-                    {pages.map((page) => (
+                {!isAdmin
+                  ? pages.map((page) => (
+                      <Link to={page.href} key={page.label}>
+                        <MenuItem key={page.label}>
+                          <Box sx={{ textAlign: "center !important" }}>
+                            <Typography fontWeight="bold">
+                              {page.label}
+                            </Typography>
+                          </Box>
+                        </MenuItem>
+                      </Link>
+                    ))
+                  : filteredAdminHeader.map((page) => (
                       <Link to={page.href} key={page.label}>
                         <MenuItem key={page.label}>
                           <Box sx={{ textAlign: "center !important" }}>
@@ -193,22 +203,6 @@ const Header = () => {
                         </MenuItem>
                       </Link>
                     ))}
-                  </>
-                ) : (
-                  <>
-                    {filteredAdminHeader.map((page) => (
-                      <Link to={page.href} key={page.label}>
-                        <MenuItem key={page.label}>
-                          <Box sx={{ textAlign: "center !important" }}>
-                            <Typography fontWeight="bold">
-                              {page.label}
-                            </Typography>
-                          </Box>
-                        </MenuItem>
-                      </Link>
-                    ))}
-                  </>
-                )}
               </Menu>
             </Box>
             <Typography

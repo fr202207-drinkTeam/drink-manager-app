@@ -3190,7 +3190,7 @@
   "posts": [
     {
       "userId": 1,
-      "content": "いいああああああああああああああああああああ\n<a href=\"/home/search/9\" style=\"color:blue;\">#イングリッシュブレックファスト</a>/nameS/テスト 太郎/nameE/",
+      "content": "いいおああああああああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 太郎/nameE/",
       "itemId": "9",
       "postImage": [
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
@@ -3201,7 +3201,7 @@
     },
     {
       "userId": 2,
-      "content": "おおああああああああああああああああああああ\n<a href=\"/home/search/9\" style=\"color:blue;\">#イングリッシュブレックファスト</a>/nameS/テスト 花子/nameE/",
+      "content": "編あ集ああああああああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 花子/nameE/",
       "itemId": "9",
       "postImage": [
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
@@ -3212,7 +3212,7 @@
     },
     {
       "userId": 2,
-      "content": "ああああああああああああああああああああ\n<a href=\"/home/search/9\" style=\"color:blue;\">#イングリッシュブレックファスト</a>/nameS/テスト 花子/nameE/",
+      "content": "ああああああああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 花子/nameE/",
       "itemId": "9",
       "postImage": [
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
@@ -3223,7 +3223,7 @@
     },
     {
       "userId": 1,
-      "content": "ああああああああああああああああああああ\n<a href=\"/home/search/9\" style=\"color:blue;\">#イングリッシュブレックファスト</a>/nameS/テスト 太郎/nameE/",
+      "content": "ああああああああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 太郎/nameE/",
       "itemId": "9",
       "postImage": [
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
@@ -3234,7 +3234,7 @@
     },
     {
       "userId": 1,
-      "content": "ああああああああああああああああああああ\n<a href=\"/home/search/9\" style=\"color:blue;\">#イングリッシュブレックファスト</a>/nameS/テスト 太郎/nameE/",
+      "content": "ああああああああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 太郎/nameE/",
       "itemId": "9",
       "postImage": [
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
@@ -3245,8 +3245,8 @@
     },
     {
       "userId": 2,
-      "content": "みなさん今月の投票は何にしましたか？私はじゃがりこにしました！！！aaaaaa\n<a href=\"/home/search/23\" style=\"color:blue;\">#じゃがりこ</a>/nameS/テスト 花子/nameE/",
-      "itemId": "23",
+      "content": "ああああああああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 花子/nameE/",
+      "itemId": "9",
       "postImage": [
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
       ],
@@ -3256,7 +3256,7 @@
     },
     {
       "userId": 2,
-      "content": "ああああああああああああああああああああ\n<a href=\"/home/search/9\" style=\"color:blue;\">#イングリッシュブレックファスト</a>/nameS/テスト 花子/nameE/",
+      "content": "ああああああああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 花子/nameE/",
       "itemId": "9",
       "postImage": [
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
@@ -3266,26 +3266,8 @@
       "id": 7
     }
   ],
-  "likes": [
-    {
-      "postId": 1,
-      "userId": 1,
-      "time": "2023-05-30T08:51:40.317Z",
-      "id": 1
-    },
-    {
-      "postId": 2,
-      "userId": 1,
-      "time": "2023-05-30T08:51:41.277Z",
-      "id": 2
-    },
-    {
-      "postId": 3,
-      "userId": 1,
-      "time": "2023-05-30T08:51:42.338Z",
-      "id": 3
-    }
-  ],
+  "comments": [],
+  "likes": [],
   "stockhistory": [
     {
       "id": 1,

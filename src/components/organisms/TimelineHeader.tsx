@@ -99,7 +99,7 @@ const TimelineHeader: FC<Props> = memo((props) => {
             mx: "20px",
           }}
         >
-          投稿検索は1文字以上20文字以内で入力してください
+          投稿検索は20文字以内で入力してください
         </Typography>
       )}
     </Grid>

@@ -221,7 +221,7 @@ const ItemSearch: FC<Props> = memo((props) => {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
-          width:"1030px"
+       
         }}
       >
         <Box >
@@ -240,12 +240,13 @@ const ItemSearch: FC<Props> = memo((props) => {
           <Typography sx={{ mx: "16px" }}>
             検索結果：{allItem?.length}件
           </Typography>
-        </Box>
+        </Box>   
         <Box sx={{ display: "flex", alignItems: "center", }}>
+      
           <Select
             size="small"
             value={selectedValue}
-            sx={{ border: "none", backgroundColor: "white", mr: "16px" }}
+            sx={{ border: "none", backgroundColor: "white", mx: "16px" }}
             onChange={handlePullDown}
           >
             <MenuItem value="選択する" disabled>
@@ -274,7 +275,7 @@ const ItemSearch: FC<Props> = memo((props) => {
       ) : (
 ""
       )}
-      <div style={{ display: "flex", justifyContent: "flex-end",width:"1030px" }} >
+      <Box sx={{ display: "flex", justifyContent: "flex-end",mr:"16px" ,my:6}} >
         {loginUser?.isAdmin ? (
           <Link to="/adminhome/additem">
             <ActiveDarkBlueButton event={function (): void {}}>
@@ -285,7 +286,7 @@ const ItemSearch: FC<Props> = memo((props) => {
         ) : (
           ""
         )}
-      </div>
+      </Box>
     </>
   );
 });

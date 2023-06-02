@@ -47,59 +47,77 @@ const Poll = memo(() => {
 
   return (
     <>
-      <Paper
-        sx={{ mb: 5, width: "100%", minWidth: 500, maxWidth: 1200, pb: 13 }}
-      >
-        <Box
-          sx={{
-            textAlign: "center",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            backgroundImage: "url(/coffeebeens.jpeg)",
-            backgroundSize: "200px",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "-50px top",
-            pt: 10,
-          }}
-        >
-          <PollAgenda pollTitle={pollTitle} />
-        </Box>
-        {(PopularPollTitle[0]?.endDate >= now) ? (
-          <>
-            <div id="popular"></div>
-            {isPopularQuestionnaireData.length===0?<PollTitle poll={PopularPollTitle} />:<PollComplateTitle poll={PopularPollTitle}/>}
-            {isPopularQuestionnaireData.length===0?  <PollDetail PopularitemData={PopularitemData} titleText={PopularPollTitle[0]?.description} />:<Box></Box>}
-            <PollCard
-              data={PopularitemData}
-              pollNum={PopularPollTitle[0]?.id}
-              pollCategory={PopularPollTitle[0]?.category}
-              sxStyle={{ mb: 3 }}
-            />
-          </>
-        ) : (
-          <Box
-          >
-          </Box>
-        )}
-        {(OtherPollTitle[0]?.endDate >= now) ? (
-          <>
-            <div id="others"></div>
-            {isOthersQuestionnaireData.length===0?<PollTitle poll={OtherPollTitle} />:<PollComplateTitle poll={OtherPollTitle}/>}
-            {isOthersQuestionnaireData.length===0?<PollDetail OtheritemData={OtheritemData} titleText={OtherPollTitle[0]?.description} />:<Box></Box>}
-            <PollCard
-              data={OtheritemData}
-              pollNum={OtherPollTitle[0]?.id}
-              pollCategory={OtherPollTitle[0]?.category}
-              sxStyle={{ mb: 3 }}
-            />
-          </>
-        ) : (
-          <Box
-        >
-        </Box>
-        )}
-      </Paper>
+ <Paper
+  sx={{
+    mb: 5,
+    width: "100%",
+    minWidth: 500,
+    maxWidth: 1200,
+    pb: 13,
+  }}
+>
+  <Box
+    sx={{
+      textAlign: "center",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      backgroundImage: "url(/coffeebeens.jpeg)",
+      backgroundSize: "200px",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "-50px top",
+      pt: [5, 10],
+    }}
+  >
+    <PollAgenda pollTitle={pollTitle} />
+  </Box>
+  {(PopularPollTitle[0]?.endDate >= now) ? (
+    <>
+      <div id="popular"></div>
+      {isPopularQuestionnaireData.length === 0 ? (
+        <PollTitle poll={PopularPollTitle} />
+      ) : (
+        <PollComplateTitle poll={PopularPollTitle} />
+      )}
+      {isPopularQuestionnaireData.length === 0 ? (
+        <PollDetail PopularitemData={PopularitemData} titleText={PopularPollTitle[0]?.description} />
+      ) : (
+        <Box></Box>
+      )}
+      <PollCard
+        data={PopularitemData}
+        pollNum={PopularPollTitle[0]?.id}
+        pollCategory={PopularPollTitle[0]?.category}
+        sxStyle={{ mb: 3 }}
+      />
+    </>
+  ) : (
+    <Box></Box>
+  )}
+  {(OtherPollTitle[0]?.endDate >= now) ? (
+    <>
+      <div id="others"></div>
+      {isOthersQuestionnaireData.length === 0 ? (
+        <PollTitle poll={OtherPollTitle} />
+      ) : (
+        <PollComplateTitle poll={OtherPollTitle} />
+      )}
+      {isOthersQuestionnaireData.length === 0 ? (
+        <PollDetail OtheritemData={OtheritemData} titleText={OtherPollTitle[0]?.description} />
+      ) : (
+        <Box></Box>
+      )}
+      <PollCard
+        data={OtheritemData}
+        pollNum={OtherPollTitle[0]?.id}
+        pollCategory={OtherPollTitle[0]?.category}
+        sxStyle={{ mb: 3 }}
+      />
+    </>
+  ) : (
+    <Box></Box>
+  )}
+</Paper>
     </>
   );
 });
