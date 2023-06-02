@@ -2,7 +2,12 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
+import { getAuth } from "firebase/auth";
+import Cookies from "js-cookie";
 const Footer = () => {
+  const auth = getAuth();
+  const authId = Cookies.get("authId")!;
+  const isAdmin = Cookies.get("isAdmin")!;
   return (
     <>
       <Box
@@ -27,9 +32,17 @@ const Footer = () => {
         <Link to="/home/timeline">
           <Typography sx={{ mx: 2, color: "white" }}>タイムライン</Typography>
         </Link>
-        <Link to="/home/contact">
-          <Typography sx={{ mx: 2, color: "white" }}>お問い合わせ</Typography>
-        </Link>
+        {!isAdmin ? (
+          <>
+            <Link to="/home/contact">
+              <Typography sx={{ mx: 2, color: "white" }}>
+                お問い合わせ
+              </Typography>
+            </Link>
+          </>
+        ) : (
+          ""
+        )}
       </Box>
       <Box
         sx={{

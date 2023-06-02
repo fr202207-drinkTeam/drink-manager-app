@@ -19,8 +19,7 @@ import ScrollPageTop from "../atoms/ScrollPageTop";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 
-function DefaultLayout({ children,props }: { children: any,props?:any }) {
-  const handleButtonClick = () => {};
+function DefaultLayout({ children, props }: { children: any; props?: any }) {
   // パスの取得
   const location = useLocation();
   const images = ["../top.png", "../top.png", "../top.png"];
@@ -83,7 +82,7 @@ function DefaultLayout({ children,props }: { children: any,props?:any }) {
       </Container>
       {/* チャットボット管理者でのログイン時に非表示 */}
       {!loginUser?.isAdmin ? (
-        <Link to="/faq" target="_blank">
+        <Link to="/home/faq" target="_blank">
           <Box
             sx={{
               borderRadius: 20,
@@ -104,23 +103,23 @@ function DefaultLayout({ children,props }: { children: any,props?:any }) {
       ) : (
         ""
       )}
-       <ScrollPageTop {...props}>
-          <Fab
-            size="large"
-            aria-label="scroll back to top"
-            sx={{
-              bottom: "120px",
-              backgroundColor: "#9AB7CA",
-              color: "#fff",
-              ":hover": {
-                background: "#9AB7CA",
-                cursor: "pointer",
-              },
-            }}
-          >
-            <KeyboardArrowUp />
-          </Fab>
-        </ScrollPageTop>
+      <ScrollPageTop {...props}>
+        <Fab
+          size="large"
+          aria-label="scroll back to top"
+          sx={{
+            bottom: "120px",
+            backgroundColor: "#9AB7CA",
+            color: "#fff",
+            ":hover": {
+              background: "#9AB7CA",
+              cursor: "pointer",
+            },
+          }}
+        >
+          <KeyboardArrowUp />
+        </Fab>
+      </ScrollPageTop>
       <Footer />
     </React.Fragment>
   );
