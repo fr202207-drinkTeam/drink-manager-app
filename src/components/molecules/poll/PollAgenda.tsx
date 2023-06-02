@@ -1,10 +1,9 @@
-import { Box, ListItem, ListItemText } from '@mui/material'
+import { Box, ListItem, ListItemText,useTheme } from '@mui/material'
 import { FC } from 'react'
 import { ActiveBeigeButton } from '../../atoms/button/Button'
 import { useNavigate } from 'react-router-dom'
 import { Questionnaire } from '../../../types/type'
 import useGetQuestionnaire from '../../../hooks/useGetQuestipnnaire'
-import useGetPollLatestTitle from '../../../hooks/useGetPollLatestTitle'
 
 type PollAgendaProps = {
   pollTitle: Questionnaire[]
@@ -12,6 +11,7 @@ type PollAgendaProps = {
 
 const PollAgenda: FC<PollAgendaProps> = ({ pollTitle }) => {
   const navigate = useNavigate()
+  const theme = useTheme();
   const pollData: Questionnaire[] = useGetQuestionnaire()
   const now = new Date();
   now.setHours(0, 0, 0, 0);
@@ -19,16 +19,23 @@ const PollAgenda: FC<PollAgendaProps> = ({ pollTitle }) => {
     <>
       <Box
         sx={{
-          textAlign: "center",
-          fontSize: "30px",
+          textAlign: 'center',
+          fontSize: {
+            xs: theme.typography.pxToRem(20),
+            sm: theme.typography.pxToRem(25),
+            md: theme.typography.pxToRem(30),
+          },
           mt: 5,
-          maxWidth: 600,
-          minWidth: 600,
+          maxWidth: "100%",
         }}
       >
         ＼現在開催中の
         <span
-          style={{ fontSize: "40px", fontWeight: "bold", color: "#F3BF87" }}
+          style={{
+            fontSize: theme.typography.pxToRem(40),
+            fontWeight: 'bold',
+            color: '#F3BF87',
+          }}
         >
           &nbsp;投票&nbsp;
         </span>
@@ -36,67 +43,95 @@ const PollAgenda: FC<PollAgendaProps> = ({ pollTitle }) => {
       </Box>
 
       <Box>
-
-        {(pollTitle[0]?.endDate >= now || pollTitle[1]?.endDate >= now )? (
-            pollTitle.map((title, index) => (
+        {pollTitle[0]?.endDate >= now || pollTitle[1]?.endDate >= now ? (
+          pollTitle.map((title, index) => (
             <Box key={index}>
               {title?.endDate >= now ? (
-              <Box sx={{ textAlign: "center" }}>
-                <ListItem
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    p: 1,
-                    maxWidth: 700,
-                    minWidth: 700,
-                    mt: 1,
-                  }}
-                  button
-                  component="a"
-                  href={index === 0 ? `#popular` : "#others"}
-                >
-                  <Box id="top" />
-                  <ListItemText
-                    primaryTypographyProps={{
-                      textAlign: "center",
-                      fontSize: "40px",
-                      border: "double #C89F81",
+                <Box sx={{ textAlign: 'center' }}>
+                  <ListItem
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                       p: 1,
+                      maxWidth: {
+                        xs: theme.breakpoints.values.xs,
+                        sm: theme.breakpoints.values.sm,
+                        lg: theme.breakpoints.values.lg,
+                      },
+                      minWidth: 400,
+                      mt: 1,
                     }}
+                    button
+                    component="a"
+                    href={index === 0 ? `#popular` : '#others'}
                   >
-                    {title?.name}
-                    <span
-                      style={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        justifyContent: "center",
-                        fontSize: "20px",
-                        paddingBottom: 1,
+                    <Box id="top" />
+                    <ListItemText
+                      primaryTypographyProps={{
+                        textAlign: 'center',
+                        fontSize: {
+                          xs: theme.typography.pxToRem(25),
+                          sm: theme.typography.pxToRem(30),
+                          md: theme.typography.pxToRem(40),
+                        },
+                        border: 'double #C89F81',
+                        p: 1,
+                        px:4
                       }}
                     >
-                      投票期間：
-                      {title?.startDate.toLocaleDateString()}~
-                      {title?.endDate.toLocaleDateString()}
-                    </span>
-                  </ListItemText>
-                </ListItem>
-              </Box>
-                ):(<Box sx={{fontSize:"30px",my:5}}>{index+1===1?"人気投票":"その他投票"}は現在開催していません</Box>)}
+                      {title?.name}
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          flexWrap: 'wrap',
+                          justifyContent: 'center',
+                          fontSize: {
+                            xs: theme.typography.pxToRem(16),
+                            sm: theme.typography.pxToRem(18),
+                            md: theme.typography.pxToRem(25),
+                          },
+                          paddingBottom: 1,
+                        }}
+                      >
+                        投票期間：
+                        {title?.startDate.toLocaleDateString()}~
+                        {title?.endDate.toLocaleDateString()}
+                      </Box>
+                    </ListItemText>
+                  </ListItem>
+                </Box>
+              ) : (
+                <Box sx={{ fontSize: theme.typography.pxToRem(20), my: 5 }}>
+                  {index + 1 === 1 ? '人気投票' : 'その他投票'}は現在開催していません
+                </Box>
+              )}
             </Box>
-            ))):(<Box sx={{fontSize:"30px",mb:6,mt:7}}>開催中の投票はありません</Box>)}
+          ))
+        ) : (
+          <Box sx={{ fontSize: theme.typography.pxToRem(20), mb: 6, mt: 7 }}>
+            開催中の投票はありません
+          </Box>
+        )}
       </Box>
 
-      {pollData.length >= 1 ?
-        <Box sx={{ textAlign: "center", my: 5, mb: 10 }}>
+      {pollData.length >= 1 ? (
+        <Box sx={{ textAlign: 'center', my: 5, mb: 10 }}>
           <ActiveBeigeButton
-            event={() => navigate("/home/poll/pollresult")}
-            style={{ padding: 15, width: 300, height: 80, fontSize: "23px" }}
+            event={() => navigate('/home/poll/pollresult')}
+            style={{
+              padding: 15,
+              width: 300,
+              height: 80,
+              fontSize: '23px' as '23px',
+            }}
           >
             過去の投票結果を見る!
           </ActiveBeigeButton>
         </Box>
-        : <Box sx={{ height: 80 }}></Box>}
+      ) : (
+        <Box sx={{ height: 80 }}></Box>
+      )}
     </>
   )
 }
