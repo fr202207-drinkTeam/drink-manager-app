@@ -239,15 +239,14 @@ const Timeline: FC<Props> = memo((props) => {
       return;
     }
     if (
-      event.target[0].value.length > 20 ||
-      event.target[0].value.length === 0
+      event.target[0].value.length > 20
     ) {
       setSearchError(true);
       return;
     }
     setPostData([]);
     setpostParamsNum(0);
-    setPostSearch(`q=${event.target[0].value}&`);
+    setPostSearch(`content_like=${event.target[0].value}&`);
     setReloadPost(!reloadPost);
   };
 
