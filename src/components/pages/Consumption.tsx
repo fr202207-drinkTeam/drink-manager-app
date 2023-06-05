@@ -90,23 +90,23 @@ const Consumption: FC<Props> = memo((props) => {
             if (inTheOfficeItemArr[index]) {
               newStockAmount =
                 inTheOfficeItemArr[index].stockAmount - inputValueArr[index];
+
+              if (inputValueArr[index] > 0) {
+                await axios.post("http://localhost:8880/stockhistory", {
+                  itemId: item.id,
+                  quantity: inputValueArr[index],
+                  day: dateString,
+                  incOrDec: false,
+                  stockAmount: newStockAmount,
+                });
+              }
+              navigate("/adminhome");
             } else {
-              newStockAmount = inputValueArr[index];
-            }
-            if (inputValueArr[index] > 0) {
-              await axios.post("http://localhost:8880/stockhistory", {
-                itemId: item.id,
-                quantity: inputValueArr[index],
-                day: dateString,
-                incOrDec: false,
-                stockAmount: newStockAmount,
-              });
+              setInputValueArrError("*入力した数値が在庫数を上回っています");
+              return false;
             }
           })
         );
-
-        // 処理が全て完了した後に/adminhomeへ遷移
-        navigate("/adminhome");
       } catch (error) {
         console.log(error);
       }
