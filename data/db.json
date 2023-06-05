@@ -710,26 +710,12 @@
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/6ce585ee-edae-4a8e-988b-f0f1dfbab675?alt=media&token=39b527af-4daf-4f94-b762-897ee3481b13"
       ],
       "itemCategory": 6,
-      "createdAt": "2023-05-31T07:10:03.261Z",
+      "createdAt": "2023-06-05T02:30:19.890Z",
       "intheOffice": true,
       "author": 1,
       "otherItem": false,
-      "id": 66,
-      "isDiscontinued": false
-    },
-    {
-      "name": "テストで追加した商品",
-      "description": "あ",
-      "image": [
-        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/6ce585ee-edae-4a8e-988b-f0f1dfbab675?alt=media&token=39b527af-4daf-4f94-b762-897ee3481b13"
-      ],
-      "itemCategory": 6,
-      "createdAt": "2023-05-31T07:10:03.261Z",
-      "intheOffice": true,
-      "author": 1,
-      "otherItem": false,
-      "id": 66,
-      "isDiscontinued": true
+      "isDiscontinued": false,
+      "id": 66
     }
   ],
   "itemCategory": [

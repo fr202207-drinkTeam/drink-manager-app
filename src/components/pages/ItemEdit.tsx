@@ -61,7 +61,6 @@ const ItemEdit: FC = memo(() => {
       setPresenceOrAbsence(true)
     }
   }
-  console.log(getAnItemResult.itemData)
 
   // データ取得後、内容をstateにセット
   useEffect(() => {
@@ -81,17 +80,19 @@ const ItemEdit: FC = memo(() => {
   // データ追加処理(確定ボタン)
   const onClickEditItemData: () => Promise<void> = async () => {
     setUpdating(true);
-    const res = await fetch(`http://localhost:8880/items?name=${itemName}`,
+    if(itemName !== getAnItemResult.itemData.name) {
+      const res = await fetch(`http://localhost:8880/items?name=${itemName}`,
     {
       method: "GET",
     })
     const data = await res.json();
-    console.log(data)
     if(data.length > 0){
       setIsDuplicateData(true)
       setUpdating(false)
       return;
     }
+    }
+    
 
     if (isFirstRender.current) {
       isFirstRender.current = false;
