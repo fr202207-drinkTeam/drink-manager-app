@@ -3295,36 +3295,12 @@
   "likes": [],
   "stockhistory": [
     {
-      "itemId": 13,
+      "itemId": 1,
       "quantity": 100,
-      "day": "2023-06-05T00:38:28.581Z",
+      "day": "2023-06-05T02:09:14.945Z",
       "incOrDec": true,
       "stockAmount": 100,
       "id": 1
-    },
-    {
-      "itemId": 1,
-      "quantity": 5,
-      "day": "2023-06-05T00:56:32.373Z",
-      "incOrDec": true,
-      "stockAmount": 5,
-      "id": 2
-    },
-    {
-      "itemId": 2,
-      "quantity": 5,
-      "day": "2023-06-05T00:56:32.373Z",
-      "incOrDec": true,
-      "stockAmount": 5,
-      "id": 3
-    },
-    {
-      "itemId": 5,
-      "quantity": 100,
-      "day": "2023-06-05T00:56:53.130Z",
-      "incOrDec": true,
-      "stockAmount": 100,
-      "id": 4
     }
   ],
   "addition": []
