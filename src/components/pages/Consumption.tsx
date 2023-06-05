@@ -8,9 +8,7 @@ import { StockHistory } from "../../types/type";
 import useGetItems from "../../hooks/useGetItems";
 import ModalWindow from "../organisms/ModalWindow";
 
-type Props = {};
-
-const Consumption: FC<Props> = memo((props) => {
+const Consumption: FC = memo(() => {
   const navigate = useNavigate();
   const { itemData, itemLoading, itemError } = useGetItems("?intheOffice=true");
   const [inputValueArr, setInputValueArr] = useState<number[]>([]);
