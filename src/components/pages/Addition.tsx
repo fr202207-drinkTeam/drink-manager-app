@@ -1,8 +1,6 @@
 import { Box, CircularProgress, Paper, Alert, AlertTitle } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
 import { FC, memo, useEffect, useState } from "react";
-
 import AdmTitleText from "../atoms/text/AdmTitleText";
 import axios from "axios";
 import { StockHistory } from "../../types/type";
@@ -10,9 +8,7 @@ import useGetItems from "../../hooks/useGetItems";
 import ModalWindow from "../organisms/ModalWindow";
 import StockCard from "../organisms/card/StockCard";
 
-type Props = {};
-
-const Consumption: FC<Props> = memo((props) => {
+const Consumption: FC = memo(() => {
   const navigate = useNavigate();
   const { itemData, itemLoading, itemError } = useGetItems("?intheOffice=true");
   const [inputValueArr, setInputValueArr] = useState<number[]>([]);
