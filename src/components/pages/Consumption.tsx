@@ -14,7 +14,7 @@ const Consumption: FC = memo(() => {
   const [inputValueArr, setInputValueArr] = useState<number[]>([]);
   const [inputValueArrError, setInputValueArrError] = useState("");
   const [inputValueArrAllError, setInputValueArrAllError] = useState("");
-  
+
   useEffect(() => {
     const firstInputValueArr: number[] = [...Array(itemData.length)].map(
       () => 0
@@ -42,13 +42,13 @@ const Consumption: FC = memo(() => {
 
   //現在の在庫量を取得
   const getStockAmount = async () => {
-    const promises = inTheOfficeItemIdArr?.map((test) => {
+    const promises = inTheOfficeItemIdArr.map((test) => {
       return axios
         .get(
           `http://localhost:8880/stockhistory?&itemId=${test}&_sort=day&_order=desc&_limit=1`
         )
         .then((res) => {
-          return res?.data[0];
+          return res.data[0];
         })
         .catch((error) => {
           console.log(error);
@@ -60,13 +60,26 @@ const Consumption: FC = memo(() => {
   };
 
   const validateConsuption = () => {
-    const invalidValues = inputValueArr.filter(
-      (value, index) => value||0 > inTheOfficeItemArr[index]?.stockAmount
-    );
+    const invalidValues = inputValueArr.map((value, index) => {
+      if (!inTheOfficeItemArr[index]) {
+        if (value > 0) {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        if(value > inTheOfficeItemArr[index]?.stockAmount) {
+          return false
+        } else {
+          return true
+        }
+      }
+    });
+
     const invalidAllValues = inputValueArr.filter(
       (value, index) => value === 0
     );
-    if (invalidValues.length > 0) {
+    if (invalidValues.includes(false)) {
       setInputValueArrError("*入力した数値が在庫数を上回っています");
       return false;
     }
@@ -87,24 +100,23 @@ const Consumption: FC = memo(() => {
         await Promise.all(
           itemData.map(async (item, index) => {
             let newStockAmount;
-            if (inTheOfficeItemArr[index]) {
+            if (inTheOfficeItemArr[index].stockAmount > 0) {
               newStockAmount =
                 inTheOfficeItemArr[index].stockAmount - inputValueArr[index];
-              if (inputValueArr[index] > 0) {
-                await axios.post("http://localhost:8880/stockhistory", {
-                  itemId: item.id,
-                  quantity: inputValueArr[index],
-                  day: dateString,
-                  incOrDec: false,
-                  stockAmount: newStockAmount,
-                });
-               navigate("/adminhome");
-              }
-            } else {
-              setInputValueArrError("*入力した数値が在庫数を上回っています");
+              if (newStockAmount)
+                if (inputValueArr[index] > 0) {
+                  await axios.post("http://localhost:8880/stockhistory", {
+                    itemId: item.id,
+                    quantity: inputValueArr[index],
+                    day: dateString,
+                    incOrDec: false,
+                    stockAmount: newStockAmount,
+                  });
+                   navigate("/adminhome");
+                } 
             }
           })
-        )
+        );
       } catch (error) {
         console.log(error);
       }

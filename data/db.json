@@ -3279,6 +3279,31 @@
   ],
   "comments": [],
   "likes": [],
-  "stockhistory": [],
+  "stockhistory": [
+    {
+      "itemId": 1,
+      "quantity": 100,
+      "day": "2023-06-05T03:00:33.767Z",
+      "incOrDec": true,
+      "stockAmount": 10,
+      "id": 1
+    },
+    {
+      "itemId": 2,
+      "quantity": 100,
+      "day": "2023-06-05T03:00:33.767Z",
+      "incOrDec": true,
+      "stockAmount": 12,
+      "id": 2
+    },
+    {
+      "itemId": 1,
+      "quantity": 5,
+      "day": "2023-06-05T06:11:07.009Z",
+      "incOrDec": false,
+      "stockAmount": 5,
+      "id": 3
+    }
+  ],
   "addition": []
 }
