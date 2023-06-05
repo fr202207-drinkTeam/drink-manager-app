@@ -20,7 +20,7 @@ const Consumption: FC = memo(() => {
     );
     setInputValueArr(firstInputValueArr);
   }, [itemData]);
-  console.log(itemData, 109);
+
 
   //オフィスに存在する商品のidのみが格納された配列
   const [inTheOfficeItemIdArr, setInTheOfficeItemIdArr] = useState<
@@ -35,7 +35,6 @@ const Consumption: FC = memo(() => {
   const [inTheOfficeItemArr, setInTheOfficeItemArr] = useState<
     Array<StockHistory>
   >([]);
-  console.log(inTheOfficeItemArr, 187);
 
   useEffect(() => {
     getStockAmount();
@@ -105,7 +104,6 @@ const Consumption: FC = memo(() => {
 
         // 処理が全て完了した後に/adminhomeへ遷移
         navigate("/adminhome");
-        console.log("OK");
       } catch (error) {
         console.log(error);
       }

@@ -37,7 +37,7 @@ const Timeline: FC<Props> = memo((props) => {
   // 投稿データ取得時のクエリパラメータ
   const [postParams, setPostParams] = useState<string>(
     `?${postUserAdmin}${postSearch}_sort=createdAt&_order=desc&_start=${postParamsNum}&_end=${postParamsNum +
-      3}`
+    3}`
   );
 
   // 投稿データ格納
@@ -124,7 +124,7 @@ const Timeline: FC<Props> = memo((props) => {
     }
     setPostParams(
       `?${postUserAdmin}${postSearch}_sort=createdAt&_order=desc&_start=${postParamsNum}&_end=${postParamsNum +
-        3}&${reloadPost}`
+      3}&${reloadPost}`
     );
   }, [location.state, postParamsNum, postSearch, postUserAdmin, reloadPost]);
 
@@ -258,7 +258,7 @@ const Timeline: FC<Props> = memo((props) => {
         fetchPostsButton={<FetchPostsButton isHeaderButton={true} />}
         searchError={searchError}
       />
-
+      <Box id="top" />
       <Box sx={{ overflowY: "scroll", height: "1000px", px: "20px" }}>
         <PostForm
           itemData={itemData}
