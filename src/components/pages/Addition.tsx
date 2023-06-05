@@ -50,7 +50,7 @@ const Consumption: FC<Props> = memo((props) => {
     const promises = inTheOfficeItemIdArr?.map((test) => {
       return axios
         .get(
-          `http://localhost:8880/stockhistory?&itemId=${test}&_sort=id&_order=desc&_limit=1`
+          `http://localhost:8880/stockhistory?&itemId=${test}&_sort=day&_order=desc&_limit=1`
         )
         .then((res) => {
           return res?.data[0];
@@ -87,6 +87,7 @@ const Consumption: FC<Props> = memo((props) => {
       try {
         await Promise.all(
           itemData.map(async (item, index) => {
+            // 0より大きい場合のみデータを送信
             let newStockAmount;
             if (inTheOfficeItemArr[index]) {
               newStockAmount =
@@ -94,20 +95,21 @@ const Consumption: FC<Props> = memo((props) => {
             } else {
               newStockAmount = inputValueArr[index];
             }
-            await axios.post("http://localhost:8880/stockhistory", {
-              itemId: item.id,
-              quantity: inputValueArr[index],
-              day: dateString,
-              incOrDec: true,
-              stockAmount: newStockAmount,
-            });
+            if (inputValueArr[index] > 0) {
+              await axios.post("http://localhost:8880/stockhistory", {
+                itemId: item.id,
+                quantity: inputValueArr[index],
+                day: dateString,
+                incOrDec: true,
+                stockAmount: newStockAmount,
+              });
+            }
           })
         );
 
         // 処理が全て完了した後に/adminhomeへ遷移
         navigate("/adminhome");
         console.log("OK");
-        // await restartJsonServer();
       } catch (error) {
         console.log(error);
       }

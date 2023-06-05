@@ -22,20 +22,8 @@ const StockCard: FC<Props> = (props) => {
     inputValueArr,
     setInputValueArr,
   } = props;
-  // console.log(inTheOfficeItemArr);
-  // console.log(itemData);
   const intheOfficeItemAmount = itemData.length;
   const [inputStatusArr, setInputStatusArr] = useState<boolean[]>([]);
-
-  // const testFunc = (drinkId: number) => {
-  //   for (let i = 0; i < inTheOfficeItemArr.length; i++) {
-  //     if (inTheOfficeItemArr[i].itemId === drinkId) {
-  //       // console.log(inTheOfficeItemArr[i].stockAmount);
-  //       return inTheOfficeItemArr[i].stockAmount;
-  //     }
-  //   }
-  // };
-  console.log(inTheOfficeItemArr);
 
   const testFunc = (drinkId: number) => {
     if (inTheOfficeItemArr.length > 0) {
