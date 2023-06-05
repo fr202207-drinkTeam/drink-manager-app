@@ -3320,6 +3320,30 @@
       "incOrDec": true,
       "stockAmount": 100,
       "id": 4
+    },
+    {
+      "itemId": 13,
+      "quantity": 20,
+      "day": "2023-06-05T02:40:21.784Z",
+      "incOrDec": false,
+      "stockAmount": 80,
+      "id": 5
+    },
+    {
+      "itemId": 7,
+      "quantity": 10,
+      "day": "2023-06-05T02:45:08.362Z",
+      "incOrDec": true,
+      "stockAmount": 10,
+      "id": 6
+    },
+    {
+      "itemId": 13,
+      "quantity": 70,
+      "day": "2023-06-05T02:45:08.362Z",
+      "incOrDec": true,
+      "stockAmount": 150,
+      "id": 7
     }
   ],
   "addition": []

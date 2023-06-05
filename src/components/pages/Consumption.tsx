@@ -63,7 +63,7 @@ const Consumption: FC<Props> = memo((props) => {
 
   const validateConsuption = () => {
     const invalidValues = inputValueArr.filter(
-      (value, index) => value > inTheOfficeItemArr[index]?.stockAmount
+      (value, index) => value||0 > inTheOfficeItemArr[index]?.stockAmount
     );
     const invalidAllValues = inputValueArr.filter(
       (value, index) => value === 0
@@ -92,7 +92,6 @@ const Consumption: FC<Props> = memo((props) => {
             if (inTheOfficeItemArr[index]) {
               newStockAmount =
                 inTheOfficeItemArr[index].stockAmount - inputValueArr[index];
-
               if (inputValueArr[index] > 0) {
                 await axios.post("http://localhost:8880/stockhistory", {
                   itemId: item.id,
@@ -101,18 +100,17 @@ const Consumption: FC<Props> = memo((props) => {
                   incOrDec: false,
                   stockAmount: newStockAmount,
                 });
-                navigate("/adminhome");
+               navigate("/adminhome");
               }
             } else {
-              setInputValueArrAllError("*入力した数値が在庫数を上回っています");
-              return false;
+              setInputValueArrError("*入力した数値が在庫数を上回っています");
             }
           })
-        );
+        )
       } catch (error) {
         console.log(error);
       }
-    } 
+    }
   };
 
   return (
