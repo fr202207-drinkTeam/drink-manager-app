@@ -15,6 +15,8 @@ const Consumption: FC<Props> = memo((props) => {
   const { itemData, itemLoading, itemError } = useGetItems("?intheOffice=true");
   const [inputValueArr, setInputValueArr] = useState<number[]>([]);
   const [inputValueArrError, setInputValueArrError] = useState("");
+  const [inputValueArrAllError, setInputValueArrAllError] = useState("");
+  
   useEffect(() => {
     const firstInputValueArr: number[] = [...Array(itemData.length)].map(
       () => 0
@@ -67,7 +69,7 @@ const Consumption: FC<Props> = memo((props) => {
       (value, index) => value === 0
     );
     if (invalidValues.length > 0) {
-      setInputValueArrError("*入力内容の確認をしてください");
+      setInputValueArrError("*入力した数値が在庫数を上回っています");
       return false;
     }
     if (invalidAllValues.length === inputValueArr.length) {
@@ -99,10 +101,10 @@ const Consumption: FC<Props> = memo((props) => {
                   incOrDec: false,
                   stockAmount: newStockAmount,
                 });
+                navigate("/adminhome");
               }
-              navigate("/adminhome");
             } else {
-              setInputValueArrError("*入力した数値が在庫数を上回っています");
+              setInputValueArrAllError("*入力した数値が在庫数を上回っています");
               return false;
             }
           })
@@ -110,9 +112,7 @@ const Consumption: FC<Props> = memo((props) => {
       } catch (error) {
         console.log(error);
       }
-    } else {
-      setInputValueArrError("*入力内容の確認をしてください");
-    }
+    } 
   };
 
   return (
@@ -169,6 +169,11 @@ const Consumption: FC<Props> = memo((props) => {
       {inputValueArrError && (
         <Box sx={{ color: "red", fontSize: 15, marginBottom: 1, mt: 1 }}>
           {inputValueArrError}
+        </Box>
+      )}
+      {inputValueArrAllError && (
+        <Box sx={{ color: "red", fontSize: 15, marginBottom: 1, mt: 1 }}>
+          {inputValueArrAllError}
         </Box>
       )}
     </Paper>
