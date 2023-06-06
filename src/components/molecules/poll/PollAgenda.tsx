@@ -23,7 +23,7 @@ const PollAgenda: FC<PollAgendaProps> = ({ pollTitle }) => {
           fontSize: {
             xs: theme.typography.pxToRem(20),
             sm: theme.typography.pxToRem(25),
-            md: theme.typography.pxToRem(30),
+            md: "20px",
           },
           mt: 5,
           maxWidth: "100%",
@@ -71,9 +71,9 @@ const PollAgenda: FC<PollAgendaProps> = ({ pollTitle }) => {
                       primaryTypographyProps={{
                         textAlign: 'center',
                         fontSize: {
-                          xs: theme.typography.pxToRem(25),
-                          sm: theme.typography.pxToRem(30),
-                          md: theme.typography.pxToRem(40),
+                          xs: "25px",
+                          sm: "30px",
+                          md: "40px",
                         },
                         border: 'double #C89F81',
                         p: 1,
