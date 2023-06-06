@@ -9,9 +9,10 @@ type Props = {
   setSearchWord: React.Dispatch<React.SetStateAction<string>>;
   searchResults: any;
   setSearchResults: React.Dispatch<React.SetStateAction<any>>;
+  handleDrawerToggle: Function;
 };
 
-const ItemSearchForm: React.FC<Props> = ({ searchWord, setSearchWord }) => {
+const ItemSearchForm: React.FC<Props> = ({ searchWord, setSearchWord, handleDrawerToggle }) => {
   const navigate = useNavigate();
   const [searchResults, setSearchResults] = useState<Items[]>([]);
   const onSearchButtonClick = async () => {
@@ -23,6 +24,7 @@ const ItemSearchForm: React.FC<Props> = ({ searchWord, setSearchWord }) => {
       setSearchResults(data);
       navigate(`/home/search?keyword=${searchWord}&page=1`);
       setSearchWord("");
+      handleDrawerToggle();
     } catch (error) {
       console.error(error);
     }
@@ -45,7 +47,7 @@ const ItemSearchForm: React.FC<Props> = ({ searchWord, setSearchWord }) => {
           }}
           placeholder="18文字以内で入力してください"
           autoComplete="off"
-          inputProps={{ maxLength: 18 }}
+          inputProps={{ maxLength: 18, style: { fontSize: 12 } }}
         />
         <ActiveOrangeButton
           event={onSearchButtonClick}
