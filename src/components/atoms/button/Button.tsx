@@ -10,14 +10,6 @@ interface ActiveButtonProps extends ButtonProps {
   sxStyle?: any;
 }
 
-const PrimaryButton = ({ children, ...props }: any) => {
-  return (
-    <Button variant="contained" color="primary" {...props}>
-      {children}
-    </Button>
-  );
-};
-
 const InactiveButton = ({
   children,
   sxStyle,
@@ -265,7 +257,6 @@ const ActiveGrayButton = ({
   );
 };
 export {
-  PrimaryButton,
   InactiveButton,
   ActiveBlueButton,
   ActiveOrangeButton,

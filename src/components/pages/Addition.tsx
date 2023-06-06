@@ -1,8 +1,6 @@
 import { Box, CircularProgress, Paper, Alert, AlertTitle } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
 import { FC, memo, useEffect, useState } from "react";
-
 import AdmTitleText from "../atoms/text/AdmTitleText";
 import axios from "axios";
 import { StockHistory } from "../../types/type";
@@ -10,9 +8,7 @@ import useGetItems from "../../hooks/useGetItems";
 import ModalWindow from "../organisms/ModalWindow";
 import StockCard from "../organisms/card/StockCard";
 
-type Props = {};
-
-const Consumption: FC<Props> = memo((props) => {
+const Consumption: FC = memo(() => {
   const navigate = useNavigate();
   const { itemData, itemLoading, itemError } = useGetItems("?intheOffice=true");
   const [inputValueArr, setInputValueArr] = useState<number[]>([]);
@@ -24,7 +20,7 @@ const Consumption: FC<Props> = memo((props) => {
     );
     setInputValueArr(firstInputValueArr);
   }, [itemData]);
-  console.log(itemData, 109);
+
 
   //オフィスに存在する商品のidのみが格納された配列
   const [inTheOfficeItemIdArr, setInTheOfficeItemIdArr] = useState<
@@ -39,7 +35,6 @@ const Consumption: FC<Props> = memo((props) => {
   const [inTheOfficeItemArr, setInTheOfficeItemArr] = useState<
     Array<StockHistory>
   >([]);
-  console.log(inTheOfficeItemArr, 187);
 
   useEffect(() => {
     getStockAmount();
@@ -50,7 +45,7 @@ const Consumption: FC<Props> = memo((props) => {
     const promises = inTheOfficeItemIdArr?.map((test) => {
       return axios
         .get(
-          `http://localhost:8880/stockhistory?&itemId=${test}&_sort=id&_order=desc&_limit=1`
+          `http://localhost:8880/stockhistory?&itemId=${test}&_sort=day&_order=desc&_limit=1`
         )
         .then((res) => {
           return res?.data[0];
@@ -87,6 +82,7 @@ const Consumption: FC<Props> = memo((props) => {
       try {
         await Promise.all(
           itemData.map(async (item, index) => {
+            // 0より大きい場合のみデータを送信
             let newStockAmount;
             if (inTheOfficeItemArr[index]) {
               newStockAmount =
@@ -94,20 +90,20 @@ const Consumption: FC<Props> = memo((props) => {
             } else {
               newStockAmount = inputValueArr[index];
             }
-            await axios.post("http://localhost:8880/stockhistory", {
-              itemId: item.id,
-              quantity: inputValueArr[index],
-              day: dateString,
-              incOrDec: true,
-              stockAmount: newStockAmount,
-            });
+            if (inputValueArr[index] > 0) {
+              await axios.post("http://localhost:8880/stockhistory", {
+                itemId: item.id,
+                quantity: inputValueArr[index],
+                day: dateString,
+                incOrDec: true,
+                stockAmount: newStockAmount,
+              });
+            }
           })
         );
 
         // 処理が全て完了した後に/adminhomeへ遷移
         navigate("/adminhome");
-        console.log("OK");
-        // await restartJsonServer();
       } catch (error) {
         console.log(error);
       }

@@ -1,9 +1,8 @@
-import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-
 import { Box, Grid } from "@mui/material";
 import { Items, StockHistory } from "../../../types/type";
 import { StockInput } from "../../atoms/input/StockInput";
@@ -22,20 +21,7 @@ const StockCard: FC<Props> = (props) => {
     inputValueArr,
     setInputValueArr,
   } = props;
-  // console.log(inTheOfficeItemArr);
-  // console.log(itemData);
-  const intheOfficeItemAmount = itemData.length;
   const [inputStatusArr, setInputStatusArr] = useState<boolean[]>([]);
-
-  // const testFunc = (drinkId: number) => {
-  //   for (let i = 0; i < inTheOfficeItemArr.length; i++) {
-  //     if (inTheOfficeItemArr[i].itemId === drinkId) {
-  //       // console.log(inTheOfficeItemArr[i].stockAmount);
-  //       return inTheOfficeItemArr[i].stockAmount;
-  //     }
-  //   }
-  // };
-  console.log(inTheOfficeItemArr);
 
   const testFunc = (drinkId: number) => {
     if (inTheOfficeItemArr.length > 0) {

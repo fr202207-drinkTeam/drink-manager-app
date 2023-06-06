@@ -1,7 +1,6 @@
 import { Box, CircularProgress, Paper, Alert, AlertTitle } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { FC, memo, useEffect, useState } from "react";
-// import { useGetOfficeItems1 } from '../../hooks/useGetOfficeItems1';
 import StockCard from "../organisms/card/StockCard";
 import AdmTitleText from "../atoms/text/AdmTitleText";
 import axios from "axios";
@@ -9,14 +8,13 @@ import { StockHistory } from "../../types/type";
 import useGetItems from "../../hooks/useGetItems";
 import ModalWindow from "../organisms/ModalWindow";
 
-type Props = {};
-
-const Consumption: FC<Props> = memo((props) => {
+const Consumption: FC = memo(() => {
   const navigate = useNavigate();
-  // const { itemData, loading, error } = useGetOfficeItems1();
   const { itemData, itemLoading, itemError } = useGetItems("?intheOffice=true");
   const [inputValueArr, setInputValueArr] = useState<number[]>([]);
   const [inputValueArrError, setInputValueArrError] = useState("");
+  const [inputValueArrAllError, setInputValueArrAllError] = useState("");
+
   useEffect(() => {
     const firstInputValueArr: number[] = [...Array(itemData.length)].map(
       () => 0
@@ -42,16 +40,15 @@ const Consumption: FC<Props> = memo((props) => {
     getStockAmount();
   }, [inTheOfficeItemIdArr]);
 
-  // ここがgetできていない
   //現在の在庫量を取得
   const getStockAmount = async () => {
-    const promises = inTheOfficeItemIdArr?.map((test) => {
+    const promises = inTheOfficeItemIdArr.map((test) => {
       return axios
         .get(
-          `http://localhost:8880/stockhistory?&itemId=${test}&_sort=id&_order=desc&_limit=1`
+          `http://localhost:8880/stockhistory?&itemId=${test}&_sort=day&_order=desc&_limit=1`
         )
         .then((res) => {
-          return res?.data[0];
+          return res.data[0];
         })
         .catch((error) => {
           console.log(error);
@@ -63,10 +60,27 @@ const Consumption: FC<Props> = memo((props) => {
   };
 
   const validateConsuption = () => {
-    const invalidValues = inputValueArr.filter((value, index) =>  value > inTheOfficeItemArr[index]?.stockAmount);
-    const invalidAllValues = inputValueArr.filter((value, index) => value === 0 );
-    if (invalidValues.length > 0) {
-      setInputValueArrError("*入力内容の確認をしてください");
+    const invalidValues = inputValueArr.map((value, index) => {
+      if (!inTheOfficeItemArr[index]) {
+        if (value > 0) {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        if(value > inTheOfficeItemArr[index]?.stockAmount) {
+          return false
+        } else {
+          return true
+        }
+      }
+    });
+
+    const invalidAllValues = inputValueArr.filter(
+      (value, index) => value === 0
+    );
+    if (invalidValues.includes(false)) {
+      setInputValueArrError("*入力した数値が在庫数を上回っています");
       return false;
     }
     if (invalidAllValues.length === inputValueArr.length) {
@@ -76,7 +90,6 @@ const Consumption: FC<Props> = memo((props) => {
     setInputValueArrError("");
     return true;
   };
-    
 
   const onClickSubmit = async () => {
     const isAdditionValid = validateConsuption();
@@ -86,25 +99,27 @@ const Consumption: FC<Props> = memo((props) => {
       try {
         await Promise.all(
           itemData.map(async (item, index) => {
-            await axios.post('http://localhost:8880/stockhistory', {
-              itemId: item.id,
-              quantity: inputValueArr[index],
-              day: dateString,
-              incOrDec: true,
-              stockAmount:
-                inTheOfficeItemArr[index].stockAmount - inputValueArr[index],
-            });
+            let newStockAmount;
+            if (inTheOfficeItemArr[index].stockAmount > 0) {
+              newStockAmount =
+                inTheOfficeItemArr[index].stockAmount - inputValueArr[index];
+              if (newStockAmount)
+                if (inputValueArr[index] > 0) {
+                  await axios.post("http://localhost:8880/stockhistory", {
+                    itemId: item.id,
+                    quantity: inputValueArr[index],
+                    day: dateString,
+                    incOrDec: false,
+                    stockAmount: newStockAmount,
+                  });
+                   navigate("/adminhome");
+                } 
+            }
           })
         );
-
-        // 処理が全て完了した後に/adminhomeへ遷移
-        navigate('/adminhome');
-        // await restartJsonServer();
       } catch (error) {
         console.log(error);
       }
-    } else {
-      setInputValueArrError("*入力内容の確認をしてください");
     }
   };
 
@@ -164,35 +179,13 @@ const Consumption: FC<Props> = memo((props) => {
           {inputValueArrError}
         </Box>
       )}
+      {inputValueArrAllError && (
+        <Box sx={{ color: "red", fontSize: 15, marginBottom: 1, mt: 1 }}>
+          {inputValueArrAllError}
+        </Box>
+      )}
     </Paper>
   );
 });
 
 export default Consumption;
-
-
-  //送信ボタン押下後の処理
-  // const onClickSubmit = async () => {
-  //   const now = new Date();
-  //   const dateString = now.toISOString();
-  //   console.log('送信しました。');
-  //   let i = 0;
-  //   try {
-  //     for (const item of itemData) {
-  //       await axios.post('http://localhost:8880/stockhistory', {
-  //         itemId: item.id,
-  //         quantity: inputValueArr[i],
-  //         day: dateString,
-  //         incOrDec: true,
-  //         stockAmount: inTheOfficeItemArr[i].stockAmount + inputValueArr[i],
-  //       });
-  //       i++;
-  //     }
-  //     console.log('Data submitted successfully');
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-
-  //   // 処理が全て完了した後に/adminhomeへ遷移
-  //   navigate('/adminhome');
-  // };
