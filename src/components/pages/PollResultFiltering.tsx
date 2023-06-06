@@ -68,7 +68,11 @@ const  PollResultFiltering = () => {
           <Box
             sx={{
               fontFamily: "cursive",
-              fontSize: "45px",
+              fontSize:{
+                xs: "25px",
+                sm: "30px",
+                md: "45px",
+              },
               textAlign: "center",
               mt: 5,
               mb: 5,
@@ -90,33 +94,34 @@ const  PollResultFiltering = () => {
               minWidth={500}
               margin={4}
             />
-        <Box sx={{ ml: 60 }}>
-          <Box sx={{ display: "flex", alignItems: "center",mt:5}}>
-            <Box sx={{mt:10}}>
-              <PrimaryDateInput
-                name="startdate"
-                value={startPeriodDate}
-                onChange={handleStartDateChange}
-              />
-              <span
-                style={{
-                  fontSize: "1.5rem",
-                  marginLeft: "10px",
-                  marginRight: "10px",
-                }}
-              >
-                〜
-              </span>
-            </Box>
-            <Box sx={{mt:10}}>
-              <PrimaryDateInput
-                name="enddate"
-                value={endPeriodDate}
-                onChange={handleEndDateChange}
-              />
-            </Box>
-          </Box>
-        </Box>
+            {/* flexDirection: {sx:"column",sm:"column",md:"",lg:"",xl:""} */}
+        <Box>
+  <Box sx={{ display: "flex",alignItems: "center", mt: 5, justifyContent: "center" }}>
+    <Box sx={{ mt: 5 }}>
+      <PrimaryDateInput
+        name="startdate"
+        value={startPeriodDate}
+        onChange={handleStartDateChange}
+      />
+      <span
+        style={{
+          fontSize: "1.5rem",
+          marginLeft: "10px",
+          marginRight: "10px",
+        }}
+      >
+        〜
+      </span>
+    </Box>
+    <Box sx={{ mt: 5}}>
+      <PrimaryDateInput
+        name="enddate"
+        value={endPeriodDate}
+        onChange={handleEndDateChange}
+      />
+    </Box>
+  </Box>
+</Box>
         {pollTitle &&
           pollTitle.map((data, index) => (
             <Box
@@ -125,7 +130,11 @@ const  PollResultFiltering = () => {
               mb={index === pollTitle.length - 1 ? 10 : 1}
               bgcolor="#f5f5f5"
             >
-              <List sx={{ fontSize: "25px", p: 0, m: 1}}>
+              <List sx={{ fontSize: {
+        xs: "15px",
+        sm: "20px",
+        md: "25px",
+      }, p: 0, m: 1}}>
                 <ListItem
                   sx={{
                     display: "flex",
@@ -140,7 +149,11 @@ const  PollResultFiltering = () => {
                   <AdsClickIcon sx={{ mr: 2, fontSize: "20px" }} />
                   <ListItemText
                     primaryTypographyProps={{
-                      fontSize: "25px",
+                      fontSize: {
+                        xs: "15px",
+                        sm: "20px",
+                        md: "25px",
+                      },
                       fontWeight: "bold",
                       lineHeight: 1.2,
                     }}
