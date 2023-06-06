@@ -24,6 +24,9 @@ const TimelineHeader: FC<Props> = memo((props) => {
   const { searchPost, filterPosts, fetchPostsButton, searchError } = props;
   return (
     <Grid sx={{ borderBottom: 1 }}>
+      <Grid item xs={5} sx={{ display: {xs: "block", sm: "none"}}}>
+          <Typography variant="h4">タイムライン</Typography>
+        </Grid>
       <Grid
         container
         sx={{
@@ -34,11 +37,11 @@ const TimelineHeader: FC<Props> = memo((props) => {
         }}
         id="top"
       >
-        <Grid item xs={4}>
+        <Grid item xs={5} sx={{ display: {xs: "none", sm: "block"}}}>
           <Typography variant="h4">タイムライン</Typography>
         </Grid>
 
-        <Grid item xs={5}>
+        <Grid item xs={7} sm={4}>
           <Paper
             component="form"
             onSubmit={searchPost}
@@ -71,7 +74,7 @@ const TimelineHeader: FC<Props> = memo((props) => {
           </Paper>
         </Grid>
 
-        <Grid item xs={2}>
+        <Grid item xs={3} sm={2}>
           <Select
             size="small"
             name="selectPostCategory"
@@ -85,7 +88,7 @@ const TimelineHeader: FC<Props> = memo((props) => {
             <MenuItem value="お知らせ">お知らせ</MenuItem>
           </Select>
         </Grid>
-        <Grid item xs={1} sx={{ p: "none" }}>
+        <Grid item xs={2} sm={1} sx={{ p: "none" }}>
           {fetchPostsButton}
         </Grid>
       </Grid>

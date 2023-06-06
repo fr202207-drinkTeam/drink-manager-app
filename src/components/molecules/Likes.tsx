@@ -104,12 +104,12 @@ const Likes: FC<Props> = memo((props) => {
   return (
     <Box sx={{ borderBottom: "1px solid", mx: "5px" }}>
       <Grid container alignItems="center" spacing={2} sx={{ color: "gray" }}>
-        <Grid item xs={5}>
+        <Grid item sm={5}>
           {likedQuantity !== null && (
             <Typography variant="body2">{`${likedQuantity}人がいいねと言っています`}</Typography>
           )}
         </Grid>
-        <Grid item xs={3}>
+        <Grid item sm={3}>
           {liked ? (
             <Button
               sx={{

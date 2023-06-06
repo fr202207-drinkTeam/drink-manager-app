@@ -8,13 +8,13 @@ import { Link, useLocation } from "react-router-dom";
 import ItemSearchForm from "../molecules/ItemSearchForm";
 import { Items } from "../../types/type";
 import { CssBaseline, Drawer, Fab, IconButton, Toolbar } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import ScrollPageTop from "../atoms/ScrollPageTop";
 import { KeyboardArrowUp } from "@mui/icons-material";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 import Cookies from "js-cookie";
 import Footer from "./Footer";
 import Slider from "../atoms/slider/Slider";
+import SearchIcon from '@mui/icons-material/Search';
 
 function DefaultLayout({ children, props }: { children: any; props?: any }) {
   // パスの取得
@@ -132,11 +132,11 @@ function DefaultLayout({ children, props }: { children: any; props?: any }) {
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { md: "none" }, color: "#ea6f00" }}
+              sx={{ display: { md: "none" }, color: "#ea6f00" }}
             >
-              <MenuIcon />
+              <SearchIcon />
               <Typography variant="h6" noWrap>
-                &emsp;商品一覧
+                商品検索
               </Typography>
             </IconButton>
           </Toolbar>

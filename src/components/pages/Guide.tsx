@@ -1,4 +1,4 @@
-import { Link, Paper, Toolbar, Typography } from "@mui/material";
+import { Link, Paper, Typography } from "@mui/material";
 import { FC, memo } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
@@ -8,7 +8,19 @@ const Guide: FC<Props> = memo((props) => {
   return (
     <div>
       <Paper sx={{ p: "20px" }}>
-        <Typography variant="h3" borderBottom="1px solid" gutterBottom>
+        <Typography
+          variant="h3"
+          borderBottom="1px solid"
+          gutterBottom
+          sx={{
+            fontSize: {
+              xs: "30px",
+              sm: "35px",
+              md: "40px",
+              lg: "40px",
+            },
+          }}
+        >
           ご利用ガイド
         </Typography>
         <Typography variant="body1" gutterBottom sx={{ mb: "70px" }}>
