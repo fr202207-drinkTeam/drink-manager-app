@@ -21,6 +21,7 @@ import PostData from "../organisms/PostData ";
 import useGetPosts from "../../hooks/useGetPosts";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
+import Slider from "../atoms/slider/Slider";
 type Props = {};
 
 const Top: FC<Props> = memo((props) => {
@@ -47,6 +48,7 @@ const Top: FC<Props> = memo((props) => {
   return (
     <>
       <DefaultLayout>
+      <Box id="top" />
         <Box sx={{ textAlign: "center" }}>
           <Card
             sx={{

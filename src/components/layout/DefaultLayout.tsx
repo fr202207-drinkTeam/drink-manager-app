@@ -1,32 +1,74 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
 import { useState } from "react";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import { styled } from "@mui/material/styles";
 import CategoryAccordion from "../atoms/accordion/CategoryAccordion";
 import Header from "./Header";
-import Footer from "./Footer";
 import { Link, useLocation } from "react-router-dom";
-import Slider from "../atoms/slider/Slider";
 import ItemSearchForm from "../molecules/ItemSearchForm";
 import { Items } from "../../types/type";
-import { Fab } from "@mui/material";
-import { KeyboardArrowUp } from "@mui/icons-material";
+import { CssBaseline, Drawer, Fab, IconButton, Toolbar } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import ScrollPageTop from "../atoms/ScrollPageTop";
-import Cookies from "js-cookie";
+import { KeyboardArrowUp } from "@mui/icons-material";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
+import Cookies from "js-cookie";
+import Footer from "./Footer";
+import Slider from "../atoms/slider/Slider";
 
 function DefaultLayout({ children, props }: { children: any; props?: any }) {
   // パスの取得
   const location = useLocation();
-  const images = ["../top.png", "../top.png", "../top.png"];
   const [searchWord, setSearchWord] = useState("");
   const [searchResults, setSearchResults] = useState<Items[]>();
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
+
+  // 縮小時のサイドバーのサイズ
+  const drawerWidth = 280;
+
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  const drawer = (
+    <Box sx={{ mx: 3 }}>
+      <CategoryAccordion handleDrawerToggle={handleDrawerToggle} />
+      {/* 検索ボタン */}
+      <Typography
+        variant="h5"
+        textAlign="center"
+        sx={{ color: "#ea6f00", mt: 10 }}
+      >
+        - キーワードで探す -
+      </Typography>
+      <Box sx={{ mb: 10 }}>
+        <ItemSearchForm
+          searchWord={searchWord}
+          setSearchWord={setSearchWord}
+          searchResults={searchResults}
+          setSearchResults={setSearchResults}
+          handleDrawerToggle={handleDrawerToggle}
+        />
+        <Box sx={{ my: 4 }}>
+          <Link to="/home/timeline">
+            <img src="/timeline.png" alt="top" style={{ maxWidth: "100%" }} />
+          </Link>
+        </Box>
+        <Box>
+          <Link to="/home/poll">
+            <img src="/poll.png" alt="top" style={{ maxWidth: "100%" }} />
+          </Link>
+        </Box>
+      </Box>
+    </Box>
+  );
+
+  const container = window !== undefined ? () => document.body : undefined;
+
+  const images = ["../top.png", "../top.png", "../top.png"];
+
   return (
     <React.Fragment>
       <Header />
@@ -42,84 +84,108 @@ function DefaultLayout({ children, props }: { children: any; props?: any }) {
       ) : (
         ""
       )}
-      <Container maxWidth="xl" sx={{ mt: 10, mb: 10 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <CategoryAccordion />
-            {/* 検索ボタン */}
-
-            <Typography
-              variant="h5"
-              textAlign="center"
-              sx={{ color: "#ea6f00", mt: 10 }}
-            >
-              - キーワードで探す -
-            </Typography>
-            <Box sx={{ mb: 10 }}>
-              <ItemSearchForm
-                searchWord={searchWord}
-                setSearchWord={setSearchWord}
-                searchResults={searchResults}
-                setSearchResults={setSearchResults}
-              />
-              <Box sx={{ my: 4 }}>
-                <Link to="/home/timeline">
-                  <img src="/timeline.png" style={{ maxWidth: "100%" }} />
-                </Link>
-              </Box>
-              <Box>
-                <Link to="/home/poll">
-                  <img src="/poll.png" style={{ maxWidth: "100%" }} />
-                </Link>
-              </Box>
-            </Box>
-          </Grid>
-
-          <Grid item xs={9}>
-            {children}
-          </Grid>
-        </Grid>
-      </Container>
-      {/* チャットボット管理者でのログイン時に非表示 */}
-      {!loginUser?.isAdmin ? (
-        <Link to="/home/faq" target="_blank">
-          <Box
+      <Box sx={{ display: "flex", background: "#f4e9d2", pb: 7 }}>
+        <Box
+          component="nav"
+          sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
+          aria-label="mailbox folders"
+        >
+          <Drawer
+            container={container}
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true,
+            }}
             sx={{
-              borderRadius: 20,
-              position: "fixed",
-              bottom: 20,
-              right: 10,
-              zIndex: 1,
-              width: 100,
-              height: 100,
+              display: {  sm: "block", md: "none" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+                border: "none",
+                background: "#f4e9d2",
+              },
             }}
           >
-            <img
-              src="/chatbot.png"
-              style={{ maxWidth: "100%", borderRadius: "20px" }}
-            />
+            <Toolbar />
+            {drawer}
+          </Drawer>
+          <Box
+            sx={{ pt: 14, display: { xs: "none", sm: "none", md: "block" } }}
+          >
+            {drawer}
           </Box>
-        </Link>
-      ) : (
-        ""
-      )}
-      <ScrollPageTop {...props}>
-        <Fab
-          size="large"
-          aria-label="scroll back to top"
+        </Box>
+        <Box
+          component="main"
           sx={{
-            bottom: "120px",
-            backgroundColor: "#9AB7CA",
-            color: "#fff",
-            ":hover": {
-              background: "#9AB7CA",
-              cursor: "pointer",
-            },
+            flexGrow: 1,
+            p: 3,
+            width: { md: `calc(100% - ${drawerWidth}px)` },
+            pb: 0,
           }}
         >
-          <KeyboardArrowUp />
-        </Fab>
-      </ScrollPageTop>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { md: "none" }, color: "#ea6f00" }}
+            >
+              <MenuIcon />
+              <Typography variant="h6" noWrap>
+                &emsp;商品一覧
+              </Typography>
+            </IconButton>
+          </Toolbar>
+          {children}
+        </Box>
+        {!loginUser?.isAdmin ? (
+          <Link to="/home/faq" target="_blank">
+            <Box
+              sx={{
+                borderRadius: 20,
+                position: "fixed",
+                bottom: 20,
+                right: 10,
+                zIndex: 1,
+                width: 100,
+                height: 100,
+              }}
+            >
+              <img
+                src="/chatbot.png"
+                alt="chat"
+                style={{ maxWidth: "100%", borderRadius: "20px" }}
+              />
+            </Box>
+          </Link>
+        ) : (
+          ""
+        )}
+        <ScrollPageTop {...props}>
+          <Fab
+            size="large"
+            aria-label="scroll back to top"
+            sx={{
+              bottom: "120px",
+              backgroundColor: "#9AB7CA",
+              color: "#fff",
+              ":hover": {
+                background: "#9AB7CA",
+                cursor: "pointer",
+              },
+            }}
+          >
+            <KeyboardArrowUp />
+          </Fab>
+        </ScrollPageTop>
+
+        <CssBaseline />
+      </Box>
+
       <Footer />
     </React.Fragment>
   );
