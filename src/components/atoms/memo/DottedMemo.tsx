@@ -23,8 +23,9 @@ const DottedMemo = ({text,information,fontSize,maxWidth,minWidth,margin}:DottedM
       boxShadow: " 0 0 0 8px #fde8d0",
       width: "100%",
       maxWidth:{
-        xs: theme.breakpoints.values.xs,
-        sm: theme.breakpoints.values.sm,
+        xs: "300px",
+        sm: "400px",
+        md: "500px",
       },
       minWidth:400,
       m: "auto",
@@ -39,9 +40,9 @@ const DottedMemo = ({text,information,fontSize,maxWidth,minWidth,margin}:DottedM
           margin,
           color: '#595857',
           fontSize: {
-            xs: theme.typography.pxToRem(20),
-            sm: theme.typography.pxToRem(25),
-            md: theme.typography.pxToRem(25),
+            xs: theme.typography.pxToRem(18),
+            sm: theme.typography.pxToRem(22),
+            md: theme.typography.pxToRem(23),
           },
         }}
       >
@@ -55,7 +56,11 @@ const DottedMemo = ({text,information,fontSize,maxWidth,minWidth,margin}:DottedM
         sx={{
           margin,
           color: '#595857',
-          fontSize: theme.typography.pxToRem(16),
+          fontSize: {
+            xs: theme.typography.pxToRem(12),
+            sm: theme.typography.pxToRem(14),
+            md: theme.typography.pxToRem(18),
+          },
         }}
       >
         {information}

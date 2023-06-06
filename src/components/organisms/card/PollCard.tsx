@@ -4,7 +4,7 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { ActiveBeigeButton, InactiveButton } from "../../atoms/button/Button";
-import { Box } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useLoginUserFetch } from "../../../hooks/useLoginUserFetch";
 //cookie
@@ -20,6 +20,12 @@ import useGetPollCategoryData from "../../../hooks/useGetPollCategoryData";
 import { useEffect, useState } from "react";
 import useGetPollLatestTitle from "../../../hooks/useGetPollLatestTitle";
 
+// xs, extra-small: 0px
+// sm, small: 600px
+// md, medium: 960px
+// lg, large: 1280px
+// xl, extra-large: 1920px
+
 type PollCardProps = {
   data: Items[];
   pollCategory: number;
@@ -29,6 +35,7 @@ type PollCardProps = {
 
 const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
   const navigate = useNavigate();
+  const theme = useTheme();
   //login
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
@@ -49,7 +56,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
 
   //現在表示されている人気投票アンケートに投票しているか
   const isPopularQuestionnaireData = popularData.filter((p) => {
-    return  p.questionnaireId === PopularPollTitle[0]?.id
+    return p.questionnaireId === PopularPollTitle[0]?.id
   })
   //ユーザが今表示されている人気投票に投票した商品
   const popularItem = isPopularQuestionnaireData.map((p) => {
@@ -96,8 +103,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
         sx={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "flex-start",
-          ml: 3,
+          justifyContent: "center",
         }}
       >
 
@@ -106,11 +112,19 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
             return (
               <Card
                 sx={{
-                  width: 295,
+                  width: {
+                    xs: "200px",
+                    sm: "200px",
+                    md: "250px",
+                    lg: "250px",
+                    xl: "295px"
+                  },
                   mx: 2,
                   boxShadow: "none",
                   border: "solid 1px ",
                   borderColor: "#bfbec5",
+                  pb: 1,
+                  px: 1,
                   ...sxStyle,
                 }}
                 key={index}
@@ -126,8 +140,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                           textAlign: "center",
                           fontSize: "13px",
                           backgroundColor: "#d6c6af",
-                          width: 80,
-                          p: "3px",
+                          pt: "3px",
                           color: "#000",
                           borderRadius: "3px",
                         }}
@@ -151,17 +164,21 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                         <CardMedia
                           component="img"
                           alt="商品画像"
-                          height="140"
-                          width="140"
                           image={drink.image[0]}
                           title="商品名"
                           sx={{
                             display: "block",
-                            width: 200,
-                            height: 200,
-                            objectFit: "cover",
-                            m: "auto",
-                            p: 1,
+                            width: {
+                              xs: "150px",
+                              sm: "150px",
+                              md: "200px",
+                            },
+                            height: {
+                              xs: "150px",
+                              sm: "150px",
+                              md: "200px",
+                            },
+                            pt: 1,
                           }}
                         />
                         <Box
@@ -188,7 +205,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                           }}
                         >
                         </Typography>
-                        <CardContent sx={{ height: "150px" }}>
+                        <CardContent >
                           {drink.intheOffice ? (
                             <Typography
                               variant="body2"
@@ -238,14 +255,21 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                           >
                             {drink.name}
                           </Typography>
-                          <Typography
+                          {/* <Typography
                             variant="body2"
                             color="textSecondary"
                             component="p"
-                            sx={{ textAlign: "center", fontSize: "13px" }}
+                            sx={{ textAlign: "center", fontSize: "13px" ,
+                            [theme.breakpoints.up("xs")]: {
+                              display: "none",
+                            },
+                            [theme.breakpoints.up("sm")]: {
+                              display: "none",
+                            }
+                          }}
                           >
                             {drink.description}
-                          </Typography>
+                          </Typography> */}
                         </CardContent>
                       </CardActionArea>
                     </CardActionArea>
@@ -286,20 +310,26 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                         <CardMedia
                           component="img"
                           alt="商品画像"
-                          height="140"
-                          width="140"
                           image={drink.image[0]}
                           title="商品名"
                           sx={{
                             display: "block",
-                            width: 200,
-                            height: 200,
-                            objectFit: "cover",
-                            m: "auto",
-                            p: 1,
+                            width: {
+                              xs: "150px",
+                              sm: "150px",
+                              md: "200px",
+                            },
+                            height: {
+                              xs: "150px",
+                              sm: "150px",
+                              md: "200px",
+                            },
+                            pt: 1,
+                            margin: "auto"
                           }}
                         />
-                        <CardContent sx={{ height: "150px" }}>
+                        <CardContent sx={{
+                        }}>
                           {drink.intheOffice ? (
                             <Typography
                               variant="body2"
@@ -339,7 +369,11 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                             gutterBottom
                             sx={{
                               textAlign: "center",
-                              fontSize: "14px",
+                              fontSize: {
+                                xs: "10px",
+                                sm: "10px",
+                                md: "15px",
+                              },
                               borderBottom: "double",
                               fontFamily: "Georgia",
                               fontWeight: "bold",
@@ -349,39 +383,49 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                           >
                             {drink.name}
                           </Typography>
-                          <Typography
+                          {/* <Typography
                             variant="body2"
                             color="textSecondary"
                             component="p"
-                            sx={{ textAlign: "center", fontSize: "13px" }}
+                            sx={{ textAlign: "center", fontSize: "13px" ,
+                            [theme.breakpoints.up("xs")]: {
+                              display: "none",
+                            },
+                            
+                          }}
                           >
                             {drink.description}
-                          </Typography>
+                          </Typography> */}
                         </CardContent>
                       </CardActionArea>
                     </CardActionArea>
                   )}
-
-                <ActiveBeigeButton
-                  onClick={() => {
-                    navigate(`/home/search/${drink.id}`);
-                  }}
-                  sxStyle={{
-                    background: "#C89F81",
-                    mb: 1,
-                    width: 200,
-                    boxShadow: "none",
-                    fontWeight: "bold",
-                    ml: 6.5,
-                    border: "double",
-                  }}
-                  event={() => {
-                    navigate(`/home/search/${drink.id}`);
-                  }}
-                >
-                  <SearchIcon />
-                  気になる
-                </ActiveBeigeButton>
+                <Box style={{ display: "flex", justifyContent: "center" }}>
+                  <ActiveBeigeButton
+                    onClick={() => {
+                      navigate(`/home/search/${drink.id}`);
+                    }}
+                    sx={{
+                      display: "block",
+                      background: "#C89F81",
+                      mb: 1,
+                      width: 180,
+                      boxShadow: "none",
+                      fontWeight: "bold",
+                      m: "auto",
+                      border: "double",
+                      ":hover": {
+                        background: "#C89F81",
+                        cursor: "pointer",
+                      },
+                    }}
+                    event={() => {
+                      navigate(`/home/search/${drink.id}`);
+                    }}
+                  >
+                    詳細を見る
+                  </ActiveBeigeButton>
+                </Box>
                 {(isPopularQuestionnaireData.length >= 1 &&
                   pollCategory === 1 &&
                   PopularPollData.some(
@@ -393,71 +437,81 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                       (data) => data.questionnaireId === pollNum
                     )) ||
                   (loginUser.isAdmin === true) ? (
-                  (popularItem[0] === drink.id) || (othersItem[0] === drink.id) ? (<InactiveButton
-                    sx={{
-                      background: "#e29399",
-                      width: 200,
-                      textAlign: "center",
-                      mb: 2,
-                      boxShadow: "none",
-                      border: "dotted 2px",
-                      fontWeight: "bold",
-                      ml: 6.5,
-                      ":hover": {
-                        background: "#e29399",
-                        cursor: "pointer",
-                      },
-                    }}
-                  >
-                    &nbsp;投票した商品です
-                  </InactiveButton>) : (<InactiveButton
-                    sx={{
-                      background: "#e29399",
-                      width: 200,
-                      textAlign: "center",
-                      mb: 2,
-                      boxShadow: "none",
-                      border: "double",
-                      fontWeight: "bold",
-                      ml: 6.5,
-                      ":hover": {
-                        background: "#e29399",
-                        cursor: "pointer",
-                      },
-                    }}
-                  >
-                    &nbsp;投票完了
-                  </InactiveButton>)
+                  (popularItem[0] === drink.id) || (othersItem[0] === drink.id) ? (
+                    <Box sx={{ display: "flex", justifyContent: "center" }}>
+                      <InactiveButton
+                        sx={{
+                          background: "#e29399",
+                          width: 200,
+                          textAlign: "center",
+                          mb: 2,
+                          boxShadow: "none",
+                          border: "dotted 2px",
+                          fontWeight: "bold",
+                          m: "auto",
+                          ":hover": {
+                            background: "#e29399",
+                            cursor: "pointer",
+                          },
+                        }}
+                      >
+                        &nbsp;投票した商品です
+                      </InactiveButton>
+                    </Box>) : (
+                    <Box sx={{ display: "flex", justifyContent: "center" }}>
+                      <InactiveButton
+                        sx={{
+                          background: "#e29399",
+                          width: 200,
+                          textAlign: "center",
+                          mb: 2,
+                          boxShadow: "none",
+                          border: "double",
+                          fontWeight: "bold",
+                          m: "auto",
+                          mt: 1,
+                          ":hover": {
+                            background: "#e29399",
+                            cursor: "pointer",
+                          },
+                        }}
+                      >
+                        &nbsp;投票完了
+                      </InactiveButton>
+                    </Box>
+                  )
 
                 ) : (
-                  <ModalWindow
-                    title={`${drink.name}に投票してもよろしいですか？？`}
-                    content={"⚠️一つの投票につき一回までしか投票できません"}
-                    openButtonColor={"pink"}
-                    openButtonIcon={
-                      <>
-                        <SwitchAccessShortcutAddIcon />
-                        &nbsp;&nbsp;
-                      </>
-                    }
-                    completeButtonColor={"blue"}
-                    completeButtonName={`投票する`}
-                    completeAction={() => submitPoll(drink.id)}
-                    cancelButtonColor={"red"}
-                    openButtonSxStyle={{
-                      background: "#e29399",
-                      width: 200,
-                      mb: 2,
-                      boxShadow: "none",
-                      border: "double",
-                      fontWeight: "bold",
-                      ml: 6.5,
-                      ":hover": {
+                  <Box sx={{ display: "flex", justifyContent: "center", mt: 1 }}>
+                    <ModalWindow
+                      title={`${drink.name}に投票してもよろしいですか？？`}
+                      content={"⚠️一つの投票につき一回までしか投票できません"}
+                      openButtonColor={"pink"}
+                      openButtonIcon={
+                        <>
+                          <SwitchAccessShortcutAddIcon />
+                          &nbsp;&nbsp;
+                        </>
+                      }
+                      completeButtonColor={"blue"}
+                      completeButtonName={`投票する`}
+                      completeAction={() => submitPoll(drink.id)}
+                      cancelButtonColor={"red"}
+                      openButtonSxStyle={{
                         background: "#e29399",
-                        cursor: "pointer",
-                      },
-                    }}
-                  />
+                        width: 180,
+                        mb: 2,
+                        boxShadow: "none",
+                        border: "double",
+                        fontWeight: "bold",
+                        m: "auto",
+                        ":hover": {
+                          background: "#e29399",
+                          cursor: "pointer",
+                        },
+                      }}
+                    />
+                  </Box>
                 )}
               </Card>
             );

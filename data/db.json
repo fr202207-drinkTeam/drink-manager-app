@@ -1228,19 +1228,13 @@
       "endDate": "2023-06-30",
       "polledItems": [
         {
-          "itemId": 1
+          "itemId": 26
         },
         {
-          "itemId": 2
+          "itemId": 25
         },
         {
-          "itemId": 3
-        },
-        {
-          "itemId": 6
-        },
-        {
-          "itemId": 15
+          "itemId": 24
         },
         {
           "itemId": 23
@@ -1250,9 +1244,6 @@
         },
         {
           "itemId": 21
-        },
-        {
-          "itemId": 14
         }
       ],
       "author": 1,
@@ -1317,27 +1308,6 @@
       ],
       "author": 1,
       "id": 12
-    },
-    {
-      "name": "あああああああ",
-      "description": "ああああああ",
-      "category": 1,
-      "createdAt": "2023-05-25T08:18:14.112Z",
-      "startDate": "2023-08-01",
-      "endDate": "2023-08-31",
-      "polledItems": [
-        {
-          "itemId": 2
-        },
-        {
-          "itemId": 3
-        },
-        {
-          "itemId": 1
-        }
-      ],
-      "author": 1,
-      "id": 13
     }
   ],
   "polls": [
