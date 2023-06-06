@@ -1,42 +1,31 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
 import { useState } from "react";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import { styled } from "@mui/material/styles";
 import CategoryAccordion from "../atoms/accordion/CategoryAccordion";
 import Header from "./Header";
-import Footer from "./Footer";
 import { Link, useLocation } from "react-router-dom";
-import Slider from "../atoms/slider/Slider";
 import ItemSearchForm from "../molecules/ItemSearchForm";
 import { Items } from "../../types/type";
-import {
-  AppBar,
-  CssBaseline,
-  Drawer,
-  Fab,
-  IconButton,
-  Toolbar,
-} from "@mui/material";
-import { KeyboardArrowUp } from "@mui/icons-material";
-import ScrollPageTop from "../atoms/ScrollPageTop";
-import Cookies from "js-cookie";
-import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
+import { CssBaseline, Drawer, Fab, IconButton, Toolbar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import ScrollPageTop from "../atoms/ScrollPageTop";
+import { KeyboardArrowUp } from "@mui/icons-material";
+import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
+import Cookies from "js-cookie";
+import Footer from "./Footer";
+import Slider from "../atoms/slider/Slider";
 
 function DefaultLayout({ children, props }: { children: any; props?: any }) {
   // パスの取得
   const location = useLocation();
-  const images = ["../top.png", "../top.png", "../top.png"];
   const [searchWord, setSearchWord] = useState("");
   const [searchResults, setSearchResults] = useState<Items[]>();
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
 
-  const drawerWidth = 260;
+  // 縮小時のサイドバーのサイズ
+  const drawerWidth = 280;
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {
@@ -44,8 +33,8 @@ function DefaultLayout({ children, props }: { children: any; props?: any }) {
   };
 
   const drawer = (
-    <Box sx={{mx: 2}}>
-      <CategoryAccordion />
+    <Box sx={{ mx: 3 }}>
+      <CategoryAccordion handleDrawerToggle={handleDrawerToggle} />
       {/* 検索ボタン */}
       <Typography
         variant="h5"
@@ -60,15 +49,16 @@ function DefaultLayout({ children, props }: { children: any; props?: any }) {
           setSearchWord={setSearchWord}
           searchResults={searchResults}
           setSearchResults={setSearchResults}
+          handleDrawerToggle={handleDrawerToggle}
         />
         <Box sx={{ my: 4 }}>
           <Link to="/home/timeline">
-            <img src="/timeline.png" style={{ maxWidth: "100%" }} />
+            <img src="/timeline.png" alt="top" style={{ maxWidth: "100%" }} />
           </Link>
         </Box>
         <Box>
           <Link to="/home/poll">
-            <img src="/poll.png" style={{ maxWidth: "100%" }} />
+            <img src="/poll.png" alt="top" style={{ maxWidth: "100%" }} />
           </Link>
         </Box>
       </Box>
@@ -77,119 +67,127 @@ function DefaultLayout({ children, props }: { children: any; props?: any }) {
 
   const container = window !== undefined ? () => document.body : undefined;
 
+  const images = ["../top.png", "../top.png", "../top.png"];
+
   return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      >
-        <Header />
-      </AppBar>
-      <Drawer
-        variant="permanent"
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: {
-            width: drawerWidth,
-            boxSizing: "border-box",
-          },
-        }}
-      >
-        <Toolbar />
-        <Box sx={{ overflow: "auto", mt: 12 }}>{drawer}</Box>
-      </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 10, px: 5 }}>
-        <Toolbar />
-        {children}
+    <React.Fragment>
+      <Header />
+      {/* ユーザートップページのみスライダーの表示 */}
+      {location.pathname === "/home" ? (
+        <Slider
+          images={images}
+          slidesPerView={1}
+          loop={false}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          navigation={false}
+        />
+      ) : (
+        ""
+      )}
+      <Box sx={{ display: "flex", background: "#f4e9d2", pb: 7 }}>
+        <Box
+          component="nav"
+          sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
+          aria-label="mailbox folders"
+        >
+          <Drawer
+            container={container}
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true,
+            }}
+            sx={{
+              display: {  sm: "block", md: "none" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+                border: "none",
+                background: "#f4e9d2",
+              },
+            }}
+          >
+            <Toolbar />
+            {drawer}
+          </Drawer>
+          <Box
+            sx={{ pt: 14, display: { xs: "none", sm: "none", md: "block" } }}
+          >
+            {drawer}
+          </Box>
+        </Box>
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            p: 3,
+            width: { md: `calc(100% - ${drawerWidth}px)` },
+            pb: 0,
+          }}
+        >
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { md: "none" }, color: "#ea6f00" }}
+            >
+              <MenuIcon />
+              <Typography variant="h6" noWrap>
+                &emsp;商品一覧
+              </Typography>
+            </IconButton>
+          </Toolbar>
+          {children}
+        </Box>
+        {!loginUser?.isAdmin ? (
+          <Link to="/home/faq" target="_blank">
+            <Box
+              sx={{
+                borderRadius: 20,
+                position: "fixed",
+                bottom: 20,
+                right: 10,
+                zIndex: 1,
+                width: 100,
+                height: 100,
+              }}
+            >
+              <img
+                src="/chatbot.png"
+                alt="chat"
+                style={{ maxWidth: "100%", borderRadius: "20px" }}
+              />
+            </Box>
+          </Link>
+        ) : (
+          ""
+        )}
+        <ScrollPageTop {...props}>
+          <Fab
+            size="large"
+            aria-label="scroll back to top"
+            sx={{
+              bottom: "120px",
+              backgroundColor: "#9AB7CA",
+              color: "#fff",
+              ":hover": {
+                background: "#9AB7CA",
+                cursor: "pointer",
+              },
+            }}
+          >
+            <KeyboardArrowUp />
+          </Fab>
+        </ScrollPageTop>
+
+        <CssBaseline />
       </Box>
-    </Box>
-    // <Box sx={{ display: 'flex' }}>
-    //   <CssBaseline />
-    //   <AppBar
-    //     position="fixed"
-    //     sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-    //   >
-    //     <Header />
-    //     {/* ユーザートップページのみスライダーの表示 */}
-    //     {location.pathname === "/home" ? (
-    //       <Slider
-    //         images={images}
-    //         slidesPerView={1}
-    //         loop={false}
-    //         autoplay={{ delay: 3000, disableOnInteraction: false }}
-    //         navigation={false}
-    //       />
-    //     ) : (
-    //       ""
-    //     )}
-    //   </AppBar>
 
-    //   <Drawer
-    //     variant="permanent"
-    //     sx={{
-    //       width: drawerWidth,
-    //       flexShrink: 0,
-    //       [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-    //     }}
-    //   >
-    //       {drawer}
-    //     </Drawer>
-
-    //     <Box
-    //       component="main"
-    //       sx={{
-    //         flexGrow: 1,
-    //         p: 3,
-    //         width: { sm: `calc(100% - ${drawerWidth}px)` },
-    //       }}
-    //     >
-    //       {children}
-    //     </Box>
-
-    //   {/* チャットボット管理者でのログイン時に非表示 */}
-    //   {!loginUser?.isAdmin ? (
-    //     <Link to="/home/faq" target="_blank">
-    //       <Box
-    //         sx={{
-    //           borderRadius: 20,
-    //           position: "fixed",
-    //           bottom: 20,
-    //           right: 10,
-    //           zIndex: 1,
-    //           width: 100,
-    //           height: 100,
-    //         }}
-    //       >
-    //         <img
-    //           src="/chatbot.png"
-    //           style={{ maxWidth: "100%", borderRadius: "20px" }}
-    //         />
-    //       </Box>
-    //     </Link>
-    //   ) : (
-    //     ""
-    //   )}
-    //   <ScrollPageTop {...props}>
-    //     <Fab
-    //       size="large"
-    //       aria-label="scroll back to top"
-    //       sx={{
-    //         bottom: "120px",
-    //         backgroundColor: "#9AB7CA",
-    //         color: "#fff",
-    //         ":hover": {
-    //           background: "#9AB7CA",
-    //           cursor: "pointer",
-    //         },
-    //       }}
-    //     >
-    //       <KeyboardArrowUp />
-    //     </Fab>
-    //   </ScrollPageTop>
-    //   <Footer />
-    //   </Box>
+      <Footer />
+    </React.Fragment>
   );
 }
 export default DefaultLayout;

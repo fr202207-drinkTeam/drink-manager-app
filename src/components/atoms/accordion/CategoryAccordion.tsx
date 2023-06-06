@@ -5,7 +5,11 @@ import { useState } from "react";
 import { Accordion, AccordionSummary } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useNavigate } from "react-router-dom";
-const CategoryAccordion = () => {
+const CategoryAccordion = ({
+  handleDrawerToggle,
+}: {
+  handleDrawerToggle: Function;
+}) => {
   const navigate = useNavigate();
   const [expanded, setExpanded] = useState(null);
 
@@ -17,6 +21,7 @@ const CategoryAccordion = () => {
   };
   const handleAccordionClick = (category: string | number) => {
     navigate(`/home/search?category=${category}&page=1`);
+    handleDrawerToggle()
   };
 
   const accordionStyle = {
