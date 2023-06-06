@@ -54,7 +54,11 @@ const ItemDetail: FC = memo(() => {
                 >
                   <Box id="top" />
                   <FreeBreakfastIcon fontSize="large" />
-                  <Typography variant="h3" component="p" sx={{ ml: 2 }}>
+                  <Typography
+                    variant="h3"
+                    component="p"
+                    sx={{ ml: 2 }}
+                  >
                     {getAnItemResult.itemData.name}
                   </Typography>
                 </Box>
