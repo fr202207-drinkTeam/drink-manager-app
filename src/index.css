@@ -19,6 +19,10 @@ code {
     monospace;
 }
 
+main {
+  max-width: 100%;
+}
+
 /* スライダー*/
 .itemSwiper .swiper-pagination-bullet-active {
   background-color: #c0c0c0;
@@ -27,6 +31,7 @@ code {
 .itemSwiper .swiper-button-next {
   color: #c0c0c0;
 }
+
 .css-1elwnq4-MuiPaper-root-MuiAccordion-root.Mui-expanded {
   margin: 0 !important;
 }
