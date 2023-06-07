@@ -22,6 +22,12 @@ const InactiveButton = ({
       sx={{
         fontWeight: "bold",
         fontFamily: "'M PLUS 1p', sans-serif",
+        fontSize: {
+          xs: "14px",
+          sm: "14px",
+          md: "16px",
+          lg: "16px"
+        },
         ...sxStyle,
       }}
       {...props}
@@ -50,6 +56,12 @@ const ActiveBlueButton = ({
           cursor: "pointer",
         },
         fontFamily: "'M PLUS 1p', sans-serif",
+        fontSize: {
+          xs: "14px",
+          sm: "14px",
+          md: "16px",
+          lg: "16px"
+        },
         ...sxStyle,
       }}
       {...props}
@@ -78,6 +90,12 @@ const ActiveOrangeButton = ({
           cursor: "pointer",
         },
         fontFamily: "'M PLUS 1p', sans-serif",
+        fontSize: {
+          xs: "14px",
+          sm: "14px",
+          md: "16px",
+          lg: "16px"
+        },
         ...sxStyle,
       }}
       {...props}
@@ -106,6 +124,12 @@ const ActiveBeigeButton = ({
           cursor: "pointer",
         },
         fontFamily: "'M PLUS 1p', sans-serif",
+        fontSize: {
+          xs: "14px",
+          sm: "14px",
+          md: "16px",
+          lg: "16px"
+        },
         ...sxStyle,
       }}
       {...props}
@@ -134,6 +158,12 @@ const ActivePinkButton = ({
           cursor: "pointer",
         },
         fontFamily: "'M PLUS 1p', sans-serif",
+        fontSize: {
+          xs: "14px",
+          sm: "14px",
+          md: "16px",
+          lg: "16px"
+        },
         ...sxStyle,
       }}
       {...props}
@@ -162,6 +192,12 @@ const ActiveDarkBlueButton = ({
           cursor: "pointer",
         },
         fontFamily: "'M PLUS 1p', sans-serif",
+        fontSize: {
+          xs: "14px",
+          sm: "14px",
+          md: "16px",
+          lg: "16px"
+        },
         ...sxStyle,
       }}
       {...props}
@@ -190,6 +226,12 @@ const ActiveRedButton = ({
           cursor: "pointer",
         },
         fontFamily: "'M PLUS 1p', sans-serif",
+        fontSize: {
+          xs: "14px",
+          sm: "14px",
+          md: "16px",
+          lg: "16px"
+        },
         ...sxStyle,
       }}
       {...props}
@@ -220,6 +262,12 @@ const ActiveBorderButton = ({
           cursor: "pointer",
         },
         fontFamily: "'M PLUS 1p', sans-serif",
+        fontSize: {
+          xs: "14px",
+          sm: "14px",
+          md: "16px",
+          lg: "16px"
+        },
         ...sxStyle,
       }}
       {...props}
@@ -248,6 +296,12 @@ const ActiveGrayButton = ({
           cursor: "pointer",
         },
         fontFamily: "'M PLUS 1p', sans-serif",
+        fontSize: {
+          xs: "14px",
+          sm: "14px",
+          md: "16px",
+          lg: "16px"
+        },
         ...sxStyle,
       }}
       {...props}

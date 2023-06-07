@@ -8,7 +8,7 @@ type Props = {
 const AdmTitleText: FC<Props> = memo(({ children }) => {
   return (
     <>
-      <Box sx={{ mb: 8 }}>
+      <Box sx={{ mb: {xs: 3, sm: 5, md: 5, lg:8} }}>
         <Typography
           variant="h4"
           component="h2"
@@ -22,10 +22,10 @@ const AdmTitleText: FC<Props> = memo(({ children }) => {
             width: '60%',
             margin: 'auto',
             fontSize: {
-              xs: "20px",
+              xs: "18px",
               sm: "20px",
               md: "20px",
-              lg: "20px"
+              lg: "26px"
             },
           }}
         >

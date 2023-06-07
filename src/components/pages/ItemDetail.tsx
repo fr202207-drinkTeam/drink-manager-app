@@ -50,95 +50,132 @@ const ItemDetail: FC = memo(() => {
             ) : (
               <>
                 <Box
-                  sx={{ display: "flex", mb: 5, alignItems: "center", ml: 10 }}
-                >
-                  <Box id="top" />
-                  <FreeBreakfastIcon fontSize="large" />
-                  <Typography
-                    variant="h3"
-                    component="p"
-                    sx={{ ml: 2 }}
-                  >
-                    {getAnItemResult.itemData.name}
-                  </Typography>
-                </Box>
-                <Box
                   sx={{
-                    display: { xs: "flex" },
-                    mb: 10,
-                    alignItems: "center",
+                    width: "100%",
                   }}
                 >
                   <Box
                     sx={{
-                      mr: 10,
-                      p: 1,
-                      ml: 10,
+                      display: "flex",
+                      mb: 5,
                       alignItems: "center",
-                      width: 400,
+                      ml: {
+                        lg: 10,
+                      },
                     }}
                   >
-                    <Slider
-                      images={getAnItemResult.itemData.image}
-                      slidesPerView={1}
-                      loop={true}
-                      navigation={true}
-                      autoplay={false}
-                    />
-                  </Box>
-                  <Box sx={{ mr: 5, width: 500 }}>
+                    <Box id="top" />
+                    <FreeBreakfastIcon fontSize="large" />
                     <Typography
-                      variant="body1"
+                      variant="h3"
                       component="p"
-                      sx={{ p: 1, mb: 2 }}
+                      sx={{
+                        ml: 2,
+                        fontSize: {
+                          xs: "20px",
+                          sm: "20px",
+                          md: "30px",
+                          lg: "30px",
+                        },
+                      }}
                     >
-                      【商品説明】
-                      <br />
-                      {getAnItemResult.itemData.description.replace(
-                        /\n<a href=.*/,
-                        ""
-                      )}
+                      {getAnItemResult.itemData.name}
                     </Typography>
-                    <Typography
-                      variant="subtitle1"
-                      component="div"
-                      textAlign="center"
-                      sx={{ p: 1, fontWeight: 600 }}
+                  </Box>
+                  <Box
+                    sx={{
+                      display: {
+                        lg: "flex",
+                      },
+                      mb: { lg: 10 },
+                      alignItems: "center",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        mr: {
+                          xs: "auto",
+                          sm: "auto",
+                          md: "auto",
+                          lg: 10,
+                        },
+                        p: 1,
+                        ml: {
+                          xs: "auto",
+                          sm: "auto",
+                          md: "auto",
+                          lg: 10,
+                        },
+                        alignItems: "center",
+                        width: {
+                          xs: 340,
+                          sm: 400,
+                          md: 400,
+                          lg: 400},
+                      }}
                     >
-                      \ 商品に関連するタイムラインはこちら /
-                    </Typography>
+                      <Slider
+                        images={getAnItemResult.itemData.image}
+                        slidesPerView={1}
+                        loop={true}
+                        navigation={true}
+                        autoplay={false}
+                      />
+                    </Box>
+                    <Box sx={{ mr: { lg: 5 }, width: { lg: 500 } }}>
+                      <Typography
+                        variant="body1"
+                        component="p"
+                        sx={{ p: 1, mb: 2 }}
+                      >
+                        【商品説明】
+                        <br />
+                        {getAnItemResult.itemData.description.replace(
+                          /\n<a href=.*/,
+                          ""
+                        )}
+                      </Typography>
+                      <Typography
+                        variant="subtitle1"
+                        component="div"
+                        textAlign="center"
+                        sx={{ p: 1, fontWeight: 600 }}
+                      >
+                        \ 商品に関連するタイムラインはこちら /
+                      </Typography>
 
-                    <TimelineCorner itemId={itemId}></TimelineCorner>
+                      <TimelineCorner itemId={itemId}></TimelineCorner>
+                    </Box>
                   </Box>
+                  {isAdmin ? (
+                    <Box sx={{ display: "flex", mr: { lg: 5 } }}>
+                      <ActiveDarkBlueButton
+                        event={() => navigate(`/adminhome/itemedit/${itemId}`)}
+                        sxStyle={{
+                          my: 2,
+                          ml: "auto",
+                          mr: 2,
+                        }}
+                      >
+                        商品を編集
+                      </ActiveDarkBlueButton>
+                      <ModalWindow
+                        title=""
+                        content="商品データを本当に削除しますか？"
+                        openButtonColor="red"
+                        completeButtonColor="red"
+                        completeButtonName="削除"
+                        completeAction={onClickDeleteItem}
+                        cancelButtonColor="gray"
+                        openButtonSxStyle={{
+                          my: 2,
+                        }}
+                      />
+                    </Box>
+                  ) : (
+                    <></>
+                  )}
                 </Box>
-                {isAdmin ? (
-                  <Box sx={{ display: "flex", mr: 5 }}>
-                    <ActiveDarkBlueButton
-                      event={() => navigate(`/adminhome/itemedit/${itemId}`)}
-                      sxStyle={{
-                        my: 2,
-                        ml: "auto",
-                        mr: 2,
-                      }}
-                    >
-                      商品を編集
-                    </ActiveDarkBlueButton>
-                    <ModalWindow
-                      title=""
-                      content="商品データを本当に削除しますか？"
-                      openButtonColor="red"
-                      completeButtonColor="red"
-                      completeButtonName="削除"
-                      completeAction={onClickDeleteItem}
-                      cancelButtonColor="gray"
-                      openButtonSxStyle={{
-                        my: 2,
-                      }}
-                    />
-                  </Box>
-                ) : (
-                  <></>
-                )}
               </>
             )
           ) : (
