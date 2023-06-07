@@ -108,7 +108,7 @@ const TimelineCorner: FC<Props> = memo((props) => {
           backgroundColor: "#f3bf88",
           border: "2px dashed #fff ",
           boxShadow: " 0 0 0 8px #f3bf88",
-          maxWidth: 500,
+          maxWidth: {lg: 500},
           minWidth: 100,
           display: "flex",
         }}
@@ -137,8 +137,10 @@ const TimelineCorner: FC<Props> = memo((props) => {
                 sx={{
                   p: 1,
                   m: "auto",
-                  maxWidth: 300,
-                  minWidth: 80,
+                  maxWidth: {
+                    lg: 300},
+                  minWidth: {
+                    lg: 80},
                 }}
                 image={displayPostData.postImage[0]}
                 alt="画像"

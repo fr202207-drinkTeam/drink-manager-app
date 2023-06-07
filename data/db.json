@@ -3290,6 +3290,14 @@
       "incOrDec": false,
       "stockAmount": 5,
       "id": 3
+    },
+    {
+      "itemId": 1,
+      "quantity": 4,
+      "day": "2023-06-05T06:20:33.126Z",
+      "incOrDec": false,
+      "stockAmount": 1,
+      "id": 4
     }
   ],
   "addition": []

@@ -19,10 +19,7 @@ const AdminHome: FC<Props> = memo((props) => {
         <Paper
           sx={{
             width: "100%",
-            minWidth: 500,
-            maxWidth: 1200,
-            minHeight: 600,
-            // padding: '50px',
+            padding: '30px',
           }}
         >
           <Box id="top" />
@@ -35,7 +32,7 @@ const AdminHome: FC<Props> = memo((props) => {
             alignItems="center"
             spacing={8}
             flexWrap="wrap"
-            marginTop="10px"
+            mx="70px"
           >
             <Link to="/adminhome/addition">
               <Box
