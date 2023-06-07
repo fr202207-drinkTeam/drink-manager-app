@@ -449,7 +449,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                       <InactiveButton
                         sx={{
                           background: "#e29399",
-                          width: 200,
+                          width: 180,
                           textAlign: "center",
                           mb: 2,
                           boxShadow: "none",
