@@ -33,7 +33,7 @@ const ItemCard = ({ data, sxStyle,selectedItems,setSelectedItems }: ItemCardProp
         sx={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "flex-start",
+          justifyContent: "center",
           flex: "end",
           mt: 5,
         }}
@@ -43,7 +43,13 @@ const ItemCard = ({ data, sxStyle,selectedItems,setSelectedItems }: ItemCardProp
             return (
               <Card
                 sx={{
-                  width: 310,
+                  width: {
+                    xs: "200px",
+                    sm: "200px",
+                    md: "250px",
+                    lg: "250px",
+                    xl: "290px"
+                  },
                   m:1,
                   boxShadow: "none",
                   border: "solid 1px ",
@@ -138,7 +144,7 @@ const ItemCard = ({ data, sxStyle,selectedItems,setSelectedItems }: ItemCardProp
                     gutterBottom
                     sx={{
                       textAlign: "center",
-                      fontSize: "15px",
+                      fontSize: "11px",
                       borderBottom: "double",
                       fontWeight: "bold",
                       fontFamily: "Georgia",
@@ -149,28 +155,33 @@ const ItemCard = ({ data, sxStyle,selectedItems,setSelectedItems }: ItemCardProp
                   </Typography>
                 </CardContent>
                 {selectedItems.includes(drink.id) ? (
+                   <Box sx={{ display: "flex", justifyContent: "center",margin:"auto",mb:3 }}>
                   <ActiveBorderButton
                     sxStyle={{
+                      display: "block",
                       width: 200,
                       mb: 2,
                       boxShadow: "none",
                       border: "double",
                       fontWeight: "bold",
-                      ml: 7,
+                      m: "auto",
                     }}
                      event={() => {
                       handleClick(drink.id);
                     } }                  >
                     <CheckIcon/>&nbsp;追加されました
                   </ActiveBorderButton>
+                  </Box>
                 ) : (
+                  <Box sx={{ display: "flex", justifyContent: "center",m:"auto",mb:3 }}>
                   <ActiveDarkBlueButton
                     sxStyle={{
+                      display: "block",
                       mb: 1,
                       width: 200,
                       boxShadow: "none",
                       fontWeight: "bold",
-                      ml: 7,
+                      m: "auto",
                       border: "double",
                     }}
                     event={() => {
@@ -179,6 +190,7 @@ const ItemCard = ({ data, sxStyle,selectedItems,setSelectedItems }: ItemCardProp
                   >
                     <AddCircleOutlineIcon /> &nbsp;追加
                   </ActiveDarkBlueButton>
+                  </Box>
                 )}
               </Card>
             );
