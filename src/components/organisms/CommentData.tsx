@@ -62,7 +62,14 @@ const CommentData: FC<Props> = memo((props) => {
   };
 
   return (
-    <Box sx={{ m: "10px" }}>
+    <Box
+      sx={{ m: "10px" }}
+      onClick={() => {
+        if (menu) {
+          setMenu(false);
+        }
+      }}
+    >
       <Grid container spacing={1}>
         <Grid item xs={3}>
           <Typography
@@ -83,33 +90,33 @@ const CommentData: FC<Props> = memo((props) => {
         {/* ログインユーザーの投稿だった場合、メニューボタンを表示 */}
         {userData && loginUser.id === userData.id && !menu && (
           <Grid item xs={2}>
-            <Stack direction="row" justifyContent="end" sx={{mx: 1}}>
-            <IconButton
-              component="label"
-              sx={{
-                color: "white",
-                background: "#ea6f00",
-                borderRadius: "3px",
-                mr: 1,
-              }}
-              onClick={() => {
-                setMenu(true);
-              }}
-              size="small"
-            >
-              <EditNote fontSize="small" />
-            </IconButton>
+            <Stack direction="row" justifyContent="end" sx={{ mx: 1 }}>
+              <IconButton
+                component="label"
+                sx={{
+                  color: "white",
+                  background: "#ea6f00",
+                  borderRadius: "3px",
+                  mr: 1,
+                }}
+                onClick={() => {
+                  setMenu(true);
+                }}
+                size="small"
+              >
+                <EditNote fontSize="small" />
+              </IconButton>
             </Stack>
           </Grid>
         )}
         {menu && (
           <Grid item xs={2}>
-          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-            <MenuButtons
-              editHandler={editComment}
-              deleteHandler={deleteComment}
-            />
-          </Box>
+            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <MenuButtons
+                editHandler={editComment}
+                deleteHandler={deleteComment}
+              />
+            </Box>
           </Grid>
         )}
       </Grid>
