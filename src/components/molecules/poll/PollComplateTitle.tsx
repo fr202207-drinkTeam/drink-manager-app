@@ -16,27 +16,35 @@ const PollComplateTitle = ({ poll }: PollTitleProps) => {
             borderTop: "double #81671C",
             borderBottom: "double #81671C",
             pb: 1,
-            backgroundImage: "url(/coffee2.png)",
+            backgroundImage: {
+              xs: '',
+              sm:'',
+              md:'url(/coffee2.png)',
+            },
             backgroundRepeat: "no-repeat",
             backgroundSize: 120,
             opacity: 0.8,
             mb: 5,
             mt: 4,
-            backgroundPosition: "left center",
+            backgroundPosition: {
+              xs: '',
+              sm: 'left 40px center ',
+            },
           }}
         >
           <Box
             sx={{
-              fontSize: "47px",
+                fontSize: {
+                  xs: "20px",
+                  sm: "35px",
+                  md: "47px",
+                },
               textAlign: "center",
               mt: 1,
-              // backgroundColor: "white",
               py: 1,
               fontWeight: "bold",
               color: "#6B3906",
               letterSpacing: 5,
-              // background:
-              // "-webkit-repeating-linear-gradient(-45deg, #fff, #d2691e 2px, #fff 2px, #fff 4px)",
             }}
           >
             {poll[0]?.name}
@@ -52,7 +60,11 @@ const PollComplateTitle = ({ poll }: PollTitleProps) => {
                   zIndex: 1,
                   textAlign: "center",
                   width: "100%",
-                  fontSize:"40px"
+                  fontSize: {
+                    xs: "20px",
+                    sm: "30px",
+                    md: "40px",
+                  },
                 }}
               >
                 投票ありがとうございました！！
@@ -69,7 +81,11 @@ const PollComplateTitle = ({ poll }: PollTitleProps) => {
           />
           <Box
             sx={{
-              fontSize: "20px",
+              fontSize: {
+              xs: "10px",
+              sm: "20px",
+              md: "20px",
+            },
               textAlign: "center",
               mt: 1,
               // backgroundColor: "white",

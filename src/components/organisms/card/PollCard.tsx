@@ -124,7 +124,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                   border: "solid 1px ",
                   borderColor: "#bfbec5",
                   pb: 1,
-                  px: 1,
+                  // px: 1,
                   ...sxStyle,
                 }}
                 key={index}
@@ -140,6 +140,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                           textAlign: "center",
                           fontSize: "13px",
                           backgroundColor: "#d6c6af",
+                          width: 80,
                           pt: "3px",
                           color: "#000",
                           borderRadius: "3px",
@@ -179,6 +180,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                               md: "200px",
                             },
                             pt: 1,
+                            m:"auto"
                           }}
                         />
                         <Box
@@ -188,7 +190,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                             left: 0,
                             width: "100%",
                             height: "100%",
-                            bgcolor: "RGB(238, 232, 170,0.3)",
+                            bgcolor: "RGB(255, 255, 0,0.3)",
                           }}
                         />
                         <Typography
@@ -414,13 +416,14 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                       <InactiveButton
                         sx={{
                           background: "#e29399",
-                          width: 200,
+                          width: 180,
                           textAlign: "center",
-                          mb: 2,
+                          mb: 1,
                           boxShadow: "none",
                           border: "dotted 2px",
                           fontWeight: "bold",
                           m: "auto",
+                          mt:1,
                           ":hover": {
                             background: "#e29399",
                             cursor: "pointer",

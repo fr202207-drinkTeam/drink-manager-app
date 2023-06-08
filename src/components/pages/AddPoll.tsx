@@ -61,10 +61,10 @@ const AddPoll = memo(() => {
   const isFirstRender = useRef(true);
   const navigate = useNavigate();
 
-    //廃盤になっていない商品のみ表示
-    const isExistItems=items.filter((item)=>{
-      return item.isDiscontinued===false
-    })
+  //廃盤になっていない商品のみ表示
+  const isExistItems = items.filter((item) => {
+    return item.isDiscontinued === false
+  })
 
   const isPopularOverlapping = popularQuestionnaireData.some(question => {
     const popularQuestionStartDate = new Date(question.startDate);
@@ -129,7 +129,7 @@ const AddPoll = memo(() => {
     setDateError("");
     return true;
   };
-  
+
   //投票カテゴリー
   const validateCategory = () => {
     if (pollCategory === "投票種別を選択してください") {
@@ -214,11 +214,23 @@ const AddPoll = memo(() => {
 
   return (
     <>
-      <Paper sx={{ p: 3 }}>
+      <Paper sx={{
+    mb: 5,
+    width: "100%",
+    pb: 13,
+    p:2,
+  }}>
         <Box id="top" />
         <AdmTitleText children={"投票追加"} />
-        <Box sx={{ mb: 1 }}>⚠︎ ここで追加した商品は商品一覧には表示されません。</Box>
-        <ActiveDarkBlueButton event={handleOpen} sxStyle={{ width: 280, height: 80, fontSize: "20px" }}>
+        <ActiveDarkBlueButton event={handleOpen} sxStyle={{
+          p: 2, fontSize: {
+            xs: "14px",
+            sm: "14px",
+            md: "16px",
+            lg: "18px",
+            xl: "18px"
+          },
+        }}>
           投票用新規商品登録
         </ActiveDarkBlueButton>
         <Modal

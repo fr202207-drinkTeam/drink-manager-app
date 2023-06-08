@@ -43,9 +43,9 @@ const DottedMemo = ({text,information,fontSize,maxWidth,minWidth,margin}:DottedM
           p:2,
           color: '#595857',
           fontSize: {
-            xs: theme.typography.pxToRem(12),
-            sm: theme.typography.pxToRem(22),
-            md: theme.typography.pxToRem(23),
+            xs:"10px",
+            sm: "22px",
+            md:"23px",
           },
         }}
       >
@@ -59,9 +59,9 @@ const DottedMemo = ({text,information,fontSize,maxWidth,minWidth,margin}:DottedM
           p:1,
           color: '#595857',
           fontSize: {
-            xs: theme.typography.pxToRem(8),
-            sm: theme.typography.pxToRem(14),
-            md: theme.typography.pxToRem(18),
+            xs: "8px",
+            sm:"14px",
+            md: "18px",
           },
         }}
       >

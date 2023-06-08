@@ -13,7 +13,7 @@ const PrimaryDateInput = ({onChange, ...props }:any) => {
       <TextField
         variant="standard"
         sx={{ width:{
-          xs:"80px",
+          xs:"60px",
           sm:"100px",
           md:"100px",
           lg:"200px",
