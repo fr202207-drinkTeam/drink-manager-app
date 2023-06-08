@@ -35,31 +35,35 @@ const PollTitle = ({ poll }: PollTitleProps) => {
       >
         <Box
           sx={{
-            fontSize: {
-              xs: theme.typography.pxToRem(35),
-              sm: theme.typography.pxToRem(47),
-            },
+              fontSize: {
+                xs: "20px",
+                sm: "35px",
+                md: "47px",
+              },
             textAlign: 'center',
             mt: 1,
             py: 1,
             fontWeight: 'bold',
             color: '#6B3906',
-            letterSpacing: 5,
+            letterSpacing: 3,
           }}
         >
           {poll[0]?.name}
         </Box>
         <Box
           sx={{
-            fontSize: {
-              xs: theme.typography.pxToRem(16),
-              sm: theme.typography.pxToRem(20),
-            },
             textAlign: 'center',
             mt: 1,
             fontWeight: 'bold',
-            letterSpacing: 3,
+            letterSpacing:        { xs: 0,
+            sm: 2,
+            md: 3,},
             py: 1,
+            fontSize: {
+              xs: "10px",
+              sm: "20px",
+              md: "25px",
+            },
           }}
         >
           開催期間:&emsp; {poll[0]?.startDate.toLocaleDateString()}&emsp;〜&emsp;

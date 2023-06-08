@@ -147,7 +147,13 @@ const ItemForm: FC<Props> = memo((props) => {
             sm: "14px",
             md: "16px",
             lg: "16px",
-          } }}
+          },width: {
+            xs: "100%",
+            sm: "50%",
+            md: "50%",
+            lg: "50%",
+            xl: "50%"
+          },  }}
         >
           <MenuItem value={0}>商品カテゴリーを選択して下さい</MenuItem>
           <MenuItem value={1}>コーヒー/ダーク(深煎り)</MenuItem>

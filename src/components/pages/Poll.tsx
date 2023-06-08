@@ -51,8 +51,6 @@ const Poll = memo(() => {
   sx={{
     mb: 5,
     width: "100%",
-    minWidth: 500,
-    maxWidth: 1200,
     pb: 13,
   }}
 >
@@ -63,7 +61,13 @@ const Poll = memo(() => {
       flexDirection: "column",
       alignItems: "center",
       backgroundImage: "url(/coffeebeens.jpeg)",
-      backgroundSize: "200px",
+      backgroundSize: {
+        xs: "150px",
+        sm: "200px",
+        md: "200px",
+        lg: "200px",
+        xl: "200px"
+      },
       backgroundRepeat: "no-repeat",
       backgroundPosition: "-50px top",
       pt: [5, 10],

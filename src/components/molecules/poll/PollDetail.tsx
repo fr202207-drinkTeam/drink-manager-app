@@ -34,28 +34,25 @@ const PollDetail:FC<PollDetailProps> = ({PopularitemData,OtheritemData,titleText
                 sx={{
                   textAlign: "center",
                   fontSize: {
-                    xs: "20px",
+                    xs: "12px",
                     sm: "25px",
                     md: "30px",
                     lg:"30px",
                     xl:"35px",
                   },
-                  my: 5,
+                  my: 3,
                   background: "linear-gradient(transparent 70%, #fffacd 70%)",
-                  maxWidth: "700px",
-                  ml: 2,
                 }}
               >
-                {" "}
-                <AdsClickIcon sx={{ mr: 2, fontSize: {
-            xs: "20px",
+                <AdsClickIcon sx={{ mr:1,fontSize: {
+            xs: "15px",
             sm:"25px",
             md: "40px",
           }, }} />
-                気になる商品をクリックして投票しよう!
+                商品をクリックして投票しよう!
               </Box>
               <Box sx={{           fontSize: {
-            xs: "14px",
+            xs: "13px",
             sm: "16px",
             md: "25px",
           }, }}>

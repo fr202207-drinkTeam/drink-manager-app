@@ -40,28 +40,46 @@ const PollDateInput:FC<PollDateInputProps> = ({
           {dateError && (
             <Box style={{ color: "red", fontSize: 15 }}>{dateError}</Box>
           )}
-          <Box sx={{ m: 2 }}>
+          <Box sx={{ my:2,fontSize: {
+                          xs: "11px",
+                          sm: "14px",
+                          md: "16px",
+                          lg: "18px",
+                          xl: "18px"
+                        }, }}>
             ※各投票の開催期間が被らないように設定してください
           </Box>
           <Box sx={{ mb: 1, fontWeight: "bold", ml: 1 }}>最近登録した投票</Box>
           {questionnaireData.map((data) => (
             <Box key={data.id} sx={{ display: "flex", flexWrap: "wrap", ml: 1 }}>
-              <Box sx={{ fontSize: "18px", borderBottom: 1 }}>
+              <Box sx={{  fontSize: {
+                          xs: "14px",
+                          sm: "14px",
+                          md: "16px",
+                          lg: "18px",
+                          xl: "18px"
+                        }, borderBottom: 1 }}>
                 ・{data.name}{" "}
-                <span
-                  style={{
+                <Box
+                  sx={{
                     display: "flex",
                     flexWrap: "wrap",
-                    fontSize: "15px",
+                    fontSize: {
+                      xs: "12px",
+                      sm: "12px",
+                      md: "16px",
+                      lg: "18px",
+                      xl: "18px"
+                    },
                   }}
                 >
                   期間:{data.startDate.toLocaleDateString()}~
                   {data.endDate.toLocaleDateString()}
-                </span>{" "}
+                </Box>{" "}
               </Box>
             </Box>
           ))}
-          <Box sx={{ display: "flex", alignItems: "center", m: 1, mt: 3 }}>
+          <Box sx={{ display: "flex", alignItems: "center",m: 1, mt: 3 }}>
             <Box>
               <PrimaryDateInput
                 name="startdate"
