@@ -187,7 +187,7 @@ const ItemEdit: FC = memo(() => {
                         <Typography variant="body2" component="p">
                           追加
                         </Typography>
-                        <AddCircleOutlineIcon sx={{ fontSize: 30, mb: 5 }} />
+                        <AddCircleOutlineIcon sx={{ fontSize: 30, mb: {xs:0, sm: 5, md: 5,lg:5} }} />
                       </label>
                       <input
                         type="file"
@@ -354,7 +354,7 @@ const ItemEdit: FC = memo(() => {
                     component="div"
                     textAlign="center"
                     sx={{ mb: 1, mt: 3, color: "red", fontSize: {
-                      xs: "13px"
+                      xs: "13px", sm: "13px", md: "16px", lg: "16px"
                     } }}
                   >
                     全ての項目を入力、または選択して下さい
@@ -377,6 +377,7 @@ const ItemEdit: FC = memo(() => {
                     my: 2,
                     mr: 3,
                     py: "5px",
+                    px: {xs:"3px", sm: "3px", md: "5px", lg: "5px"}
                   }}
                 />
                 
@@ -388,7 +389,7 @@ const ItemEdit: FC = memo(() => {
                     event={onClickEditItemData}
                     sxStyle={{
                       my: 2,
-                      mr: 3,
+                      mr: {xs: 0, sm: 3, md: 3, lg:3},
                       py: "5px",
                     }}
                   >
@@ -399,7 +400,7 @@ const ItemEdit: FC = memo(() => {
                     <InactiveButton
                       sxStyle={{
                         my: 2,
-                        mr: 3,
+                        mr: {xs: 0, sm: 3, md: 3, lg:3},
                         py: "5px",
                       }}
                     >

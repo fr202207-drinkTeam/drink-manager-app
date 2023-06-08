@@ -89,6 +89,7 @@ const ItemDetail: FC = memo(() => {
                       },
                       mb: { lg: 10 },
                       alignItems: "center",
+                      width: "100%"
                     }}
                   >
                     <Box
@@ -108,7 +109,7 @@ const ItemDetail: FC = memo(() => {
                         },
                         alignItems: "center",
                         width: {
-                          xs: 340,
+                          xs: 220,
                           sm: 400,
                           md: 400,
                           lg: 400},
@@ -126,7 +127,7 @@ const ItemDetail: FC = memo(() => {
                       <Typography
                         variant="body1"
                         component="p"
-                        sx={{ p: 1, mb: 2 }}
+                        sx={{ p: 1, mb: 2, fontSize: {xs: "14px", lg:"16px"} }}
                       >
                         【商品説明】
                         <br />
@@ -139,7 +140,7 @@ const ItemDetail: FC = memo(() => {
                         variant="subtitle1"
                         component="div"
                         textAlign="center"
-                        sx={{ p: 1, fontWeight: 600 }}
+                        sx={{ p: {lg: 1}, fontWeight: 600, fontSize: {xs: "12px", lg: "16px"}, pb: {xs: "7px"} }}
                       >
                         \ 商品に関連するタイムラインはこちら /
                       </Typography>
@@ -179,7 +180,14 @@ const ItemDetail: FC = memo(() => {
               </>
             )
           ) : (
-            <div>該当する商品がありません</div>
+            <Typography
+                        variant="subtitle1"
+                        component="div"
+                        textAlign="center"
+                        sx={{ p: {lg: 1}, fontWeight: 600, fontSize: {xs: "12px"} }}
+                      >
+                        該当する商品がありません
+                      </Typography>
           )}
         </>
       )}
