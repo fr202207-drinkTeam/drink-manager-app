@@ -39,6 +39,12 @@ const PollDescriptionInput: FC<Props> = memo((props) => {
               props.setContactCategory(e.target.value);
             }}
             onBlur={() => setCategoryErr(true)}
+            sx={{ fontSize: {
+              xs: "14px",
+              sm: "14px",
+              md: "16px",
+              lg: "16px",
+            }}}
           >
             <MenuItem value="default">お問い合わせ種別を選択</MenuItem>
             <MenuItem value="system">システムについてのお問い合わせ</MenuItem>
@@ -69,6 +75,13 @@ const PollDescriptionInput: FC<Props> = memo((props) => {
           props.contactContents === "" &&
           "お問い合わせ内容を入力して下さい"
         }
+        inputProps={{ maxLength: 1000, sx: {
+          fontSize: {
+            xs: "14px",
+            sm: "14px",
+            md: "16px",
+            lg: "16px",
+          }} }}
         error={contentErr && props.contactContents === ""}
         onBlur={() => setContentErr(true)}
       />

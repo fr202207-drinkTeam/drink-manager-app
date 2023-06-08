@@ -79,7 +79,7 @@ export const StockInput: FC<Props> = (props) => {
     <>
       <TextField
         key={index}
-        sx={{ width: "250px", margin: "10px 0px 10px 30px" }}
+        sx={{ width: "90%", my: "10px", mx: "auto", display: "block" }}
         id={`${index}`}
         label={inputLabel}
         variant="outlined"
@@ -93,6 +93,9 @@ export const StockInput: FC<Props> = (props) => {
         onBlur={handleInputBlur(index)}
         helperText={inputStatusArr[index]! && "999以下の数値を入力してください"}
         InputProps={{
+          sx: {
+            width: "100%"
+          },
           inputProps: {
             min: 0,
             max: 999,

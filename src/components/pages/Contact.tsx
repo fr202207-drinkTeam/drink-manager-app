@@ -30,16 +30,16 @@ const Contact: FC = memo(() => {
   return (
     <Paper
       sx={{
-        padding: "50px 100px",
+        padding: {xs: "20px 20px", sm: "30px 30px", md: "50px 50px", lg: "50px 50px"},
       }}
     >
       <Box id="top" />
       <Box>
         <Typography
-          variant="h3"
+          variant="h2"
           borderBottom="1px solid"
           gutterBottom
-          sx={{ mb: "100px" }}
+          sx={{ mb: {xs: "30px", sm: "50px", md: "60px", lg: "60px"}, fontSize: {xs: "20px", sm: "20px", md: "28px", lg: "28px"}, fontWeight: 500 }}
         >
           お問い合わせ
         </Typography>
@@ -54,10 +54,9 @@ const Contact: FC = memo(() => {
           {contactCategory === "default" || contactContents === "" ? (
             <InactiveButton
               sxStyle={{
-                px: 7,
-                py: 2,
-                borderRadius: "15px",
-                marginTop: "32px",
+                px: {xs: 2, sm:3, md: 5, lg:5},
+                py: {xs: 1, sm:1, md: 2, lg:2},
+                borderRadius: "10px",
                 textAlign: "center",
               }}
             >
@@ -74,10 +73,9 @@ const Contact: FC = memo(() => {
               completeAction={onClickSubmit}
               cancelButtonColor={"red"}
               openButtonSxStyle={{
-                px: 7,
-                py: 2,
-                borderRadius: "15px",
-                marginTop: "32px",
+                px: {xs: 2, sm:3, md: 5, lg:5},
+                py: {xs: 1, sm:1, md: 2, lg:2},
+                borderRadius: "10px",
                 textAlign: "center",
               }}
             />

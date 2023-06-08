@@ -110,7 +110,7 @@ const TimelineCorner: FC<Props> = memo((props) => {
           boxShadow: " 0 0 0 8px #f3bf88",
           maxWidth: {lg: 500},
           minWidth: 100,
-          display: "flex",
+          display: {sm: "flex", md: "flex", lg:"flex"},
         }}
       >
         {isLoading ? (
@@ -122,8 +122,6 @@ const TimelineCorner: FC<Props> = memo((props) => {
                 sx={{
                   flex: "1 0 auto",
                   width: "0.7",
-                  overflowY: "scroll",
-                  height: 200,
                 }}
               >
                 <Typography variant="body2" component="p">
@@ -137,10 +135,11 @@ const TimelineCorner: FC<Props> = memo((props) => {
                 sx={{
                   p: 1,
                   m: "auto",
-                  maxWidth: {
-                    lg: 300},
-                  minWidth: {
-                    lg: 80},
+                  width: {
+                    xs: 100,
+                    sm: 150,
+                    md: 200,
+                    lg: 200},
                 }}
                 image={displayPostData.postImage[0]}
                 alt="画像"
@@ -153,7 +152,7 @@ const TimelineCorner: FC<Props> = memo((props) => {
               variant="subtitle2"
               component="p"
               textAlign="center"
-              sx={{ p: 1, mt: 3, mb: 3, mx: "auto" }}
+              sx={{ p: 1, mt: 3, mb: 3, mx: "auto", fontSize: {xs: "12px"} }}
             >
               該当するタイムラインがありません
             </Typography>

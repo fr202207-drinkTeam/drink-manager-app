@@ -84,7 +84,7 @@ const ItemForm: FC<Props> = memo((props) => {
                   <Typography variant="body2" component="p">
                     追加
                   </Typography>
-                  <AddCircleOutlineIcon sx={{ fontSize: 30, mb: 5 }} />
+                  <AddCircleOutlineIcon sx={{ fontSize: 30, mb: {xs:0, sm: 5, md: 5,lg:5} }} />
                 </label>
                 <input
                   type="file"
