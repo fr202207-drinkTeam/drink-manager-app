@@ -255,21 +255,6 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                           >
                             {drink.name}
                           </Typography>
-                          {/* <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            component="p"
-                            sx={{ textAlign: "center", fontSize: "13px" ,
-                            [theme.breakpoints.up("xs")]: {
-                              display: "none",
-                            },
-                            [theme.breakpoints.up("sm")]: {
-                              display: "none",
-                            }
-                          }}
-                          >
-                            {drink.description}
-                          </Typography> */}
                         </CardContent>
                       </CardActionArea>
                     </CardActionArea>

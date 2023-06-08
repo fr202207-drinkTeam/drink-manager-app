@@ -219,25 +219,25 @@ const ItemSearch: FC<Props> = memo((props) => {
       <Box
         sx={{
           display: "flex",
-          flexDirection: "row",
+          flexDirection:{xs:"column",sm:"column",md: "row",lg: "row"},
           justifyContent: "space-between",
        
         }}
       >
-        <Box >
+        <Box sx={{mb:{xs:"5px",sm:"5px",md:"0px",lg:"0px"}}}>
           {category ? (
-            <Typography variant="h6" sx={{ mb: 2 }}>
+            <Typography  sx={{ mx: "8px",mb: 2 ,fontSize:{xs:"15px",sm:"20px",md:"23px",lg:"23px"}}}>
               「{categoryName}」の検索結果一覧
             </Typography>
           ) : (
             ""
           )}
           {keyword ? (
-            <Typography variant="h6">{keyword}の検索結果一覧</Typography>
+            <Typography  sx={{mx: "8px",fontSize:{xs:"15px",sm:"20px",md:"23px",lg:"23px"}}}>{keyword}の検索結果一覧</Typography>
           ) : (
             ""
           )}
-          <Typography sx={{ mx: "16px" }}>
+          <Typography sx={{ mx: "16px",fontSize:{xs:"13px",sm:"14px",md:"20px",lg:"20px"} }}>
             検索結果：{allItem?.length}件
           </Typography>
         </Box>   

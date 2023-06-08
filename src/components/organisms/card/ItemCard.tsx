@@ -6,7 +6,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Box, Grid } from "@mui/material";
 import { Items } from "../../../types/type";
-import { Link } from "react-router-dom";
+
 type ItemCardProps = {
   data: Items[]|Items;
   sxStyle?: any;
@@ -28,7 +28,7 @@ const ItemCard = ({ data, sxStyle, sxBox }: ItemCardProps) => {
         <Grid container spacing={2}>
         {Array.isArray(data) ? (
           data?.map((drink: Items, index: React.Key | null | undefined) => (
-            <Grid key={index} item xs={4} md={4}>
+            <Grid key={index} item xs={12} sm={6} md={6} lg={4}>
               <Card
                 sx={{
                   m: 2,
@@ -141,7 +141,7 @@ const ItemCard = ({ data, sxStyle, sxBox }: ItemCardProps) => {
             </Grid>
           ))
           ) : ( 
-            <Grid  item xs={4} md={4}>
+            <Grid   item xs={12} sm={6} md={4} lg={4}>
               <Card
                 sx={{
                   m: 2,
@@ -150,7 +150,6 @@ const ItemCard = ({ data, sxStyle, sxBox }: ItemCardProps) => {
                   borderColor: "#bfbec5",
                   ...sxStyle,
                 }}
-                
               >
                 <Typography
                   variant="body2"
@@ -238,7 +237,13 @@ const ItemCard = ({ data, sxStyle, sxBox }: ItemCardProps) => {
                       gutterBottom
                       sx={{
                         textAlign: "center",
-                        fontSize: "15px",
+                        fontSize: {
+                          xs: "14px",
+                          sm: "14px",
+                          md: "12px",
+                          lg: "12px",
+                          xl: "12px"
+                        },
                         borderBottom: "double",
                         fontFamily: "Georgia",
                         fontWeight: "bold",
