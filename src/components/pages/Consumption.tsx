@@ -167,10 +167,10 @@ const Consumption: FC = memo(() => {
         cancelButtonColor={"red"}
         openButtonSxStyle={{
           my: "50px",
-          py: "18px",
-          px: "60px",
-          fontSize: "20px",
-          borderRadius: 10,
+          py: "10px",
+          px: "30px",
+          fontSize: {xs: "14px", sm: "16px", md: "20px", lg: "20px"},
+          borderRadius: 3,
         }}
       />
       {inputValueArrError && (

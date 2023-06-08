@@ -23,7 +23,7 @@ const InactiveButton = ({
         fontWeight: "bold",
         fontFamily: "'M PLUS 1p', sans-serif",
         fontSize: {
-          xs: "14px",
+          xs: "12px",
           sm: "14px",
           md: "16px",
           lg: "16px"
@@ -57,7 +57,7 @@ const ActiveBlueButton = ({
         },
         fontFamily: "'M PLUS 1p', sans-serif",
         fontSize: {
-          xs: "14px",
+          xs: "12px",
           sm: "14px",
           md: "16px",
           lg: "16px"
@@ -91,7 +91,7 @@ const ActiveOrangeButton = ({
         },
         fontFamily: "'M PLUS 1p', sans-serif",
         fontSize: {
-          xs: "14px",
+          xs: "12px",
           sm: "14px",
           md: "16px",
           lg: "16px"
@@ -125,7 +125,7 @@ const ActiveBeigeButton = ({
         },
         fontFamily: "'M PLUS 1p', sans-serif",
         fontSize: {
-          xs: "14px",
+          xs: "12px",
           sm: "14px",
           md: "16px",
           lg: "16px"
@@ -159,7 +159,7 @@ const ActivePinkButton = ({
         },
         fontFamily: "'M PLUS 1p', sans-serif",
         fontSize: {
-          xs: "14px",
+          xs: "12px",
           sm: "14px",
           md: "16px",
           lg: "16px"
@@ -193,7 +193,7 @@ const ActiveDarkBlueButton = ({
         },
         fontFamily: "'M PLUS 1p', sans-serif",
         fontSize: {
-          xs: "14px",
+          xs: "12px",
           sm: "14px",
           md: "16px",
           lg: "16px"
@@ -227,7 +227,7 @@ const ActiveRedButton = ({
         },
         fontFamily: "'M PLUS 1p', sans-serif",
         fontSize: {
-          xs: "14px",
+          xs: "12px",
           sm: "14px",
           md: "16px",
           lg: "16px"
@@ -263,7 +263,7 @@ const ActiveBorderButton = ({
         },
         fontFamily: "'M PLUS 1p', sans-serif",
         fontSize: {
-          xs: "14px",
+          xs: "12px",
           sm: "14px",
           md: "16px",
           lg: "16px"
@@ -297,7 +297,7 @@ const ActiveGrayButton = ({
         },
         fontFamily: "'M PLUS 1p', sans-serif",
         fontSize: {
-          xs: "14px",
+          xs: "12px",
           sm: "14px",
           md: "16px",
           lg: "16px"

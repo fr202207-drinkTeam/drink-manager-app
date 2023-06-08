@@ -19,7 +19,7 @@ const AdminHome: FC<Props> = memo((props) => {
         <Paper
           sx={{
             width: "100%",
-            padding: '30px',
+            pb: '50px',
           }}
         >
           <Box id="top" />
@@ -30,19 +30,20 @@ const AdminHome: FC<Props> = memo((props) => {
             direction="row"
             justifyContent="center"
             alignItems="center"
-            spacing={8}
+            // spacing={8}
             flexWrap="wrap"
             mx="70px"
           >
             <Link to="/adminhome/addition">
               <Box
                 sx={{
-                  width: 200,
-                  height: 200,
+                  width: {xs: "130px", sm: "130px", md: 200, lg: 200},
+                  height: {xs: "130px", sm: "130px", md: 200, lg: 200},
                   backgroundColor: "#024098",
                   textAlign: "center",
                   borderRadius: "20px",
                   border: "1px solid",
+                  margin: "10px",
                   backgroundImage:
                     "linear-gradient(to bottom, #024098 70%, #fff 30%)",
                   "&:hover": {
@@ -53,15 +54,15 @@ const AdminHome: FC<Props> = memo((props) => {
               >
                 <AddBoxIcon
                   sx={{
-                    width: "130px",
-                    height: "130px",
+                    width: {xs: "80px", sm: "80px", md: "130px", lg: "130px"},
+                    height: {xs: "80px", sm: "80px", md: "130px", lg: "130px"},
                     color: "white",
                     paddingTop: "10px",
                   }}
                 />
                 <Typography
                   fontFamily="Source Han Sans"
-                  sx={{ color: "black", fontSize: "20px", marginTop: "10px" }}
+                  sx={{ color: "black", fontSize: {xs: "16px", sm: "16px", md: "20px", lg: "20px"}, marginTop: "10px" }}
                 >
                   補充在庫入力
                 </Typography>
@@ -70,12 +71,13 @@ const AdminHome: FC<Props> = memo((props) => {
             <Link to="/adminhome/consumption">
               <Box
                 sx={{
-                  width: 200,
-                  height: 200,
+                  width: {xs: "130px", sm: "130px", md: 200, lg: 200},
+                  height: {xs: "130px", sm: "130px", md: 200, lg: 200},
                   backgroundColor: "#024098",
                   textAlign: "center",
                   borderRadius: "20px",
                   border: "1px solid",
+                  margin: "10px",
                   backgroundImage:
                     "linear-gradient(to bottom, #024098 70%, #fff 30%)",
                   "&:hover": {
@@ -86,15 +88,15 @@ const AdminHome: FC<Props> = memo((props) => {
               >
                 <IndeterminateCheckBoxIcon
                   sx={{
-                    width: "130px",
-                    height: "130px",
+                    width: {xs: "80px", sm: "80px", md: "130px", lg: "130px"},
+                    height: {xs: "80px", sm: "80px", md: "130px", lg: "130px"},
                     color: "white",
                     paddingTop: "10px",
                   }}
                 />
                 <Typography
                   fontFamily="Source Han Sans"
-                  sx={{ color: "black", fontSize: "20px", marginTop: "10px" }}
+                  sx={{ color: "black", fontSize: {xs: "16px", sm: "16px", md: "20px", lg: "20px"}, marginTop: "10px" }}
                 >
                   消費在庫入力
                 </Typography>
@@ -103,12 +105,13 @@ const AdminHome: FC<Props> = memo((props) => {
             <Link to="/adminhome/history">
               <Box
                 sx={{
-                  width: 200,
-                  height: 200,
+                  width: {xs: "130px", sm: "130px", md: 200, lg: 200},
+                  height: {xs: "130px", sm: "130px", md: 200, lg: 200},
                   backgroundColor: "#024098",
                   textAlign: "center",
                   borderRadius: "20px",
                   border: "1px solid",
+                  margin: "10px",
                   backgroundImage:
                     "linear-gradient(to bottom, #024098 70%, #fff 30%)",
                   "&:hover": {
@@ -119,15 +122,15 @@ const AdminHome: FC<Props> = memo((props) => {
               >
                 <ManageSearchIcon
                   sx={{
-                    width: "130px",
-                    height: "130px",
+                    width: {xs: "80px", sm: "80px", md: "130px", lg: "130px"},
+                    height: {xs: "80px", sm: "80px", md: "130px", lg: "130px"},
                     color: "white",
                     paddingTop: "10px",
                   }}
                 />
                 <Typography
                   fontFamily="Source Han Sans"
-                  sx={{ color: "black", fontSize: "20px", marginTop: "10px" }}
+                  sx={{ color: "black", fontSize: {xs: "16px", sm: "16px", md: "20px", lg: "20px"}, marginTop: "10px" }}
                 >
                   在庫履歴
                 </Typography>
@@ -136,12 +139,13 @@ const AdminHome: FC<Props> = memo((props) => {
             <Link to="/adminhome/addpoll">
               <Box
                 sx={{
-                  width: 200,
-                  height: 200,
+                  width: {xs: "130px", sm: "130px", md: 200, lg: 200},
+                  height: {xs: "130px", sm: "130px", md: 200, lg: 200},
                   backgroundColor: "#024098",
                   textAlign: "center",
                   borderRadius: "20px",
                   border: "1px solid",
+                  margin: "10px",
                   backgroundImage:
                     "linear-gradient(to bottom, #024098 70%, #fff 30%)",
                   "&:hover": {
@@ -152,15 +156,15 @@ const AdminHome: FC<Props> = memo((props) => {
               >
                 <AssignmentIcon
                   sx={{
-                    width: "130px",
-                    height: "130px",
+                    width: {xs: "80px", sm: "80px", md: "130px", lg: "130px"},
+                    height: {xs: "80px", sm: "80px", md: "130px", lg: "130px"},
                     color: "white",
                     paddingTop: "10px",
                   }}
                 />
                 <Typography
                   fontFamily="Source Han Sans"
-                  sx={{ color: "black", fontSize: "20px", marginTop: "10px" }}
+                  sx={{ color: "black", fontSize: {xs: "16px", sm: "16px", md: "20px", lg: "20px"}, marginTop: "10px" }}
                 >
                   アンケート追加
                 </Typography>

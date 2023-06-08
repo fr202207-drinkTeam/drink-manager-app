@@ -79,7 +79,7 @@ export const StockInput: FC<Props> = (props) => {
     <>
       <TextField
         key={index}
-        sx={{ width: "250px", margin: "10px 0px 10px 30px" }}
+        sx={{ width: "90%", my: "10px", mx: "auto", display: "block" }}
         id={`${index}`}
         label={inputLabel}
         variant="outlined"
