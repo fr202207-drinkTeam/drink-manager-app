@@ -1,5 +1,5 @@
 import { CheckCircle } from "@mui/icons-material";
-import { List, ListItem, ListItemText } from "@mui/material";
+import { Box, List, ListItem, ListItemText } from "@mui/material";
 import React, { ChangeEvent, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { PrimaryInput } from "../input/Input";
@@ -79,28 +79,54 @@ const EmailInput = (props: EmailProps) => {
                   primary={(() => {
                     if (isValid) {
                       return (
-                        <>
+                        <Box sx={{fontSize: {
+                          xs: "12px",
+                          sm: "14px",
+                          md: "15px",
+                          lg: "16px",
+                          xl: "16px"
+                        },}}>
                           <CheckCircle
-                            style={{
+                            sx={{
                               color: "green",
                               verticalAlign: "middle",
                               marginRight: "5px",
+                              fontSize: {
+                                xs: "16px",
+                                sm: "18px",
+                                md: "19px",
+                                lg: "20px",
+                                xl: "20px"
+                              }
                             }}
                           />
                           @{process.env.REACT_APP_EMAIL}.co.jpの固定ドメイン
-                        </>
+                        </Box>
                       );
                     } else {
                       return (
-                        <>
+                        <Box sx={{fontSize: {
+                          xs: "12px",
+                          sm: "14px",
+                          md: "15px",
+                          lg: "16px",
+                          xl: "16px"
+                        },}}>
                           <CheckCircle
-                            style={{
+                            sx={{
                               verticalAlign: "middle",
                               marginRight: "5px",
+                              fontSize: {
+                                xs: "16px",
+                                sm: "18px",
+                                md: "19px",
+                                lg: "20px",
+                                xl: "20px"
+                              }
                             }}
                           />
                           @{process.env.REACT_APP_EMAIL}.co.jpの固定ドメイン
-                        </>
+                        </Box>
                       );
                     }
                   })()}
