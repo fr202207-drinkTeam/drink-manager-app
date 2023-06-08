@@ -92,7 +92,16 @@ const LoginForm: FC<Props> = (props) => {
   return (
     <Container maxWidth="sm" sx={{ alignItems: "center", mt: "80px" }}>
       <Box sx={{ textAlign: "center" }}>
-        <h1>{loginTitle}</h1>
+        <Box sx={{
+          fontSize: {
+            xs: "20px",
+            sm: "20px",
+            md: "25px",
+            lg: "30px",
+            xl: "30px"
+          },
+          fontWeight:"bold"
+        }}>{loginTitle}</Box>
         <p style={{ fontSize: "13px" }}>*は必須入力項目です</p>
       </Box>
       <Box component="form" onSubmit={loginSubmit} sx={{ textAlign: "center" }}>
@@ -103,7 +112,7 @@ const LoginForm: FC<Props> = (props) => {
           setErrorMail={setErrorMail}
           error={
             errorMail &&
-            (email === "" || !email.includes("@") || email.length > 40)
+              (email === "" || !email.includes("@") || email.length > 40)
               ? errorMail
               : null
           }

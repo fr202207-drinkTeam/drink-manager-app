@@ -1,11 +1,13 @@
 import { CheckCircle, Visibility, VisibilityOff } from "@mui/icons-material";
 import {
+  Box,
   IconButton,
   InputAdornment,
   List,
   ListItem,
   ListItemText,
   Stack,
+  Typography,
 } from "@mui/material";
 import React, { ChangeEvent } from "react";
 import { PrimaryInput } from "../input/Input";
@@ -47,7 +49,8 @@ const PasswordInput = (props: PasswordProps) => {
         required
         label="パスワード"
         placeholder="パスワード"
-        helperText={(() => {
+        helperText={
+          (() => {
           if (errorPass && password === "") {
             return "パスワードを入力してください";
           } else if (
@@ -92,28 +95,54 @@ const PasswordInput = (props: PasswordProps) => {
                     primary={(() => {
                       if (password.length >= 8 && password.length <= 16) {
                         return (
-                          <>
+                          <Box sx={{fontSize: {
+                            xs: "12px",
+                            sm: "14px",
+                            md: "15px",
+                            lg: "16px",
+                            xl: "16px"
+                          },}}>
                             <CheckCircle
-                              style={{
+                              sx={{
                                 color: "green",
                                 verticalAlign: "middle",
                                 marginRight: "5px",
+                                fontSize: {
+                                  xs: "16px",
+                                  sm: "18px",
+                                  md: "19px",
+                                  lg: "20px",
+                                  xl: "20px"
+                                }
                               }}
                             />
                             8文字以上16文字以内
-                          </>
+                          </Box>
                         );
                       } else {
                         return (
-                          <>
+                          <Box sx={{fontSize: {
+                            xs: "12px",
+                            sm: "14px",
+                            md: "15px",
+                            lg: "16px",
+                            xl: "16px"
+                          },}}>
                             <CheckCircle
-                              style={{
+                              sx={{
                                 verticalAlign: "middle",
                                 marginRight: "5px",
+                                fontSize: {
+                                  xs: "16px",
+                                  sm: "18px",
+                                  md: "19px",
+                                  lg: "20px",
+                                  xl: "20px"
+                                }
                               }}
                             />
                             8文字以上16文字以内
-                          </>
+                          </Box>
                         );
                       }
                     })()}
@@ -122,28 +151,54 @@ const PasswordInput = (props: PasswordProps) => {
                     primary={(() => {
                       if (isValidPassword(password)) {
                         return (
-                          <>
+                          <Box sx={{fontSize: {
+                            xs: "11px",
+                            sm: "14px",
+                            md: "15px",
+                            lg: "16px",
+                            xl: "16px"
+                          },}}>
                             <CheckCircle
-                              style={{
+                              sx={{
                                 color: "green",
                                 verticalAlign: "middle",
                                 marginRight: "5px",
+                                fontSize: {
+                                  xs: "16px",
+                                  sm: "18px",
+                                  md: "19px",
+                                  lg: "20px",
+                                  xl: "20px"
+                                }
                               }}
                             />
                             半角英字大文字、小文字、数字の3種類を1つ必ず使用
-                          </>
+                          </Box>
                         );
                       } else {
                         return (
-                          <>
+                          <Box sx={{fontSize: {
+                            xs: "11px",
+                            sm: "14px",
+                            md: "15px",
+                            lg: "16px",
+                            xl: "16px"
+                          },}}>
                             <CheckCircle
-                              style={{
+                              sx={{
                                 verticalAlign: "middle",
                                 marginRight: "5px",
+                                fontSize: {
+                                  xs: "16px",
+                                  sm: "18px",
+                                  md: "19px",
+                                  lg: "20px",
+                                  xl: "20px"
+                                }
                               }}
                             />
                             半角英字大文字、小文字、数字の3種類を1つ必ず使用
-                          </>
+                          </Box>
                         );
                       }
                     })()}

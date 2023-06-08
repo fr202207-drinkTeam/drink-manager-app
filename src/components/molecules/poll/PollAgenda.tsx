@@ -119,14 +119,19 @@ const PollAgenda: FC<PollAgendaProps> = ({ pollTitle }) => {
         <Box sx={{ textAlign: 'center', my: 5, mb: 10 }}>
           <ActiveBeigeButton
             event={() => navigate('/home/poll/pollresult')}
-            style={{
-              padding: 15,
-              width: 300,
-              height: 80,
-              fontSize: '23px' as '23px',
+            sxStyle={{
+              p:2,
+              letterSpacing: 2,
+             fontSize: {
+                xs: "12px",
+                sm: "14px",
+                md: "15px",
+                lg: "18px",
+                xl: "18px"
+              }
             }}
           >
-            過去の投票結果を見る!
+            過去の投票結果を見る
           </ActiveBeigeButton>
         </Box>
       ) : (
