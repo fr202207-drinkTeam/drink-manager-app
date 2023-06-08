@@ -2992,7 +2992,24 @@
       "id": 7
     }
   ],
-  "comments": [],
+  "comments": [
+    {
+      "userId": 2,
+      "content": "hello",
+      "postId": 1,
+      "createdAt": "2023-06-06T05:23:06.251Z",
+      "updatedAt": "2023-06-06T05:23:06.251Z",
+      "id": 1
+    },
+    {
+      "userId": 2,
+      "content": "qqqaaaaaaaaaa",
+      "postId": 7,
+      "createdAt": "2023-06-06T06:12:07.369Z",
+      "updatedAt": "2023-06-06T06:51:07.367Z",
+      "id": 2
+    }
+  ],
   "likes": [],
   "stockhistory": [
     {
@@ -3018,6 +3035,14 @@
       "incOrDec": false,
       "stockAmount": 5,
       "id": 3
+    },
+    {
+      "itemId": 1,
+      "quantity": 4,
+      "day": "2023-06-05T06:20:33.126Z",
+      "incOrDec": false,
+      "stockAmount": 1,
+      "id": 4
     }
   ],
   "addition": []

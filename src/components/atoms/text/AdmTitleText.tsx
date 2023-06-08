@@ -1,7 +1,6 @@
 import { FC, memo } from 'react';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
-// import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
 type Props = {
   children: string;
 };
@@ -9,7 +8,7 @@ type Props = {
 const AdmTitleText: FC<Props> = memo(({ children }) => {
   return (
     <>
-      <Box sx={{ mb: 8 }}>
+      <Box sx={{ mb: {xs: 3, sm: 5, md: 5, lg:8} }}>
         <Typography
           variant="h4"
           component="h2"
@@ -22,6 +21,12 @@ const AdmTitleText: FC<Props> = memo(({ children }) => {
             py: 2,
             width: '60%',
             margin: 'auto',
+            fontSize: {
+              xs: "18px",
+              sm: "20px",
+              md: "20px",
+              lg: "26px"
+            },
           }}
         >
           - {children} -

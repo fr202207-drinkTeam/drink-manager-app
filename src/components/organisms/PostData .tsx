@@ -164,7 +164,15 @@ const PostData: FC<Props> = memo((props) => {
   };
 
   return (
-    <Paper elevation={3} sx={{ mt: 2, height: "auto", py: "3px" }}>
+    <Paper
+      elevation={3}
+      sx={{ mt: 2, height: "auto", py: "3px" }}
+      onClick={() => {
+        if (menu) {
+          setMenu(false);
+        }
+      }}
+    >
       <Box sx={{ borderBottom: "1px solid", mx: "5px", pb: "5px" }}>
         <Box sx={{ display: "flex" }}>
           <Box sx={{ flexGrow: 1 }}>

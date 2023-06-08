@@ -19,18 +19,6 @@ import {
 } from "../atoms/button/Button";
 import { Button } from "@mui/material";
 
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "50%",
-  bgcolor: "background.paper",
-  borderRadius: 5,
-  boxShadow: 24,
-  p: 4,
-};
-
 // モーダルタイトル、内容、表示ボタン（色、スタイル、アイコン）、完了ボタン（色、名前、処理）、キャンセルボタン（色）
 type Props = {
   title: string;
@@ -47,6 +35,7 @@ type Props = {
 
 // モーダルウインドウコンポーネント
 const ModalWindow: FC<Props> = memo((props: Props) => {
+  console.log(window.innerWidth);
   // モーダルの表示非表示のstate
   const [open, setOpen] = useState(false);
   // モーダル表示処理
@@ -193,7 +182,19 @@ const ModalWindow: FC<Props> = memo((props: Props) => {
         }}
       >
         <Fade in={open}>
-          <Box sx={style}>
+          <Box
+            sx={{
+              position: "absolute" as "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: `${window.innerWidth < 600 ? "80%" : "50%"}`,
+              bgcolor: "background.paper",
+              borderRadius: 5,
+              boxShadow: 24,
+              p: 4,
+            }}
+          >
             <Typography
               id="transition-modal-title"
               variant="h6"

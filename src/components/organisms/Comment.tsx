@@ -132,23 +132,25 @@ const Comment: FC<Props> = memo((props) => {
         }}
       >
         <Grid container alignItems="center">
-          <Grid item xs={7}>
+          <Grid item sm={6}>
             <InputBase
               name="commentInput"
-              sx={{ flex: 1, border: "1px solid" }}
+              sx={{ flex: 1, border: "1px solid", maxWidth: "450px" }}
               placeholder="コメント"
               fullWidth
               ref={commentInput}
             />
           </Grid>
 
-          <Grid item xs={2}>
+          <Grid item sm={3}>
             <Button
               size="small"
               type="submit"
               variant="contained"
               sx={{
-                mx: "5px",
+                width: "100%",
+                maxWidth: "85px",
+                mx: "15px",
                 background: "#8FB8D6",
                 fontWeight: "bold",
                 ":hover": {
@@ -164,10 +166,10 @@ const Comment: FC<Props> = memo((props) => {
           </Grid>
           {/* コメントデータが存在する場合 */}
           {commentData.length > 0 && (
-            <Grid item xs={3}>
+            <Grid item sm={3} sx={{display: {xs: "none", sm: "block"}}}>
               <Button
                 size="small"
-                sx={{ color: "gray", m: "10px" }}
+                sx={{ color: "gray", my: "10px" }}
                 onClick={commentToggle}
               >
                 <PlaylistAdd />
@@ -176,7 +178,23 @@ const Comment: FC<Props> = memo((props) => {
             </Grid>
           )}
         </Grid>
+        
       </Paper>
+
+       {/* 「レスポンシブ対応」コメントデータが存在する場合 */}
+       {commentData.length > 0 && (
+            <Grid sx={{display: {xs: "block", sm: "none"}}}>
+              <Button
+                size="small"
+                sx={{ color: "gray", my: "10px" }}
+                onClick={commentToggle}
+              >
+                <PlaylistAdd />
+                コメント表示
+              </Button>
+            </Grid>
+          )}
+
       {/* コメントデータが存在し、コメントを表示にした場合 */}
       {commentData &&
         seeComment &&

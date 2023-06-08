@@ -68,10 +68,10 @@ const Consumption: FC = memo(() => {
           return true;
         }
       } else {
-        if(value > inTheOfficeItemArr[index]?.stockAmount) {
-          return false
+        if (value > inTheOfficeItemArr[index]?.stockAmount) {
+          return false;
         } else {
-          return true
+          return true;
         }
       }
     });
@@ -103,17 +103,16 @@ const Consumption: FC = memo(() => {
             if (inTheOfficeItemArr[index].stockAmount > 0) {
               newStockAmount =
                 inTheOfficeItemArr[index].stockAmount - inputValueArr[index];
-              if (newStockAmount)
-                if (inputValueArr[index] > 0) {
-                  await axios.post("http://localhost:8880/stockhistory", {
-                    itemId: item.id,
-                    quantity: inputValueArr[index],
-                    day: dateString,
-                    incOrDec: false,
-                    stockAmount: newStockAmount,
-                  });
-                   navigate("/adminhome");
-                } 
+              if (inputValueArr[index] > 0) {
+                await axios.post("http://localhost:8880/stockhistory", {
+                  itemId: item.id,
+                  quantity: inputValueArr[index],
+                  day: dateString,
+                  incOrDec: false,
+                  stockAmount: newStockAmount,
+                });
+                navigate("/adminhome");
+              }
             }
           })
         );
