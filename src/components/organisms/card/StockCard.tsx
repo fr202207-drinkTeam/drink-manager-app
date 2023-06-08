@@ -48,7 +48,7 @@ const StockCard: FC<Props> = (props) => {
         <Grid container spacing={2}>
           {itemData?.map((drink, index) => {
             return (
-              <Grid key={index} item xs={8} sm={4} md={4} lg={4}>
+              <Grid key={index} item xs={12} sm={6} md={6} lg={4}>
                 <Card
                   key={index}
                   sx={{
@@ -56,6 +56,7 @@ const StockCard: FC<Props> = (props) => {
                     border: "solid 1px ",
                     borderColor: "#bfbec5",
                     width: "100%",
+                    p: "5px"
                   }}
                 >
                   <CardMedia

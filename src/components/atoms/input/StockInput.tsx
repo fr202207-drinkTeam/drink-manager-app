@@ -93,6 +93,9 @@ export const StockInput: FC<Props> = (props) => {
         onBlur={handleInputBlur(index)}
         helperText={inputStatusArr[index]! && "999以下の数値を入力してください"}
         InputProps={{
+          sx: {
+            width: "100%"
+          },
           inputProps: {
             min: 0,
             max: 999,

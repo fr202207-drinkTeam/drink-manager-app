@@ -21,7 +21,6 @@ const Consumption: FC = memo(() => {
     setInputValueArr(firstInputValueArr);
   }, [itemData]);
 
-
   //オフィスに存在する商品のidのみが格納された配列
   const [inTheOfficeItemIdArr, setInTheOfficeItemIdArr] = useState<
     Array<number>
@@ -117,19 +116,15 @@ const Consumption: FC = memo(() => {
       sx={{
         mb: 5,
         width: "100%",
-        minWidth: 500,
-        maxWidth: 1200,
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        paddingBottom: "30px",
+        py: "30px",
       }}
     >
       <Box id="top" />
-      <Box sx={{ width: "60%", p: "30px" }}>
         <AdmTitleText>補充在庫入力</AdmTitleText>
-      </Box>
       {itemError ? (
         <Alert severity="error" sx={{ marginTop: "30px", fontSize: "20px" }}>
           <AlertTitle>Error</AlertTitle>
@@ -159,7 +154,7 @@ const Consumption: FC = memo(() => {
           my: "50px",
           py: "10px",
           px: "30px",
-          fontSize: {xs: "14px", sm: "16px", md: "20px", lg: "20px"},
+          fontSize: { xs: "14px", sm: "16px", md: "20px", lg: "20px" },
           borderRadius: 3,
         }}
       />

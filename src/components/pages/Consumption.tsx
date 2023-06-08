@@ -127,19 +127,15 @@ const Consumption: FC = memo(() => {
       sx={{
         mb: 5,
         width: "100%",
-        minWidth: 500,
-        maxWidth: 1200,
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        paddingBottom: "30px",
+        py: "30px",
       }}
     >
       <Box id="top" />
-      <Box sx={{ width: "60%", p: "30px" }}>
         <AdmTitleText>消費在庫入力</AdmTitleText>
-      </Box>
       {itemError ? (
         <Alert severity="error" sx={{ marginTop: "30px", fontSize: "20px" }}>
           <AlertTitle>Error</AlertTitle>
