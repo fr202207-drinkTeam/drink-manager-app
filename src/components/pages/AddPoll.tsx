@@ -23,13 +23,13 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "50%",
+  width: "80%",
   bgcolor: "background.paper",
   borderRadius: 5,
   boxShadow: 24,
   p: 4,
   overflowY: "scroll",
-  height: "100%",
+  height: "80%",
 };
 
 const AddPoll = memo(() => {
