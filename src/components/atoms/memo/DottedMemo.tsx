@@ -16,33 +16,36 @@ const DottedMemo = ({text,information,fontSize,maxWidth,minWidth,margin}:DottedM
   return (
     <Card
     sx={{
-      p: 1,
+      // p: 1,
       mb: 5,
       backgroundColor:"#fde8d0",
       border: "2px dashed #fff ",
       boxShadow: " 0 0 0 8px #fde8d0",
       width: "100%",
       maxWidth:{
-        xs: "300px",
+        xs: "200px",
         sm: "400px",
         md: "500px",
       },
-      minWidth:400,
+      minWidth:{
+        xs: "170px",
+        sm: "300px",
+        md: "400px",
+      },
       m: "auto",
     }}
   >
      <Typography
         gutterBottom
-        variant="h5"
         component="div"
         textAlign="center"
         sx={{
-          margin,
+          p:2,
           color: '#595857',
           fontSize: {
-            xs: theme.typography.pxToRem(18),
-            sm: theme.typography.pxToRem(22),
-            md: theme.typography.pxToRem(23),
+            xs:"10px",
+            sm: "22px",
+            md:"23px",
           },
         }}
       >
@@ -50,16 +53,15 @@ const DottedMemo = ({text,information,fontSize,maxWidth,minWidth,margin}:DottedM
       </Typography>
       <Typography
         gutterBottom
-        variant="h5"
         component="div"
         textAlign="center"
         sx={{
-          margin,
+          p:1,
           color: '#595857',
           fontSize: {
-            xs: theme.typography.pxToRem(12),
-            sm: theme.typography.pxToRem(14),
-            md: theme.typography.pxToRem(18),
+            xs: "8px",
+            sm:"14px",
+            md: "18px",
           },
         }}
       >

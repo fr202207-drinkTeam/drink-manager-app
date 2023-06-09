@@ -37,14 +37,25 @@ const ItemForm: FC<Props> = memo((props) => {
           value={props.itemName}
           required
           onChange={(e: any) => props.setItemName(e.target.value)}
-          sx={{ width: 400, mb: 5 }}
-          inputProps={{ maxLength: 18 }}
+          sx={{ width: "100%", mb: 5 }}
+          inputProps={{ maxLength: 18, sx: {
+            fontSize: {
+              xs: "14px",
+              sm: "14px",
+              md: "16px",
+              lg: "16px",
+            }} }}
         />
 
         <Typography
           variant="body1"
           component="p"
-          sx={{ mb: 1, color: "rgba(0, 0, 0, 0.6)" }}
+          sx={{ mb: 1, color: "rgba(0, 0, 0, 0.6)",  fontSize: {
+            xs: "14px",
+            sm: "16px",
+            md: "16px",
+            lg: "16px"
+          } }}
         >
           商品画像 *
         </Typography>
@@ -73,7 +84,7 @@ const ItemForm: FC<Props> = memo((props) => {
                   <Typography variant="body2" component="p">
                     追加
                   </Typography>
-                  <AddCircleOutlineIcon sx={{ fontSize: 30, mb: 5 }} />
+                  <AddCircleOutlineIcon sx={{ fontSize: 30, mb: {xs:0, sm: 5, md: 5,lg:5} }} />
                 </label>
                 <input
                   type="file"
@@ -100,7 +111,13 @@ const ItemForm: FC<Props> = memo((props) => {
           aria-label="itemDescription"
           label="商品説明"
           sx={{ width: "100%", mb: 5 }}
-          inputProps={{ maxLength: 200 }}
+          inputProps={{ maxLength: 200, sx: {
+            fontSize: {
+              xs: "14px",
+              sm: "14px",
+              md: "16px",
+              lg: "16px",
+            }} }}
           value={props.itemDescription}
           required
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -109,7 +126,12 @@ const ItemForm: FC<Props> = memo((props) => {
           rows={4}
         />
 
-        <InputLabel id="itemCategoryField" required>
+        <InputLabel id="itemCategoryField" required sx={{ fontSize: {
+                    xs: "14px",
+                    sm: "14px",
+                    md: "16px",
+                    lg: "16px",
+                  }}}>
           商品カテゴリー
         </InputLabel>
         <Select
@@ -120,7 +142,18 @@ const ItemForm: FC<Props> = memo((props) => {
           onChange={(e) => {
             props.setItemCategory(Number(e.target.value));
           }}
-          sx={{ mb: 5 }}
+          sx={{ mb: 5, fontSize: {
+            xs: "14px",
+            sm: "14px",
+            md: "16px",
+            lg: "16px",
+          },width: {
+            xs: "100%",
+            sm: "50%",
+            md: "50%",
+            lg: "50%",
+            xl: "50%"
+          },  }}
         >
           <MenuItem value={0}>商品カテゴリーを選択して下さい</MenuItem>
           <MenuItem value={1}>コーヒー/ダーク(深煎り)</MenuItem>
@@ -133,7 +166,12 @@ const ItemForm: FC<Props> = memo((props) => {
         </Select>
 
         <div>
-        <FormLabel id="in-the-office">社内有無 *</FormLabel>
+        <FormLabel id="in-the-office" sx={{fontSize: {
+                    xs: "14px",
+                    sm: "14px",
+                    md: "16px",
+                    lg: "16px",
+                  }}} >社内有無 *</FormLabel>
         <RadioGroup
           row
           aria-labelledby="in-the-office"
@@ -141,8 +179,26 @@ const ItemForm: FC<Props> = memo((props) => {
           defaultValue="absence"
           onChange={(e) => onChangeInTheOffice(e)}
         >
-          <FormControlLabel value="absence" control={<Radio />} label="社内なし" />
-          <FormControlLabel value="presence" control={<Radio />} label="社内あり" />
+          <FormControlLabel value="absence" control={<Radio />} label={
+                    <Typography component="p" sx={{fontSize: {
+                      xs: "14px",
+                      sm: "14px",
+                      md: "16px",
+                      lg: "16px",
+                    }}}>
+                       社内なし
+                     </Typography>
+               } />
+          <FormControlLabel value="presence" control={<Radio />} label={
+                    <Typography component="p" sx={{fontSize: {
+                      xs: "14px",
+                      sm: "14px",
+                      md: "16px",
+                      lg: "16px",
+                    }}}>
+                       社内あり
+                     </Typography>
+               } />
         </RadioGroup>
         </div>
     </>

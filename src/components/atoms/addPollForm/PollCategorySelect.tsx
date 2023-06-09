@@ -24,7 +24,13 @@ const PollCategorySelect: FC<PollCategorySelectProps> = ({
           <Select
             onChange={(e: SelectChangeEvent) => setPollCategory(e.target.value)}
             value={pollCategory}
-            sx={{ my: 2, backgroundColor: "#fffffc" }}
+            sx={{ my: 2, backgroundColor: "#fffffc",width: {
+              xs: "100%",
+              sm: "40%",
+              md: "40%",
+              lg: "40%",
+              xl: "40%"
+            }, }}
             required
           >
             <MenuItem value="投票種別を選択してください">

@@ -21,8 +21,8 @@ const PollAgenda: FC<PollAgendaProps> = ({ pollTitle }) => {
         sx={{
           textAlign: 'center',
           fontSize: {
-            xs: theme.typography.pxToRem(20),
-            sm: theme.typography.pxToRem(25),
+            xs: "12px",
+            sm: "16px",
             md: "20px",
           },
           mt: 5,
@@ -32,7 +32,7 @@ const PollAgenda: FC<PollAgendaProps> = ({ pollTitle }) => {
         ＼現在開催中の
         <span
           style={{
-            fontSize: theme.typography.pxToRem(40),
+            fontSize: "30px",
             fontWeight: 'bold',
             color: '#F3BF87',
           }}
@@ -55,11 +55,17 @@ const PollAgenda: FC<PollAgendaProps> = ({ pollTitle }) => {
                       justifyContent: 'center',
                       p: 1,
                       maxWidth: {
-                        xs: theme.breakpoints.values.xs,
-                        sm: theme.breakpoints.values.sm,
-                        lg: theme.breakpoints.values.lg,
+                        xs: "200px",
+                        sm: "400px",
+                        md:"500px",
+                        lg: "600px",
                       },
-                      minWidth: 400,
+                      minWidth: {
+                        xs: "200px",
+                        sm: "400px",
+                        md:"500px",
+                        lg: "600px",
+                      },
                       mt: 1,
                     }}
                     button
@@ -71,7 +77,7 @@ const PollAgenda: FC<PollAgendaProps> = ({ pollTitle }) => {
                       primaryTypographyProps={{
                         textAlign: 'center',
                         fontSize: {
-                          xs: "25px",
+                          xs: "14px",
                           sm: "30px",
                           md: "40px",
                         },
@@ -87,9 +93,9 @@ const PollAgenda: FC<PollAgendaProps> = ({ pollTitle }) => {
                           flexWrap: 'wrap',
                           justifyContent: 'center',
                           fontSize: {
-                            xs: theme.typography.pxToRem(16),
-                            sm: theme.typography.pxToRem(18),
-                            md: theme.typography.pxToRem(25),
+                            xs: "10px",
+                            sm: "18px",
+                            md: "25px",
                           },
                           paddingBottom: 1,
                         }}
@@ -102,7 +108,7 @@ const PollAgenda: FC<PollAgendaProps> = ({ pollTitle }) => {
                   </ListItem>
                 </Box>
               ) : (
-                <Box sx={{ fontSize: theme.typography.pxToRem(20), my: 5 }}>
+                <Box sx={{ fontSize: "20px", my: 5 }}>
                   {index + 1 === 1 ? '人気投票' : 'その他投票'}は現在開催していません
                 </Box>
               )}
@@ -119,14 +125,19 @@ const PollAgenda: FC<PollAgendaProps> = ({ pollTitle }) => {
         <Box sx={{ textAlign: 'center', my: 5, mb: 10 }}>
           <ActiveBeigeButton
             event={() => navigate('/home/poll/pollresult')}
-            style={{
-              padding: 15,
-              width: 300,
-              height: 80,
-              fontSize: '23px' as '23px',
+            sxStyle={{
+              p:2,
+              letterSpacing: 2,
+             fontSize: {
+                xs: "12px",
+                sm: "14px",
+                md: "15px",
+                lg: "18px",
+                xl: "18px"
+              }
             }}
           >
-            過去の投票結果を見る!
+            過去の投票結果を見る
           </ActiveBeigeButton>
         </Box>
       ) : (

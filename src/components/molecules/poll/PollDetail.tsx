@@ -34,28 +34,27 @@ const PollDetail:FC<PollDetailProps> = ({PopularitemData,OtheritemData,titleText
                 sx={{
                   textAlign: "center",
                   fontSize: {
-                    xs: theme.typography.pxToRem(20),
-                    sm: theme.typography.pxToRem(25),
-                    md: theme.typography.pxToRem(35),
+                    xs: "12px",
+                    sm: "25px",
+                    md: "30px",
+                    lg:"30px",
+                    xl:"35px",
                   },
-                  my: 5,
+                  my: 3,
                   background: "linear-gradient(transparent 70%, #fffacd 70%)",
-                  maxWidth: "700px",
-                  ml: 2,
                 }}
               >
-                {" "}
-                <AdsClickIcon sx={{ mr: 2, fontSize: {
-            xs: theme.typography.pxToRem(20),
-            sm: theme.typography.pxToRem(30),
-            md: theme.typography.pxToRem(40),
+                <AdsClickIcon sx={{ mr:1,fontSize: {
+            xs: "15px",
+            sm:"25px",
+            md: "40px",
           }, }} />
-                気になる商品をクリックして投票しよう!
+                商品をクリックして投票しよう!
               </Box>
               <Box sx={{           fontSize: {
-            xs: theme.typography.pxToRem(14),
-            sm: theme.typography.pxToRem(16),
-            md: theme.typography.pxToRem(25),
+            xs: "13px",
+            sm: "16px",
+            md: "25px",
           }, }}>
                 投票可能商品数
                 <span style={{ fontSize: "28px" ,fontWeight:"bold"}}>

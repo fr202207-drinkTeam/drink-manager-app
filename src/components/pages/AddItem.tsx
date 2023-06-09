@@ -88,16 +88,20 @@ const AddItem: FC<Props> = memo(({ pollFlag, handleClose,trigger,setTrigger }) =
 
   return (
     <>
-      <Paper sx={{ p: 5, width: "80%", m: "auto" }}>
+      <Paper sx={{ p: 5,  width: {xs: "100%", sm: "100%", md: "100%", lg:"80%"}, m: "auto" }}>
       
         <AdmTitleText>商品追加</AdmTitleText>
         <Box id="top"/>
         {adding ? (
           <>
-            <div style={{ margin: "200px", textAlign: "center" }}>
+            <Typography
+              variant="body1"
+              component="div"
+              textAlign="center"
+              sx={{ margin: {xs: 0, lg:"200px"}}}>
               <p>登録中</p>
               <CircularProgress />
-            </div>
+            </Typography>
           </>
         ) : (
           <>
@@ -119,7 +123,9 @@ const AddItem: FC<Props> = memo(({ pollFlag, handleClose,trigger,setTrigger }) =
               variant="body1"
               component="div"
               textAlign="center"
-              sx={{ mb: 1, mt: 3, color: "red" }}
+              sx={{ mb: 1, mt: 3, color: "red", fontSize: {
+                xs: "13px"
+              } }}
             >
             商品名が重複しています
             </Typography>
@@ -136,7 +142,9 @@ const AddItem: FC<Props> = memo(({ pollFlag, handleClose,trigger,setTrigger }) =
                   variant="body1"
                   component="div"
                   textAlign="center"
-                  sx={{ mb: 1, mt: 3, color: "red" }}
+                  sx={{ mb: 1, mt: 3, color: "red", fontSize: {
+                    xs: "13px", sm: "13px", md: "16px", lg: "16px"
+                  } }}
                 >
                   全ての項目を入力、または選択して下さい
                 </Typography>
@@ -154,9 +162,9 @@ const AddItem: FC<Props> = memo(({ pollFlag, handleClose,trigger,setTrigger }) =
                 cancelButtonColor="gray"
                 openButtonSxStyle={{
                   my: 2,
-                  mr: 3,
-                  py: "5px",
-                  fontSize: "16px",
+                    mr: 3,
+                    py: "5px",
+                    px: {xs:"3px", sm: "3px", md: "5px", lg: "5px"}
                 }}
               />
               {itemName &&
@@ -167,9 +175,8 @@ const AddItem: FC<Props> = memo(({ pollFlag, handleClose,trigger,setTrigger }) =
                   event={onClickAddItemData}
                   sxStyle={{
                     my: 2,
-                    mr: 3,
-                    py: "5px",
-                    fontSize: "16px",
+                      mr: {xs: 0, sm: 3, md: 3, lg:3},
+                      py: "5px",
                   }}
                 >
                   確定
@@ -179,9 +186,8 @@ const AddItem: FC<Props> = memo(({ pollFlag, handleClose,trigger,setTrigger }) =
                   <InactiveButton
                     sxStyle={{
                       my: 2,
-                      mr: 3,
+                      mr: {xs: 0, sm: 3, md: 3, lg:3},
                       py: "5px",
-                      fontSize: "16px",
                     }}
                   >
                     確定

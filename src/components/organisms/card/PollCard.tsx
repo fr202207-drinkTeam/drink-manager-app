@@ -4,7 +4,7 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { ActiveBeigeButton, InactiveButton } from "../../atoms/button/Button";
-import { Box, useTheme } from "@mui/material";
+import { Box, Grid, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useLoginUserFetch } from "../../../hooks/useLoginUserFetch";
 //cookie
@@ -103,28 +103,21 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
         sx={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "center",
+          justifyContent: "flex-start",
         }}
       >
-
+                <Grid container spacing={2}>
         {data &&
           data.map((drink: Items, index) => {
             return (
+              <Grid key={index} item xs={12} sm={6} md={6} lg={4}>
               <Card
                 sx={{
-                  width: {
-                    xs: "200px",
-                    sm: "200px",
-                    md: "250px",
-                    lg: "250px",
-                    xl: "295px"
-                  },
-                  mx: 2,
+                  m: 2,
                   boxShadow: "none",
                   border: "solid 1px ",
                   borderColor: "#bfbec5",
                   pb: 1,
-                  px: 1,
                   ...sxStyle,
                 }}
                 key={index}
@@ -140,6 +133,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                           textAlign: "center",
                           fontSize: "13px",
                           backgroundColor: "#d6c6af",
+                          width: 80,
                           pt: "3px",
                           color: "#000",
                           borderRadius: "3px",
@@ -179,6 +173,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                               md: "200px",
                             },
                             pt: 1,
+                            m:"auto"
                           }}
                         />
                         <Box
@@ -188,7 +183,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                             left: 0,
                             width: "100%",
                             height: "100%",
-                            bgcolor: "RGB(238, 232, 170,0.3)",
+                            bgcolor: "RGB(255, 255, 0,0.3)",
                           }}
                         />
                         <Typography
@@ -255,21 +250,6 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                           >
                             {drink.name}
                           </Typography>
-                          {/* <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            component="p"
-                            sx={{ textAlign: "center", fontSize: "13px" ,
-                            [theme.breakpoints.up("xs")]: {
-                              display: "none",
-                            },
-                            [theme.breakpoints.up("sm")]: {
-                              display: "none",
-                            }
-                          }}
-                          >
-                            {drink.description}
-                          </Typography> */}
                         </CardContent>
                       </CardActionArea>
                     </CardActionArea>
@@ -383,19 +363,6 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                           >
                             {drink.name}
                           </Typography>
-                          {/* <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            component="p"
-                            sx={{ textAlign: "center", fontSize: "13px" ,
-                            [theme.breakpoints.up("xs")]: {
-                              display: "none",
-                            },
-                            
-                          }}
-                          >
-                            {drink.description}
-                          </Typography> */}
                         </CardContent>
                       </CardActionArea>
                     </CardActionArea>
@@ -442,13 +409,14 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                       <InactiveButton
                         sx={{
                           background: "#e29399",
-                          width: 200,
+                          width: 180,
                           textAlign: "center",
-                          mb: 2,
+                          mb: 1,
                           boxShadow: "none",
                           border: "dotted 2px",
                           fontWeight: "bold",
                           m: "auto",
+                          mt:1,
                           ":hover": {
                             background: "#e29399",
                             cursor: "pointer",
@@ -462,7 +430,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                       <InactiveButton
                         sx={{
                           background: "#e29399",
-                          width: 200,
+                          width: 180,
                           textAlign: "center",
                           mb: 2,
                           boxShadow: "none",
@@ -514,8 +482,10 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                   </Box>
                 )}
               </Card>
+              </Grid>
             );
           })}
+          </Grid>
       </Box>
     </>
   );

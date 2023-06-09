@@ -29,7 +29,11 @@ const PollNameInput: FC<ValidarionProps> = ({
           label="投票タイトル"
           helperText={`${pollName.length}/15`}
           placeholder="投票タイトル"
-          inputProps={{ maxLength: 15 }}
+          inputProps={{ maxLength: 15 ,sx:{fontSize:{
+            xs:"10px",
+            sm:"50px",
+            md:"50px"
+          }}}}
           onChange={(e: any) => {
             setPollName(e.target.value);
           }}

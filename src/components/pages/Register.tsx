@@ -143,7 +143,15 @@ const Register: FC<Props> = memo((props) => {
   return (
     <Container maxWidth="sm" sx={{ alignItems: "center" }}>
       <Box sx={{ textAlign: "center" }}>
-        <h1>会員登録</h1>
+        <Box sx={{
+          fontSize: {
+            xs: "20px",
+            sm: "25px",
+            md: "28px",
+            lg: "30px",
+            xl: "30px"
+          },
+          fontWeight:"bold",mt:5}}>会員登録</Box>
         <p style={{ fontSize: "13px" }}>*は必須入力項目です</p>
       </Box>
       <Box

@@ -68,10 +68,10 @@ const Consumption: FC = memo(() => {
           return true;
         }
       } else {
-        if(value > inTheOfficeItemArr[index]?.stockAmount) {
-          return false
+        if (value > inTheOfficeItemArr[index]?.stockAmount) {
+          return false;
         } else {
-          return true
+          return true;
         }
       }
     });
@@ -103,17 +103,16 @@ const Consumption: FC = memo(() => {
             if (inTheOfficeItemArr[index].stockAmount > 0) {
               newStockAmount =
                 inTheOfficeItemArr[index].stockAmount - inputValueArr[index];
-              if (newStockAmount)
-                if (inputValueArr[index] > 0) {
-                  await axios.post("http://localhost:8880/stockhistory", {
-                    itemId: item.id,
-                    quantity: inputValueArr[index],
-                    day: dateString,
-                    incOrDec: false,
-                    stockAmount: newStockAmount,
-                  });
-                   navigate("/adminhome");
-                } 
+              if (inputValueArr[index] > 0) {
+                await axios.post("http://localhost:8880/stockhistory", {
+                  itemId: item.id,
+                  quantity: inputValueArr[index],
+                  day: dateString,
+                  incOrDec: false,
+                  stockAmount: newStockAmount,
+                });
+                navigate("/adminhome");
+              }
             }
           })
         );
@@ -128,19 +127,15 @@ const Consumption: FC = memo(() => {
       sx={{
         mb: 5,
         width: "100%",
-        minWidth: 500,
-        maxWidth: 1200,
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        paddingBottom: "30px",
+        py: "30px",
       }}
     >
       <Box id="top" />
-      <Box sx={{ width: "60%", p: "30px" }}>
         <AdmTitleText>消費在庫入力</AdmTitleText>
-      </Box>
       {itemError ? (
         <Alert severity="error" sx={{ marginTop: "30px", fontSize: "20px" }}>
           <AlertTitle>Error</AlertTitle>
@@ -168,10 +163,10 @@ const Consumption: FC = memo(() => {
         cancelButtonColor={"red"}
         openButtonSxStyle={{
           my: "50px",
-          py: "18px",
-          px: "60px",
-          fontSize: "20px",
-          borderRadius: 10,
+          py: "10px",
+          px: "30px",
+          fontSize: {xs: "14px", sm: "16px", md: "20px", lg: "20px"},
+          borderRadius: 3,
         }}
       />
       {inputValueArrError && (

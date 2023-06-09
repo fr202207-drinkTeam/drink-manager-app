@@ -2,7 +2,7 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { Items } from "../../../types/type";
 import { ActiveBorderButton, ActiveDarkBlueButton } from "../../atoms/button/Button";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -11,11 +11,11 @@ import CheckIcon from '@mui/icons-material/Check';
 type ItemCardProps = {
   data: Items[];
   sxStyle?: any;
-  selectedItems:number[]
-  setSelectedItems:any
+  selectedItems: number[]
+  setSelectedItems: any
 };
 
-const ItemCard = ({ data, sxStyle,selectedItems,setSelectedItems }: ItemCardProps) => {
+const ItemCard = ({ data, sxStyle, selectedItems, setSelectedItems }: ItemCardProps) => {
   // const navigate = useNavigate();
 
 
@@ -34,17 +34,17 @@ const ItemCard = ({ data, sxStyle,selectedItems,setSelectedItems }: ItemCardProp
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "flex-start",
-          flex: "end",
-          mt: 5,
+          mt: 2,
         }}
       >
+        <Grid container spacing={2}>
         {data &&
           data.map((drink: Items, index) => {
             return (
+              <Grid key={index} item xs={12} sm={6} md={6} lg={4}>
               <Card
                 sx={{
-                  width: 310,
-                  m:1,
+                  m: 1,
                   boxShadow: "none",
                   border: "solid 1px ",
                   borderColor: "#bfbec5",
@@ -85,17 +85,22 @@ const ItemCard = ({ data, sxStyle,selectedItems,setSelectedItems }: ItemCardProp
                 <CardMedia
                   component="img"
                   alt="商品画像"
-                  height="140"
-                  width="140"
                   image={drink.image[0]}
                   title="商品名"
                   sx={{
                     display: "block",
-                    width: 150,
-                    height: 150,
-                    objectFit: "cover",
-                    m: "auto",
-                    p:1
+                    width: {
+                      xs: "150px",
+                      sm: "150px",
+                      md: "200px",
+                    },
+                    height: {
+                      xs: "150px",
+                      sm: "150px",
+                      md: "200px",
+                    },
+                    m:"auto",
+                    pt: 1,
                   }}
                 />
                 <CardContent >
@@ -138,51 +143,89 @@ const ItemCard = ({ data, sxStyle,selectedItems,setSelectedItems }: ItemCardProp
                     gutterBottom
                     sx={{
                       textAlign: "center",
-                      fontSize: "15px",
+                      fontSize: "11px",
                       borderBottom: "double",
                       fontWeight: "bold",
                       fontFamily: "Georgia",
-                      mt:1
+                      mt: 1
                     }}
                   >
                     {drink.name}
                   </Typography>
                 </CardContent>
                 {selectedItems.includes(drink.id) ? (
-                  <ActiveBorderButton
-                    sxStyle={{
-                      width: 200,
-                      mb: 2,
-                      boxShadow: "none",
-                      border: "double",
-                      fontWeight: "bold",
-                      ml: 7,
-                    }}
-                     event={() => {
-                      handleClick(drink.id);
-                    } }                  >
-                    <CheckIcon/>&nbsp;追加されました
-                  </ActiveBorderButton>
+                  <Box sx={{ display: "flex", justifyContent: "center", margin: "auto", mb: 3 }}>
+                    <ActiveBorderButton
+                      sxStyle={{
+                        display: "block",
+                        width: 200,
+                        mb: 2,
+                        boxShadow: "none",
+                        border: "double",
+                        fontWeight: "bold",
+                        m: "auto",
+                        fontSize: {
+                          xs: "11px",
+                          sm: "13px",
+                          md: "15px",
+                          lg:"18px",
+                          xl:"18px"
+                        },
+                      }}
+                      event={() => {
+                        handleClick(drink.id);
+                      }}                  >
+                      <CheckIcon sx={{
+                        fontSize: {
+                          xs: "13px",
+                          sm: "13px",
+                          md: "15px",
+                          lg:"18px",
+                          xl:"18px"
+                        },
+                      }} />&nbsp;追加されました
+                    </ActiveBorderButton>
+                  </Box>
                 ) : (
-                  <ActiveDarkBlueButton
-                    sxStyle={{
-                      mb: 1,
-                      width: 200,
-                      boxShadow: "none",
-                      fontWeight: "bold",
-                      ml: 7,
-                      border: "double",
-                    }}
-                    event={() => {
-                      handleClick(drink.id);
-                    }}
-                  >
-                    <AddCircleOutlineIcon /> &nbsp;追加
-                  </ActiveDarkBlueButton>
+                  <Box sx={{ display: "flex", justifyContent: "center", m: "auto", mb: 3 }}>
+                    <ActiveDarkBlueButton
+                      sxStyle={{
+                        display: "block",
+                        mb: 1,
+                        width: 200,
+                        boxShadow: "none",
+                        fontWeight: "bold",
+                        m: "auto",
+                        border: "double",
+                        fontSize: {
+                          xs: "13px",
+                          sm: "13px",
+                          md: "15px",
+                          lg:"18px",
+                          xl:"18px"
+                        },
+                      }}
+                      event={() => {
+                        handleClick(drink.id);
+                      }}
+                    >
+                      <AddCircleOutlineIcon sx={{
+                        fontSize: {
+                          xs: "17px",
+                          sm: "17px",
+                          md: "19px",
+                          lg:"22px",
+                          xl:"22px"
+                        },
+                      }} /> 追加
+                    </ActiveDarkBlueButton>
+                  </Box>
                 )}
               </Card>
+              </Grid>
             );
           })}
+          </Grid>
       </Box>
     </>
   );
