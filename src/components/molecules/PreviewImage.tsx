@@ -6,6 +6,8 @@ import {
   InputLabel,
   TextField,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { Autorenew, DeleteForever } from "@mui/icons-material";
 import { Box } from "@mui/system";
@@ -23,7 +25,7 @@ type Props = {
 
 // 投稿、商品追加時の画像プレビューコンポーネント
 const PreviewImage: FC<Props> = memo((props) => {
-  let { inputImages, setInputImages, inputLength, width, height } = props;
+  const { inputImages, setInputImages, inputLength, width, height } = props;
 
   // 画像削除ボタンコンポーネント
   const ImgDeleteButton = ({ imageIndex }: { imageIndex: number }) => {
@@ -88,10 +90,29 @@ const PreviewImage: FC<Props> = memo((props) => {
     );
   };
 
+  // レスポンシブ対応画面
+  const theme = useTheme();
+  const imageRowsLg = useMediaQuery(theme.breakpoints.down("lg"));
+  const imageRowsSm = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const imageRows = () => {
+    if (imageRowsSm) {
+      return 1;
+    } else if (imageRowsLg) {
+      return 2;
+    } else {
+      return 3;
+    }
+  };
+
   return (
     <>
       <Typography variant="body2">{`画像数：(${inputLength}/3)`}</Typography>
-      <ImageList sx={{ width: "auto", height: 230 }} cols={3} rowHeight={164}>
+      <ImageList
+        sx={{ width: "auto", height: 230 * inputLength, mx: "auto" }}
+        cols={imageRows()}
+        rowHeight={164}
+      >
         {inputImages.map((item: File, index: number) => {
           let itemUrl;
           // firebaseのurlから作成したFile型のitemの場合、sizeが0になるため、item.name(firebaseのurl)を使用

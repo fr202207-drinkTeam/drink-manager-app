@@ -232,8 +232,8 @@ const PostForm: FC<Props> = memo((props) => {
             inputImages={inputImages}
             setInputImages={setInputImages}
             inputLength={inputImages.length}
-            width={"164px"}
-            height={"164px"}
+            width={"160px"}
+            height={"160px"}
           />
         )}
         <Grid container alignItems="center">

@@ -259,7 +259,7 @@ const Timeline: FC<Props> = memo((props) => {
         searchError={searchError}
       />
       <Box id="top" />
-      <Box sx={{ overflowY: "scroll", height: "1000px", px: "20px" }}>
+      <Box sx={{ overflowY: "scroll", height: "1000px", px: {xs: "0", sm: "20px"} }}>
         <PostForm
           itemData={itemData}
           itemError={itemError}
