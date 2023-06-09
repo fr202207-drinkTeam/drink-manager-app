@@ -105,9 +105,9 @@ const Header = () => {
         {loginUser?.firstName === "" ? (
           <></>
         ) : isAdmin ? (
-          <Typography>こんにちは管理者さん</Typography>
+          <Typography sx={{ fontSize: { xs:"14px", sm: "14px", md: "16px", lg:"16px"} }}>こんにちは管理者さん</Typography>
         ) : (
-          <Typography>こんにちは {loginUser?.firstName}さん</Typography>
+          <Typography sx={{ fontSize: { xs:"14px", sm: "14px", md: "16px", lg:"16px"} }}>こんにちは {loginUser?.firstName}さん</Typography>
         )}
         <div>
           <ModalWindow
@@ -119,10 +119,10 @@ const Header = () => {
             completeAction={onLogoutClick}
             cancelButtonColor="gray"
             openButtonSxStyle={{
-              mx: 3,
-              py: "5px",
-              fontSize: "16px",
-              borderRadius: 10,
+              mx: { xs:1, sm: 1, md: 3, lg:3},
+              py: { xs:"3px", sm: "3px", md: "5px", lg:"5px"},
+              fontSize: { xs:"12px", sm: "14px", md: "16px", lg:"16px"},
+              borderRadius: { xs:5, sm: 5, md: 10, lg:10},
             }}
           />
         </div>
@@ -130,7 +130,8 @@ const Header = () => {
           <div style={{ marginLeft: "auto" }}>
             <Link to="/adminhome">
               <ActiveDarkBlueButton
-                sxStyle={{ borderRadius: 10 }}
+                sxStyle={{ fontSize: { xs:"12px", sm: "14px", md: "16px", lg:"16px"},
+                borderRadius: { xs:5, sm: 5, md: 10, lg:10}, }}
                 event={() => navigate(`/adminhome/`)}
               >
                 管理者用TOP
