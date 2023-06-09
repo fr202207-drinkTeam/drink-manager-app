@@ -334,11 +334,14 @@ const History: FC = memo(() => {
             </TableBody>
           </Table>
         </TableContainer>
-        <Paginate
+        {filteredItems.length > 0 && (
+          <Paginate
           count={pageCount}
           page={currentPage}
           onChange={handlePageClick}
         />
+        ) }
+        
       </Box>
     </>
   );
