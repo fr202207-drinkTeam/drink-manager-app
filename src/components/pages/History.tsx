@@ -173,9 +173,9 @@ const History: FC = memo(() => {
           <Box sx={{ m: "30px" }}>
             <Box id="top" />
             <AdmTitleText children="在庫履歴確認" />
-            <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Box sx={{ display: "flex", alignItems: "center",}}>
               <label
-                style={{ marginRight: "20px", width: "50px" }}
+                style={{ marginRight: "20px",width:"70px" }}
                 htmlFor="period"
               >
                 期間
@@ -211,12 +211,12 @@ const History: FC = memo(() => {
             <p style={{ fontSize: "14px", color: "red" }}>{searchErrorMsg}</p>
             <Box sx={{ mt: "40px" }}>
               <Stack
-                direction="row"
-                sx={{ alignItems: "flex-end", justifyContent: "space-between" }}
+                direction={{ xs: "column", sm: "column", md: "row", lg: "row", xl: "row" }}
+                sx={{ alignItems: { xs: "flex-start", md: "flex-end" }, justifyContent: "space-between" }}
                 spacing={2}
               >
                 <Box>
-                  <label style={{ marginRight: "20px" }} htmlFor="itemName">
+                  <label style={{ marginRight: "43px" }} htmlFor="itemName">
                     商品名
                   </label>
                   <Select
@@ -231,11 +231,19 @@ const History: FC = memo(() => {
                           outline: "none",
                         },
                       },
-                      { width: "200px" },
+                      { width: "180px" },
                     ]}
                   >
                     <MenuItem value="商品を選択" disabled>
-                      <Box sx={{ display: "flex" }}>
+                      <Box sx={{
+                        display: "flex", flexDirection: {
+                          xs: "column",
+                          sm: "row",
+                          md: "row",
+                          lg: "row",
+                          xl: "row"
+                        }
+                      }}>
                         <Typography sx={{ color: "rgba(0,0,0,0.6)" }}>
                           商品を選択
                         </Typography>
@@ -251,8 +259,8 @@ const History: FC = memo(() => {
                   </Select>
                 </Box>
                 <Stack
-                  direction="row"
-                  sx={{ alignItems: "flex-end" }}
+                  direction={{ xs: "row", sm: "row" }}
+                  sx={{ alignItems: {xs:"flex-start",sm:"flex-end"} }}
                   spacing={2}
                 >
                   <Box>
