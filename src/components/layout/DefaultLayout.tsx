@@ -14,7 +14,7 @@ import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 import Cookies from "js-cookie";
 import Footer from "./Footer";
 import Slider from "../atoms/slider/Slider";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 
 function DefaultLayout({ children, props }: { children: any; props?: any }) {
   // パスの取得
@@ -34,7 +34,7 @@ function DefaultLayout({ children, props }: { children: any; props?: any }) {
 
   const drawer = (
     <Box sx={{ mx: 3 }}>
-      <CategoryAccordion handleDrawerToggle={handleDrawerToggle} />
+      <CategoryAccordion setMobileOpen={setMobileOpen} />
       {/* 検索ボタン */}
       <Typography
         variant="h5"
@@ -49,7 +49,7 @@ function DefaultLayout({ children, props }: { children: any; props?: any }) {
           setSearchWord={setSearchWord}
           searchResults={searchResults}
           setSearchResults={setSearchResults}
-          handleDrawerToggle={handleDrawerToggle}
+          setMobileOpen={setMobileOpen}
         />
         <Box sx={{ my: 4 }}>
           <Link to="/home/timeline">
@@ -99,7 +99,7 @@ function DefaultLayout({ children, props }: { children: any; props?: any }) {
               keepMounted: true,
             }}
             sx={{
-              display: {  sm: "block", md: "none" },
+              display: { sm: "block", md: "none" },
               "& .MuiDrawer-paper": {
                 boxSizing: "border-box",
                 width: drawerWidth,

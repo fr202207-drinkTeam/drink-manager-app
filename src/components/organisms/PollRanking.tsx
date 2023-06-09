@@ -227,6 +227,8 @@ const PollRanking = () => {
                   sxStyle={{
                     mx: "8px",
                     mb: "10px",
+                    maxWidth: "310px",
+                    minWidth: "310px",
                   }}
                 />
               )}
