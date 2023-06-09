@@ -62,16 +62,9 @@ const CommentData: FC<Props> = memo((props) => {
   };
 
   return (
-    <Box
-      sx={{ m: "10px" }}
-      onClick={() => {
-        if (menu) {
-          setMenu(false);
-        }
-      }}
-    >
-      <Grid container spacing={1}>
-        <Grid item xs={3}>
+    <Box sx={{ m: "10px" }}>
+      <Grid container sx={{ display: { xs: "inline-block", sm: "flex" } }}>
+        <Grid item xs={12} sm={3}>
           <Typography
             variant="body1"
             sx={{ fontWeight: "bolder", color: "blue" }}
@@ -84,13 +77,20 @@ const CommentData: FC<Props> = memo((props) => {
             {new Date(commentData.createdAt).toLocaleString()}
           </Typography>
         </Grid>
-        <Grid item xs={7}>
+        <Grid item xs={12} sm={6} sx={{ pr: "10px" }}>
           <Typography variant="body1">{commentData.content}</Typography>
         </Grid>
         {/* ログインユーザーの投稿だった場合、メニューボタンを表示 */}
         {userData && loginUser.id === userData.id && !menu && (
-          <Grid item xs={2}>
-            <Stack direction="row" justifyContent="end" sx={{ mx: 1 }}>
+          <Grid item xs={3}>
+            <Stack
+              direction="row"
+              sx={{
+                mx: 1,
+                display: "flex",
+                justifyContent: { xs: "flex-start", sm: "flex-end" },
+              }}
+            >
               <IconButton
                 component="label"
                 sx={{
@@ -110,8 +110,13 @@ const CommentData: FC<Props> = memo((props) => {
           </Grid>
         )}
         {menu && (
-          <Grid item xs={2}>
-            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <Grid item xs={3}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: { xs: "flex-start", sm: "flex-end" },
+              }}
+            >
               <MenuButtons
                 editHandler={editComment}
                 deleteHandler={deleteComment}

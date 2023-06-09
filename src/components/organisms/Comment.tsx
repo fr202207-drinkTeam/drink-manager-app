@@ -1,4 +1,13 @@
-import { Button, Grid, InputBase, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  InputBase,
+  Paper,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { FC, memo, useEffect, useRef, useState } from "react";
 import { Comment as CommentType, Post, Users } from "../../types/type";
 import { PlaylistAdd } from "@mui/icons-material";
@@ -108,8 +117,14 @@ const Comment: FC<Props> = memo((props) => {
     commentInput.current.childNodes[0].value = editCommentData.content;
   }, [editCommentData]);
 
+  // レスポンシブ対応画面
+  const theme = useTheme();
+  const imageRowsXs = useMediaQuery(theme.breakpoints.down("xs"));
+
+  const CommentButton = () => {};
+
   return (
-    <>
+    <Box sx={{ mt: { xs: "5px", sm: 0 } }}>
       {/* コメント入力内容に不備があった場合 */}
       {commentError && (
         <Typography
@@ -125,14 +140,18 @@ const Comment: FC<Props> = memo((props) => {
         elevation={0}
         sx={{
           p: "2px 4px",
-          display: "flex",
+          display: { xs: "inline-block", sm: "flex" },
           alignItems: "center",
           m: "5px",
           height: "35px",
         }}
       >
-        <Grid container alignItems="center">
-          <Grid item sm={6}>
+        <Grid
+          container
+          alignItems="center"
+          sx={{ display: { xs: "inline-block", sm: "flex" } }}
+        >
+          <Grid item xs={12} sm={6} sx={{ pr: "15px" }}>
             <InputBase
               name="commentInput"
               sx={{ flex: 1, border: "1px solid", maxWidth: "450px" }}
@@ -142,7 +161,7 @@ const Comment: FC<Props> = memo((props) => {
             />
           </Grid>
 
-          <Grid item sm={3}>
+          <Grid item xs={12} sm={3}>
             <Button
               size="small"
               type="submit"
@@ -150,7 +169,8 @@ const Comment: FC<Props> = memo((props) => {
               sx={{
                 width: "100%",
                 maxWidth: "85px",
-                mx: "15px",
+                mt: { xs: "7px", sm: 0 },
+                mb: { xs: `${commentData.length === 0 && "30px"}`, sm: 0 },
                 background: "#8FB8D6",
                 fontWeight: "bold",
                 ":hover": {
@@ -166,7 +186,7 @@ const Comment: FC<Props> = memo((props) => {
           </Grid>
           {/* コメントデータが存在する場合 */}
           {commentData.length > 0 && (
-            <Grid item sm={3} sx={{display: {xs: "none", sm: "block"}}}>
+            <Grid item xs={12} sm={3}>
               <Button
                 size="small"
                 sx={{ color: "gray", my: "10px" }}
@@ -178,22 +198,7 @@ const Comment: FC<Props> = memo((props) => {
             </Grid>
           )}
         </Grid>
-        
       </Paper>
-
-       {/* 「レスポンシブ対応」コメントデータが存在する場合 */}
-       {commentData.length > 0 && (
-            <Grid sx={{display: {xs: "block", sm: "none"}}}>
-              <Button
-                size="small"
-                sx={{ color: "gray", my: "10px" }}
-                onClick={commentToggle}
-              >
-                <PlaylistAdd />
-                コメント表示
-              </Button>
-            </Grid>
-          )}
 
       {/* コメントデータが存在し、コメントを表示にした場合 */}
       {commentData &&
@@ -208,7 +213,7 @@ const Comment: FC<Props> = memo((props) => {
             setReloadComment={setReloadComment}
           />
         ))}
-    </>
+    </Box>
   );
 });
 

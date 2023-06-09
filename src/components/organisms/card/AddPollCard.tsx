@@ -2,7 +2,7 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { Items } from "../../../types/type";
 import { ActiveBorderButton, ActiveDarkBlueButton } from "../../atoms/button/Button";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -33,26 +33,18 @@ const ItemCard = ({ data, sxStyle, selectedItems, setSelectedItems }: ItemCardPr
         sx={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "center",
-          // flex: "end",
-          mt: 5,
+          justifyContent: "flex-start",
+          mt: 2,
         }}
       >
+        <Grid container spacing={2}>
         {data &&
           data.map((drink: Items, index) => {
             return (
+              <Grid key={index} item xs={12} sm={6} md={6} lg={4}>
               <Card
                 sx={{
-                  width: {
-                    xs: "180px",
-                    sm: "180px",
-                    md: "250px",
-                    lg: "250px",
-                    xl: "290px"
-                  },
                   m: 1,
-                  // px: 1,
-                  mx: 2,
                   boxShadow: "none",
                   border: "solid 1px ",
                   borderColor: "#bfbec5",
@@ -230,8 +222,10 @@ const ItemCard = ({ data, sxStyle, selectedItems, setSelectedItems }: ItemCardPr
                   </Box>
                 )}
               </Card>
+              </Grid>
             );
           })}
+          </Grid>
       </Box>
     </>
   );

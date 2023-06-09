@@ -27,7 +27,17 @@ const Guide: FC<Props> = memo((props) => {
           &emsp; Reactチームは、自ら運営するシステムである「Drink Manager
           App」について、以下の通りご利用ガイド(以下、本利用ガイドといいます。)を定め、社員は、あらかじめ本利用ガイドの全てに同意をした上で、社内カフェマシンを利用するものとします。
         </Typography>
-        <Typography variant="h5" borderBottom="1px solid" gutterBottom>
+        <Typography
+          variant="h5"
+          borderBottom="1px solid"
+          gutterBottom
+          sx={{
+            fontSize: {
+              xs: "20px",
+              sm: "25px",
+            },
+          }}
+        >
           当システムについて
         </Typography>
         <Typography variant="body1" gutterBottom sx={{ mb: "40px" }}>
@@ -68,7 +78,13 @@ const Guide: FC<Props> = memo((props) => {
           variant="h5"
           borderBottom="1px solid"
           gutterBottom
-          sx={{ mb: "40px" }}
+          sx={{
+            fontSize: {
+              xs: "20px",
+              sm: "25px",
+            },
+            mb: "40px",
+          }}
         >
           カフェマシンのご利用方法
         </Typography>
@@ -132,7 +148,17 @@ const Guide: FC<Props> = memo((props) => {
         <Typography variant="body1" gutterBottom sx={{ mb: "70px" }}>
           4. 出来上がりのメッセージが表示されたら抽出完了です。
         </Typography>
-        <Typography variant="h5" borderBottom="1px solid" gutterBottom>
+        <Typography
+          variant="h5"
+          borderBottom="1px solid"
+          gutterBottom
+          sx={{
+            fontSize: {
+              xs: "20px",
+              sm: "25px",
+            },
+          }}
+        >
           お問い合わせ
         </Typography>
         <Typography variant="body1" gutterBottom>

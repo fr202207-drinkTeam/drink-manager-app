@@ -14,6 +14,8 @@ import {
   Box,
   Grid,
   IconButton,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import Comment from "./Comment";
 import parse from "html-react-parser";
@@ -116,6 +118,7 @@ const PostData: FC<Props> = memo((props) => {
   };
   // 投稿削除処理
   const deletePost = () => {
+    console.log("delete");
     // 投稿削除
     fetch(`http://localhost:8880/posts/${postData.id}`, {
       method: "DELETE",
@@ -163,50 +166,64 @@ const PostData: FC<Props> = memo((props) => {
     return;
   };
 
+  // 投稿種類のタグ
+  const PostTag = (isAdmin: boolean) => {
+    return (
+      <Typography
+        variant="body2"
+        sx={{
+          color: "white",
+          background: isAdmin ? "#ea6f00" : "#C89F81",
+          mr: "10px",
+          px: "3px",
+          borderRadius: "2px",
+          display: "inline-block"
+        }}
+      >
+        {isAdmin ? "お知らせ": "投稿"}
+      </Typography>
+    );
+  };
+
+  // レスポンシブ対応画面
+  const theme = useTheme();
+  const imageRowsLg = useMediaQuery(theme.breakpoints.down("lg"));
+  const imageRowsSm = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const imageRows = () => {
+    if (imageRowsSm) {
+      return 1;
+    } else if (imageRowsLg) {
+      return 2;
+    } else {
+      return 3;
+    }
+  };
+
+  const imageListHeight = () => {
+    switch (postData.postImage.length) {
+      case 1:
+        return "230px";
+      case 2:
+        return "460px";
+      case 3:
+        return "690px";
+    }
+  };
+
   return (
     <Paper
       elevation={3}
-      sx={{ mt: 2, height: "auto", py: "3px" }}
-      onClick={() => {
-        if (menu) {
-          setMenu(false);
-        }
-      }}
+      sx={{ mt: 2, height: "auto", py: "3px", wordWrap: "break-word" }}
     >
-      <Box sx={{ borderBottom: "1px solid", mx: "5px", pb: "5px" }}>
+      <Box sx={{ mx: "5px", pb: "5px" }}>
         <Box sx={{ display: "flex" }}>
           <Box sx={{ flexGrow: 1 }}>
-            <Box sx={{ display: "flex" }}>
+            <Box sx={{ display: {xs: "block", sm: "flex"} }}>
               <Box sx={{ mt: "2px" }}>
                 {/* ユーザーが管理者かどうかでそれぞれの投稿にタグ付け */}
-                {userData && userData.isAdmin && (
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: "white",
-                      background: "#ea6f00",
-                      mr: "10px",
-                      px: "3px",
-                      borderRadius: "2px",
-                    }}
-                  >
-                    お知らせ
-                  </Typography>
-                )}
-                {userData && !userData.isAdmin && (
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: "white",
-                      background: "#C89F81",
-                      mr: "10px",
-                      px: "3px",
-                      borderRadius: "2px",
-                    }}
-                  >
-                    投稿
-                  </Typography>
-                )}
+                {userData && userData.isAdmin && PostTag(true)}
+                {userData && !userData.isAdmin && PostTag(false)}
               </Box>
               <Typography
                 variant="body1"
@@ -215,7 +232,7 @@ const PostData: FC<Props> = memo((props) => {
                 {/* ユーザー情報取得次第、名前を表示 */}
                 {userData && `${userData.firstName} ${userData.lastName}`}
               </Typography>
-              <Box sx={{ alignItems: "flex-end", mx: 2 }}>
+              <Box sx={{ alignItems: "flex-end", mx: {xs: 0, sm: 2} }}>
                 <Typography variant="caption">
                   {new Date(postData.createdAt).toLocaleString()}
                 </Typography>
@@ -226,8 +243,7 @@ const PostData: FC<Props> = memo((props) => {
           {userData && loginUser.id === userData.id && !menu && isComment && (
             <Grid>
               <IconButton
-                aria-label="menuIcon"
-                component="label"
+                aria-label={`menuIcon${postData.id}`}
                 sx={{
                   color: "white",
                   background: "#ea6f00",
@@ -260,8 +276,16 @@ const PostData: FC<Props> = memo((props) => {
         </Box>
         {postData.postImage.length > 0 && (
           <ImageList
-            sx={{ width: "auto", height: 164 }}
-            cols={3}
+            sx={{
+              width: "auto",
+              height: {
+                xs: `${imageListHeight}`,
+                sm: `${postData.postImage.length < 2 ? "230px" : "460px"}`,
+                lg: "230px",
+              },
+              mx: "auto",
+            }}
+            cols={imageRows()}
             rowHeight={164}
           >
             {postData.postImage.map((imageUrl: string) => {
@@ -280,8 +304,8 @@ const PostData: FC<Props> = memo((props) => {
                       alt={imageUrl}
                       loading="lazy"
                       style={{
-                        width: "140px",
-                        height: "140px",
+                        width: "160px",
+                        height: "160px",
                         objectFit: "contain",
                       }}
                     />
