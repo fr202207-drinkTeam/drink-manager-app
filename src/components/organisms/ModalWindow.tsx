@@ -35,7 +35,6 @@ type Props = {
 
 // モーダルウインドウコンポーネント
 const ModalWindow: FC<Props> = memo((props: Props) => {
-  console.log(window.innerWidth);
   // モーダルの表示非表示のstate
   const [open, setOpen] = useState(false);
   // モーダル表示処理

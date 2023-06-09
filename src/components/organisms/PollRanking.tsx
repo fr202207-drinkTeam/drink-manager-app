@@ -141,7 +141,7 @@ const PollRanking = () => {
           backgroundColor: "#fff",
           border: "4px dotted #ffdead ",
           textAlign: "center",
-          width: "60%",
+          width: { sm: "80%", md: "70%", lg: "60%" },
           borderRadius: "20px",
           m: "auto",
         }}
@@ -225,8 +225,6 @@ const PollRanking = () => {
                 <ItemCard
                   data={pollCount.slice(0, 3)}
                   sxStyle={{
-                    maxWidth: "310px",
-                    minWidth: "310px",
                     mx: "8px",
                     mb: "10px",
                   }}

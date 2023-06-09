@@ -48,7 +48,7 @@ const Top: FC<Props> = memo((props) => {
   return (
     <>
       <DefaultLayout>
-      <Box id="top" />
+        <Box id="top" />
         <Box sx={{ textAlign: "center" }}>
           <Card
             sx={{
@@ -56,7 +56,7 @@ const Top: FC<Props> = memo((props) => {
               backgroundColor: "#fff",
               border: "4px dotted #ffdead ",
               textAlign: "center",
-              width: "60%",
+              width: { sm: "80%", md: "70%", lg: "60%" },
               borderRadius: "20px",
               m: "auto",
             }}
@@ -95,12 +95,11 @@ const Top: FC<Props> = memo((props) => {
             event={() => {
               navigate("/home/poll");
             }}
-            style={{
-              padding: 15,
-              width: 300,
-              height: 80,
-              fontSize: "23px",
-              margin: "50px",
+            sxStyle={{
+              width: { xs: "60%", sm: "45%", md: "35%" },
+              height: "auto",
+              fontSize: {xs: "20px", sm: "23px"},
+              my: "50px",
             }}
           >
             投票する
@@ -112,11 +111,10 @@ const Top: FC<Props> = memo((props) => {
             event={() => {
               navigate("/home/poll/pollresult");
             }}
-            style={{
-              padding: 15,
-              width: 300,
-              height: 80,
-              fontSize: "23px",
+            sxStyle={{
+              width: { xs: "60%", sm: "45%", md: "35%" },
+              height: "auto",
+              fontSize: {xs: "20px", sm: "23px"},
               margin: "50px",
             }}
           >
@@ -129,7 +127,7 @@ const Top: FC<Props> = memo((props) => {
             backgroundColor: "#fff",
             border: "4px dotted #ffdead ",
             textAlign: "center",
-            width: "60%",
+            width: { sm: "80%", md: "70%", lg: "60%" },
             borderRadius: "20px",
             m: "auto",
           }}
@@ -176,11 +174,10 @@ const Top: FC<Props> = memo((props) => {
             event={() => {
               navigate("/home/timeline");
             }}
-            style={{
-              padding: 15,
-              width: 300,
-              height: 80,
-              fontSize: "23px",
+            sxStyle={{
+              width: { xs: "60%", sm: "45%", md: "35%" },
+              height: "auto",
+              fontSize: {xs: "20px", sm: "23px"},
               margin: "50px",
             }}
           >

@@ -22,11 +22,62 @@ type Props = {
 // タイムラインヘッダー
 const TimelineHeader: FC<Props> = memo((props) => {
   const { searchPost, filterPosts, fetchPostsButton, searchError } = props;
+
+  // 検索入力コンポーネント　レスポンシブ対応
+  const SearchInput = (small: boolean) => (
+    <Grid
+      item
+      xs={12}
+      sm={4}
+      sx={{
+        display: {
+          xs: `${small ? "block" : "none"}`,
+          sm: `${small ? "none" : "block"}`,
+        },
+      }}
+    >
+      <Paper
+        component="form"
+        onSubmit={searchPost}
+        elevation={0}
+        sx={[
+          {
+            p: "2px 4px",
+            display: "flex",
+            alignItems: "center",
+            maxWidth: "350px",
+            mx: `${small ? "auto" : "10px"}`,
+            height: "35px",
+          },
+          {
+            "&:hover": {
+              border: "1px solid",
+              p: "1px 3px",
+            },
+          },
+        ]}
+      >
+        <InputBase sx={{ ml: 1, flex: 1 }} placeholder="検索" id="postSearch" />
+        <IconButton type="submit" sx={{ p: "10px" }}>
+          <SearchIcon />
+        </IconButton>
+      </Paper>
+    </Grid>
+  );
+
   return (
     <Grid sx={{ borderBottom: 1 }}>
-      <Grid item xs={5} sx={{ display: {xs: "block", sm: "none"}}}>
-          <Typography variant="h4">タイムライン</Typography>
-        </Grid>
+      <Grid item sx={{ display: { xs: "block", sm: "none" } }}>
+        <Typography
+          variant="h4"
+          align="center"
+          sx={{
+            fontSize: "30px",
+          }}
+        >
+          タイムライン
+        </Typography>
+      </Grid>
       <Grid
         container
         sx={{
@@ -37,50 +88,27 @@ const TimelineHeader: FC<Props> = memo((props) => {
         }}
         id="top"
       >
-        <Grid item xs={5} sx={{ display: {xs: "none", sm: "block"}}}>
+        {SearchInput(true)}
+        <Grid item xs={5} sx={{ display: { xs: "none", sm: "block" } }}>
           <Typography variant="h4">タイムライン</Typography>
         </Grid>
 
-        <Grid item xs={7} sm={4}>
-          <Paper
-            component="form"
-            onSubmit={searchPost}
-            elevation={0}
-            sx={[
-              {
-                p: "2px 4px",
-                display: "flex",
-                alignItems: "center",
-                maxWidth: "215px",
-                mr: "5px",
-                height: "35px",
-              },
-              {
-                "&:hover": {
-                  border: "1px solid",
-                  p: "1px 3px",
-                },
-              },
-            ]}
-          >
-            <InputBase
-              sx={{ ml: 1, flex: 1 }}
-              placeholder="検索"
-              id="postSearch"
-            />
-            <IconButton type="submit" sx={{ p: "10px" }}>
-              <SearchIcon />
-            </IconButton>
-          </Paper>
-        </Grid>
+        {SearchInput(false)}
 
-        <Grid item xs={3} sm={2}>
+        <Grid
+          item
+          xs={9}
+          sm={2}
+          sx={{
+            pt: { xs: "15px", sm: 0 },
+          }}
+        >
           <Select
             size="small"
             name="selectPostCategory"
             fullWidth
             defaultValue="すべて"
-            sx={{ border: "none", backgroundColor: "white" }}
+            sx={{ border: "none", backgroundColor: "white", px: "10px" }}
             onChange={filterPosts}
           >
             <MenuItem value="すべて">すべて</MenuItem>
@@ -88,7 +116,7 @@ const TimelineHeader: FC<Props> = memo((props) => {
             <MenuItem value="お知らせ">お知らせ</MenuItem>
           </Select>
         </Grid>
-        <Grid item xs={2} sm={1} sx={{ p: "none" }}>
+        <Grid item xs={3} sm={1} sx={{ pt: { xs: "15px", sm: 0 } }}>
           {fetchPostsButton}
         </Grid>
       </Grid>
