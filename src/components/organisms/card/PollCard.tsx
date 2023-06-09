@@ -4,7 +4,7 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { ActiveBeigeButton, InactiveButton } from "../../atoms/button/Button";
-import { Box, useTheme } from "@mui/material";
+import { Box, Grid, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useLoginUserFetch } from "../../../hooks/useLoginUserFetch";
 //cookie
@@ -103,28 +103,21 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
         sx={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "center",
+          justifyContent: "flex-start",
         }}
       >
-
+                <Grid container spacing={2}>
         {data &&
           data.map((drink: Items, index) => {
             return (
+              <Grid key={index} item xs={12} sm={6} md={6} lg={4}>
               <Card
                 sx={{
-                  width: {
-                    xs: "200px",
-                    sm: "200px",
-                    md: "250px",
-                    lg: "250px",
-                    xl: "295px"
-                  },
-                  mx: 2,
+                  m: 2,
                   boxShadow: "none",
                   border: "solid 1px ",
                   borderColor: "#bfbec5",
                   pb: 1,
-                  // px: 1,
                   ...sxStyle,
                 }}
                 key={index}
@@ -489,8 +482,10 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                   </Box>
                 )}
               </Card>
+              </Grid>
             );
           })}
+          </Grid>
       </Box>
     </>
   );
