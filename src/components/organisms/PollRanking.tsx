@@ -167,73 +167,93 @@ const PollRanking = () => {
 
       {Object.keys(pollCounts).length >= 1 ? (
         <>
-          <Paper>
-            <Box
+          <Box
               sx={{
                 display: "flex",
-                justifyContent: "space-around",
+                justifyContent: "center",
                 flexWrap: "wrap",
-                mt: 5,
+                flexDirection: {
+                  xs: "column",
+                  sm: "column",
+                  md: "column",
+                  lg: "row",
+                  xl: "row",
+                },
+                mt: 5
               }}
             >
               {values.slice(0, 3).map(
-                (data, index: number) =>
+                (data, index) =>
                   // インデックスが3未満の場合にのみBox要素を描画（３位まで）
                   index < 3 && (
-                    <Box
-                      key={index}
-                      sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
+                    <Box>
+                    <Box key={index} sx={{ display: "flex", justifyContent:"center", alignItems: "center" }}>
                       <Box
                         sx={{
                           p: 5,
                           backgroundImage: `url(/crown${index + 1}.png)`,
                           backgroundRepeat: "no-repeat",
-                          backgroundSize: "70px",
+                          backgroundSize: {
+                            xs: "30px",
+                            sm: "30px",
+                            md: "60px",
+                            lg: "70px",
+                            xl: "70px"
+                          },
                           backgroundPosition: "center",
                         }}
                       ></Box>
-                      <Box
-                        sx={{
-                          fontSize: "25px",
-                          textAlign: "center",
-                          ml: 5,
-                          mt: 2,
-                          background:
-                            "linear-gradient(transparent 70%, #fffacd 70%)",
-                          width: "100px",
-                        }}
-                      >
-                        {values[index]}票
+                      <Box sx={{
+                        fontSize: {
+                          xs: "18px",
+                          sm: "20px",
+                          md: "20px",
+                          lg: "24px",
+                          xl: "25px"
+                        }, textAlign: "center", ml: {
+                          xs: 0,
+                          sm: 1,
+                          md: 3,
+                          lg: 3,
+                          xl: 3
+                        }, mt: 2, background: "linear-gradient(transparent 70%, #fffacd 70%)",
+                        width: "100px",
+                      }}>
+                        {values[index]}&nbsp;票
                       </Box>
+                    </Box>
+                    {pollCount.slice(index, index+1).map((data, index)=>(
+                      <Box
+                      key={index} sx={{display:"flex",justifyContent:{
+                        xs: "center",
+                        sm: "center",
+                        md: "center",
+                        lg: "",
+                        xl: "",
+                      }}}
+                    >
+                      <ItemCard data={data} sxStyle={{
+                        maxWidth: {
+                          xs: "200px",
+                          sm: "200px",
+                          md: "250px",
+                          lg: "250px",
+                          xl: "295px"
+                        },
+                        minWidth: {
+                          xs: "200px",
+                          sm: "200px",
+                          md: "250px",
+                          lg: "250px",
+                          xl: "295px"
+                        }, mb: 1
+                      }} />
+                    </Box>
+                    ))}
                     </Box>
                   )
               )}
             </Box>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-around",
-                flexWrap: "wrap",
-              }}
-            >
-              {pollCount.length > 0 && (
-                <ItemCard
-                  data={pollCount.slice(0, 3)}
-                  sxStyle={{
-                    mx: "8px",
-                    mb: "10px",
-                    maxWidth: "310px",
-                    minWidth: "310px",
-                  }}
-                />
-              )}
-            </Box>
-          </Paper>
         </>
       ) : (
         <Box sx={{ textAlign: "center", fontSize: "30px", py: 10 }}>
