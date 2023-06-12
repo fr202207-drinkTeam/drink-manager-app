@@ -54,7 +54,7 @@ const ItemSearchForm: React.FC<Props> = ({
           inputProps={{ maxLength: 18, style: { fontSize: 12 } }}
         />
         <ActiveOrangeButton
-          event={onSearchButtonClick}
+          type="submit"
           sxStyle={{ width: "100%" }}
         >
           検索する

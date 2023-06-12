@@ -177,10 +177,10 @@ const PostData: FC<Props> = memo((props) => {
           mr: "10px",
           px: "3px",
           borderRadius: "2px",
-          display: "inline-block"
+          display: "inline-block",
         }}
       >
-        {isAdmin ? "お知らせ": "投稿"}
+        {isAdmin ? "お知らせ" : "投稿"}
       </Typography>
     );
   };
@@ -219,7 +219,7 @@ const PostData: FC<Props> = memo((props) => {
       <Box sx={{ mx: "5px", pb: "5px" }}>
         <Box sx={{ display: "flex" }}>
           <Box sx={{ flexGrow: 1 }}>
-            <Box sx={{ display: {xs: "block", sm: "flex"} }}>
+            <Box sx={{ display: { xs: "block", sm: "flex" } }}>
               <Box sx={{ mt: "2px" }}>
                 {/* ユーザーが管理者かどうかでそれぞれの投稿にタグ付け */}
                 {userData && userData.isAdmin && PostTag(true)}
@@ -232,7 +232,7 @@ const PostData: FC<Props> = memo((props) => {
                 {/* ユーザー情報取得次第、名前を表示 */}
                 {userData && `${userData.firstName} ${userData.lastName}`}
               </Typography>
-              <Box sx={{ alignItems: "flex-end", mx: {xs: 0, sm: 2} }}>
+              <Box sx={{ alignItems: "flex-end", mx: { xs: 0, sm: 2 } }}>
                 <Typography variant="caption">
                   {new Date(postData.createdAt).toLocaleString()}
                 </Typography>
@@ -280,9 +280,10 @@ const PostData: FC<Props> = memo((props) => {
               width: "auto",
               height: {
                 xs: `${imageListHeight}`,
-                sm: `${postData.postImage.length < 2 ? "230px" : "460px"}`,
-                lg: "230px",
+                sm: `${postData.postImage.length < 3 ? "170px" : "340px"}`,
+                lg: "170px",
               },
+              my: 0,
               mx: "auto",
             }}
             cols={imageRows()}
@@ -290,27 +291,18 @@ const PostData: FC<Props> = memo((props) => {
           >
             {postData.postImage.map((imageUrl: string) => {
               return (
-                <Box
-                  key={imageUrl}
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    flexDirection: "column",
-                  }}
-                >
-                  <ImageListItem>
-                    <img
-                      src={imageUrl}
-                      alt={imageUrl}
-                      loading="lazy"
-                      style={{
-                        width: "160px",
-                        height: "160px",
-                        objectFit: "contain",
-                      }}
-                    />
-                  </ImageListItem>
-                </Box>
+                <ImageListItem key={imageUrl} sx={{ alignItems: "center" }}>
+                  <img
+                    src={imageUrl}
+                    alt={imageUrl}
+                    loading="lazy"
+                    style={{
+                      width: "160px",
+                      height: "160px",
+                      objectFit: "contain",
+                    }}
+                  />
+                </ImageListItem>
               );
             })}
           </ImageList>
