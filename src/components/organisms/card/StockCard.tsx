@@ -81,7 +81,6 @@ const StockCard: FC<Props> = (props) => {
                         textAlign: "center",
                         fontSize: "15px",
                         borderBottom: "double",
-                        fontFamily: "Georgia",
                       }}
                     >
                       {`${drink.name}`}
