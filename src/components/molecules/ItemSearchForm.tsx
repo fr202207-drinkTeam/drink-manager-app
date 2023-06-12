@@ -9,10 +9,14 @@ type Props = {
   setSearchWord: React.Dispatch<React.SetStateAction<string>>;
   searchResults: any;
   setSearchResults: React.Dispatch<React.SetStateAction<any>>;
-  handleDrawerToggle: Function;
+  setMobileOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const ItemSearchForm: React.FC<Props> = ({ searchWord, setSearchWord, handleDrawerToggle }) => {
+const ItemSearchForm: React.FC<Props> = ({
+  searchWord,
+  setSearchWord,
+  setMobileOpen,
+}) => {
   const navigate = useNavigate();
   const [searchResults, setSearchResults] = useState<Items[]>([]);
   const onSearchButtonClick = async () => {
@@ -24,7 +28,7 @@ const ItemSearchForm: React.FC<Props> = ({ searchWord, setSearchWord, handleDraw
       setSearchResults(data);
       navigate(`/home/search?keyword=${searchWord}&page=1`);
       setSearchWord("");
-      handleDrawerToggle();
+      setMobileOpen(false);
     } catch (error) {
       console.error(error);
     }
