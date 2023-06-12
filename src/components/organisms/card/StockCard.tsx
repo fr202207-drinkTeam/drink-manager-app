@@ -12,6 +12,7 @@ type Props = {
   inTheOfficeItemArr: Array<StockHistory>;
   inputValueArr: Array<number>;
   setInputValueArr: Dispatch<SetStateAction<number[]>>;
+  sxStyle?: any;
 };
 
 const StockCard: FC<Props> = (props) => {
@@ -45,7 +46,7 @@ const StockCard: FC<Props> = (props) => {
         }}
       >
         {" "}
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
           {itemData?.map((drink, index) => {
             return (
               <Grid key={index} item xs={12} sm={6} md={6} lg={4}>
@@ -55,8 +56,9 @@ const StockCard: FC<Props> = (props) => {
                     boxShadow: "none",
                     border: "solid 1px ",
                     borderColor: "#bfbec5",
-                    width: "100%",
-                    p: "5px"
+                    p: "5px",
+                    m: "auto",
+                    ...props.sxStyle,
                   }}
                 >
                   <CardMedia
@@ -79,14 +81,15 @@ const StockCard: FC<Props> = (props) => {
                       gutterBottom
                       sx={{
                         textAlign: "center",
-                        fontSize: "15px",
+                        fontSize: "14px",
+                        fontWeight: "bold",
                         borderBottom: "double",
                       }}
                     >
                       {`${drink.name}`}
                     </Typography>
                   </CardContent>
-                  <Typography sx={{ marginLeft: "36px" }}>
+                  <Typography sx={{ mx: 2, mb: 2, fontSize: {xs: "12px", sm: "12px", md: "14px", lg: "14px"} }}>
                     ※現在の在庫数は
                     <span style={{ fontWeight: "bold", alignItems: "center" }}>
                       {testFunc(drink.id)}

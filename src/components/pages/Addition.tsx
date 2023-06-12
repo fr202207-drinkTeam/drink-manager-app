@@ -115,15 +115,16 @@ const Consumption: FC = memo(() => {
     <Paper
       sx={{
         mb: 5,
-        width: "100%",
+        width: "95%",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        py: "30px",
+        p: { xs: "10px", sm: "10px", md: "10px", lg: "30px"},
       }}
     >
       <Box id="top" />
+      <Box sx={{ width: "100%"}}>
         <AdmTitleText>補充在庫入力</AdmTitleText>
       {itemError ? (
         <Alert severity="error" sx={{ marginTop: "30px", fontSize: "20px" }}>
@@ -138,6 +139,22 @@ const Consumption: FC = memo(() => {
           inTheOfficeItemArr={inTheOfficeItemArr}
           inputValueArr={inputValueArr}
           setInputValueArr={setInputValueArr}
+          sxStyle={{
+            maxWidth: {
+              xs: "200px",
+              sm: "200px",
+              md: "300px",
+              lg: "300px",
+              xl: "300px"
+            },
+            minWidth: {
+              xs: "200px",
+              sm: "200px",
+              md: "250px",
+              lg: "250px",
+              xl: "295px"
+            }, mb: 1
+          }}
         />
       )}
       <div style={{ display: "inline-flex" }}></div>
@@ -152,12 +169,15 @@ const Consumption: FC = memo(() => {
         cancelButtonColor={"red"}
         openButtonSxStyle={{
           my: "50px",
+          mx: "auto",
           py: "10px",
           px: "30px",
+          display: "block",
           fontSize: { xs: "14px", sm: "16px", md: "20px", lg: "20px" },
           borderRadius: 3,
         }}
       />
+      </Box>
       {inputValueArrError && (
         <Box sx={{ color: "red", fontSize: 15, marginBottom: 1, mt: 1 }}>
           {inputValueArrError}

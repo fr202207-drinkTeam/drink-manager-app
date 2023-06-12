@@ -47,7 +47,7 @@
   "items": [
     {
       "id": 1,
-      "name": "ブライトブレンド",
+      "name": "ブライトブレンドブライトブレンド",
       "description": "ミディアムローストの豆をブレンドしたブライトブレンドは、キャラメル、ベリー、はちみつのバランスのとれたほんのり甘い香りが楽しめる一杯です。",
       "image": [
         "/bright.png",
@@ -118,7 +118,7 @@
       ],
       "itemCategory": 3,
       "createdAt": "",
-      "intheOffice": true,
+      "intheOffice": false,
       "author": "",
       "otherItem": false,
       "isDiscontinued": false
@@ -147,7 +147,7 @@
       ],
       "itemCategory": 1,
       "createdAt": "",
-      "intheOffice": true,
+      "intheOffice": false,
       "author": "",
       "otherItem": false,
       "isDiscontinued": false
@@ -222,7 +222,7 @@
       ],
       "itemCategory": 5,
       "createdAt": "",
-      "intheOffice": true,
+      "intheOffice": false,
       "author": "",
       "otherItem": false,
       "isDiscontinued": false
@@ -237,7 +237,7 @@
       ],
       "itemCategory": 5,
       "createdAt": "",
-      "intheOffice": true,
+      "intheOffice": false,
       "author": "",
       "otherItem": false,
       "isDiscontinued": false
@@ -252,7 +252,7 @@
       ],
       "itemCategory": 6,
       "createdAt": "",
-      "intheOffice": true,
+      "intheOffice": false,
       "author": "",
       "otherItem": false,
       "isDiscontinued": false
@@ -377,7 +377,7 @@
       ],
       "itemCategory": 7,
       "createdAt": "2023-05-12T04:42:56.450Z",
-      "intheOffice": true,
+      "intheOffice": false,
       "author": 4,
       "otherItem": false,
       "id": 29,
@@ -662,6 +662,62 @@
       "otherItem": false,
       "id": 61,
       "isDiscontinued": false
+    },
+    {
+      "name": "投票テスト用商品",
+      "description": "あ",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/1525eaee-290e-4e35-915d-212770dbfc31?alt=media&token=e1706094-5e90-4427-b6df-263b5ec64c08"
+      ],
+      "itemCategory": 7,
+      "createdAt": "2023-06-12T01:12:49.114Z",
+      "intheOffice": false,
+      "author": 1,
+      "otherItem": true,
+      "isDiscontinued": false,
+      "id": 62
+    },
+    {
+      "name": "投票テスト用商品2",
+      "description": "aaaa",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/1a590038-7eaf-4861-b19b-5d9128ba12a2?alt=media&token=6d933f04-74ba-441d-b8f9-6cae1bd0a761"
+      ],
+      "itemCategory": 7,
+      "createdAt": "2023-06-12T01:15:19.470Z",
+      "intheOffice": false,
+      "author": 1,
+      "otherItem": true,
+      "isDiscontinued": false,
+      "id": 63
+    },
+    {
+      "name": "投票テスト商品2",
+      "description": "aaaaa",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/a4a80e01-bb5a-4813-95d8-76d1966cd5da?alt=media&token=7fa3bf8d-26b5-41cd-8d26-e253847e338f"
+      ],
+      "itemCategory": 7,
+      "createdAt": "2023-06-12T01:15:47.910Z",
+      "intheOffice": false,
+      "author": 1,
+      "otherItem": true,
+      "isDiscontinued": false,
+      "id": 64
+    },
+    {
+      "name": "投票テスト商品3",
+      "description": "aaaaaa",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/49ffbf88-3c5c-4172-91b7-05d8eb2ebc6a?alt=media&token=a33c2c6b-db0a-4855-a7d7-3928e3641eb9"
+      ],
+      "itemCategory": 7,
+      "createdAt": "2023-06-12T01:16:13.015Z",
+      "intheOffice": false,
+      "author": 1,
+      "otherItem": true,
+      "isDiscontinued": false,
+      "id": 65
     }
   ],
   "itemCategory": [
@@ -2880,6 +2936,14 @@
       "result": 25,
       "createdAt": "2023-06-08T06:29:53.106Z",
       "id": 18
+    },
+    {
+      "questionnaireId": 9,
+      "userId": 2,
+      "category": 1,
+      "result": 1,
+      "createdAt": "2023-06-12T01:35:51.897Z",
+      "id": 19
     }
   ],
   "contact": [
@@ -2915,6 +2979,83 @@
     }
   ],
   "posts": [
+    {
+      "userId": 1,
+      "content": "ああああああああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 太郎/nameE/",
+      "itemId": "9",
+      "postImage": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
+      ],
+      "createdAt": "2023-05-25T08:28:48.616Z",
+      "updatedAt": "2023-05-25T08:28:48.616Z",
+      "id": 1
+    },
+    {
+      "userId": 2,
+      "content": "ああああああああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 花子/nameE/",
+      "itemId": "9",
+      "postImage": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
+      ],
+      "createdAt": "2023-05-25T08:28:48.616Z",
+      "updatedAt": "2023-05-25T08:28:48.616Z",
+      "id": 2
+    },
+    {
+      "userId": 2,
+      "content": "ああああああああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 花子/nameE/",
+      "itemId": "9",
+      "postImage": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
+      ],
+      "createdAt": "2023-05-25T08:28:48.616Z",
+      "updatedAt": "2023-05-25T08:28:48.616Z",
+      "id": 3
+    },
+    {
+      "userId": 1,
+      "content": "ああああああああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 太郎/nameE/",
+      "itemId": "9",
+      "postImage": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
+      ],
+      "createdAt": "2023-05-25T08:28:48.616Z",
+      "updatedAt": "2023-05-25T08:28:48.616Z",
+      "id": 4
+    },
+    {
+      "userId": 1,
+      "content": "ああああああああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 太郎/nameE/",
+      "itemId": "9",
+      "postImage": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
+      ],
+      "createdAt": "2023-05-25T08:28:48.616Z",
+      "updatedAt": "2023-05-25T08:28:48.616Z",
+      "id": 5
+    },
+    {
+      "userId": 2,
+      "content": "ああああああああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 花子/nameE/",
+      "itemId": "9",
+      "postImage": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
+      ],
+      "createdAt": "2023-05-25T08:28:48.616Z",
+      "updatedAt": "2023-05-25T08:28:48.616Z",
+      "id": 6
+    },
+    {
+      "userId": 2,
+      "content": "ああああああああああああああああああああ/itemS/イングリッシュブレックファスト/itemE//nameS/テスト 花子/nameE/",
+      "itemId": "9",
+      "postImage": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/21b67677-7ef8-453a-99f3-08a2b90a4b48?alt=media&token=944770bd-c3b2-4ba0-86cb-25be2e6d1230"
+      ],
+      "createdAt": "2023-05-25T08:28:48.616Z",
+      "updatedAt": "2023-05-25T08:28:48.616Z",
+      "id": 7
+    },
     {
       "userId": 1,
       "content": "投稿50投稿50投稿50投稿50投稿50\n<a href=\"/home/search/37\" style=\"color:blue;\">#商品50</a>/nameS/テスト 太郎/nameE/",
@@ -3068,6 +3209,33 @@
       "createdAt": "2023-05-26T00:34:49.470Z",
       "updatedAt": "2023-05-26T00:34:49.470Z",
       "id": 63
+    },
+    {
+      "userId": 1,
+      "content": "あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ/nameS/テスト 太郎/nameE/",
+      "itemId": "0",
+      "postImage": [],
+      "createdAt": "2023-06-12T05:47:50.078Z",
+      "updatedAt": "2023-06-12T05:47:50.078Z",
+      "id": 64
+    },
+    {
+      "userId": 1,
+      "content": "あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ/nameS/テスト 太郎/nameE/",
+      "itemId": "0",
+      "postImage": [],
+      "createdAt": "2023-06-12T05:48:35.965Z",
+      "updatedAt": "2023-06-12T05:48:35.965Z",
+      "id": 65
+    },
+    {
+      "userId": 1,
+      "content": "ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ/nameS/テスト 太郎/nameE/",
+      "itemId": "0",
+      "postImage": [],
+      "createdAt": "2023-06-12T05:57:00.893Z",
+      "updatedAt": "2023-06-12T05:57:00.893Z",
+      "id": 66
     }
   ],
   "comments": [
@@ -3094,17 +3262,121 @@
       "createdAt": "2023-06-09T01:32:28.033Z",
       "updatedAt": "2023-06-09T01:32:28.033Z",
       "id": 4
+    },
+    {
+      "userId": 1,
+      "content": "ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ",
+      "postId": 64,
+      "createdAt": "2023-06-12T05:54:34.961Z",
+      "updatedAt": "2023-06-12T05:54:34.961Z",
+      "id": 5
+    },
+    {
+      "userId": 1,
+      "content": "っっっっっっっっっk",
+      "postId": 64,
+      "createdAt": "2023-06-12T05:54:53.234Z",
+      "updatedAt": "2023-06-12T05:54:53.234Z",
+      "id": 6
     }
   ],
   "likes": [],
   "stockhistory": [
     {
+      "id": 1,
       "itemId": 1,
-      "quantity": 100,
-      "day": "2023-06-05T03:00:33.767Z",
+      "quantity": 1,
+      "day": "2023-05-02T02:50:27.944Z",
       "incOrDec": true,
-      "stockAmount": 10,
-      "id": 1
+      "stockAmount": 10
+    },
+    {
+      "id": 2,
+      "itemId": 1,
+      "quantity": 1,
+      "day": "2023-05-03T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 10
+    },
+    {
+      "id": 3,
+      "itemId": 1,
+      "quantity": 1,
+      "day": "2023-05-04T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 10
+    },
+    {
+      "id": 4,
+      "itemId": 1,
+      "quantity": 1,
+      "day": "2023-05-05T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 10
+    },
+    {
+      "id": 5,
+      "itemId": 1,
+      "quantity": 1,
+      "day": "2023-05-06T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 10
+    },
+    {
+      "id": 6,
+      "itemId": 1,
+      "quantity": 1,
+      "day": "2023-05-07T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 10
+    },
+    {
+      "id": 7,
+      "itemId": 1,
+      "quantity": 1,
+      "day": "2023-05-08T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 10
+    },
+    {
+      "id": 8,
+      "itemId": 1,
+      "quantity": 1,
+      "day": "2023-05-09T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 10
+    },
+    {
+      "id": 9,
+      "itemId": 1,
+      "quantity": 1,
+      "day": "2023-05-10T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 10
+    },
+    {
+      "id": 10,
+      "itemId": 1,
+      "quantity": 1,
+      "day": "2023-05-11T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 10
+    },
+    {
+      "id": 11,
+      "itemId": 2,
+      "quantity": 1,
+      "day": "2023-05-12T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 10
+    },
+    {
+      "id": 12,
+      "itemId": 3,
+      "quantity": 1,
+      "day": "2023-05-13T02:50:27.944Z",
+      "incOrDec": true,
+      "stockAmount": 10
     }
   ],
   "addition": []
