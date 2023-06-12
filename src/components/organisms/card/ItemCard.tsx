@@ -127,7 +127,6 @@ const ItemCard = ({ data, sxStyle, sxBox }: ItemCardProps) => {
                         textAlign: "center",
                         fontSize: "15px",
                         borderBottom: "double",
-                        fontFamily: "Georgia",
                         fontWeight: "bold",
                         height: "200",
                         mt: 1,
@@ -238,14 +237,13 @@ const ItemCard = ({ data, sxStyle, sxBox }: ItemCardProps) => {
                       sx={{
                         textAlign: "center",
                         fontSize: {
-                          xs: "14px",
+                          xs: "12px",
                           sm: "14px",
-                          md: "12px",
-                          lg: "12px",
-                          xl: "12px"
+                          md: "14px",
+                          lg:"18px",
+                          xl:"18px"
                         },
                         borderBottom: "double",
-                        fontFamily: "Georgia",
                         fontWeight: "bold",
                         height: "200",
                         mt: 1,

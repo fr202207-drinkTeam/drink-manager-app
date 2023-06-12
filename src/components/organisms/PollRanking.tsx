@@ -186,8 +186,8 @@ const PollRanking = () => {
                 (data, index) =>
                   // インデックスが3未満の場合にのみBox要素を描画（３位まで）
                   index < 3 && (
-                    <Box>
-                    <Box key={index} sx={{ display: "flex", justifyContent:"center", alignItems: "center" }}>
+                    <Box key={index} >
+                    <Box sx={{ display: "flex", justifyContent:"center", alignItems: "center" }}>
                       <Box
                         sx={{
                           p: 5,
