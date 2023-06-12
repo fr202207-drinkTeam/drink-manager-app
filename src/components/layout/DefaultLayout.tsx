@@ -133,6 +133,7 @@ function DefaultLayout({ children, props }: { children: any; props?: any }) {
               edge="start"
               onClick={handleDrawerToggle}
               sx={{ display: { md: "none" }, color: "#ea6f00" }}
+              disableFocusRipple
             >
               <SearchIcon />
               <Typography variant="h6" noWrap>

@@ -3068,6 +3068,18 @@
       "createdAt": "2023-05-26T00:34:49.470Z",
       "updatedAt": "2023-05-26T00:34:49.470Z",
       "id": 63
+    },
+    {
+      "userId": 2,
+      "content": "投稿62マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックスの場合の投稿マックス/itemS/プレミアム スムースロースト/itemE//nameS/テスト 花子/nameE/",
+      "itemId": "4",
+      "postImage": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/6378bf5f-af72-49e5-b27a-437862698f60?alt=media&token=56c56856-7ac1-4d02-8447-72e1540e49e6",
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/466222b1-1cbd-4b2a-9a84-a6b616bbcc08?alt=media&token=94c8d5c0-f2b0-43b6-a58f-29cf458a01d8"
+      ],
+      "createdAt": "2023-06-12T05:37:19.415Z",
+      "updatedAt": "2023-06-12T05:37:19.415Z",
+      "id": 64
     }
   ],
   "comments": [
@@ -3097,8 +3109,6 @@
     }
   ],
   "likes": [],
-  "stockhistory": [
-
-  ],
+  "stockhistory": [],
   "addition": []
 }
