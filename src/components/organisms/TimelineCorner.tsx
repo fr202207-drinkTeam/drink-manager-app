@@ -125,7 +125,7 @@ const TimelineCorner: FC<Props> = memo((props) => {
                 }}
               >
                 <Typography variant="body2" component="p">
-                  {displayPostData.content.replace(/\n<a href=.*/,"")}
+                  {displayPostData.content.replace(/\/itemS.*/,"")}
                 </Typography>
               </CardContent>
             </Box>
