@@ -56,7 +56,7 @@
       ],
       "itemCategory": 2,
       "createdAt": "",
-      "intheOffice": false,
+      "intheOffice": true,
       "author": "",
       "otherItem": false,
       "isDiscontinued": false
