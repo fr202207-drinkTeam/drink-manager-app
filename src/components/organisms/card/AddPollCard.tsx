@@ -214,15 +214,7 @@ const ItemCard = ({ data, sxStyle, selectedItems, setSelectedItems }: ItemCardPr
                         handleClick(drink.id);
                       }}
                     >
-                      <AddCircleOutlineIcon sx={{
-                        fontSize: {
-                          xs: "17px",
-                          sm: "17px",
-                          md: "19px",
-                          lg:"22px",
-                          xl:"22px"
-                        },
-                      }} /> 追加
+                    追加
                     </ActiveDarkBlueButton>
                   </Box>
                 )}
