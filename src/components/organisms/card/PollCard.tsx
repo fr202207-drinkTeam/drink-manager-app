@@ -242,7 +242,6 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                               textAlign: "center",
                               fontSize: "14px",
                               borderBottom: "double",
-                              fontFamily: "Georgia",
                               fontWeight: "bold",
                               height: "200",
                               mt: 1,
@@ -350,12 +349,13 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                             sx={{
                               textAlign: "center",
                               fontSize: {
-                                xs: "10px",
-                                sm: "10px",
-                                md: "15px",
+                                xs: "12px",
+                                sm: "14px",
+                                md: "14px",
+                                lg:"18px",
+                                xl:"18px"
                               },
                               borderBottom: "double",
-                              fontFamily: "Georgia",
                               fontWeight: "bold",
                               height: "200",
                               mt: 1,

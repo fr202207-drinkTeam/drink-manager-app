@@ -143,10 +143,15 @@ const ItemCard = ({ data, sxStyle, selectedItems, setSelectedItems }: ItemCardPr
                     gutterBottom
                     sx={{
                       textAlign: "center",
-                      fontSize: "11px",
+                      fontSize: {
+                        xs: "12px",
+                        sm: "14px",
+                        md: "14px",
+                        lg:"18px",
+                        xl:"18px"
+                      },
                       borderBottom: "double",
                       fontWeight: "bold",
-                      fontFamily: "Georgia",
                       mt: 1
                     }}
                   >

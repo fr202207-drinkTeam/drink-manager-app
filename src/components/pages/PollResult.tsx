@@ -43,7 +43,6 @@ const PollResult = memo(() => {
   const values = Object.values(pollCounts).map(Number);
   values.sort((a, b) => b - a);
 
-  console.log(pollCount.slice(5, 6), "slice")
 
   //questionnerに登録されているpolledItemsのidを取得
   useEffect(() => {
@@ -94,8 +93,8 @@ const PollResult = memo(() => {
                 (data, index) =>
                   // インデックスが3未満の場合にのみBox要素を描画（３位まで）
                   index < 3 && (
-                    <Box>
-                    <Box key={index} sx={{ display: "flex", justifyContent:{
+                    <Box key={index}>
+                    <Box  sx={{ display: "flex", justifyContent:{
                               xs: "center",
                               sm: "center",
                               md: "center",
