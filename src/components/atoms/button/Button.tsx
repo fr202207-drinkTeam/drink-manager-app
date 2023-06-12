@@ -6,7 +6,7 @@ interface InactiveButtonProps extends ButtonProps {
 }
 
 interface ActiveButtonProps extends ButtonProps {
-  event: () => void;
+  event?: () => void;
   sxStyle?: any;
 }
 
