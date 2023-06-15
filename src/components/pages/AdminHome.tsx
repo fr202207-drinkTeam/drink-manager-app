@@ -5,172 +5,541 @@ import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import ManageSearchIcon from "@mui/icons-material/ManageSearch";
-
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import DefaultLayout from "../layout/DefaultLayout";
-
+import PollIcon from "@mui/icons-material/Poll";
 import AdmTitleText from "../atoms/text/AdmTitleText";
+import EditNoteIcon from "@mui/icons-material/EditNote";
+import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 
 type Props = {};
 
 const AdminHome: FC<Props> = memo((props) => {
+  const moveWaitingApprovalItem = () => {
+    console.log("商品詳細画面へ遷移");
+  };
   return (
     <>
       <DefaultLayout>
         <Paper
           sx={{
-            width: "100%",
-            pb: '50px',
+            width: "90%",
+            pb: "50px",
+            mx: "auto",
           }}
         >
           <Box id="top" />
           <Box sx={{ p: "30px" }}>
             <AdmTitleText>管理者MENU</AdmTitleText>
           </Box>
-          <Stack
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            // spacing={8}
-            flexWrap="wrap"
-            mx="70px"
+          <Box
+            sx={{
+              width: {
+                xs: "100%",
+                sm: "100%",
+                md: "90%",
+                lg: "90%",
+              },
+              mx: "auto",
+            }}
           >
-            <Link to="/adminhome/addition">
-              <Box
+            <Box>
+              <Typography
+                variant="h3"
+                component="h3"
                 sx={{
-                  width: {xs: "130px", sm: "130px", md: 200, lg: 200},
-                  height: {xs: "130px", sm: "130px", md: 200, lg: 200},
-                  backgroundColor: "#024098",
-                  textAlign: "center",
-                  borderRadius: "20px",
-                  border: "1px solid",
-                  margin: "10px",
-                  backgroundImage:
-                    "linear-gradient(to bottom, #024098 70%, #fff 30%)",
-                  "&:hover": {
-                    opacity: 0.8,
-                    cursor: "pointer",
+                  fontSize: {
+                    xs: "18px",
+                    sm: "20px",
+                    md: "24px",
+                    lg: "24px",
                   },
+                  p: "5px",
+                  width: "90%",
+                  mx: "auto",
                 }}
               >
-                <AddBoxIcon
-                  sx={{
-                    width: {xs: "80px", sm: "80px", md: "130px", lg: "130px"},
-                    height: {xs: "80px", sm: "80px", md: "130px", lg: "130px"},
-                    color: "white",
-                    paddingTop: "10px",
-                  }}
-                />
-                <Typography
-                  fontFamily="Source Han Sans"
-                  sx={{ color: "black", fontSize: {xs: "16px", sm: "16px", md: "20px", lg: "20px"}, marginTop: "10px" }}
-                >
-                  補充在庫入力
-                </Typography>
+                在庫管理
+              </Typography>
+
+              <Box sx={{ display: "flex", mx: "50px", mb: "30px" }}>
+                <Link to="/adminhome/addition">
+                  <Box
+                    sx={{
+                      width: { xs: "100px", sm: "100px", md: 150, lg: 150 },
+                      height: { xs: "100px", sm: "100px", md: 150, lg: 150 },
+                      textAlign: "center",
+                      borderRadius: "20px",
+                      border: "2px solid",
+                      margin: "10px",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      p: "10px",
+                      "&:hover": {
+                        opacity: 0.8,
+                        cursor: "pointer",
+                      },
+                    }}
+                  >
+                    <AddCircleOutlineIcon
+                      sx={{ fontSize: 60, height: "60%", color: "#024098" }}
+                    />
+                    <Typography
+                      sx={{
+                        fontSize: {
+                          xs: "16px",
+                          sm: "16px",
+                          md: "18px",
+                          lg: "18px",
+                        },
+                        height: "40%",
+                      }}
+                    >
+                      在庫補充
+                    </Typography>
+                  </Box>
+                </Link>
+
+                <Link to="/adminhome/consumption">
+                  <Box
+                    sx={{
+                      width: { xs: "100px", sm: "100px", md: 150, lg: 150 },
+                      height: { xs: "100px", sm: "100px", md: 150, lg: 150 },
+                      textAlign: "center",
+                      borderRadius: "20px",
+                      border: "2px solid",
+                      margin: "10px",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      p: "10px",
+                      "&:hover": {
+                        opacity: 0.8,
+                        cursor: "pointer",
+                      },
+                    }}
+                  >
+                    <RemoveCircleOutlineIcon
+                      sx={{ fontSize: 60, height: "60%", color: "#024098" }}
+                    />
+                    <Typography
+                      sx={{
+                        fontSize: {
+                          xs: "16px",
+                          sm: "16px",
+                          md: "18px",
+                          lg: "18px",
+                        },
+                        height: "40%",
+                      }}
+                    >
+                      在庫消費
+                    </Typography>
+                  </Box>
+                </Link>
+
+                <Link to="/adminhome/history">
+                  <Box
+                    sx={{
+                      width: { xs: "100px", sm: "100px", md: 150, lg: 150 },
+                      height: { xs: "100px", sm: "100px", md: 150, lg: 150 },
+                      textAlign: "center",
+                      borderRadius: "20px",
+                      border: "2px solid",
+                      margin: "10px",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      p: "10px",
+                      "&:hover": {
+                        opacity: 0.8,
+                        cursor: "pointer",
+                      },
+                    }}
+                  >
+                    <ManageSearchIcon
+                      sx={{ fontSize: 60, height: "60%", color: "#024098" }}
+                    />
+                    <Typography
+                      sx={{
+                        fontSize: {
+                          xs: "16px",
+                          sm: "16px",
+                          md: "18px",
+                          lg: "18px",
+                        },
+                        height: "40%",
+                      }}
+                    >
+                      在庫履歴
+                    </Typography>
+                  </Box>
+                </Link>
               </Box>
-            </Link>
-            <Link to="/adminhome/consumption">
-              <Box
+
+              <Typography
+                variant="h3"
+                component="h3"
                 sx={{
-                  width: {xs: "130px", sm: "130px", md: 200, lg: 200},
-                  height: {xs: "130px", sm: "130px", md: 200, lg: 200},
-                  backgroundColor: "#024098",
-                  textAlign: "center",
-                  borderRadius: "20px",
-                  border: "1px solid",
-                  margin: "10px",
-                  backgroundImage:
-                    "linear-gradient(to bottom, #024098 70%, #fff 30%)",
-                  "&:hover": {
-                    opacity: 0.8,
-                    cursor: "pointer",
+                  fontSize: {
+                    xs: "18px",
+                    sm: "20px",
+                    md: "24px",
+                    lg: "24px",
                   },
+                  p: "5px",
+                  width: "90%",
+                  mx: "auto",
                 }}
               >
-                <IndeterminateCheckBoxIcon
-                  sx={{
-                    width: {xs: "80px", sm: "80px", md: "130px", lg: "130px"},
-                    height: {xs: "80px", sm: "80px", md: "130px", lg: "130px"},
-                    color: "white",
-                    paddingTop: "10px",
-                  }}
-                />
-                <Typography
-                  fontFamily="Source Han Sans"
-                  sx={{ color: "black", fontSize: {xs: "16px", sm: "16px", md: "20px", lg: "20px"}, marginTop: "10px" }}
-                >
-                  消費在庫入力
-                </Typography>
+                アンケート管理
+              </Typography>
+
+              <Box sx={{ display: "flex", mx: "50px", mb: "30px" }}>
+                <Link to="/adminhome/addpoll">
+                  <Box
+                    sx={{
+                      width: { xs: "100px", sm: "100px", md: 150, lg: 150 },
+                      height: { xs: "100px", sm: "100px", md: 150, lg: 150 },
+                      textAlign: "center",
+                      borderRadius: "20px",
+                      border: "2px solid",
+                      margin: "10px",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      p: "10px",
+                      "&:hover": {
+                        opacity: 0.8,
+                        cursor: "pointer",
+                      },
+                    }}
+                  >
+                    <PollIcon
+                      sx={{ fontSize: 60, height: "60%", color: "#024098" }}
+                    />
+                    <Typography
+                      sx={{
+                        fontSize: {
+                          xs: "16px",
+                          sm: "16px",
+                          md: "18px",
+                          lg: "18px",
+                        },
+                        height: "40%",
+                      }}
+                    >
+                      アンケート追加
+                    </Typography>
+                  </Box>
+                </Link>
+
+                <Link to="/adminhome/addpoll">
+                  <Box
+                    sx={{
+                      width: { xs: "100px", sm: "100px", md: 150, lg: 150 },
+                      height: { xs: "100px", sm: "100px", md: 150, lg: 150 },
+                      textAlign: "center",
+                      borderRadius: "20px",
+                      border: "2px solid",
+                      margin: "10px",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      p: "10px",
+                      "&:hover": {
+                        opacity: 0.8,
+                        cursor: "pointer",
+                      },
+                    }}
+                  >
+                    <EditNoteIcon
+                      sx={{ fontSize: 60, height: "60%", color: "#024098" }}
+                    />
+                    <Typography
+                      sx={{
+                        fontSize: {
+                          xs: "16px",
+                          sm: "16px",
+                          md: "18px",
+                          lg: "18px",
+                        },
+                        height: "40%",
+                      }}
+                    >
+                      アンケート編集
+                    </Typography>
+                  </Box>
+                </Link>
               </Box>
-            </Link>
-            <Link to="/adminhome/history">
-              <Box
+
+              <Typography
+                variant="h3"
+                component="h3"
                 sx={{
-                  width: {xs: "130px", sm: "130px", md: 200, lg: 200},
-                  height: {xs: "130px", sm: "130px", md: 200, lg: 200},
-                  backgroundColor: "#024098",
-                  textAlign: "center",
-                  borderRadius: "20px",
-                  border: "1px solid",
-                  margin: "10px",
-                  backgroundImage:
-                    "linear-gradient(to bottom, #024098 70%, #fff 30%)",
-                  "&:hover": {
-                    opacity: 0.8,
-                    cursor: "pointer",
+                  fontSize: {
+                    xs: "18px",
+                    sm: "20px",
+                    md: "24px",
+                    lg: "24px",
                   },
+                  p: "5px",
+                  width: "90%",
+                  mx: "auto",
                 }}
               >
-                <ManageSearchIcon
-                  sx={{
-                    width: {xs: "80px", sm: "80px", md: "130px", lg: "130px"},
-                    height: {xs: "80px", sm: "80px", md: "130px", lg: "130px"},
-                    color: "white",
-                    paddingTop: "10px",
-                  }}
-                />
-                <Typography
-                  fontFamily="Source Han Sans"
-                  sx={{ color: "black", fontSize: {xs: "16px", sm: "16px", md: "20px", lg: "20px"}, marginTop: "10px" }}
-                >
-                  在庫履歴
-                </Typography>
+                バナー管理
+              </Typography>
+
+              <Box sx={{ display: "flex", mx: "50px", mb: "30px" }}>
+                <Link to="/adminhome/addpoll">
+                  <Box
+                    sx={{
+                      width: { xs: "100px", sm: "100px", md: 150, lg: 150 },
+                      height: { xs: "100px", sm: "100px", md: 150, lg: 150 },
+                      textAlign: "center",
+                      borderRadius: "20px",
+                      border: "2px solid",
+                      margin: "10px",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      p: "10px",
+                      "&:hover": {
+                        opacity: 0.8,
+                        cursor: "pointer",
+                      },
+                    }}
+                  >
+                    <PhotoLibraryIcon
+                      sx={{ fontSize: 60, height: "60%", color: "#024098" }}
+                    />
+                    <Typography
+                      sx={{
+                        fontSize: {
+                          xs: "16px",
+                          sm: "16px",
+                          md: "18px",
+                          lg: "18px",
+                        },
+                        height: "40%",
+                      }}
+                    >
+                      バナー編集
+                    </Typography>
+                  </Box>
+                </Link>
               </Box>
-            </Link>
-            <Link to="/adminhome/addpoll">
-              <Box
+            </Box>
+
+            <Typography
+              variant="h3"
+              component="h3"
+              sx={{
+                fontSize: {
+                  xs: "18px",
+                  sm: "20px",
+                  md: "24px",
+                  lg: "24px",
+                },
+                p: "5px",
+                width: "90%",
+                mx: "auto",
+                mb: "10px",
+              }}
+            >
+              承認待ち一覧
+            </Typography>
+
+            <Box
+              sx={{
+                display: "flex",
+                mx: "auto",
+                justifyContent: "center",
+                my: "5px",
+                background: "#e0e0e0",
+                width: "90%",
+                "&:hover": {
+                  opacity: 0.8,
+                  cursor: "pointer",
+                },
+              }}
+              onClick={moveWaitingApprovalItem}
+            >
+              <Typography
+                variant="body1"
+                component="p"
                 sx={{
-                  width: {xs: "130px", sm: "130px", md: 200, lg: 200},
-                  height: {xs: "130px", sm: "130px", md: 200, lg: 200},
-                  backgroundColor: "#024098",
-                  textAlign: "center",
-                  borderRadius: "20px",
-                  border: "1px solid",
-                  margin: "10px",
-                  backgroundImage:
-                    "linear-gradient(to bottom, #024098 70%, #fff 30%)",
-                  "&:hover": {
-                    opacity: 0.8,
-                    cursor: "pointer",
+                  fontSize: {
+                    xs: "16px",
+                    sm: "16px",
+                    md: "18px",
+                    lg: "18px",
                   },
+                  p: "3px",
+                  width: "15%",
                 }}
               >
-                <AssignmentIcon
-                  sx={{
-                    width: {xs: "80px", sm: "80px", md: "130px", lg: "130px"},
-                    height: {xs: "80px", sm: "80px", md: "130px", lg: "130px"},
-                    color: "white",
-                    paddingTop: "10px",
-                  }}
-                />
-                <Typography
-                  fontFamily="Source Han Sans"
-                  sx={{ color: "black", fontSize: {xs: "16px", sm: "16px", md: "20px", lg: "20px"}, marginTop: "10px" }}
-                >
-                  アンケート追加
-                </Typography>
-              </Box>
-            </Link>
-          </Stack>
+                2023/1/1
+              </Typography>
+              <Typography
+                variant="body1"
+                component="p"
+                sx={{
+                  fontSize: {
+                    xs: "16px",
+                    sm: "16px",
+                    md: "18px",
+                    lg: "18px",
+                  },
+                  p: "3px",
+                  width: "45%",
+                }}
+              >
+                商品名が入ります商品名が入ります商品
+              </Typography>
+              <Typography
+                variant="body1"
+                component="p"
+                sx={{
+                  fontSize: {
+                    xs: "16px",
+                    sm: "16px",
+                    md: "18px",
+                    lg: "18px",
+                  },
+                  p: "3px",
+                  width: "35%",
+                }}
+              >
+                申請者名
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                mx: "auto",
+                justifyContent: "center",
+                my: "5px",
+                background: "#e0e0e0",
+                width: "90%",
+                "&:hover": {
+                  opacity: 0.8,
+                  cursor: "pointer",
+                },
+              }}
+              onClick={moveWaitingApprovalItem}
+            >
+              <Typography
+                variant="body1"
+                component="p"
+                sx={{
+                  fontSize: {
+                    xs: "16px",
+                    sm: "16px",
+                    md: "18px",
+                    lg: "18px",
+                  },
+                  p: "3px",
+                  width: "15%",
+                }}
+              >
+                2023/1/1
+              </Typography>
+              <Typography
+                variant="body1"
+                component="p"
+                sx={{
+                  fontSize: {
+                    xs: "16px",
+                    sm: "16px",
+                    md: "18px",
+                    lg: "18px",
+                  },
+                  p: "3px",
+                  width: "45%",
+                }}
+              >
+                商品名
+              </Typography>
+              <Typography
+                variant="body1"
+                component="p"
+                sx={{
+                  fontSize: {
+                    xs: "16px",
+                    sm: "16px",
+                    md: "18px",
+                    lg: "18px",
+                  },
+                  p: "3px",
+                  width: "35%",
+                }}
+              >
+                申請者名
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                mx: "auto",
+                justifyContent: "center",
+                my: "5px",
+                background: "#e0e0e0",
+                width: "90%",
+                "&:hover": {
+                  opacity: 0.8,
+                  cursor: "pointer",
+                },
+              }}
+              onClick={moveWaitingApprovalItem}
+            >
+              <Typography
+                variant="body1"
+                component="p"
+                sx={{
+                  fontSize: {
+                    xs: "16px",
+                    sm: "16px",
+                    md: "18px",
+                    lg: "18px",
+                  },
+                  p: "3px",
+                  width: "15%",
+                }}
+              >
+                2023/1/1
+              </Typography>
+              <Typography
+                variant="body1"
+                component="p"
+                sx={{
+                  fontSize: {
+                    xs: "16px",
+                    sm: "16px",
+                    md: "18px",
+                    lg: "18px",
+                  },
+                  p: "3px",
+                  width: "45%",
+                }}
+              >
+                商品名
+              </Typography>
+              <Typography
+                variant="body1"
+                component="p"
+                sx={{
+                  fontSize: {
+                    xs: "16px",
+                    sm: "16px",
+                    md: "18px",
+                    lg: "18px",
+                  },
+                  p: "3px",
+                  width: "35%",
+                }}
+              >
+                申請者名
+              </Typography>
+            </Box>
+          </Box>
         </Paper>
       </DefaultLayout>
     </>
