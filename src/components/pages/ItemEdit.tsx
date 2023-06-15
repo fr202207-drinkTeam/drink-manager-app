@@ -259,23 +259,26 @@ const ItemEdit: FC = memo(() => {
                 <MenuItem value={4}>コーヒー/カフェインレス</MenuItem>
                 <MenuItem value={5}>ティー</MenuItem>
                 <MenuItem value={6}>ココア</MenuItem>
-                <MenuItem value={7}>その他</MenuItem>
+                <MenuItem value={7}>お菓子</MenuItem>
+                <MenuItem value={8}>その他</MenuItem>
               </Select>
+              {itemCategory !== 7 && itemCategory !== 0 && (
               <div>
-                <FormLabel id="in-the-office" sx={{fontSize: {
+                  <FormLabel id="in-the-office" sx={{fontSize: {
                     xs: "14px",
                     sm: "14px",
                     md: "16px",
                     lg: "16px",
-                  }}}>社内有無 *</FormLabel>
-                {presenceOrAbsence ? 
-                <RadioGroup
-                  row
-                  aria-labelledby="in-the-office"
-                  name="in-the-office"
-                  defaultValue="presence"
-                  onChange={(e) => onChangeInTheOffice(e)}
-                >
+                  }}}>社内有無 *</FormLabel>                
+                {presenceOrAbsence  ? (
+                  <RadioGroup
+                    row
+                    aria-labelledby="in-the-office"
+                    name="in-the-office"
+                    defaultValue="presence"
+                    onChange={(e) => onChangeInTheOffice(e)}
+                    sx={{mb: 5}}
+                  >
                   <FormControlLabel value="absence" control={<Radio />} 
                   label={
                     <Typography component="p" sx={{fontSize: {
@@ -286,7 +289,7 @@ const ItemEdit: FC = memo(() => {
                     }}}>
                        社内なし
                      </Typography>
-               } />
+                  } />
                   <FormControlLabel value="presence" control={<Radio />} label={
                     <Typography component="p" sx={{fontSize: {
                       xs: "14px",
@@ -296,14 +299,16 @@ const ItemEdit: FC = memo(() => {
                     }}}>
                        社内あり
                      </Typography>
-               } />
-                </RadioGroup> : 
-                  <RadioGroup
-                  row
-                  aria-labelledby="in-the-office"
-                  name="in-the-office"
-                  defaultValue="presence"
-                  onChange={(e) => onChangeInTheOffice(e)}
+                  } />
+                </RadioGroup>
+                ) : (
+                <RadioGroup
+                row
+                aria-labelledby="in-the-office"
+                name="in-the-office"
+                defaultValue="presence"
+                onChange={(e) => onChangeInTheOffice(e)}
+                sx={{mb: 5}}
                 >
                   <FormControlLabel value="absence" control={<Radio />} label={
                     <Typography component="p" sx={{fontSize: {
@@ -314,7 +319,7 @@ const ItemEdit: FC = memo(() => {
                     }}}>
                        社内なし
                      </Typography>
-               }/>
+                  }/>
                   <FormControlLabel value="presence" control={<Radio />} label={
                     <Typography component="p" sx={{fontSize: {
                       xs: "14px",
@@ -324,10 +329,46 @@ const ItemEdit: FC = memo(() => {
                     }}}>
                        社内あり
                      </Typography>
-               } />
+                  } />
                 </RadioGroup>
-                }
+                )}
               </div>
+              )}
+              {itemCategory === 7 && 
+              (
+                <Box>
+              <SecondaryInput
+                id="purchaseLocation"
+                label="購入場所"
+                value={""}
+                onChange={(e: any) => console.log(e.target.value)}
+                sx={{ width: "100%", mb: 2 }}
+                inputProps={{ maxLength: 18, sx: {
+                  fontSize: {
+                    xs: "14px",
+                    sm: "14px",
+                    md: "16px",
+                    lg: "16px",
+                  }} }}
+              />
+              <SecondaryInput
+                id="purchaseLocation"
+                label="メーカー"
+                value={""}
+                onChange={(e: any) => console.log(e.target.value)}
+                sx={{ width: "100%", mb: 5 }}
+                inputProps={{ maxLength: 18, sx: {
+                  fontSize: {
+                    xs: "14px",
+                    sm: "14px",
+                    md: "16px",
+                    lg: "16px",
+                  }} }}
+              />
+              </Box>
+              )
+              }
+              
               {isDuplicateData && 
                 <>
                   <Typography
