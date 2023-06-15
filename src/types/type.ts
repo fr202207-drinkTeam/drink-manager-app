@@ -38,11 +38,11 @@ export type Items = {
 export type Questionnaire = {
   id: number;
   name: string;
-  polledItems: [
+  Polleditems: [
     {
       id: number;
       itemId?: number;
-      result?: number;
+      questionnairId?: number;
     }
   ];
   description: string;

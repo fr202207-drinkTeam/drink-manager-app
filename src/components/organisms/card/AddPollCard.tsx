@@ -85,7 +85,7 @@ const ItemCard = ({ data, sxStyle, selectedItems, setSelectedItems }: ItemCardPr
                 <CardMedia
                   component="img"
                   alt="商品画像"
-                  image={drink.image[0]}
+                  image="../cocoa.png"
                   title="商品名"
                   sx={{
                     display: "block",

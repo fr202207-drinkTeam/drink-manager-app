@@ -158,7 +158,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                         <CardMedia
                           component="img"
                           alt="商品画像"
-                          image={drink.image[0]}
+                          image="../cocoa.png"
                           title="商品名"
                           sx={{
                             display: "block",
@@ -289,7 +289,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                         <CardMedia
                           component="img"
                           alt="商品画像"
-                          image={drink.image[0]}
+                          image="../cocoa.png"
                           title="商品名"
                           sx={{
                             display: "block",

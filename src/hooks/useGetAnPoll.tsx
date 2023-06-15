@@ -9,7 +9,7 @@ const useGetAnPoll = (id: number) => {
   (async () => {
     try {
       const response = await fetch(
-        `http://localhost:8880/polls?questionnaireId=${id}`
+        `http://localhost:50000/polls/${id}`
       );
       const data = await response.json();
       setPolls(data);

@@ -55,8 +55,8 @@ const StockCard: FC<Props> = (props) => {
                     boxShadow: "none",
                     border: "solid 1px ",
                     borderColor: "#bfbec5",
-                    width: "100%",
-                    p: "5px"
+                    // width: "100%",
+                    // p: "5px"
                   }}
                 >
                   <CardMedia
@@ -64,7 +64,7 @@ const StockCard: FC<Props> = (props) => {
                     alt="商品画像"
                     height="140"
                     width="140"
-                    image={drink.image[0]}
+                    image="../cocoa.png"
                     title="商品名"
                     sx={{
                       display: "block",

@@ -12,11 +12,11 @@ import PollNameInput from "../atoms/addPollForm/PollNameInput";
 import PollDescriptionInput from "../atoms/addPollForm/PollDescriptionInput";
 import PollCategorySelect from "../atoms/addPollForm/PollCategorySelect";
 import PollDateInput from "../atoms/addPollForm/PollDateInput";
-import useGetQuestionnaire from "../../hooks/useGetQuestipnnaire";
 import AddItem from "./AddItem";
 import useGetAllItems from "../../hooks/useGetAllItems";
 import ModalWindow from "../organisms/ModalWindow";
 import useGetPollCategoryPeriod from "../../hooks/useGetPollCategoryPeriod";
+import PollItemCategorySelect from "../atoms/addPollForm/PollItemCategorySelect";
 
 const style = {
   position: "absolute" as "absolute",
@@ -40,6 +40,7 @@ const AddPoll = memo(() => {
   const [startPeriodDate, setStartPeriodDate] = useState("");
   const [endPeriodDate, setEndPeriodDate] = useState("");
   const [pollCategory, setPollCategory] = useState("投票種別を選択してください");
+  const [pollItemCategory, setPollItemCategory] = useState("商品検索");
   const [pollName, setPollName] = useState("");
   const [pollDescription, setPollDescription] = useState("");
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
@@ -48,6 +49,7 @@ const AddPoll = memo(() => {
   const [pollNameError, setPollNameError] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
   const [categoryError, setCategoryError] = useState("");
+  const [categoryItemError, setCategoryItemError] = useState("");
   const [dateError, setDateError] = useState("");
   const [selectedItemsError, setSelectedItemsError] = useState("");
   const [allError, setAllError] = useState("");
@@ -65,13 +67,12 @@ const AddPoll = memo(() => {
   const isExistItems = items.filter((item) => {
     return item.isDiscontinued === false
   })
-
   const isPopularOverlapping = popularQuestionnaireData.some(question => {
     const popularQuestionStartDate = new Date(question.startDate);
     const popularQuestionEndDate = new Date(question.endDate);
     const popularInputStartDate = new Date(startPeriodDate);
     const popularInputEndDate = new Date(endPeriodDate);
-    // 期間が人気投票が重複している場合はtrueを返す
+    // 選択された期間で人気投票が重複している場合はtrueを返す
     return popularInputStartDate <= popularQuestionEndDate && popularInputEndDate >= popularQuestionStartDate;
   });
   const isOthersOverlapping = othersQuestionnaireData.some(question => {
@@ -79,7 +80,7 @@ const AddPoll = memo(() => {
     const othersQuestionEndDate = new Date(question.endDate);
     const othersInputStartDate = new Date(startPeriodDate);
     const othersInputEndDate = new Date(endPeriodDate);
-    // 期間がその他投票が重複している場合はtrueを返す
+    // 選択された期間でその他投票が重複している場合はtrueを返す
     return othersInputStartDate <= othersQuestionEndDate && othersInputEndDate >= othersQuestionStartDate;
   });
 
@@ -110,7 +111,6 @@ const AddPoll = memo(() => {
     setDescriptionError("");
     return true;
   };
-
   //投票期間
   const validateDate = () => {
     if (!startPeriodDate || !endPeriodDate) {
@@ -121,7 +121,6 @@ const AddPoll = memo(() => {
       setDateError("*投票期間が正しくありません。再度確認してください。");
       return false;
     }
-
     if (isPopularOverlapping && isOthersOverlapping) {
       setDateError("*投票期間が被っています。投票期間を再度確認してください。");
       return false;
@@ -129,7 +128,6 @@ const AddPoll = memo(() => {
     setDateError("");
     return true;
   };
-
   //投票カテゴリー
   const validateCategory = () => {
     if (pollCategory === "投票種別を選択してください") {
@@ -140,12 +138,10 @@ const AddPoll = memo(() => {
       setCategoryError("*人気投票が同一期間で重複するため登録できません");
       return false;
     }
-
     if (isOthersOverlapping && pollCategory === "2") {
       setCategoryError("*その他投票が同一期間で重複するため登録できません");
       return false;
     }
-
     setCategoryError("");
     return true;
   };
@@ -166,7 +162,6 @@ const AddPoll = memo(() => {
     setSelectedItemsError("");
     return true;
   };
-
   //アンケート情報登録
   const onClickAddPollData: () => Promise<void> = async () => {
     const isNameValid = validatePollName();
@@ -228,7 +223,6 @@ const AddPoll = memo(() => {
             sm: "14px",
             md: "16px",
             lg: "18px",
-            xl: "18px"
           },
         }}>
           投票用新規商品登録
@@ -261,6 +255,7 @@ const AddPoll = memo(() => {
         <PollDescriptionInput pollDescription={pollDescription} setPollDescription={setPollDescription} descriptionError={descriptionError} setDescriptionError={setDescriptionError} />
         <PollCategorySelect pollCategory={pollCategory} setPollCategory={setPollCategory} categoryError={categoryError} setCategoryError={setCategoryError} />
         <PollDateInput startPeriodDate={startPeriodDate} endPeriodDate={endPeriodDate} setStartPeriodDate={setStartPeriodDate} setEndPeriodDate={setEndPeriodDate} dateError={dateError} setDateError={setDateError} />
+        <PollItemCategorySelect pollItemCategory={pollItemCategory} setPollItemCategory={setPollItemCategory} categoryItemError={categoryItemError} setCategoryItemError={setCategoryItemError} />
         <Box sx={{ m: "auto" }}>
           {selectedItemsError && (
             <Box sx={{ color: "red", fontSize: 15, mt: 3 }}>

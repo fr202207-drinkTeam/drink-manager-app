@@ -82,7 +82,7 @@ const PollResultFiltering = () => {
               "-webkit-repeating-linear-gradient(-45deg, #9acd32, #d4acad 2px, #fff 2px, #fff 4px)",
           }}
         >
-          過去の投票結果
+          過去の投票結果検索
         </Box>
       </Box>
       <Box id="top" />
@@ -94,7 +94,6 @@ const PollResultFiltering = () => {
         minWidth={500}
         margin={4}
       />
-      {/* flexDirection: {sx:"column",sm:"column",md:"",lg:"",xl:""} */}
       <Box>
         <Box sx={{ display: "flex", alignItems: "center", mt: 5, justifyContent: "center" }}>
           <Box sx={{ mt: 5 }}>
