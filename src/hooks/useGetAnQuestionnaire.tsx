@@ -7,10 +7,11 @@ const useGetAnQuestionnaire = (id:number) => {
       (async () => {
         try {
           const response = await fetch(
-            `http://localhost:8880/questionnaire/${id}`
+            `http://localhost:50000/questionnairesresult/${id}`
           );
           const data = await response.json();
-          setQuestionnaire(data);
+          setQuestionnaire(data[0]);
+          // console.log(data,"data")
         } catch (error) {
           console.error(error);
         }

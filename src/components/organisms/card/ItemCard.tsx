@@ -74,7 +74,7 @@ const ItemCard = ({ data, sxStyle, sxBox }: ItemCardProps) => {
                     alt="商品画像"
                     height="140"
                     width="140"
-                    image="../cocoa.png"
+                    image="/cocoa.png"
                     title="商品名"
                     sx={{
                       display: "block",
@@ -185,7 +185,7 @@ const ItemCard = ({ data, sxStyle, sxBox }: ItemCardProps) => {
                     alt="商品画像"
                     height="140"
                     width="140"
-                    image="../cocoa.png"
+                    image="/cocoa.png"
                     title="商品名"
                     sx={{
                       display: "block",

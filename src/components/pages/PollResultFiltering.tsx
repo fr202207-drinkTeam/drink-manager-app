@@ -25,7 +25,7 @@ const PollResultFiltering = () => {
   useEffect(() => {
     //startdateが超えていたら
     (async () => {
-      const response = await fetch(`http://localhost:8880/questionnaire`);
+      const response = await fetch(`http://localhost:50000/questionnaires`);
       const data = await response.json();
       const period = data.map((question: Questionnaire) => {
         const endDate = new Date(question.endDate);

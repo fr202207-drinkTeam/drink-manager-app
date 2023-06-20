@@ -53,7 +53,7 @@ const PollDateInput: FC<PollDateInputProps> = ({
                 xl: "18px"
               },
             }}>
-              ※各投票の開催期間が被らないように設定してください
+              ※各投票の開催期間が被らないように１ヶ月単位で設定してください
             </Box>
             <Box sx={{ mb: 1, fontWeight: "bold", ml: 1 }}>最近登録した投票</Box>
             {questionnaireData.map((data) => (

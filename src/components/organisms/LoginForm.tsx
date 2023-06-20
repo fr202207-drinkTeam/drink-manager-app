@@ -60,7 +60,7 @@ const LoginForm: FC<Props> = (props) => {
 
       // JSONサーバーからデータ取得
       const response = await fetch(
-        `http://localhost:8880/users?email=${loginedUser.email}`
+        `http://localhost:50000/user/${loginedUser.email}`
       );
       const user = await response.json();
       // Recoil

@@ -9,10 +9,11 @@ const useGetAnPoll = (id: number) => {
   (async () => {
     try {
       const response = await fetch(
-        `http://localhost:50000/polls/${id}`
+        `http://localhost:50000/pollsdata/${id}`
       );
       const data = await response.json();
       setPolls(data);
+      console.log(data)
     } catch (error) {
       console.error(error);
     }

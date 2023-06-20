@@ -83,7 +83,14 @@ const AddPoll = memo(() => {
     // 選択された期間でその他投票が重複している場合はtrueを返す
     return othersInputStartDate <= othersQuestionEndDate && othersInputEndDate >= othersQuestionStartDate;
   });
-
+  //投票期間は１ヶ月しか設定できないように
+  const oneMonthInMilliseconds = 30 * 24 * 60 * 60 * 1000;//１ヶ月をm秒に換算
+  const startDate = new Date(startPeriodDate);
+  const endDate = new Date(endPeriodDate);
+  const timeDifference = endDate.getTime() - startDate.getTime();
+  console.log(endDate.getTime())
+  console.log(oneMonthInMilliseconds)
+  
   //バリデーション
   //投票名
   const validatePollName = () => {
@@ -113,6 +120,11 @@ const AddPoll = memo(() => {
   };
   //投票期間
   const validateDate = () => {
+  
+    if (timeDifference > oneMonthInMilliseconds) {
+      setDateError("*投票期間は1ヶ月以内で設定してください。");
+      return false;
+    }
     if (!startPeriodDate || !endPeriodDate) {
       setDateError("*投票期間を入れてください");
       return false;
@@ -182,7 +194,7 @@ const AddPoll = memo(() => {
       if (isFirstRender.current) {
         isFirstRender.current = false;
       }
-      fetch("http://localhost:8880/questionnaire", {
+      fetch("http://localhost:50000/questionnaires", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -192,16 +204,32 @@ const AddPoll = memo(() => {
           description: pollDescription,
           category: Number(pollCategory),
           createdAt: new Date(),
-          startDate: startPeriodDate,
-          endDate: endPeriodDate,
+          startDate: new Date(startPeriodDate),
+          endDate: new Date(endPeriodDate),
           polledItems: polledItemIds,
           author: loginUser.id,
         }),
-      }).then(() => {
-        navigate("/adminhome");
-      }).catch((e) => {
-        console.log(e)
-      });
+      }).then((response) => response.json())
+        .then((questionnaire) => {
+          // アンケート作成のレスポンスからIDを取得
+          const questionnaireId = questionnaire.id;
+          polledItemIds.map((itemId) => (
+            fetch("http://localhost:50000/polleditems", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                itemId: itemId.itemId,
+                questionnairId: questionnaireId
+              })
+            })
+          ))
+        }).then(() => {
+          navigate("/adminhome");
+        }).catch((e) => {
+          console.log(e)
+        });
     } else {
       setAllError("*入力内容の確認をしてください");
     }
@@ -210,11 +238,11 @@ const AddPoll = memo(() => {
   return (
     <>
       <Paper sx={{
-    mb: 5,
-    width: "100%",
-    pb: 13,
-    p:2,
-  }}>
+        mb: 5,
+        width: "100%",
+        pb: 13,
+        p: 2,
+      }}>
         <Box id="top" />
         <AdmTitleText children={"投票追加"} />
         <ActiveDarkBlueButton event={handleOpen} sxStyle={{
@@ -300,3 +328,5 @@ const AddPoll = memo(() => {
 });
 
 export default AddPoll;
+
+

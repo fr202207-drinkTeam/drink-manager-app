@@ -45,6 +45,7 @@ const Poll = memo(() => {
   const now = new Date();
   now.setHours(0, 0, 0, 0);
 
+
   return (
     <>
  <Paper

@@ -662,6 +662,20 @@
       "otherItem": false,
       "id": 61,
       "isDiscontinued": false
+    },
+    {
+      "name": "テスト商品追加１",
+      "description": "商品追加から追加",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/56ac028f-a6be-4d1b-af82-bbb866d06d89?alt=media&token=ac550c63-075f-4687-8897-44096f0e0da4"
+      ],
+      "itemCategory": 1,
+      "createdAt": "2023-06-20T06:11:07.077Z",
+      "intheOffice": false,
+      "author": 3,
+      "otherItem": true,
+      "isDiscontinued": false,
+      "id": 62
     }
   ],
   "itemCategory": [
@@ -3077,6 +3091,17 @@
       "createdAt": "2023-06-14T02:49:16.731Z",
       "updatedAt": "2023-06-14T02:49:16.731Z",
       "id": 64
+    },
+    {
+      "userId": 4,
+      "content": "アイウエオああああああああああああああああああ/itemS/レモンハーブ/itemE//nameS/テスト 花子/nameE/",
+      "itemId": "11",
+      "postImage": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/aec2970c-1c03-4e39-910e-48cb424d2bc3?alt=media&token=b5a66d17-01cf-40f3-b7f4-a378dce12705"
+      ],
+      "createdAt": "2023-06-20T02:17:26.272Z",
+      "updatedAt": "2023-06-20T02:17:26.272Z",
+      "id": 65
     }
   ],
   "comments": [

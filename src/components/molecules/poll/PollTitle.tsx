@@ -1,4 +1,4 @@
-import { Box, useTheme } from "@mui/material";
+import { Box } from "@mui/material";
 import React from "react";
 import { Questionnaire } from "../../../types/type";
 
@@ -7,7 +7,6 @@ type PollTitleProps = {
 };
 
 const PollTitle = ({ poll }: PollTitleProps) => {
-  const theme = useTheme();
   return (
     <>
       <Box
