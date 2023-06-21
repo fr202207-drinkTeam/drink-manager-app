@@ -6,6 +6,8 @@ import Paper from "@mui/material/Paper";
 import { InactiveButton, ActiveBorderButton } from "../atoms/button/Button";
 import AdmTitleText from "../atoms/text/AdmTitleText";
 import ImgPathConversion from ".././../utils/ImgPathConversion";
+import CheckForDuplicates from "../../utils/CheckForDuplicates";
+import PostItemData from "../../utils/PostItemData";
 import ModalWindow from "../organisms/ModalWindow";
 import ItemForm from "../organisms/ItemForm";
 import Cookies from "js-cookie";
@@ -17,189 +19,210 @@ type Props = {
   //投票から商品追加したかどうか
   pollFlag?: boolean;
   handleClose?: any;
-  trigger?:boolean;
-  setTrigger:React.Dispatch<React.SetStateAction<boolean>>;
+  trigger?: boolean;
+  setTrigger: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const AddItem: FC<Props> = memo(({ pollFlag, handleClose,trigger,setTrigger }) => {
-  const navigate: NavigateFunction = useNavigate();
-  const [itemName, setItemName] = useState<string>("");
-  const [itemDescription, setItemDescription] = useState<string>("");
-  const [itemCategory, setItemCategory] = useState<number>(0);
-  const [itemImages, setItemImages] = useState<File[]>([]);
-  const [presenceOrAbsence, setPresenceOrAbsence] = useState<boolean>(false);
-  const [adding, setAdding] = useState<boolean>(false);
-  const [isDuplicateData, setIsDuplicateData] = useState<boolean>(false)
+const AddItem: FC<Props> = memo(
+  ({ pollFlag, handleClose, trigger, setTrigger }) => {
+    const navigate: NavigateFunction = useNavigate();
+    const [itemName, setItemName] = useState<string>("");
+    const [itemDescription, setItemDescription] = useState<string>("");
+    const [itemCategory, setItemCategory] = useState<number>(0);
+    const [itemImages, setItemImages] = useState<File[]>([]);
+    const [presenceOrAbsence, setPresenceOrAbsence] = useState<boolean>(false);
+    const [adding, setAdding] = useState<boolean>(false);
+    const [isDuplicateData, setIsDuplicateData] = useState<boolean>(false);
 
-  // recoilからログインユーザー情報を取得
-  const authId: string = Cookies.get("authId")!;
-  const loginUser: Users = useLoginUserFetch({ authId: authId });
+    // Cookieからログインユーザー情報を取得
+    const authId: string = Cookies.get("authId")!;
+    const isAdmin = Cookies.get("isAdmin")!;
+    const loginUser: Users = useLoginUserFetch({ authId: authId });
 
-  // データ追加処理(確定ボタン)
-  const onClickAddItemData: () => Promise<void> = async () => {
-    setAdding(true)
-    const res = await fetch(`http://localhost:8880/items?name=${itemName}`,
-    {
-      method: "GET",
-    })
-    const data = await res.json();
-    if(data.length > 0){
-      setIsDuplicateData(true)
-      setAdding(false)
-      return;
-    }
-    const imagePath = await ImgPathConversion({
-      imgFiles: itemImages,
-    });
-    await fetch("http://localhost:8880/items", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: itemName,
+    // 【更新版】データ追加処理(確定ボタン)
+    const onClickAddItemData: () => Promise<void> = async () => {
+      setAdding(true);
+
+      const itemNameIsPassed = await CheckForDuplicates({ itemName: itemName });
+      if (!itemNameIsPassed) {
+        setIsDuplicateData(true);
+        setAdding(false);
+        return;
+      }
+      const imagePath = await ImgPathConversion({
+        imgFiles: itemImages,
+      });
+      const imagePaths = imagePath.map((image) => {
+        return { imagePath: image };
+      });
+
+      const data = {
+        itemName: itemName,
         description: itemDescription,
-        image: imagePath,
         itemCategory: itemCategory,
-        createdAt: new Date(),
-        intheOffice: presenceOrAbsence,
+        inTheOffice: presenceOrAbsence,
+        approval: isAdmin ? true : false,
         author: loginUser.id,
-        otherItem: pollFlag?true:false,
-        isDiscontinued: false
-      }),
-    }).then(() => {
-      if(pollFlag){
-        setTrigger(!trigger)
-        handleClose()
-      }else{
+        pollItem: pollFlag ? true : false,
+        isDiscontinued: false,
+        images: imagePaths,
+      };
+
+      const postItemResult = await PostItemData(data);
+
+      if (postItemResult) {
+        if (pollFlag) {
+          setTrigger(!trigger);
+          handleClose();
+          return;
+        }
         navigate("/adminhome");
       }
-    });
-  };
+    };
 
-  //投票から削除押した場合
-  const handleDelete: () => void = () => {
-    if (pollFlag) {
-      handleClose();
-    } else {
-      navigate(-1);
-    }
-  };
+    //投票から削除押した場合
+    const handleDelete: () => void = () => {
+      if (pollFlag) {
+        handleClose();
+      } else {
+        navigate(-1);
+      }
+    };
 
-  return (
-    <>
-      <Paper sx={{ p: 5,  width: {xs: "100%", sm: "100%", md: "100%", lg:"80%"}, m: "auto" }}>
-      
-        <AdmTitleText>商品追加</AdmTitleText>
-        <Box id="top"/>
-        {adding ? (
-          <>
-            <Typography
-              variant="body1"
-              component="div"
-              textAlign="center"
-              sx={{ margin: {xs: 0, lg:"200px"}}}>
-              <p>登録中</p>
-              <CircularProgress />
-            </Typography>
-          </>
-        ) : (
-          <>
-            <ItemForm
-              itemName={itemName}
-              setItemName={setItemName}
-              itemDescription={itemDescription}
-              setItemDescription={setItemDescription}
-              itemCategory={itemCategory}
-              setItemCategory={setItemCategory}
-              itemImages={itemImages}
-              setItemImages={setItemImages}
-              presenceOrAbsence={presenceOrAbsence}
-              setPresenceOrAbsence={setPresenceOrAbsence}
-            />
-            {isDuplicateData && 
+    return (
+      <>
+        <Paper
+          sx={{
+            p: 5,
+            width: { xs: "100%", sm: "100%", md: "100%", lg: "80%" },
+            m: "auto",
+          }}
+        >
+          <AdmTitleText>商品追加</AdmTitleText>
+          <Box id="top" />
+          {adding ? (
             <>
-            <Typography
-              variant="body1"
-              component="div"
-              textAlign="center"
-              sx={{ mb: 1, mt: 3, color: "red", fontSize: {
-                xs: "13px"
-              } }}
-            >
-            商品名が重複しています
-            </Typography>
-          </>
-          }
-            {itemName &&
-            itemDescription &&
-            itemCategory !== 0 &&
-            itemImages.length > 0 ? (
-              <></>
-            ) : (
-              <>
-                <Typography
-                  variant="body1"
-                  component="div"
-                  textAlign="center"
-                  sx={{ mb: 1, mt: 3, color: "red", fontSize: {
-                    xs: "13px", sm: "13px", md: "16px", lg: "16px"
-                  } }}
-                >
-                  全ての項目を入力、または選択して下さい
-                </Typography>
-              </>
-            )}
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <ModalWindow
-                title=""
-                content="内容は破棄されますがよろしいですか？"
-                openButtonColor="red"
-                completeButtonColor="red"
-                completeButtonName="OK"
-                buttonName="入力内容を破棄"
-                completeAction={handleDelete}
-                cancelButtonColor="gray"
-                openButtonSxStyle={{
-                  my: 2,
-                    mr: 3,
-                    py: "5px",
-                    px: {xs:"3px", sm: "3px", md: "5px", lg: "5px"}
-                }}
+              <Typography
+                variant="body1"
+                component="div"
+                textAlign="center"
+                sx={{ margin: { xs: 0, lg: "200px" } }}
+              >
+                <p>登録中</p>
+                <CircularProgress />
+              </Typography>
+            </>
+          ) : (
+            <>
+              <ItemForm
+                itemName={itemName}
+                setItemName={setItemName}
+                itemDescription={itemDescription}
+                setItemDescription={setItemDescription}
+                itemCategory={itemCategory}
+                setItemCategory={setItemCategory}
+                itemImages={itemImages}
+                setItemImages={setItemImages}
+                presenceOrAbsence={presenceOrAbsence}
+                setPresenceOrAbsence={setPresenceOrAbsence}
               />
+              {isDuplicateData && (
+                <>
+                  <Typography
+                    variant="body1"
+                    component="div"
+                    textAlign="center"
+                    sx={{
+                      mb: 1,
+                      mt: 3,
+                      color: "red",
+                      fontSize: {
+                        xs: "13px",
+                      },
+                    }}
+                  >
+                    商品名が重複しています
+                  </Typography>
+                </>
+              )}
               {itemName &&
               itemDescription &&
               itemCategory !== 0 &&
               itemImages.length > 0 ? (
-                <ActiveBorderButton
-                  event={onClickAddItemData}
-                  sxStyle={{
-                    my: 2,
-                      mr: {xs: 0, sm: 3, md: 3, lg:3},
-                      py: "5px",
-                  }}
-                >
-                  確定
-                </ActiveBorderButton>
+                <></>
               ) : (
                 <>
-                  <InactiveButton
+                  <Typography
+                    variant="body1"
+                    component="div"
+                    textAlign="center"
+                    sx={{
+                      mb: 1,
+                      mt: 3,
+                      color: "red",
+                      fontSize: {
+                        xs: "13px",
+                        sm: "13px",
+                        md: "16px",
+                        lg: "16px",
+                      },
+                    }}
+                  >
+                    全ての項目を入力、または選択して下さい
+                  </Typography>
+                </>
+              )}
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <ModalWindow
+                  title=""
+                  content="内容は破棄されますがよろしいですか？"
+                  openButtonColor="red"
+                  completeButtonColor="red"
+                  completeButtonName="OK"
+                  buttonName="入力内容を破棄"
+                  completeAction={handleDelete}
+                  cancelButtonColor="gray"
+                  openButtonSxStyle={{
+                    my: 2,
+                    mr: 3,
+                    py: "5px",
+                    px: { xs: "3px", sm: "3px", md: "5px", lg: "5px" },
+                  }}
+                />
+                {itemName &&
+                itemDescription &&
+                itemCategory !== 0 &&
+                itemImages.length > 0 ? (
+                  <ActiveBorderButton
+                    event={onClickAddItemData}
                     sxStyle={{
                       my: 2,
-                      mr: {xs: 0, sm: 3, md: 3, lg:3},
+                      mr: { xs: 0, sm: 3, md: 3, lg: 3 },
                       py: "5px",
                     }}
                   >
                     確定
-                  </InactiveButton>
-                </>
-              )}
-            </Box>
-          </>
-        )}
-      </Paper>
-    </>
-  );
-});
+                  </ActiveBorderButton>
+                ) : (
+                  <>
+                    <InactiveButton
+                      sxStyle={{
+                        my: 2,
+                        mr: { xs: 0, sm: 3, md: 3, lg: 3 },
+                        py: "5px",
+                      }}
+                    >
+                      確定
+                    </InactiveButton>
+                  </>
+                )}
+              </Box>
+            </>
+          )}
+        </Paper>
+      </>
+    );
+  }
+);
 
 export default AddItem;

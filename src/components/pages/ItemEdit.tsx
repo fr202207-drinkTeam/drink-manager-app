@@ -259,10 +259,11 @@ const ItemEdit: FC = memo(() => {
                 <MenuItem value={4}>コーヒー/カフェインレス</MenuItem>
                 <MenuItem value={5}>ティー</MenuItem>
                 <MenuItem value={6}>ココア</MenuItem>
-                <MenuItem value={7}>お菓子</MenuItem>
-                <MenuItem value={8}>その他</MenuItem>
+                <MenuItem value={7}>ウォーターサーバー</MenuItem>
+                <MenuItem value={8}>お菓子</MenuItem>
+                <MenuItem value={9}>その他</MenuItem>
               </Select>
-              {itemCategory !== 7 && itemCategory !== 0 && (
+              {itemCategory !== 8 && itemCategory !== 0 && (
               <div>
                   <FormLabel id="in-the-office" sx={{fontSize: {
                     xs: "14px",
@@ -334,7 +335,7 @@ const ItemEdit: FC = memo(() => {
                 )}
               </div>
               )}
-              {itemCategory === 7 && 
+              {itemCategory === 8 && 
               (
                 <Box>
               <SecondaryInput

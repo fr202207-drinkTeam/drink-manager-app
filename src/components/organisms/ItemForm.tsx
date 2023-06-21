@@ -162,11 +162,12 @@ const ItemForm: FC<Props> = memo((props) => {
           <MenuItem value={4}>コーヒー/カフェインレス</MenuItem>
           <MenuItem value={5}>ティー</MenuItem>
           <MenuItem value={6}>ココア</MenuItem>
-          <MenuItem value={7}>お菓子</MenuItem>
-          <MenuItem value={8}>その他</MenuItem>
+          <MenuItem value={7}>ウォーターサーバー</MenuItem>
+          {/* <MenuItem value={8}>お菓子</MenuItem> */}
+          <MenuItem value={9}>その他</MenuItem>
         </Select>
 
-        {props.itemCategory !== 7 && props.itemCategory !== 0 && (
+        {props.itemCategory !== 8 && props.itemCategory !== 0 && (
         <div>
         <FormLabel id="in-the-office" sx={{fontSize: {
                     xs: "14px",
@@ -205,7 +206,7 @@ const ItemForm: FC<Props> = memo((props) => {
         </RadioGroup>
         </div>
         )}
-        {props.itemCategory === 7 && 
+        {props.itemCategory === 8 && 
               (
                 <Box>
               <SecondaryInput
