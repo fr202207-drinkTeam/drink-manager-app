@@ -137,7 +137,7 @@ const PostForm: FC<Props> = memo((props) => {
         setSelectedItemId(0);
         setInputImages([]);
       }).catch((error: AxiosError)=>{
-        console.log(error)
+        console.log(error.response?.data)
       })
   };
 
