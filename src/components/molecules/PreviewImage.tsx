@@ -148,7 +148,7 @@ const PreviewImage: FC<Props> = memo((props) => {
                   style={{
                     width: width,
                     height: height,
-                    objectFit: "contain",
+                    objectFit: "cover",
                   }}
                 />
               </ImageListItem>

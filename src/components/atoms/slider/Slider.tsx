@@ -1,6 +1,6 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import { Navigation, Pagination, Scrollbar } from "swiper";
 // Import Swiper styles
 import 'swiper/swiper-bundle.min.css'
 import 'swiper/swiper.min.css'
@@ -24,10 +24,12 @@ const Slider = (props: Props) => {
       navigation={navigation}
       autoplay={autoplay}
       className="itemSwiper"
+      style={{height: "30vw"}}
+      // #f4e9d2
     >
-      {images.map((image: string, index: any) => (
-        <SwiperSlide key={index} >
-          <img src={image} alt="" style={{ width: "100%" }} />
+      {images.map((image: string, index: number) => (
+        <SwiperSlide key={index} style={{height: "100%"}} >
+          <img src={image} alt="" style={{ width: "100%", height: "30vw" }} />
         </SwiperSlide>
       ))}
     </Swiper>

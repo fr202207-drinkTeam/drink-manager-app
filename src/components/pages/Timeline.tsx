@@ -26,7 +26,6 @@ const Timeline: FC<Props> = memo((props) => {
 
   // 商品情報取得
   const { itemData, itemError } = useGetItems();
-
   // 投稿データ取得時のクエリパラメータ要素
   // 投稿数
   const [postParamsNum, setpostParamsNum] = useState<number>(0);
@@ -37,7 +36,7 @@ const Timeline: FC<Props> = memo((props) => {
   // 投稿データ取得時のクエリパラメータ
   const [postParams, setPostParams] = useState<string>(
     `?${postUserAdmin}${postSearch}_sort=createdAt&_order=desc&_start=${postParamsNum}&_end=${postParamsNum +
-    3}`
+      3}`
   );
 
   // 投稿データ格納
@@ -124,7 +123,7 @@ const Timeline: FC<Props> = memo((props) => {
     }
     setPostParams(
       `?${postUserAdmin}${postSearch}_sort=createdAt&_order=desc&_start=${postParamsNum}&_end=${postParamsNum +
-      3}&${reloadPost}`
+        3}&${reloadPost}`
     );
   }, [location.state, postParamsNum, postSearch, postUserAdmin, reloadPost]);
 
@@ -238,9 +237,7 @@ const Timeline: FC<Props> = memo((props) => {
     ) {
       return;
     }
-    if (
-      event.target[0].value.length > 20
-    ) {
+    if (event.target[0].value.length > 20) {
       setSearchError(true);
       return;
     }
@@ -252,6 +249,16 @@ const Timeline: FC<Props> = memo((props) => {
 
   return (
     <Paper sx={{ p: "20px", background: "#eae5e3" }}>
+      {/* TODO fetchテスト */}
+      <button
+        onClick={() => {
+          fetch("http://localhost:50000/items")
+            .then((res) => res.json())
+            .then((data) => console.log(data));
+        }}
+      >
+        テスト
+      </button>
       <TimelineHeader
         searchPost={searchPost}
         filterPosts={filterPosts}
@@ -259,7 +266,13 @@ const Timeline: FC<Props> = memo((props) => {
         searchError={searchError}
       />
       <Box id="top" />
-      <Box sx={{ overflowY: "scroll", height: "1000px", px: {xs: "0", sm: "20px"} }}>
+      <Box
+        sx={{
+          overflowY: "scroll",
+          height: "1000px",
+          px: { xs: "0", sm: "20px" },
+        }}
+      >
         <PostForm
           itemData={itemData}
           itemError={itemError}
