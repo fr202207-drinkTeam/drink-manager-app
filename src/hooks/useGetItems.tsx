@@ -13,7 +13,7 @@ const useGetItems = (
   useEffect(() => {
     setitemLoading(true);
     axios
-      .get(`http://localhost:8880/items${params}`)
+      .get(`http://localhost:50000/items${params}`)
       .then((res) => {
         setItemData(res.data);
         setitemLoading(false);
