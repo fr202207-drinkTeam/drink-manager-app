@@ -24,7 +24,7 @@ export const useLoginUserFetch = (props: Props) => {
 
   useEffect(() => {
     if (authId) {
-      fetch(`http://localhost:8880/users?authId=${authId}`)
+      fetch(`http://localhost:50000/userauth/${authId}`)
         .then((response) => response.json())
         .then((user) => setLoginUser(user[0]));
     }

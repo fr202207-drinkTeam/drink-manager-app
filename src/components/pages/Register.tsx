@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, memo, useState } from "react";
+import { ChangeEvent, FC, memo, useEffect, useState } from "react";
 import { Box, Container, Stack } from "@mui/material";
 import { ActiveOrangeButton } from "../atoms/button/Button";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -103,31 +103,28 @@ const Register: FC<Props> = memo((props) => {
       );
       const authId = userCredential.user.uid;
       const data = {
-        userId: Number(userId),
         firstName: firstName,
         lastName: lastName,
         email: email,
         password: password,
+        confirmPassword:confirmPassword,
         authId: authId,
         isAdmin: false,
       };
       //JSONServerに登録
       const response = await fetch(
-        `http://localhost:8880/users?authId=${authId}`
+        `http://localhost:50000/userauth/${authId}`
       );
       const registeredUser = await response.json();
       //db.jsonに重複がない場合登録する
       if (registeredUser.length < 1) {
-        const request = {
+        const user = await fetch(
+          "http://localhost:50000/user",{
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(data),
-        };
-        const user = await fetch(
-          "http://localhost:8880/users",
-          request
+          body: JSON.stringify(data),}
         ).then((res) => res.json());
         setLoginUser(user); //Recoil
         document.cookie = `authId=${authId}; max-age=3600`;
@@ -137,6 +134,7 @@ const Register: FC<Props> = memo((props) => {
       }
     } catch (error) {
       setErrorFraudEmail("メールアドレスが既に存在しています");
+      console.log(error)
     }
   };
 
@@ -252,3 +250,7 @@ const Register: FC<Props> = memo((props) => {
 });
 
 export default Register;
+function acync() {
+  throw new Error("Function not implemented.");
+}
+

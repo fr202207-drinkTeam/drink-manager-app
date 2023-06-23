@@ -9,6 +9,8 @@ const PollTitleResult = ({ poll }: PollTitleProps) => {
   const startData = new Date(poll?.startDate).toLocaleDateString()
   const endData = new Date(poll?.endDate).toLocaleDateString()
 
+  // console.log(poll,222)
+
   return (
     <>
       {poll?.id?
@@ -68,7 +70,8 @@ const PollTitleResult = ({ poll }: PollTitleProps) => {
       >
         開催期間: {startData}&nbsp;〜&nbsp;{endData}
       </Box>
-        </Box> : <></>}
+        </Box>
+         : <></>} 
     </>
   );
 };

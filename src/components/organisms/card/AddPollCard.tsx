@@ -7,6 +7,7 @@ import { Items } from "../../../types/type";
 import { ActiveBorderButton, ActiveDarkBlueButton } from "../../atoms/button/Button";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import CheckIcon from '@mui/icons-material/Check';
+import { useState } from "react";
 
 type ItemCardProps = {
   data: Items[];
@@ -15,17 +16,23 @@ type ItemCardProps = {
   setSelectedItems: any
 };
 
-const ItemCard = ({ data, sxStyle, selectedItems, setSelectedItems }: ItemCardProps) => {
+const ItemCard = ({ data, sxStyle, selectedItems, setSelectedItems}: ItemCardProps) => {
   // const navigate = useNavigate();
-
+  const [selectedItem, setSelectedItem] = useState(false);
 
   const handleClick = async (id: number) => {
     if (!selectedItems.includes(id)) {
       setSelectedItems([...selectedItems, id]);
+      setSelectedItem(true)
+      console.log(selectedItem)
     } else {
       setSelectedItems(selectedItems.filter(item => item !== id));
+      setSelectedItem(false)
+
     }
   };
+
+  console.log(selectedItem)
 
   return (
     <>
@@ -50,6 +57,7 @@ const ItemCard = ({ data, sxStyle, selectedItems, setSelectedItems }: ItemCardPr
                   borderColor: "#bfbec5",
                   ...sxStyle,
                 }}
+                data-testid={selectedItem ? 'selected-card' : 'poll-card'}
                 key={index}
               >
                 <Typography
@@ -85,7 +93,7 @@ const ItemCard = ({ data, sxStyle, selectedItems, setSelectedItems }: ItemCardPr
                 <CardMedia
                   component="img"
                   alt="商品画像"
-                  image={drink.image[0]}
+                  image="../cocoa.png"
                   title="商品名"
                   sx={{
                     display: "block",
@@ -177,6 +185,7 @@ const ItemCard = ({ data, sxStyle, selectedItems, setSelectedItems }: ItemCardPr
                           xl:"18px"
                         },
                       }}
+                      data-testid={selectedItem ? 'add-button' : 'poll-button'}
                       event={() => {
                         handleClick(drink.id);
                       }}                  >
@@ -210,6 +219,7 @@ const ItemCard = ({ data, sxStyle, selectedItems, setSelectedItems }: ItemCardPr
                           xl:"18px"
                         },
                       }}
+                      data-testid={selectedItem ? 'add-button' : 'poll-button'}
                       event={() => {
                         handleClick(drink.id);
                       }}
