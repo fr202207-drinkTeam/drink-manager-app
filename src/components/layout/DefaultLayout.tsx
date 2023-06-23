@@ -67,20 +67,24 @@ function DefaultLayout({ children, props }: { children: any; props?: any }) {
 
   const container = window !== undefined ? () => document.body : undefined;
 
-  const images = ["../top.png", "../top.png", "../top.png"];
+  const images = [
+    "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+    "../top.png",
+    "../top.png",
+  ];
 
   return (
     <React.Fragment>
       <Header />
       {/* ユーザートップページのみスライダーの表示 */}
       {location.pathname === "/home" ? (
-        <Slider
-          images={images}
-          slidesPerView={1}
-          loop={false}
-          autoplay={{ delay: 3000, disableOnInteraction: false }}
-          navigation={false}
-        />
+          <Slider
+            images={images}
+            slidesPerView={1}
+            loop={false}
+            autoplay={{ delay: 3000, disableOnInteraction: false }}
+            navigation={false}
+          />
       ) : (
         ""
       )}
@@ -133,6 +137,7 @@ function DefaultLayout({ children, props }: { children: any; props?: any }) {
               edge="start"
               onClick={handleDrawerToggle}
               sx={{ display: { md: "none" }, color: "#ea6f00" }}
+              disableFocusRipple
             >
               <SearchIcon />
               <Typography variant="h6" noWrap>

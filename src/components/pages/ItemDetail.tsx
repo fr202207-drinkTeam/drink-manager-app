@@ -54,11 +54,29 @@ const ItemDetail: FC = memo(() => {
                     width: "100%",
                   }}
                 >
+                  <Typography
+                      variant="body1"
+                      component="p"
+                      sx={{
+                        fontSize: {
+                          xs: "12px",
+                          sm: "12px",
+                          md: "18px",
+                          lg: "18px",
+                        },
+                        color: "#E83929",
+                        mb:2,
+                        textAlign: "center",
+                        background: "#fff"
+                      }}
+                    >
+                      承認待ち
+                    </Typography>
                   <Box
                     sx={{
                       display: "flex",
-                      mb: 5,
                       alignItems: "center",
+                      mb: 5,
                       ml: {
                         lg: 10,
                       },
@@ -81,7 +99,9 @@ const ItemDetail: FC = memo(() => {
                     >
                       {getAnItemResult.itemData.name}
                     </Typography>
+                    
                   </Box>
+                  
                   <Box
                     sx={{
                       display: {
@@ -127,7 +147,7 @@ const ItemDetail: FC = memo(() => {
                       <Typography
                         variant="body1"
                         component="p"
-                        sx={{ p: 1, mb: 2, fontSize: {xs: "14px", lg:"16px"} }}
+                        sx={{ p: 1, fontSize: {xs: "14px", lg:"16px"} }}
                       >
                         【商品説明】
                         <br />
@@ -135,6 +155,15 @@ const ItemDetail: FC = memo(() => {
                           /\n<a href=.*/,
                           ""
                         )}
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        component="p"
+                        sx={{ p: 1, mb: 2, fontSize: {xs: "14px", lg:"16px"} }}
+                      >
+                        購入場所：セブンイレブン
+                        <br />
+                        メーカー：グリコ
                       </Typography>
                       <Typography
                         variant="subtitle1"
@@ -176,7 +205,32 @@ const ItemDetail: FC = memo(() => {
                   ) : (
                     <></>
                   )}
+                  
                 </Box>
+                <Box sx={{ display: "flex", mr: { lg: 5 } }}>
+                      <ActiveDarkBlueButton
+                        event={() => navigate(`/adminhome/itemedit/${itemId}`)}
+                        sxStyle={{
+                          my: 2,
+                          ml: "auto",
+                          mr: 2,
+                        }}
+                      >
+                        承認
+                      </ActiveDarkBlueButton>
+                      <ModalWindow
+                        title=""
+                        content="商品データを本当に却下しますか？"
+                        openButtonColor="red"
+                        completeButtonColor="red"
+                        completeButtonName="却下"
+                        completeAction={() => console.log("却下")}
+                        cancelButtonColor="gray"
+                        openButtonSxStyle={{
+                          my: 2,
+                        }}
+                      />
+                    </Box>
               </>
             )
           ) : (

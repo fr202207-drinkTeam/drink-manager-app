@@ -5,6 +5,7 @@ import AddItem from "../components/pages/AddItem";
 import ItemEdit from "../components/pages/ItemEdit";
 import AddPoll from "../components/pages/AddPoll";
 import AdminHome from "../components/pages/AdminHome";
+import BannerEdit from "../components/pages/BannerEdit";
 import { SetStateAction } from "react";
 import PollEditFiltering from "../components/pages/PollEditFiltering";
 
@@ -25,4 +26,5 @@ export const AdminRouter = [
   { path: "/addpoll", element: <AddPoll /> },
   { path: "/polleditfiltering", element: <PollEditFiltering /> },
   { path: "/itemedit/:id", element: <ItemEdit /> },
+  { path: "/banneredit", element: <BannerEdit /> },
 ];

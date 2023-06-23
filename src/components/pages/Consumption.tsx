@@ -126,54 +126,75 @@ const Consumption: FC = memo(() => {
     <Paper
       sx={{
         mb: 5,
-        width: "100%",
+        width: "95%",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        py: "30px",
+        p: { xs: "10px", sm: "10px", md: "10px", lg: "30px" },
       }}
     >
       <Box id="top" />
+      <Box sx={{ width: "100%" }}>
         <AdmTitleText>消費在庫入力</AdmTitleText>
-      {itemError ? (
-        <Alert severity="error" sx={{ marginTop: "30px", fontSize: "20px" }}>
-          <AlertTitle>Error</AlertTitle>
-          データが見つかりませんでした。
-        </Alert>
-      ) : itemLoading ? (
-        <CircularProgress sx={{ marginTop: "30px", marginBottom: "40px" }} />
-      ) : (
-        <StockCard
-          itemData={itemData}
-          inTheOfficeItemArr={inTheOfficeItemArr}
-          inputValueArr={inputValueArr}
-          setInputValueArr={setInputValueArr}
+        {itemError ? (
+          <Alert severity="error" sx={{ marginTop: "30px", fontSize: "20px" }}>
+            <AlertTitle>Error</AlertTitle>
+            データが見つかりませんでした。
+          </Alert>
+        ) : itemLoading ? (
+          <CircularProgress sx={{ marginTop: "30px", marginBottom: "40px" }} />
+        ) : (
+          <StockCard
+            itemData={itemData}
+            inTheOfficeItemArr={inTheOfficeItemArr}
+            inputValueArr={inputValueArr}
+            setInputValueArr={setInputValueArr}
+            sxStyle={{
+            maxWidth: {
+              xs: "200px",
+              sm: "200px",
+              md: "300px",
+              lg: "300px",
+              xl: "300px"
+            },
+            minWidth: {
+              xs: "200px",
+              sm: "200px",
+              md: "250px",
+              lg: "250px",
+              xl: "295px"
+            }, mb: 1
+          }}
+          />
+        )}
+        <div style={{ display: "inline-flex" }}></div>
+        <ModalWindow
+          title="送信します、よろしいですか？"
+          content={""}
+          openButtonColor="blue"
+          buttonName="送信"
+          completeButtonColor={"blue"}
+          completeButtonName={`はい`}
+          completeAction={onClickSubmit}
+          cancelButtonColor={"red"}
+          openButtonSxStyle={{
+            my: "50px",
+            mx: "auto",
+            py: "10px",
+            px: "30px",
+            display: "block",
+            fontSize: { xs: "14px", sm: "16px", md: "20px", lg: "20px" },
+            borderRadius: 3,
+          }}
         />
-      )}
-      <div style={{ display: "inline-flex" }}></div>
-      <ModalWindow
-        title="送信します、よろしいですか？"
-        content={""}
-        openButtonColor="blue"
-        buttonName="送信"
-        completeButtonColor={"blue"}
-        completeButtonName={`はい`}
-        completeAction={onClickSubmit}
-        cancelButtonColor={"red"}
-        openButtonSxStyle={{
-          my: "50px",
-          py: "10px",
-          px: "30px",
-          fontSize: {xs: "14px", sm: "16px", md: "20px", lg: "20px"},
-          borderRadius: 3,
-        }}
-      />
+      </Box>
       {inputValueArrError && (
         <Box sx={{ color: "red", fontSize: 15, marginBottom: 1, mt: 1 }}>
           {inputValueArrError}
         </Box>
       )}
+
       {inputValueArrAllError && (
         <Box sx={{ color: "red", fontSize: 15, marginBottom: 1, mt: 1 }}>
           {inputValueArrAllError}

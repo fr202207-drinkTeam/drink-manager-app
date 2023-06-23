@@ -109,7 +109,15 @@ const PreviewImage: FC<Props> = memo((props) => {
     <>
       <Typography variant="body2">{`画像数：(${inputLength}/3)`}</Typography>
       <ImageList
-        sx={{ width: "auto", height: 230 * inputLength, mx: "auto" }}
+        sx={{
+          width: "auto",
+          height: {
+            xs: 230 * inputLength,
+            sm: `${inputImages.length < 3 ? "230px" : "460px"}`,
+            lg: "230px",
+          },
+          mx: "auto",
+        }}
         cols={imageRows()}
         rowHeight={164}
       >
@@ -140,7 +148,7 @@ const PreviewImage: FC<Props> = memo((props) => {
                   style={{
                     width: width,
                     height: height,
-                    objectFit: "contain",
+                    objectFit: "cover",
                   }}
                 />
               </ImageListItem>

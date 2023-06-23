@@ -162,9 +162,11 @@ const ItemForm: FC<Props> = memo((props) => {
           <MenuItem value={4}>コーヒー/カフェインレス</MenuItem>
           <MenuItem value={5}>ティー</MenuItem>
           <MenuItem value={6}>ココア</MenuItem>
-          <MenuItem value={7}>その他</MenuItem>
+          <MenuItem value={7}>お菓子</MenuItem>
+          <MenuItem value={8}>その他</MenuItem>
         </Select>
 
+        {props.itemCategory !== 7 && props.itemCategory !== 0 && (
         <div>
         <FormLabel id="in-the-office" sx={{fontSize: {
                     xs: "14px",
@@ -178,6 +180,7 @@ const ItemForm: FC<Props> = memo((props) => {
           name="in-the-office"
           defaultValue="absence"
           onChange={(e) => onChangeInTheOffice(e)}
+          sx={{mb: 5}}
         >
           <FormControlLabel value="absence" control={<Radio />} label={
                     <Typography component="p" sx={{fontSize: {
@@ -201,6 +204,41 @@ const ItemForm: FC<Props> = memo((props) => {
                } />
         </RadioGroup>
         </div>
+        )}
+        {props.itemCategory === 7 && 
+              (
+                <Box>
+              <SecondaryInput
+                id="purchaseLocation"
+                label="購入場所"
+                value={""}
+                onChange={(e: any) => console.log(e.target.value)}
+                sx={{ width: "100%", mb: 2 }}
+                inputProps={{ maxLength: 18, sx: {
+                  fontSize: {
+                    xs: "14px",
+                    sm: "14px",
+                    md: "16px",
+                    lg: "16px",
+                  }} }}
+              />
+              <SecondaryInput
+                id="purchaseLocation"
+                label="メーカー"
+                value={""}
+                onChange={(e: any) => console.log(e.target.value)}
+                sx={{ width: "100%", mb: 5 }}
+                inputProps={{ maxLength: 18, sx: {
+                  fontSize: {
+                    xs: "14px",
+                    sm: "14px",
+                    md: "16px",
+                    lg: "16px",
+                  }} }}
+              />
+              </Box>
+              )
+              }
     </>
   );
 });
