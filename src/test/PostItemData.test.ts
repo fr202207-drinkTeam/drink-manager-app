@@ -1,4 +1,4 @@
-import PostItemData from "./PostItemData";
+import PostItemData from "../utils/PostItemData";
 
 type Data = {
   itemName: string;

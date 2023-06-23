@@ -1,7 +1,8 @@
 import React, { FC } from "react";
 import { Box, Container } from "@mui/material";
 import { ChangeEvent, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { ActiveOrangeButton } from "../atoms/button/Button";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../Firebase";
@@ -15,7 +16,6 @@ type Props = {
 };
 
 const LoginForm: FC<Props> = (props) => {
-  const { loginTitle } = props;
 
   const [errorMail, setErrorMail] = useState<boolean>(false);
   const [errorPass, setErrorPass] = useState<boolean>(false);
@@ -60,7 +60,7 @@ const LoginForm: FC<Props> = (props) => {
 
       // JSONサーバーからデータ取得
       const response = await fetch(
-        `http://localhost:8880/users?email=${loginedUser.email}`
+        `http://localhost:50000/user/${loginedUser.email}`
       );
       const user = await response.json();
       // Recoil
@@ -101,7 +101,7 @@ const LoginForm: FC<Props> = (props) => {
             xl: "30px"
           },
           fontWeight:"bold"
-        }}>{loginTitle}</Box>
+        }}>{props.loginTitle}</Box>
         <p style={{ fontSize: "13px" }}>*は必須入力項目です</p>
       </Box>
       <Box component="form" onSubmit={loginSubmit} sx={{ textAlign: "center" }}>

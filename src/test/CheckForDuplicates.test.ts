@@ -1,4 +1,4 @@
-import CheckForDuplicates from "./CheckForDuplicates";
+import CheckForDuplicates from "../utils/CheckForDuplicates";
 
 describe("商品の重複チェックテスト", () => {
   test("商品名として「jest商品」を渡したらtrueが返ってくること", async() => {

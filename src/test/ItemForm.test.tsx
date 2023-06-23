@@ -1,12 +1,12 @@
 import { render, fireEvent } from "@testing-library/react";
 import { screen } from "@testing-library/react";
-import AddItem from "../pages/AddItem";
+import AddItem from "../components/pages/AddItem";
 import { useState } from "react";
 import { MemoryRouter } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
-import LoginForm from "./LoginForm";
-import ItemForm from "./ItemForm";
+import LoginForm from "../components/organisms/LoginForm";
+import ItemForm from "../components/organisms/ItemForm";
 
 // describe("バリデーションテスト", () => {
 //   test("商品名バリデーションテスト", () => {

@@ -9,7 +9,7 @@ const useGetAllItem = (trigger: boolean) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:8880/items`);
+        const response = await fetch(`http://localhost:50000/items`);//API書き換え
         const data = await response.json();
         setItems(data);
       } catch (error) {

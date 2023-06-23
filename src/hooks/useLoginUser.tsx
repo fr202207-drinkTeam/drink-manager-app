@@ -12,7 +12,7 @@ export const useLoginUser = (props: Props) => {
   const { id } = props;
   const [loginUserInfo, setLoginUserInfo] = useRecoilState(loginUserState);
   useEffect(() => {
-    axios.get<Users>(`http://localhost:8880/users/${id}`).then((res) => {
+    axios.get<Users>(`http://localhost:50000/user/${id}`).then((res) => {
       setLoginUserInfo(res.data);
     });
   }, [setLoginUserInfo]);

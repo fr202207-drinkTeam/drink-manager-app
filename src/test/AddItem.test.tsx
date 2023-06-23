@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import AddItem from "./AddItem";
+import AddItem from "../components/pages/AddItem";
 import { MemoryRouter } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
