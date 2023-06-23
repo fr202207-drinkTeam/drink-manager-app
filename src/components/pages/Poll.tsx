@@ -12,6 +12,8 @@ import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 import PollComplateTitle from "../molecules/poll/PollComplateTitle";
 
+export const findById = (recipeList: Questionnaire[], id: number) => recipeList.find((questionnaire: Questionnaire) => questionnaire.id === id)
+
 const Poll = memo(() => {
   //当月（開催中）のアンケートだけ表示。それ以外は非表示
   const PopularitemData: Items[] = useGetPollCategoryItem(1);
@@ -44,7 +46,6 @@ const Poll = memo(() => {
 
   const now = new Date();
   now.setHours(0, 0, 0, 0);
-
 
   return (
     <>

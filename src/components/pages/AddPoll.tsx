@@ -95,11 +95,11 @@ const AddPoll = memo(() => {
   //投票名
   const validatePollName = () => {
     if (!pollName) {
-      setPollNameError("*投票名を入力してください");
+      setPollNameError("投票名を入力してください");
       return false;
     }
     if (pollName.length < 5) {
-      setPollNameError("*5文字以上の入力が必要です");
+      setPollNameError("5文字以上の入力が必要です");
       return false;
     }
     setPollNameError("");
@@ -108,7 +108,7 @@ const AddPoll = memo(() => {
   //投票詳細
   const validateDescription = () => {
     if (!pollDescription) {
-      setDescriptionError("*投票詳細を入力してください");
+      setDescriptionError("投票詳細を入力してください");
       return false;
     }
     if (pollDescription.length < 5) {
@@ -122,19 +122,19 @@ const AddPoll = memo(() => {
   const validateDate = () => {
   
     if (timeDifference > oneMonthInMilliseconds) {
-      setDateError("*投票期間は1ヶ月以内で設定してください。");
+      setDateError("投票期間は1ヶ月以内で設定してください。");
       return false;
     }
     if (!startPeriodDate || !endPeriodDate) {
-      setDateError("*投票期間を入れてください");
+      setDateError("投票期間を入れてください");
       return false;
     }
     if (startPeriodDate >= endPeriodDate) {
-      setDateError("*投票期間が正しくありません。再度確認してください。");
+      setDateError("投票期間が正しくありません。再度確認してください。");
       return false;
     }
     if (isPopularOverlapping && isOthersOverlapping) {
-      setDateError("*投票期間が被っています。投票期間を再度確認してください。");
+      setDateError("投票期間が被っています。投票期間を再度確認してください。");
       return false;
     }
     setDateError("");
@@ -143,15 +143,15 @@ const AddPoll = memo(() => {
   //投票カテゴリー
   const validateCategory = () => {
     if (pollCategory === "投票種別を選択してください") {
-      setCategoryError("*投票種別を選択してください");
+      setCategoryError("投票種別を選択してください");
       return false;
     }
     if (isPopularOverlapping && pollCategory === "1") {
-      setCategoryError("*人気投票が同一期間で重複するため登録できません");
+      setCategoryError("人気投票が同一期間で重複するため登録できません");
       return false;
     }
     if (isOthersOverlapping && pollCategory === "2") {
-      setCategoryError("*その他投票が同一期間で重複するため登録できません");
+      setCategoryError("その他投票が同一期間で重複するため登録できません");
       return false;
     }
     setCategoryError("");
@@ -160,15 +160,15 @@ const AddPoll = memo(() => {
   ///投票選択商品
   const validateSelectedItems = () => {
     if (selectedItems.length === 0) {
-      setSelectedItemsError("*投票に追加する商品を選択してください");
+      setSelectedItemsError("投票に追加する商品を選択してください");
       return false;
     }
     if (selectedItems.length >= 15) {
-      setSelectedItemsError("*投票に追加できる商品は15件までです");
+      setSelectedItemsError("投票に追加できる商品は15件までです");
       return false;
     }
     if (selectedItems.length === 1) {
-      setSelectedItemsError("*投票商品が1件の状態では登録できません");
+      setSelectedItemsError("投票商品が1件の状態では登録できません");
       return false;
     }
     setSelectedItemsError("");
@@ -231,7 +231,7 @@ const AddPoll = memo(() => {
           console.log(e)
         });
     } else {
-      setAllError("*入力内容の確認をしてください");
+      setAllError("入力内容の確認をしてください");
     }
   };
 

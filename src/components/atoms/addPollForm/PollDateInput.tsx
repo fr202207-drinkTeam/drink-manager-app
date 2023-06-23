@@ -118,7 +118,7 @@ const PollDateInput: FC<PollDateInputProps> = ({
               name="enddate"
               value={endPeriodDate}
               onChange={handleEndDateChange}
-              placeholder="日付"
+              placeholder="日付2"
               InputLabelProps={{
                 shrink: true,
               }}

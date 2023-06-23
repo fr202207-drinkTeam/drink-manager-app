@@ -24,6 +24,8 @@ const PollCategorySelect: FC<PollCategorySelectProps> = ({
           <Select
             onChange={(e: SelectChangeEvent) => setPollCategory(e.target.value)}
             value={pollCategory}
+            placeholder="投票種別を選択してください"
+            name="投票種別を選択してください"
             sx={{ my: 2, backgroundColor: "#fffffc",width: "100%" }}
             required
           >

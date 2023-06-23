@@ -38,13 +38,12 @@ export type Items = {
 export type Questionnaire = {
   id: number;
   name: string;
-  Polleditems: [
+  Polleditems: 
     {
       id: number;
       itemId?: number;
       questionnairId?: number;
-    }
-  ];
+    }[];
   description: string;
   createdAt: Date;
   category: number;
