@@ -3221,6 +3221,17 @@
       "createdAt": "2023-06-12T05:37:19.415Z",
       "updatedAt": "2023-06-12T05:37:19.415Z",
       "id": 64
+    },
+    {
+      "userId": 1,
+      "content": "ててててててててててててててててててってててててってててててててて/nameS/テスト 太郎/nameE/",
+      "itemId": "0",
+      "postImage": [
+        "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/e267e51c-b523-401f-a4ec-6a8ffd9534aa?alt=media&token=88a9bdeb-8ae9-4da8-be89-9d4a2a9d60d8"
+      ],
+      "createdAt": "2023-06-20T02:23:03.796Z",
+      "updatedAt": "2023-06-20T02:23:03.796Z",
+      "id": 65
     }
   ],
   "comments": [

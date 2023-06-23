@@ -10,10 +10,11 @@ const useGetAnItem = (props: Props) => {
   const [isComplete, setIsComplete] = useState(false);
   useEffect(() => {
     if (!props.itemId) return;
-    fetch(`http://localhost:8880/items?id=${props.itemId}`, { method: "GET" })
+    fetch(`http://localhost:50000/getItemData/${props.itemId}`, { method: "GET" })
       .then((res) => res.json())
       .then((data) => {
-        setItemData(data[0]);
+        console.log(data)
+        setItemData(data);
         setIsComplete(true);
         props.onFetchComplete?.(false);
       })
