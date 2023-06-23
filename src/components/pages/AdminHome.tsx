@@ -289,7 +289,7 @@ const AdminHome: FC<Props> = memo((props) => {
               </Typography>
 
               <Box sx={{ display: "flex", mx: "50px", mb: "30px" }}>
-                <Link to="/adminhome/addpoll">
+                <Link to="/adminhome/banneredit">
                   <Box
                     sx={{
                       width: { xs: "100px", sm: "100px", md: 150, lg: 150 },

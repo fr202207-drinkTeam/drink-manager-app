@@ -17,6 +17,7 @@ import previewImages from "../../utils/previewImages";
 import ImgPathConversion from "../../utils/ImgPathConversion";
 import { Items, Post, Users } from "../../types/type";
 import ModalWindow from "./ModalWindow";
+import axios, { AxiosError } from "axios";
 
 // 全商品データ、商品情報取得時エラー、ログインユーザー情報、投稿編集データ、投稿編集のset関数
 type Props = {
@@ -39,7 +40,6 @@ const PostForm: FC<Props> = memo((props) => {
     reloadPost,
     setReloadPost,
   } = props;
-
   // 入力した画像ファイル格納
   const [inputImages, setInputImages] = useState<File[]>([]);
   // 投稿内容のバリデーションチェック
@@ -67,6 +67,7 @@ const PostForm: FC<Props> = memo((props) => {
 
   // TODO 投稿送信処理
   const postPostData = async () => {
+
     // 投稿のバリデーションチェック
     if (
       postForm.current![0].value.length < 20 ||
@@ -121,23 +122,23 @@ const PostForm: FC<Props> = memo((props) => {
     const newPost = {
       userId: loginUser.id,
       content: content,
-      itemId: itemId,
-      postImage: imagePaths,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      itemId: parseInt(itemId),
+      postImages: imagePaths,
+      // createdAt: new Date(),
+      // updatedAt: new Date(),
     };
 
-    fetch("http://localhost:8880/posts", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newPost),
-    }).then(() => {
-      setPostError(false);
-      setReloadPost(!reloadPost);
-      postForm.current.reset();
-      setSelectedItemId(0);
-      setInputImages([]);
-    });
+    axios.post("http://localhost:50000/posts", newPost)
+      .then((res) => {
+        console.log(res.data)
+        setPostError(false);
+        setReloadPost(!reloadPost);
+        postForm.current.reset();
+        setSelectedItemId(0);
+        setInputImages([]);
+      }).catch((error: AxiosError)=>{
+        console.log(error.response?.data)
+      })
   };
 
   return (
@@ -185,9 +186,9 @@ const PostForm: FC<Props> = memo((props) => {
           variant="standard"
           fullWidth
           onChange={(event: SelectChangeEvent<number>) => {
-            let itemNum = event.target.value
+            let itemNum = event.target.value;
             if (typeof event.target.value === "string") {
-              itemNum = parseFloat(event.target.value)
+              itemNum = parseFloat(event.target.value);
             }
             setSelectedItemId(+itemNum);
           }}
