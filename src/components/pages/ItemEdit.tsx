@@ -25,31 +25,34 @@ import PreviewImage from "../molecules/PreviewImage";
 import previewImages from "../../utils/previewImages";
 import ImgPathConversion from "../../utils/ImgPathConversion";
 import type {Users} from "../../types/type"
+import CheckForDuplicates from "../../utils/CheckForDuplicates";
+import PutItemData from "../../utils/PutItemData";
+import GetAnItemData from "../../utils/GetAnItemData";
 
 const ItemEdit: FC = memo(() => {
   const navigate: NavigateFunction = useNavigate();
   const [itemName, setItemName] = useState<string>("");
   const [itemDescription, setItemDescription] = useState<string>("");
   const [itemCategory, setItemCategory] = useState<number>(0);
-  const isFirstRender = useRef(true);
   const [updating, setUpdating] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [inputImages, setInputImages] = useState<File[]>([]);
   const [presenceOrAbsence, setPresenceOrAbsence] = useState<boolean>(false);
   const [isDuplicateData, setIsDuplicateData] = useState<boolean>(false)
+  const [getItemData, setGetItemData] = useState<any>("")
 
   // パラメーターのitemIdを元にデータ取得
   const paramsData: Readonly<Params<string>> = useParams();
   const itemId: number = Number(paramsData.id);
-  const getAnItemComplete = (isComplete: boolean) => {
-    setLoading(isComplete);
-  };
-  const getAnItemResult = useGetAnItem({
-    itemId: itemId,
-    onFetchComplete: getAnItemComplete,
-  });
+  // const getAnItemComplete = (isComplete: boolean) => {
+  //   setLoading(isComplete);
+  // };
+  // const getAnItemResult = useGetAnItem({
+  //   itemId: itemId,
+  //   onFetchComplete: getAnItemComplete,
+  // });
 
-  // recoilからログインユーザー情報を取得
+  // クッキーからログインユーザー情報を取得
   const authId: string = Cookies.get("authId")!;
   const loginUser: Users = useLoginUserFetch({ authId: authId });
 
@@ -64,60 +67,88 @@ const ItemEdit: FC = memo(() => {
 
   // データ取得後、内容をstateにセット
   useEffect(() => {
-    if (getAnItemResult.itemData) {
-      setInputImages(
-        getAnItemResult.itemData.image.map(
-          (image: string) => new File([], image)
-        )
-      );
-      setItemName(getAnItemResult.itemData.name);
-      setItemDescription(getAnItemResult.itemData.description);
-      setItemCategory(getAnItemResult.itemData.itemCategory);
-      setPresenceOrAbsence(getAnItemResult.itemData.intheOffice)
+    console.log("useEffect")
+    const getResultItemData = GetAnItemData({itemId: itemId})
+    const itemData = getResultItemData?.itemData
+    const getSuccess = getResultItemData?.getSuccess
+    if(itemData) {
+      if(!getSuccess) {
+        return;
+      } else {
+        console.log(typeof itemData)
+      //   setGetItemData(itemData)
+      //   if (itemData) {      
+      //     setInputImages(
+      //       itemData ? itemData.images.map((image: {id: number, itemId: number, imagePath: string, createdAt: Date}) => new File([], image.imagePath)) : []
+      //     );
+      // }
     }
-  }, [getAnItemResult.itemData]);
+      // setItemName(itemData.itemName);
+      // setItemDescription(itemData.description);
+      // setItemCategory(itemData.itemCategory);
+      // setPresenceOrAbsence(itemData.intheOffice)
+    }
+  }, [itemId]);
 
-  // データ追加処理(確定ボタン)
+  // データ更新処理(確定ボタン)
   const onClickEditItemData: () => Promise<void> = async () => {
     setUpdating(true);
-    if(itemName !== getAnItemResult.itemData.name) {
-      const res = await fetch(`http://localhost:8880/items?name=${itemName}`,
-    {
-      method: "GET",
-    })
-    const data = await res.json();
-    if(data.length > 0){
-      setIsDuplicateData(true)
-      setUpdating(false)
-      return;
-    }
-    }
+    const itemNameIsPassed = await CheckForDuplicates({ itemName: itemName });
+      if (!itemNameIsPassed) {
+        setIsDuplicateData(true);
+        setUpdating(false);
+        return;
+      }
     
+    const imagePath: string | unknown[] = await ImgPathConversion({ imgFiles: inputImages });
+    const imagePaths = imagePath.map((image) => {
+      return { imagePath: image };
+    });
 
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-    }
-    const imagePaths: string | unknown[] = await ImgPathConversion({ imgFiles: inputImages });
-    fetch(`http://localhost:8880/items/${itemId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: itemName,
-        description: itemDescription,
-        image: imagePaths,
-        itemCategory: itemCategory,
-        createdAt: new Date(),
-        intheOffice: presenceOrAbsence,
-        author: loginUser.id,
-        otherItem: false,
-        isDiscontinued: false
-      }),
-    }).then(() => {
+    const data = {
+      itemId: Number(itemId),
+      itemName: itemName,
+      description: itemDescription,
+      itemCategory: itemCategory,
+      inTheOffice: presenceOrAbsence,
+      approval: true,
+      author: loginUser.id,
+      isDiscontinued: false,
+      images: imagePaths,
+    };
+
+    const putItemResult = await PutItemData(data)
+
+    if (putItemResult) {
       setUpdating(false);
       navigate("/adminhome");
-    });
+      } else {
+        setUpdating(false);
+        return
+      }
+        
+      
+
+    // fetch(`http://localhost:8880/items/${itemId}`, {
+    //   method: "PUT",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     name: itemName,
+    //     description: itemDescription,
+    //     image: imagePaths,
+    //     itemCategory: itemCategory,
+    //     createdAt: new Date(),
+    //     intheOffice: presenceOrAbsence,
+    //     author: loginUser.id,
+    //     otherItem: false,
+    //     isDiscontinued: false
+    //   }),
+    // }).then(() => {
+    //   setUpdating(false);
+    //   navigate("/adminhome");
+    // });
   };
 
   return (
@@ -125,8 +156,8 @@ const ItemEdit: FC = memo(() => {
       {loading ? (
         <div>Loading...</div>
       ) : (
-        getAnItemResult.itemData ? (
-          getAnItemResult.itemData.isDiscontinued ? (
+        getItemData ? (
+          getItemData.isDiscontinued ? (
             <div>該当する商品がありません</div>
           ) : (
             <Paper sx={{ p: 5, width: {xs: "100%", sm: "100%", md: "100%", lg:"80%"}, m: "auto" }}>

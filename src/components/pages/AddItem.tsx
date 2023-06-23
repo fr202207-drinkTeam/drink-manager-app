@@ -39,7 +39,7 @@ const AddItem: FC<Props> = memo(
     const isAdmin = Cookies.get("isAdmin")!;
     const loginUser: Users = useLoginUserFetch({ authId: authId });
 
-    // 【更新版】データ追加処理(確定ボタン)
+    // データ追加処理(確定ボタン)
     const onClickAddItemData: () => Promise<void> = async () => {
       setAdding(true);
 
@@ -49,7 +49,7 @@ const AddItem: FC<Props> = memo(
         setAdding(false);
         return;
       }
-      const imagePath = await ImgPathConversion({
+      const imagePath: string | unknown[] = await ImgPathConversion({
         imgFiles: itemImages,
       });
       const imagePaths = imagePath.map((image) => {
@@ -129,6 +129,7 @@ const AddItem: FC<Props> = memo(
               {isDuplicateData && (
                 <>
                   <Typography
+                    id="duplication-error"
                     variant="body1"
                     component="div"
                     textAlign="center"

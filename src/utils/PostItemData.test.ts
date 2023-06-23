@@ -31,6 +31,7 @@ const data: Data = {
 describe("商品の追加登録テスト", () => {
   test("商品追加が成功すること", async () => {
     const result: Boolean = await PostItemData(data);
+    jest.spyOn(console, "error").mockImplementation();
     expect(result).toBe(true);
   });
 });
