@@ -24,7 +24,7 @@ export type Users = {
 
 export type Items = {
   id: number;
-  name: string;
+  itemName: string;
   description: string;
   image: string[];
   itemCategory?: number | null;
