@@ -24,7 +24,7 @@ import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 import PreviewImage from "../molecules/PreviewImage";
 import previewImages from "../../utils/previewImages";
 import ImgPathConversion from "../../utils/ImgPathConversion";
-import type {Users} from "../../types/type"
+import type {Item, Users, ItemImage} from "../../types/type"
 import CheckForDuplicates from "../../utils/CheckForDuplicates";
 import PutItemData from "../../utils/PutItemData";
 import GetAnItemData from "../../utils/GetAnItemData";
@@ -67,27 +67,22 @@ const ItemEdit: FC = memo(() => {
 
   // データ取得後、内容をstateにセット
   useEffect(() => {
-    console.log("useEffect")
-    const getResultItemData = GetAnItemData({itemId: itemId})
-    const itemData = getResultItemData?.itemData
-    const getSuccess = getResultItemData?.getSuccess
-    if(itemData) {
-      if(!getSuccess) {
-        return;
-      } else {
-        console.log(typeof itemData)
-      //   setGetItemData(itemData)
-      //   if (itemData) {      
-      //     setInputImages(
-      //       itemData ? itemData.images.map((image: {id: number, itemId: number, imagePath: string, createdAt: Date}) => new File([], image.imagePath)) : []
-      //     );
-      // }
+    const getItemFnc = async (): Promise<any> => {
+      const getResultItemData: Item = await GetAnItemData({itemId: itemId})
+      console.log(getResultItemData);
+    if(getResultItemData) {
+      setGetItemData(getResultItemData)
+      console.log(getResultItemData.images)
+      setItemName(getResultItemData.itemName)
+      setItemDescription(getResultItemData.description)
+      setItemCategory(getResultItemData.itemCategory)
+      setInputImages(
+        getResultItemData.images.map((image: ItemImage) => new File([], image.imagePath))
+            );
+      setLoading(false)
     }
-      // setItemName(itemData.itemName);
-      // setItemDescription(itemData.description);
-      // setItemCategory(itemData.itemCategory);
-      // setPresenceOrAbsence(itemData.intheOffice)
     }
+    getItemFnc()
   }, [itemId]);
 
   // データ更新処理(確定ボタン)
@@ -126,29 +121,6 @@ const ItemEdit: FC = memo(() => {
         setUpdating(false);
         return
       }
-        
-      
-
-    // fetch(`http://localhost:8880/items/${itemId}`, {
-    //   method: "PUT",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     name: itemName,
-    //     description: itemDescription,
-    //     image: imagePaths,
-    //     itemCategory: itemCategory,
-    //     createdAt: new Date(),
-    //     intheOffice: presenceOrAbsence,
-    //     author: loginUser.id,
-    //     otherItem: false,
-    //     isDiscontinued: false
-    //   }),
-    // }).then(() => {
-    //   setUpdating(false);
-    //   navigate("/adminhome");
-    // });
   };
 
   return (
@@ -338,7 +310,7 @@ const ItemEdit: FC = memo(() => {
                 row
                 aria-labelledby="in-the-office"
                 name="in-the-office"
-                defaultValue="presence"
+                defaultValue="absence"
                 onChange={(e) => onChangeInTheOffice(e)}
                 sx={{mb: 5}}
                 >
@@ -486,7 +458,6 @@ const ItemEdit: FC = memo(() => {
           )}
         </Paper>
           )
-          
         ) :(
           <div>該当する商品がありません</div>
         )
