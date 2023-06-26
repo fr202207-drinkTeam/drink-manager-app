@@ -86,7 +86,7 @@ const StockCard: FC<Props> = (props) => {
                         borderBottom: "double",
                       }}
                     >
-                      {`${drink.name}`}
+                      {`${drink.itemName}`}
                     </Typography>
                   </CardContent>
                   <Typography sx={{ mx: 2, mb: 2, fontSize: {xs: "12px", sm: "12px", md: "14px", lg: "14px"} }}>

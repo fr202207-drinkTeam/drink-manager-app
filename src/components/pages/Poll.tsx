@@ -27,7 +27,6 @@ const Poll = memo(() => {
   const PopularPollData: Polls[] = useGetPollCategoryData(1);
   const OthersPollData: Polls[] = useGetPollCategoryData(2);
   const pollTitle = [PopularPollTitle[0]].concat(OtherPollTitle[0]);
-
   //票のuserIdがログインユーザと一致しているかしていないか（ログインユーザが投票しているデータはあるか）
   const popularData = PopularPollData?.filter((pop) => {
     return pop.userId === loginUser.id;
