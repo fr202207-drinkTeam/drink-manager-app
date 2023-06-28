@@ -84,7 +84,7 @@ export type StockHistory = {
   id: number;
   itemId: number;
   quantity: number;
-  day: string;
+  createdAt: string;
   incOrDec: boolean;
   stockAmount: number;
 };
