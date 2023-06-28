@@ -4,7 +4,7 @@ import { Polls } from "../types/type";
 const useGetAnPoll = (id: number) => {
   const [polls, setPolls] = useState<Polls[]>([]);
 
- //poll取得
+ //投票idごとにpoll取得
  useEffect(() => {
   (async () => {
     try {

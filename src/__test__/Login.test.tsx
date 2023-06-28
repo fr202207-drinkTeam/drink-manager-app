@@ -6,6 +6,7 @@ import { MainRouter } from '../router/MainRouter';
 import Top from '../components/pages/Top';
 import EmailInput from '../components/atoms/login/EmailInput';
 import { FocusEvent } from 'react';
+import userEvent from '@testing-library/user-event';
 
 // yarn test src/components/LoginForm.test.js
 
@@ -21,6 +22,18 @@ describe('LoginForm', () => {
     );
     const titleElement = screen.getByText(loginTitle);
     expect(titleElement).toBeInTheDocument();
+  });
+
+  test('ボタン表示', async () => {
+    render(
+      <RecoilRoot>
+        <BrowserRouter>
+          <LoginForm loginTitle="Login" />
+        </BrowserRouter>
+      </RecoilRoot>
+    );
+    const buttons = await screen.findAllByRole("button");
+    expect(buttons).toHaveLength(2);
   });
 
   test('存在しないユーザのバリデーション表示', async () => {
@@ -86,6 +99,18 @@ describe('LoginForm', () => {
     expect(errorUserMessage).toBeVisible();//表示されているか
   });
 
+  test('typeがpasswordになっているか', async () => {
+    render(
+      <RecoilRoot>
+        <BrowserRouter>
+          <LoginForm loginTitle='Login' />
+        </BrowserRouter>
+      </RecoilRoot>
+    );
+    const passwordInput = screen.getByPlaceholderText('パスワード');
+    expect(passwordInput).toHaveAttribute("type","password");
+  });
+
   test('passwordinputのその他エラーメッセージ表示', () => {
     render(
       <RecoilRoot>
@@ -126,12 +151,13 @@ describe('LoginForm', () => {
         </RecoilRoot>
       </MemoryRouter>
     );
+    const submitButton=screen.getByTestId("submit");
     const emailInput = screen.getByPlaceholderText('example@rakus-partners.co.jp')as HTMLInputElement;
     const passwordInput = screen.getByPlaceholderText('パスワード')as HTMLInputElement;
-    const submitButton = screen.getByRole('button', { name: 'ログイン' })as HTMLButtonElement;
-    fireEvent.change(emailInput, { target: { value: 'example2@rakus-partners.co.jp' } });
-    fireEvent.change(passwordInput, { target: { value: 'Example2' } });
-    fireEvent.click(submitButton);
+    userEvent.type(emailInput,"example2@rakus-partners.co.jp")
+    userEvent.type(passwordInput,"Example2")
+    userEvent.click(submitButton);
+
     await waitFor(() => {
       expect(screen.getByRole('button', { name: 'ログアウト' })).toBeInTheDocument();
     });

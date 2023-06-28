@@ -168,6 +168,7 @@ const ModalWindow: FC<Props> = memo((props: Props) => {
     <div>
       <OpenButton />
       <Modal
+        aria-label="transition-modal-title"
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
