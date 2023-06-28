@@ -66,7 +66,7 @@ const StockCard: FC<Props> = (props) => {
                     alt="商品画像"
                     height="140"
                     width="140"
-                    image={drink.image[0]}
+                    image="../cocoa.png"
                     title="商品名"
                     sx={{
                       display: "block",
@@ -86,7 +86,7 @@ const StockCard: FC<Props> = (props) => {
                         borderBottom: "double",
                       }}
                     >
-                      {`${drink.name}`}
+                      {`${drink.itemName}`}
                     </Typography>
                   </CardContent>
                   <Typography sx={{ mx: 2, mb: 2, fontSize: {xs: "12px", sm: "12px", md: "14px", lg: "14px"} }}>

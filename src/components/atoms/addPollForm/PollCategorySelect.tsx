@@ -4,8 +4,8 @@ import React, { FC } from "react";
 type PollCategorySelectProps = {
   pollCategory: string;
   setPollCategory: React.Dispatch<React.SetStateAction<string>>;
-  categoryError:string;
-  setCategoryError: React.Dispatch<React.SetStateAction<string>>;
+  categoryError?:string;
+  setCategoryError?: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const PollCategorySelect: FC<PollCategorySelectProps> = ({
@@ -24,13 +24,9 @@ const PollCategorySelect: FC<PollCategorySelectProps> = ({
           <Select
             onChange={(e: SelectChangeEvent) => setPollCategory(e.target.value)}
             value={pollCategory}
-            sx={{ my: 2, backgroundColor: "#fffffc",width: {
-              xs: "100%",
-              sm: "40%",
-              md: "40%",
-              lg: "40%",
-              xl: "40%"
-            }, }}
+            placeholder="投票種別を選択してください"
+            name="投票種別を選択してください"
+            sx={{ my: 2, backgroundColor: "#fffffc",width: "100%" }}
             required
           >
             <MenuItem value="投票種別を選択してください">

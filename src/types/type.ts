@@ -24,7 +24,7 @@ export type Users = {
 
 export type Items = {
   id: number;
-  name: string;
+  itemName: string;
   description: string;
   image: string[];
   itemCategory?: number | null;
@@ -38,13 +38,12 @@ export type Items = {
 export type Questionnaire = {
   id: number;
   name: string;
-  polledItems: [
+  Polleditems: 
     {
       id: number;
       itemId?: number;
-      result?: number;
-    }
-  ];
+      questionnairId?: number;
+    }[];
   description: string;
   createdAt: Date;
   category: number;
@@ -85,7 +84,7 @@ export type StockHistory = {
   id: number;
   itemId: number;
   quantity: number;
-  day: string;
+  createdAt: string;
   incOrDec: boolean;
   stockAmount: number;
 };

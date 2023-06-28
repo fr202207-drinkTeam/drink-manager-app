@@ -1,4 +1,4 @@
-import { FC, memo, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 import useGetAnItem from "../../hooks/useGetAnItem";
 import { NavigateFunction, Params, useNavigate, useParams } from "react-router";
 import { Box } from "@mui/system";
@@ -9,33 +9,40 @@ import FreeBreakfastIcon from "@mui/icons-material/FreeBreakfast";
 import ModalWindow from "../organisms/ModalWindow";
 import TimelineCorner from "../organisms/TimelineCorner";
 import Cookies from "js-cookie";
+import DiscontinuedItemProcessing from "../../utils/DiscontinuedItemProcessing";
 
 const ItemDetail: FC = memo(() => {
   const [loading, setLoading] = useState<boolean>(true);
+  const [imagePaths, setImagePaths] = useState<string[]>([])
   const paramsData: Readonly<Params<string>> = useParams();
   const itemId: number = Number(paramsData.id);
   const navigate: NavigateFunction = useNavigate();
-  const getAnItemComplete = (isComplete: boolean) => {
+
+  const getAnItemComplete: (isComplete: boolean) => void = (isComplete) => {
     setLoading(isComplete);
   };
+  
   const getAnItemResult = useGetAnItem({
     itemId: itemId,
     onFetchComplete: getAnItemComplete,
   });
   const isAdmin: string = Cookies.get("isAdmin")!;
 
-  // 投稿削除処理(削除ボタン)
+  useEffect(() => {
+    if(getAnItemResult.itemData) {
+      const itemImagePaths: string[] = getAnItemResult.itemData.images.map((itemImage: { createdAt: Date, id: number, imagePath: string, itemId: number }) => {
+        return itemImage.imagePath;
+      });
+      setImagePaths(itemImagePaths)
+    }
+  },[getAnItemResult.itemData])
+    
+  // 商品廃盤処理(削除ボタン)
   const onClickDeleteItem: () => Promise<void> = async () => {
-    getAnItemResult.itemData["isDiscontinued"] = true;
-    await fetch(`http://localhost:8880/items/${itemId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(getAnItemResult.itemData),
-    }).then(() => {
+    const successDiscontinued: boolean = await DiscontinuedItemProcessing({itemId: itemId})
+    if(successDiscontinued) {
       navigate("/adminhome");
-    });
+    }
   };
 
   return (
@@ -55,23 +62,23 @@ const ItemDetail: FC = memo(() => {
                   }}
                 >
                   <Typography
-                      variant="body1"
-                      component="p"
-                      sx={{
-                        fontSize: {
-                          xs: "12px",
-                          sm: "12px",
-                          md: "18px",
-                          lg: "18px",
-                        },
-                        color: "#E83929",
-                        mb:2,
-                        textAlign: "center",
-                        background: "#fff"
-                      }}
-                    >
-                      承認待ち
-                    </Typography>
+                    variant="body1"
+                    component="p"
+                    sx={{
+                      fontSize: {
+                        xs: "12px",
+                        sm: "12px",
+                        md: "18px",
+                        lg: "18px",
+                      },
+                      color: "#E83929",
+                      mb: 2,
+                      textAlign: "center",
+                      background: "#fff",
+                    }}
+                  >
+                    承認待ち
+                  </Typography>
                   <Box
                     sx={{
                       display: "flex",
@@ -97,11 +104,10 @@ const ItemDetail: FC = memo(() => {
                         },
                       }}
                     >
-                      {getAnItemResult.itemData.name}
+                      {getAnItemResult.itemData.itemName}
                     </Typography>
-                    
                   </Box>
-                  
+
                   <Box
                     sx={{
                       display: {
@@ -109,7 +115,7 @@ const ItemDetail: FC = memo(() => {
                       },
                       mb: { lg: 10 },
                       alignItems: "center",
-                      width: "100%"
+                      width: "100%",
                     }}
                   >
                     <Box
@@ -132,11 +138,12 @@ const ItemDetail: FC = memo(() => {
                           xs: 220,
                           sm: 400,
                           md: 400,
-                          lg: 400},
+                          lg: 400,
+                        },
                       }}
                     >
                       <Slider
-                        images={getAnItemResult.itemData.image}
+                        images={imagePaths}
                         slidesPerView={1}
                         loop={true}
                         navigation={true}
@@ -147,7 +154,7 @@ const ItemDetail: FC = memo(() => {
                       <Typography
                         variant="body1"
                         component="p"
-                        sx={{ p: 1, fontSize: {xs: "14px", lg:"16px"} }}
+                        sx={{ p: 1, fontSize: { xs: "14px", lg: "16px" } }}
                       >
                         【商品説明】
                         <br />
@@ -159,7 +166,11 @@ const ItemDetail: FC = memo(() => {
                       <Typography
                         variant="body1"
                         component="p"
-                        sx={{ p: 1, mb: 2, fontSize: {xs: "14px", lg:"16px"} }}
+                        sx={{
+                          p: 1,
+                          mb: 2,
+                          fontSize: { xs: "14px", lg: "16px" },
+                        }}
                       >
                         購入場所：セブンイレブン
                         <br />
@@ -169,7 +180,12 @@ const ItemDetail: FC = memo(() => {
                         variant="subtitle1"
                         component="div"
                         textAlign="center"
-                        sx={{ p: {lg: 1}, fontWeight: 600, fontSize: {xs: "12px", lg: "16px"}, pb: {xs: "7px"} }}
+                        sx={{
+                          p: { lg: 1 },
+                          fontWeight: 600,
+                          fontSize: { xs: "12px", lg: "16px" },
+                          pb: { xs: "7px" },
+                        }}
                       >
                         \ 商品に関連するタイムラインはこちら /
                       </Typography>
@@ -205,43 +221,42 @@ const ItemDetail: FC = memo(() => {
                   ) : (
                     <></>
                   )}
-                  
                 </Box>
-                <Box sx={{ display: "flex", mr: { lg: 5 } }}>
-                      <ActiveDarkBlueButton
-                        event={() => navigate(`/adminhome/itemedit/${itemId}`)}
-                        sxStyle={{
-                          my: 2,
-                          ml: "auto",
-                          mr: 2,
-                        }}
-                      >
-                        承認
-                      </ActiveDarkBlueButton>
-                      <ModalWindow
-                        title=""
-                        content="商品データを本当に却下しますか？"
-                        openButtonColor="red"
-                        completeButtonColor="red"
-                        completeButtonName="却下"
-                        completeAction={() => console.log("却下")}
-                        cancelButtonColor="gray"
-                        openButtonSxStyle={{
-                          my: 2,
-                        }}
-                      />
-                    </Box>
+                {/* <Box sx={{ display: "flex", mr: { lg: 5 } }}>
+                  <ActiveDarkBlueButton
+                    event={() => navigate(`/adminhome/itemedit/${itemId}`)}
+                    sxStyle={{
+                      my: 2,
+                      ml: "auto",
+                      mr: 2,
+                    }}
+                  >
+                    承認
+                  </ActiveDarkBlueButton>
+                  <ModalWindow
+                    title=""
+                    content="商品データを本当に却下しますか？"
+                    openButtonColor="red"
+                    completeButtonColor="red"
+                    completeButtonName="却下"
+                    completeAction={() => console.log("却下")}
+                    cancelButtonColor="gray"
+                    openButtonSxStyle={{
+                      my: 2,
+                    }}
+                  />
+                </Box> */}
               </>
             )
           ) : (
             <Typography
-                        variant="subtitle1"
-                        component="div"
-                        textAlign="center"
-                        sx={{ p: {lg: 1}, fontWeight: 600, fontSize: {xs: "12px"} }}
-                      >
-                        該当する商品がありません
-                      </Typography>
+              variant="subtitle1"
+              component="div"
+              textAlign="center"
+              sx={{ p: { lg: 1 }, fontWeight: 600, fontSize: { xs: "12px" } }}
+            >
+              該当する商品がありません
+            </Typography>
           )}
         </>
       )}

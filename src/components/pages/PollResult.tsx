@@ -14,7 +14,7 @@ const PollResult = memo(() => {
   const { id } = useParams();
   const [pollCount, setPollCounts] = useState<Items[]>([]);
   const [trigger, setTrigger] = useState(false);
-  const questionnaire: Questionnaire = useGetAnQuestionnaire(Number(id));
+  const questionnaire: any = useGetAnQuestionnaire(Number(id));
   const items: Items[] = useGetAllItems(trigger);
   const polls: Polls[] = useGetAnPoll(Number(id));
 
@@ -43,7 +43,6 @@ const PollResult = memo(() => {
   const values = Object.values(pollCounts).map(Number);
   values.sort((a, b) => b - a);
 
-
   //questionnerに登録されているpolledItemsのidを取得
   useEffect(() => {
     if (polls.length > 0 && questionnaire && items.length > 0) {
@@ -51,6 +50,7 @@ const PollResult = memo(() => {
       const polllCountItems = items.filter((item: Items) => {
         return pollResult.includes(item.id);
       });
+
       polllCountItems.sort((a: Items, b: Items) => {
         const aCount = pollCounts[a.id];
         const bCount = pollCounts[b.id];
@@ -257,7 +257,6 @@ const PollResult = memo(() => {
                               }} />
                             </Box>
                           ))}
-                       
                       </Box>
                     );
                   }

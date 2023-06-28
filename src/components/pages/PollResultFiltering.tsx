@@ -25,7 +25,7 @@ const PollResultFiltering = () => {
   useEffect(() => {
     //startdateが超えていたら
     (async () => {
-      const response = await fetch(`http://localhost:8880/questionnaire`);
+      const response = await fetch(`http://localhost:50000/questionnaires`);
       const data = await response.json();
       const period = data.map((question: Questionnaire) => {
         const endDate = new Date(question.endDate);
@@ -82,7 +82,7 @@ const PollResultFiltering = () => {
               "-webkit-repeating-linear-gradient(-45deg, #9acd32, #d4acad 2px, #fff 2px, #fff 4px)",
           }}
         >
-          過去の投票結果
+          過去の投票結果検索
         </Box>
       </Box>
       <Box id="top" />
@@ -94,7 +94,6 @@ const PollResultFiltering = () => {
         minWidth={500}
         margin={4}
       />
-      {/* flexDirection: {sx:"column",sm:"column",md:"",lg:"",xl:""} */}
       <Box>
         <Box sx={{ display: "flex", alignItems: "center", mt: 5, justifyContent: "center" }}>
           <Box sx={{ mt: 5 }}>

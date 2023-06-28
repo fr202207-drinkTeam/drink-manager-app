@@ -85,7 +85,7 @@ const PostForm: FC<Props> = memo((props) => {
     // 投稿内容の装飾
     let hashtagItem = "";
     if (item) {
-      hashtagItem = `/itemS/${item.name}/itemE/`;
+      hashtagItem = `/itemS/${item.itemName}/itemE/`;
     }
     const userName = `/nameS/${loginUser.firstName} ${loginUser.lastName}/nameE/`;
 
@@ -229,7 +229,7 @@ const PostForm: FC<Props> = memo((props) => {
           {itemData.map((item: Items) => {
             return (
               <MenuItem key={item.id} value={item.id}>
-                {item.name}
+                {item.itemName}
               </MenuItem>
             );
           })}

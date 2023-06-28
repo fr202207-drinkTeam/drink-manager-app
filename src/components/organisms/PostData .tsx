@@ -268,7 +268,7 @@ const PostData: FC<Props> = memo((props) => {
           {itemData && (
             <Link to={`/home/search/${itemData.id}`}>
               <Typography variant="body1" sx={{ color: "blue" }}>
-                # {itemData.name}
+                # {itemData.itemName}
               </Typography>
             </Link>
           )}

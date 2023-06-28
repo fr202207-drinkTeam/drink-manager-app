@@ -29,13 +29,12 @@ import useGetPollLatestTitle from "../../../hooks/useGetPollLatestTitle";
 type PollCardProps = {
   data: Items[];
   pollCategory: number;
-  pollNum?: number;
+  pollNum: number;
   sxStyle?: any;
 };
 
 const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
   const navigate = useNavigate();
-  const theme = useTheme();
   //login
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
@@ -44,16 +43,20 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
   const OthersPollData: Polls[] = useGetPollCategoryData(2);
   const PopularPollTitle: Questionnaire[] = useGetPollLatestTitle(1);
   const OtherPollTitle: Questionnaire[] = useGetPollLatestTitle(2);
+  console.log(PopularPollData,13)
 
   //票のuserIdがログインユーザと一致しているかしていないか（ログインユーザが投票しているデータはあるか）
   const popularData = PopularPollData?.filter((pop) => {
     return pop.userId === loginUser.id;
   });
 
+  console.log(PopularPollData,111)
+  console.log(loginUser.id,222)
+
   const othersData = OthersPollData?.filter((other) => {
     return other.userId === loginUser.id;
   });
-
+  
   //現在表示されている人気投票アンケートに投票しているか
   const isPopularQuestionnaireData = popularData.filter((p) => {
     return p.questionnaireId === PopularPollTitle[0]?.id
@@ -62,6 +65,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
   const popularItem = isPopularQuestionnaireData.map((p) => {
     return p.result
   })
+  console.log(popularItem,12)
   //現在表示されているその他投票アンケートに投票しているか
   const isOthersQuestionnaireData = othersData.filter((o) => {
     return o.questionnaireId === OtherPollTitle[0]?.id
@@ -82,7 +86,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
         result: drinkId,
         createdAt: new Date(),
       };
-      const response = await fetch("http://localhost:8880/polls", {
+      const response = await fetch("http://localhost:50000/poll", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -158,7 +162,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                         <CardMedia
                           component="img"
                           alt="商品画像"
-                          image={drink.image[0]}
+                          image="/cocoa.png"
                           title="商品名"
                           sx={{
                             display: "block",
@@ -183,7 +187,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                             left: 0,
                             width: "100%",
                             height: "100%",
-                            bgcolor: "RGB(255, 255, 0,0.3)",
+                            // bgcolor: "RGB(255, 255, 0,0.3)",
                           }}
                         />
                         <Typography
@@ -240,14 +244,20 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                             gutterBottom
                             sx={{
                               textAlign: "center",
-                              fontSize: "14px",
+                              fontSize: {
+                                xs: "12px",
+                                sm: "14px",
+                                md: "14px",
+                                lg:"18px",
+                                xl:"18px"
+                              },
                               borderBottom: "double",
                               fontWeight: "bold",
                               height: "200",
                               mt: 1,
                             }}
                           >
-                            {drink.name}
+                            {drink.itemName}
                           </Typography>
                         </CardContent>
                       </CardActionArea>
@@ -289,7 +299,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                         <CardMedia
                           component="img"
                           alt="商品画像"
-                          image={drink.image[0]}
+                          image="/cocoa.png"
                           title="商品名"
                           sx={{
                             display: "block",
@@ -361,7 +371,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                               mt: 1,
                             }}
                           >
-                            {drink.name}
+                            {drink.itemName}
                           </Typography>
                         </CardContent>
                       </CardActionArea>
@@ -452,7 +462,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                 ) : (
                   <Box sx={{ display: "flex", justifyContent: "center", mt: 1 }}>
                     <ModalWindow
-                      title={`${drink.name}に投票してもよろしいですか？？`}
+                      title={`${drink.itemName}に投票してもよろしいですか？？`}
                       content={"⚠️一つの投票につき一回までしか投票できません"}
                       openButtonColor={"pink"}
                       openButtonIcon={

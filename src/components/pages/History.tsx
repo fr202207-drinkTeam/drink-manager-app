@@ -23,7 +23,7 @@ import AdmTitleText from "../atoms/text/AdmTitleText";
 
 type Props = {
   itemId: number;
-  day: string;
+  createdAt: string;
   id?: number;
   incOrDecTrue: number;
   incOrDecFalse: number;
@@ -46,10 +46,10 @@ const History: FC = memo(() => {
 
   useEffect(() => {
     const historyDataFetch = async () => {
-      const historyResponse = await fetch("http://localhost:8880/stockhistory");
+      const historyResponse = await fetch("http://localhost:50000/stockhistory");
       const historyData = await historyResponse.json();
       const itemResponse = await fetch(
-        "http://localhost:8880/items?&otherItem=false"
+        "http://localhost:50000/intheofficeitems"
       );
       const itemData = await itemResponse.json();
       setItemDatas(itemData);
@@ -58,17 +58,20 @@ const History: FC = memo(() => {
         const items = itemData.find(
           (item: { id: number }) => item.id === history.itemId
         );
-        return items ? { ...history, name: items.name } : history;
+        return items ? { ...history, name: items.itemName } : history;
       });
+      console.log(itemObj,"itemObj")
+      console.log(itemObj.createdAt,"date")
       //消費データと補充データを合わせる（itemIdとdayの一致）
       const mergeObj: Props[] = Object.values(
         itemObj.reduce(
           (acc: { [key: string]: Props }, obj: StockHistoryWithName) => {
-            const key = obj.itemId + "-" + obj.day.split("T")[0];
+            const key = obj.itemId + "-" +(obj.createdAt.split("T")[0]);
+            console.log(key)
             if (!acc[key]) {
               acc[key] = {
                 itemId: obj.itemId,
-                day: obj.day,
+                createdAt: obj.createdAt,
                 name: obj.name,
                 incOrDecTrue: obj.incOrDec === true ? obj.quantity : 0, //補充数
                 incOrDecFalse: obj.incOrDec === false ? obj.quantity : 0, //消費数
@@ -82,11 +85,11 @@ const History: FC = memo(() => {
                 acc[key].incOrDecFalse += obj.quantity;
               }
               //最新日付（時間）を比較するため
-              const currentDateTime = new Date(obj.day).getTime();
-              const existingDateTime = new Date(acc[key].day).getTime();
+              const currentDateTime = new Date(obj.createdAt).getTime();
+              const existingDateTime = new Date(acc[key].createdAt).getTime();
               if (currentDateTime > existingDateTime) {
                 // 日付が最新の場合のみ更新する
-                acc[key].day = obj.day;
+                acc[key].createdAt = obj.createdAt;
                 acc[key].stockAmount = obj.stockAmount;
               }
             }
@@ -97,15 +100,15 @@ const History: FC = memo(() => {
       );
       //日付文字列を置き換え
       const dateMergeObj = mergeObj.map((item: Props) => {
-        const dateOnly = item.day?.split("T")[0];
+        const dateOnly =item.createdAt.split("T")[0];
         return {
           ...item,
-          day: dateOnly,
+          createdAt: dateOnly,
         };
       });
       // 日付最新順に並び替える
       dateMergeObj.sort((a: Props, b: Props) => {
-        return new Date(b.day).getTime() - new Date(a.day).getTime();
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
       });
       setOriginalItemName(dateMergeObj as Props[]); //初期履歴データ
       setFilterItemName(dateMergeObj as Props[]); //検索用履歴データ
@@ -131,7 +134,7 @@ const History: FC = memo(() => {
     //日付検索
     if (startDate && endDate) {
       matchResult = matchResult.filter(
-        (item) => item.day >= startDate && item.day <= endDate
+        (item) => item.createdAt >= startDate && item.createdAt <= endDate
       );
     }
     setFilterItemName(matchResult);
@@ -251,8 +254,8 @@ const History: FC = memo(() => {
                     </MenuItem>
                     {itemDatas.map((item: Items) => {
                       return (
-                        <MenuItem key={item.id} value={item.name}>
-                          {item.name}
+                        <MenuItem key={item.id} value={item.itemName}>
+                          {item.itemName}
                         </MenuItem>
                       );
                     })}
@@ -313,7 +316,7 @@ const History: FC = memo(() => {
                       {history.name}
                     </TableCell>
                     <TableCell align="right">
-                      {history.day
+                      {history.createdAt
                         .replace(/(^|[^0-9])0+/g, "$1")
                         .replace(/-/g, "/")}
                     </TableCell>

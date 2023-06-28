@@ -11,15 +11,13 @@ const useGetPollLatestTitle = (id: number) => {
       const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1); // 当月最初の日
       const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0); // 当月最終日
       try {
-        const response = await fetch(`http://localhost:8880/questionnaire?category=${Number(id)}`);
+        const response = await fetch(`http://localhost:50000/questionnaires/${Number(id)}`);//API接続OK
         const data = await response.json();
         const dateFilteredData = data.map((poll: Questionnaire) => {
           const startDate = new Date(poll.startDate);
           startDate.setHours(0, 0, 0, 0); 
-          
           const endDate = new Date(poll.endDate);
           endDate.setHours(0, 0, 0, 0); 
-          
           return {
             ...poll,
             startDate,
