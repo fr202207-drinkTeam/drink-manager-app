@@ -46,10 +46,10 @@ const History: FC = memo(() => {
 
   useEffect(() => {
     const historyDataFetch = async () => {
-      const historyResponse = await fetch("http://localhost:8880/stockhistory");
+      const historyResponse = await fetch("http://localhost:50000/stockhistory");
       const historyData = await historyResponse.json();
       const itemResponse = await fetch(
-        "http://localhost:8880/items?&otherItem=false"
+        "http://localhost:50000/intheofficeitems"
       );
       const itemData = await itemResponse.json();
       setItemDatas(itemData);
@@ -58,7 +58,7 @@ const History: FC = memo(() => {
         const items = itemData.find(
           (item: { id: number }) => item.id === history.itemId
         );
-        return items ? { ...history, name: items.name } : history;
+        return items ? { ...history, name: items.itemName } : history;
       });
       //消費データと補充データを合わせる（itemIdとdayの一致）
       const mergeObj: Props[] = Object.values(

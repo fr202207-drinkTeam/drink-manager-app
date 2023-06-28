@@ -91,7 +91,7 @@ describe('AddPoll', () => {
       expect(element).toBeVisible();
     });
   });
-  test('pollcategory空文字エラー', async () => {
+  test('pollcategory未選択エラー', async () => {
     render(
       <RecoilRoot>
         <BrowserRouter>
