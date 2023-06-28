@@ -257,7 +257,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                               mt: 1,
                             }}
                           >
-                            {drink.name}
+                            {drink.itemName}
                           </Typography>
                         </CardContent>
                       </CardActionArea>
@@ -371,7 +371,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                               mt: 1,
                             }}
                           >
-                            {drink.name}
+                            {drink.itemName}
                           </Typography>
                         </CardContent>
                       </CardActionArea>
@@ -462,7 +462,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                 ) : (
                   <Box sx={{ display: "flex", justifyContent: "center", mt: 1 }}>
                     <ModalWindow
-                      title={`${drink.name}に投票してもよろしいですか？？`}
+                      title={`${drink.itemName}に投票してもよろしいですか？？`}
                       content={"⚠️一つの投票につき一回までしか投票できません"}
                       openButtonColor={"pink"}
                       openButtonIcon={

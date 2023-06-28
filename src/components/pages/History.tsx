@@ -251,8 +251,8 @@ const History: FC = memo(() => {
                     </MenuItem>
                     {itemDatas.map((item: Items) => {
                       return (
-                        <MenuItem key={item.id} value={item.name}>
-                          {item.name}
+                        <MenuItem key={item.id} value={item.itemName}>
+                          {item.itemName}
                         </MenuItem>
                       );
                     })}

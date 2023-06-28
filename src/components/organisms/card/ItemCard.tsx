@@ -132,7 +132,7 @@ const ItemCard = ({ data, sxStyle, sxBox }: ItemCardProps) => {
                         mt: 1,
                       }}
                     >
-                      {drink.name}
+                      {drink.itemName}
                     </Typography>
                   </CardContent>
                 </CardActionArea>
@@ -249,7 +249,7 @@ const ItemCard = ({ data, sxStyle, sxBox }: ItemCardProps) => {
                         mt: 1,
                       }}
                     >
-                      {data.name}
+                      {data.itemName}
                     </Typography>
                   </CardContent>
                 </CardActionArea>

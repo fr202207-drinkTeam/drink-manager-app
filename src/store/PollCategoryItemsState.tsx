@@ -5,7 +5,7 @@ export const PollCategoryItemState = atom<Items>({
   key: "pollItemState",
   default: {
     id:0 ,
-    name: "",
+    itemName: "",
     description: "",
     image: [],
     itemCategory: null,

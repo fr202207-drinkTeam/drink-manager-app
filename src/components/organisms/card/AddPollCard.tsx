@@ -161,7 +161,7 @@ const ItemCard = ({ data, sxStyle, selectedItems, setSelectedItems}: ItemCardPro
                       mt: 1
                     }}
                   >
-                    {drink.name}
+                    {drink.itemName}
                   </Typography>
                 </CardContent>
                 {selectedItems.includes(drink.id) ? (

@@ -9,7 +9,7 @@ import AddPollCard from '../components/organisms/card/AddPollCard';
 describe('AddPoll', () => {
   const testItemData = [
     {
-      "name": "ポテトチップスのりしお",
+      "itemName": "ポテトチップスのりしお",
       "description": "ふわっと香る「青のり」が、じゃがいものおいしさをいっそう引き立てます。",
       "image": [
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/8b4f2c9d-a9d6-45f0-bf8f-b5bd96ec4461?alt=media&token=96f2cbda-a7ba-45e5-aba7-70cfe8fbcd5f"
@@ -22,7 +22,7 @@ describe('AddPoll', () => {
       "id": 25
     },
     {
-      "name": "ビスコ",
+      "itemName": "ビスコ",
       "description": "ふわっと香る「青のり」が、じゃがいものおいしさをいっそう引き立てます。",
       "image": [
         "https://firebasestorage.googleapis.com/v0/b/drink-manager-app-4df85.appspot.com/o/8b4f2c9d-a9d6-45f0-bf8f-b5bd96ec4461?alt=media&token=96f2cbda-a7ba-45e5-aba7-70cfe8fbcd5f"

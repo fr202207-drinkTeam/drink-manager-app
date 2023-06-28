@@ -68,6 +68,7 @@ describe('LoginForm', () => {
     expect(errorUserMessage).toBeVisible();
   });
 
+
   test('emailinputに@が入っていない場合のエラー', async () => {
     render(
       <RecoilRoot>
@@ -120,7 +121,6 @@ describe('LoginForm', () => {
     );
     // パスワード入力要素を取得
     const passwordInput = screen.getByPlaceholderText('パスワード')as HTMLInputElement;
-  
     // パスワードを入力
     fireEvent.change(passwordInput, { target: { value: 'pass123' } });
     fireEvent.blur(passwordInput); 
