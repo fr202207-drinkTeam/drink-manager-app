@@ -23,6 +23,7 @@ import Likes from "../molecules/Likes";
 import { EditNote } from "@mui/icons-material";
 import MenuButtons from "../molecules/MenuButtons";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 // 投稿データ、コメント表示有無、ログインユーザー情報、投稿編集のset関数
 type Props = {
@@ -118,11 +119,9 @@ const PostData: FC<Props> = memo((props) => {
   };
   // 投稿削除処理
   const deletePost = () => {
-    console.log("delete");
     // 投稿削除
-    fetch(`http://localhost:8880/posts/${postData.id}`, {
-      method: "DELETE",
-    })
+    axios
+      .delete(`http://localhost:50000/posts/${postData.id}`)
       .then((res) => {
         setMenu(false);
         // 投稿に関連するコメントの削除

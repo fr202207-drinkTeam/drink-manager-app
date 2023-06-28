@@ -40,6 +40,7 @@ const Contact: FC = memo(() => {
           borderBottom="1px solid"
           gutterBottom
           sx={{ mb: {xs: "30px", sm: "50px", md: "60px", lg: "60px"}, fontSize: {xs: "20px", sm: "20px", md: "28px", lg: "28px"}, fontWeight: 500 }}
+          data-testid="contact-title"
         >
           お問い合わせ
         </Typography>

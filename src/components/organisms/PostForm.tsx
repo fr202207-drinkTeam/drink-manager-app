@@ -96,25 +96,29 @@ const PostForm: FC<Props> = memo((props) => {
 
     // 投稿編集の場合
     if (editPostData) {
-      const editedComment = {
+      const editedPost = {
+        userId: loginUser.id,
         content: content,
-        itemId: itemId,
-        postImage: imagePaths,
-        updatedAt: new Date(),
+        itemId: parseInt(itemId),
+        postImages: imagePaths,
+        // updatedAt: new Date(),
       };
 
-      fetch(`http://localhost:8880/posts/${editPostData.id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(editedComment),
-      }).then(() => {
-        setPostError(false);
-        setEditPostData(null);
-        setReloadPost(!reloadPost);
-        postForm.current.reset();
-        setSelectedItemId(0);
-        setInputImages([]);
-      });
+      // fetch(`http://localhost:8880/posts/${editPostData.id}`, {
+      //   method: "PATCH",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(editedComment),
+      // })
+      axios
+        .patch(`http://localhost:50000/posts/${editPostData.id}`, editedPost)
+        .then(() => {
+          setPostError(false);
+          setEditPostData(null);
+          setReloadPost(!reloadPost);
+          postForm.current.reset();
+          setSelectedItemId(0);
+          setInputImages([]);
+        });
 
       return;
     }
@@ -128,17 +132,19 @@ const PostForm: FC<Props> = memo((props) => {
       // updatedAt: new Date(),
     };
 
-    axios.post("http://localhost:50000/posts", newPost)
+    axios
+      .post("http://localhost:50000/posts", newPost)
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
         setPostError(false);
         setReloadPost(!reloadPost);
         postForm.current.reset();
         setSelectedItemId(0);
         setInputImages([]);
-      }).catch((error: AxiosError)=>{
-        console.log(error.response?.data)
       })
+      .catch((error: AxiosError) => {
+        console.log(error.response?.data);
+      });
   };
 
   return (
@@ -158,6 +164,7 @@ const PostForm: FC<Props> = memo((props) => {
         elevation={3}
         sx={{ mt: 2, mb: 5 }}
         ref={postForm}
+        data-testid="postForm"
       >
         <Box sx={{ position: "relative" }}>
           <InputLabel
@@ -276,7 +283,7 @@ const PostForm: FC<Props> = memo((props) => {
                 openButtonColor="blue"
                 openButtonSxStyle={{ my: "3px" }}
                 completeButtonColor="blue"
-                completeButtonName="投稿"
+                completeButtonName="確定"
                 completeAction={postPostData}
                 cancelButtonColor="gray"
               />
