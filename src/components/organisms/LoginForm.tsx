@@ -154,6 +154,7 @@ const LoginForm: FC<Props> = (props) => {
             password.length < 8 ||
             password.length > 16
           }
+          data-testid="submit"
         />
         <Box
           sx={{

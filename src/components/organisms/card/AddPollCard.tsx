@@ -24,7 +24,6 @@ const ItemCard = ({ data, sxStyle, selectedItems, setSelectedItems}: ItemCardPro
     if (!selectedItems.includes(id)) {
       setSelectedItems([...selectedItems, id]);
       setSelectedItem(true)
-      console.log(selectedItem)
     } else {
       setSelectedItems(selectedItems.filter(item => item !== id));
       setSelectedItem(false)
@@ -32,7 +31,6 @@ const ItemCard = ({ data, sxStyle, selectedItems, setSelectedItems}: ItemCardPro
     }
   };
 
-  console.log(selectedItem)
 
   return (
     <>

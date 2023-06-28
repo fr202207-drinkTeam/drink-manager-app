@@ -88,8 +88,6 @@ const AddPoll = memo(() => {
   const startDate = new Date(startPeriodDate);
   const endDate = new Date(endPeriodDate);
   const timeDifference = endDate.getTime() - startDate.getTime();
-  console.log(endDate.getTime())
-  console.log(oneMonthInMilliseconds)
   
   //バリデーション
   //投票名
