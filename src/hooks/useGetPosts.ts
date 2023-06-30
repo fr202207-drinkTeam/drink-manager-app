@@ -12,7 +12,7 @@ const useGetPosts = (
   useEffect(() => {
     setPostLoading(true);
     // データ取得
-    fetch(`http://localhost:8880/posts${params}`, { method: "GET" })
+    fetch(`http://localhost:50000/posts${params}`, { method: "GET" })
       .then((res) => res.json())
       .then((data) => {
         // データがある場合は通常通りデータをセット

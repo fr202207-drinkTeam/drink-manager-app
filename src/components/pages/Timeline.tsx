@@ -4,7 +4,7 @@ import {
   CircularProgress,
   IconButton,
   Paper,
-  SelectChangeEvent
+  SelectChangeEvent,
 } from "@mui/material";
 import { CachedOutlined } from "@mui/icons-material";
 import PostForm from "../organisms/PostForm";
@@ -28,15 +28,14 @@ const Timeline: FC<Props> = memo((props) => {
   const { itemData, itemError } = useGetItems();
   // 投稿データ取得時のクエリパラメータ要素
   // 投稿数
-  const [postParamsNum, setpostParamsNum] = useState<number>(0);
+  const [postParamsNum, setpostParamsNum] = useState<number>(3);
   // 投稿かお知らせかの判別
   const [postUserAdmin, setPostUserAdmin] = useState<string>("");
   // 検索内容
   const [postSearch, setPostSearch] = useState<string>("");
   // 投稿データ取得時のクエリパラメータ
   const [postParams, setPostParams] = useState<string>(
-    `?${postUserAdmin}${postSearch}_sort=createdAt&_order=desc&_start=${postParamsNum}&_end=${postParamsNum +
-      3}`
+    `?${postUserAdmin}&${postSearch}&quantity=${postParamsNum}`
   );
 
   // 投稿データ格納
@@ -122,8 +121,7 @@ const Timeline: FC<Props> = memo((props) => {
       return;
     }
     setPostParams(
-      `?${postUserAdmin}${postSearch}_sort=createdAt&_order=desc&_start=${postParamsNum}&_end=${postParamsNum +
-        3}&${reloadPost}`
+      `?${postUserAdmin}&${postSearch}&quantity=${postParamsNum}&reload=${reloadPost}`
     );
   }, [location.state, postParamsNum, postSearch, postUserAdmin, reloadPost]);
 
@@ -214,15 +212,15 @@ const Timeline: FC<Props> = memo((props) => {
     switch (selectedRange) {
       case "すべて":
         setpostParamsNum(0);
-        setPostUserAdmin("");
+        setPostUserAdmin("category=all");
         break;
       case "投稿":
         setpostParamsNum(0);
-        setPostUserAdmin("userId_ne=1&");
+        setPostUserAdmin("category=user");
         break;
       case "お知らせ":
         setpostParamsNum(0);
-        setPostUserAdmin("userId=1&");
+        setPostUserAdmin("category=admin");
         break;
     }
   };
@@ -243,7 +241,7 @@ const Timeline: FC<Props> = memo((props) => {
     }
     setPostData([]);
     setpostParamsNum(0);
-    setPostSearch(`content_like=${event.target[0].value}&`);
+    setPostSearch(`search=${event.target[0].value}`);
     setReloadPost(!reloadPost);
   };
 

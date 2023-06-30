@@ -4,6 +4,7 @@ import {
   Items,
   Like,
   Post,
+  PostImage,
   Users,
 } from "../../types/type";
 import {
@@ -200,7 +201,7 @@ const PostData: FC<Props> = memo((props) => {
   };
 
   const imageListHeight = () => {
-    switch (postData.postImage.length) {
+    switch (postData.postImages.length) {
       case 1:
         return "230px";
       case 2:
@@ -273,13 +274,13 @@ const PostData: FC<Props> = memo((props) => {
             </Link>
           )}
         </Box>
-        {postData.postImage.length > 0 && (
+        {postData.postImages.length > 0 && (
           <ImageList
             sx={{
               width: "auto",
               height: {
                 xs: `${imageListHeight}`,
-                sm: `${postData.postImage.length < 3 ? "170px" : "340px"}`,
+                sm: `${postData.postImages.length < 3 ? "170px" : "340px"}`,
                 lg: "170px",
               },
               my: 0,
@@ -288,12 +289,13 @@ const PostData: FC<Props> = memo((props) => {
             cols={imageRows()}
             rowHeight={164}
           >
-            {postData.postImage.map((imageUrl: string) => {
+            {/* TODO any型をなおす */}
+            {postData.postImages.map((image: PostImage) => {
               return (
-                <ImageListItem key={imageUrl} sx={{ alignItems: "center" }}>
+                <ImageListItem key={image.id} sx={{ alignItems: "center" }}>
                   <img
-                    src={imageUrl}
-                    alt={imageUrl}
+                    src={image.path}
+                    alt={image.path}
                     loading="lazy"
                     style={{
                       width: "160px",

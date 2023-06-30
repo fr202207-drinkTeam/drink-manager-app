@@ -66,10 +66,16 @@ export type Post = {
   userId: number;
   content: string;
   itemId: number;
-  postImage: string[];
+  postImages: PostImage[];
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type PostImage = {
+  id: number;
+  path: string;
+  postId: number;
+}
 
 export type Comment = {
   id: number;

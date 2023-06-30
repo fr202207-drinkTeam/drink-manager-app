@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { render, screen, waitFor } from "@testing-library/react";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
@@ -21,7 +25,7 @@ afterAll(() => server.close());
 const itemData = [
   {
     id: 1,
-    name: "ブライトブレンドブライトブレンド",
+    itemName: "ブライトブレンドブライトブレンド",
     description:
       "ミディアムローストの豆をブレンドしたブライトブレンドは、キャラメル、ベリー、はちみつのバランスのとれたほんのり甘い香りが楽しめる一杯です。",
     image: ["/bright.png", "/item.png", "/item.png"],
@@ -95,9 +99,6 @@ const setReloadPost = jest.fn();
 
 describe("Post content", () => {
   it("Should post new post correctly", async () => {
-    // jest.spyOn(React, "useRef").mockReturnValue({
-    //   current: ["0", "1", "2"],
-    // });
     const itemError = false;
     const editPostData = null;
     const reloadPost = false;
@@ -132,27 +133,4 @@ describe("Post content", () => {
 
     // await waitFor(() => expect(requestMock).toHaveBeenCalledTimes(1));
   });
-
-  //   it("Should block the posting becauseof its character limit", async () => {
-  //     const itemError = false;
-  //     const editPostData = null;
-  //     const reloadPost = false;
-  //     render(
-  //       <PostForm
-  //         itemData={itemData}
-  //         itemError={itemError}
-  //         loginUser={loginUser}
-  //         editPostData={editPostData}
-  //         setEditPostData={setEditPostData}
-  //         reloadPost={reloadPost}
-  //         setReloadPost={setReloadPost}
-  //       />
-  //     );
-  //     userEvent.type(
-  //       screen.getByRole("textbox"),
-  //       "こちらは新しい投稿です。失敗します。"
-  //     );
-  //     userEvent.click(screen.getAllByRole("button")[1]);
-  //     expect(screen.queryByLabelText("transition-modal-title")).toBeNull();
-  //   });
 });
