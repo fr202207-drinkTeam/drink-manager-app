@@ -1,10 +1,10 @@
 import { render, screen, fireEvent, act, waitFor, Matcher, renderHook } from '@testing-library/react';
 import { BrowserRouter, MemoryRouter, Route } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import PollResult from '../components/pages/PollResult';
-import useGetAnQuestionnaire from '../hooks/useGetAnQuestionnaire';
-import ItemCard from '../components/organisms/card/ItemCard';
-import useGetAnPoll from '../hooks/useGetAnPoll';
+import PollResult from '../../components/pages/PollResult';
+import useGetAnQuestionnaire from '../../hooks/useGetAnQuestionnaire';
+import ItemCard from '../../components/organisms/card/ItemCard';
+import useGetAnPoll from '../../hooks/useGetAnPoll';
 
 
 describe('PollResult', () => {
@@ -19,7 +19,6 @@ describe('PollResult', () => {
   });
 
   test('useGetAnPollにquestionnaireIdごとの期待通りの値が入る', async () => {
-
     const mockedData = [{
       "id": 1,
       "questionnaireId": 1,
@@ -27,29 +26,21 @@ describe('PollResult', () => {
       "result": 9,
       "category": 1,
       "createdAt": "2023-06-26T00:41:39.283Z"
-    },{
-      "id": 2,
-      "questionnaireId": 2,
-      "userId": 2,
-      "result": 9,
-      "category": 1,
-      "createdAt": "2023-06-26T00:41:39.283Z"
     }];
-
     global.fetch = jest.fn().mockResolvedValue({
       json: jest.fn().mockResolvedValue(mockedData),
     });
-
-     const { result } = renderHook(() => useGetAnPoll(1));
-     await waitForNextUpdate();
+  
+    const { result } = renderHook(() => useGetAnPoll(1));
 
     await act(async () => {
-    
       await new Promise(resolve => setTimeout(resolve, 0)); // 非同期の状態変更が完了するまで待つ
-      expect(result.current).toEqual(mockedData);
     });
-
+  
+    expect(result.current).toEqual(mockedData);
   });
+
+  
 
 
   beforeEach(() => {
@@ -132,7 +123,6 @@ describe('PollResult', () => {
   });
 
   it('投票結果を正しく表示', () => {
-
     render(
       <RecoilRoot>
       <BrowserRouter>
@@ -140,19 +130,16 @@ describe('PollResult', () => {
       </BrowserRouter>
     </RecoilRoot>
     );
-
     expect(screen.getByText('たくさんのご投票ありがとうございました!!')).toBeInTheDocument();
     expect(screen.getByText('またのご参加お待ちしております!')).toBeInTheDocument();
     expect(screen.getByText('1票')).toBeInTheDocument();
   });
 
   it('投票結果がない場合', () => {
-
     jest.mock('../hooks/useGetAnPoll', () => ({
       ...jest.requireActual('../hooks/useGetAnPoll'),
       useGetAnPoll: jest.fn(() => []),
     }));
-
     render(
       <RecoilRoot>
         <BrowserRouter>
@@ -160,7 +147,6 @@ describe('PollResult', () => {
         </BrowserRouter>
       </RecoilRoot>
     );
-
     expect(screen.getByText('今回の投票結果はありませんでした。')).toBeInTheDocument();
   });
 

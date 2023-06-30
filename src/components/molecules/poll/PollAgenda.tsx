@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { ActiveBeigeButton } from '../../atoms/button/Button'
 import { useNavigate } from 'react-router-dom'
 import { Questionnaire } from '../../../types/type'
-import useGetQuestionnaire from '../../../hooks/useGetQuestipnnaire'
+import useGetQuestionnaire from '../../../hooks/useGetQuestionnaire'
 
 type PollAgendaProps = {
   pollTitle: Questionnaire[]

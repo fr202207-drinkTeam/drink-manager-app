@@ -12,8 +12,7 @@ const useGetAnPoll = (id: number) => {
         `http://localhost:50000/pollsdata/${id}`
       );
       const data = await response.json();
-      setPolls(data);
-      console.log(data)
+        setPolls(data);
     } catch (error) {
       console.error(error);
     }
