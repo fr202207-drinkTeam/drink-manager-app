@@ -12,6 +12,7 @@ const useGetPollCategoryItem = (id: number) => {
         const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);//当月最初の日
         const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);//当月最終日
         //アイテム取得
+        //条件分岐
         const res = await fetch(`http://localhost:50000/items`);
         const itemdata = await res.json();
         setItems(itemdata);
@@ -20,6 +21,7 @@ const useGetPollCategoryItem = (id: number) => {
           `http://localhost:50000/questionnaires/${Number(id)}`
         );
         const data = await response.json();
+        //const getCategoryperiod=(data)=>{}
         const Categoryperiod = data.map((question: Questionnaire) => {
           const endDate = new Date(question.endDate);
           endDate.setHours(0, 0, 0, 0);
@@ -33,12 +35,15 @@ const useGetPollCategoryItem = (id: number) => {
             endDate,
           };
         });
+        //
         const filteredData = Categoryperiod.filter((poll: Questionnaire) => {
           const startDate = poll.startDate.getTime();
           const endDate = poll.endDate.getTime();
           return startDate >= startOfMonth.getTime() && endDate <= endOfMonth.getTime();
         });
+        //
         const sortedData = filteredData.sort((a: { endDate: { getTime: () => number; }; }, b: { endDate: { getTime: () => number; }; }) => b.endDate.getTime() - a.endDate.getTime());
+        
         const pollitemID = sortedData[0]?.Polleditems?.map(
           (poll: any) => {
             return poll.itemId;

@@ -2,7 +2,7 @@ import { Box } from '@mui/material'
 import React, { FC } from 'react'
 import { PrimaryDateInput } from '../input/dateInput'
 import { Questionnaire } from '../../../types/type';
-import useGetQuestionnaire from '../../../hooks/useGetQuestipnnaire';
+import useGetQuestionnaire from '../../../hooks/useGetQuestionnaire';
 
 type PollDateInputProps = {
   pollEditFlag?: boolean;

@@ -4,7 +4,7 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { ActiveBeigeButton, InactiveButton } from "../../atoms/button/Button";
-import { Box, Grid, useTheme } from "@mui/material";
+import { Box, Grid} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useLoginUserFetch } from "../../../hooks/useLoginUserFetch";
 //cookie
@@ -12,19 +12,12 @@ import Cookies from "js-cookie";
 //types
 import { Items, Polls, Questionnaire } from "../../../types/type";
 //icon
-import SearchIcon from "@mui/icons-material/Search";
 import SwitchAccessShortcutAddIcon from "@mui/icons-material/SwitchAccessShortcutAdd";
 import ModalWindow from "../ModalWindow";
 //hooks
 import useGetPollCategoryData from "../../../hooks/useGetPollCategoryData";
-import { useEffect, useState } from "react";
 import useGetPollLatestTitle from "../../../hooks/useGetPollLatestTitle";
-
-// xs, extra-small: 0px
-// sm, small: 600px
-// md, medium: 960px
-// lg, large: 1280px
-// xl, extra-large: 1920px
+import PostPoll from "../../../utils/PostPoll";
 
 type PollCardProps = {
   data: Items[];
@@ -32,7 +25,6 @@ type PollCardProps = {
   pollNum: number;
   sxStyle?: any;
 };
-
 const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
   const navigate = useNavigate();
   //login
@@ -43,15 +35,11 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
   const OthersPollData: Polls[] = useGetPollCategoryData(2);
   const PopularPollTitle: Questionnaire[] = useGetPollLatestTitle(1);
   const OtherPollTitle: Questionnaire[] = useGetPollLatestTitle(2);
-  console.log(PopularPollData,13)
 
   //票のuserIdがログインユーザと一致しているかしていないか（ログインユーザが投票しているデータはあるか）
   const popularData = PopularPollData?.filter((pop) => {
     return pop.userId === loginUser.id;
   });
-
-  console.log(PopularPollData,111)
-  console.log(loginUser.id,222)
 
   const othersData = OthersPollData?.filter((other) => {
     return other.userId === loginUser.id;
@@ -65,7 +53,7 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
   const popularItem = isPopularQuestionnaireData.map((p) => {
     return p.result
   })
-  console.log(popularItem,12)
+
   //現在表示されているその他投票アンケートに投票しているか
   const isOthersQuestionnaireData = othersData.filter((o) => {
     return o.questionnaireId === OtherPollTitle[0]?.id
@@ -74,30 +62,19 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
   const othersItem = isOthersQuestionnaireData.map((o) => {
     return o.result
   })
-
-
+  
   //投票ボタン
   const submitPoll = async (drinkId: number) => {
-    try {
-      const data = {
-        questionnaireId: pollNum,
-        userId: loginUser.id,
-        category: pollCategory,
-        result: drinkId,
-        createdAt: new Date(),
-      };
-      const response = await fetch("http://localhost:50000/poll", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const responseData = await response.json();
+    const data = {
+      questionnaireId: pollNum,
+      userId: loginUser.id,
+      category: pollCategory,
+      result: drinkId,
+    };
+    const PollData= await PostPoll(data)
+    if(PollData){
       navigate("/home")
       alert(`投票を受け付けました。投票ありがとうございました！`)
-    } catch (err) {
-      console.log(err, "エラー");
     }
   };
 
@@ -167,12 +144,10 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                           sx={{
                             display: "block",
                             width: {
-                              xs: "150px",
                               sm: "150px",
                               md: "200px",
                             },
                             height: {
-                              xs: "150px",
                               sm: "150px",
                               md: "200px",
                             },
@@ -246,10 +221,8 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                               textAlign: "center",
                               fontSize: {
                                 xs: "12px",
-                                sm: "14px",
                                 md: "14px",
                                 lg:"18px",
-                                xl:"18px"
                               },
                               borderBottom: "double",
                               fontWeight: "bold",
@@ -304,12 +277,10 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                           sx={{
                             display: "block",
                             width: {
-                              xs: "150px",
                               sm: "150px",
                               md: "200px",
                             },
                             height: {
-                              xs: "150px",
                               sm: "150px",
                               md: "200px",
                             },
@@ -360,7 +331,6 @@ const PollCard = ({ data, pollNum, pollCategory, sxStyle }: PollCardProps) => {
                               textAlign: "center",
                               fontSize: {
                                 xs: "12px",
-                                sm: "14px",
                                 md: "14px",
                                 lg:"18px",
                                 xl:"18px"

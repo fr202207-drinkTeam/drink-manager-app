@@ -1,10 +1,10 @@
 import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import AddPoll from '../components/pages/AddPoll';
+import AddPoll from '../../components/pages/AddPoll';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import AdminHome from '../components/pages/AdminHome';
-import AddPollCard from '../components/organisms/card/AddPollCard';
+import AdminHome from '../../components/pages/AdminHome';
+import AddPollCard from '../../components/organisms/card/AddPollCard';
 
 describe('AddPoll', () => {
   const testItemData = [
