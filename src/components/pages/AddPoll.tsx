@@ -17,6 +17,7 @@ import useGetAllItems from "../../hooks/useGetAllItems";
 import ModalWindow from "../organisms/ModalWindow";
 import useGetPollCategoryPeriod from "../../hooks/useGetPollCategoryPeriod";
 import PollItemCategorySelect from "../atoms/addPollForm/PollItemCategorySelect";
+import PostQuestionnair from "../../utils/PostQuestionnaire";
 
 const style = {
   position: "absolute" as "absolute",
@@ -88,7 +89,7 @@ const AddPoll = memo(() => {
   const startDate = new Date(startPeriodDate);
   const endDate = new Date(endPeriodDate);
   const timeDifference = endDate.getTime() - startDate.getTime();
-  
+
   //バリデーション
   //投票名
   const validatePollName = () => {
@@ -118,7 +119,7 @@ const AddPoll = memo(() => {
   };
   //投票期間
   const validateDate = () => {
-  
+
     if (timeDifference > oneMonthInMilliseconds) {
       setDateError("投票期間は1ヶ月以内で設定してください。");
       return false;
@@ -192,42 +193,20 @@ const AddPoll = memo(() => {
       if (isFirstRender.current) {
         isFirstRender.current = false;
       }
-      fetch("http://localhost:50000/questionnaires", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: pollName,
-          description: pollDescription,
-          category: Number(pollCategory),
-          createdAt: new Date(),
-          startDate: new Date(startPeriodDate),
-          endDate: new Date(endPeriodDate),
-          polledItems: polledItemIds,
-          author: loginUser.id,
-        }),
-      }).then((response) => response.json())
-        .then((questionnaire) => {
-          // アンケート作成のレスポンスからIDを取得
-          const questionnaireId = questionnaire.id;
-          polledItemIds.map((itemId) => (
-            fetch("http://localhost:50000/polleditems", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                itemId: itemId.itemId,
-                questionnairId: questionnaireId
-              })
-            })
-          ))
-        }).then(() => {
-          navigate("/adminhome");
-        }).catch((e) => {
-          console.log(e)
-        });
+      const data = {
+        name: pollName,
+        description: pollDescription,
+        category: Number(pollCategory),
+        createdAt: new Date(),
+        startDate: new Date(startPeriodDate),
+        endDate: new Date(endPeriodDate),
+        Polleditems: polledItemIds,
+        author: loginUser.id,
+      }
+      const PostQuestionnairData = await PostQuestionnair(data)
+      if (PostQuestionnairData) {
+        navigate("/adminhome");
+      }
     } else {
       setAllError("入力内容の確認をしてください");
     }

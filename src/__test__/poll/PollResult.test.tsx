@@ -1,38 +1,47 @@
 import { render, screen, fireEvent, act, waitFor, Matcher, renderHook } from '@testing-library/react';
 import { BrowserRouter, MemoryRouter, Route } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import PollResult from '../components/pages/PollResult';
-import useGetAnQuestionnaire from '../hooks/useGetAnQuestionnaire';
-import ItemCard from '../components/organisms/card/ItemCard';
-import useGetAnPoll from '../hooks/useGetAnPoll';
+import PollResult from '../../components/pages/PollResult';
+import useGetAnQuestionnaire from '../../hooks/useGetAnQuestionnaire';
+import ItemCard from '../../components/organisms/card/ItemCard';
+import useGetAnPoll from '../../hooks/useGetAnPoll';
 
 
 describe('PollResult', () => {
 
-  it('投票idごとに取得できること', async () => {
-    const id = 1; 
-    const pollDataMock = [{
+  test('useGetAnPoll初期値は空', async () => {
+
+    const { result}= renderHook(() => useGetAnPoll(1));
+
+    // useState の初期値は空の配列
+    expect(result.current).toEqual([]);
+
+  });
+
+  test('useGetAnPollにquestionnaireIdごとの期待通りの値が入る', async () => {
+    const mockedData = [{
       "id": 1,
       "questionnaireId": 1,
       "userId": 2,
-      "result": 10,
+      "result": 9,
       "category": 1,
-      "createdAt": "2023-06-26T00:41:39.282Z"
-    },];
-
-    jest.spyOn(window, 'fetch').mockResolvedValueOnce({
-      json: jest.fn().mockResolvedValueOnce(pollDataMock),
-    } as unknown as Response);
-
-    const { result } = renderHook(() => useGetAnPoll(id));
-    console.log(result)
-
-    await waitFor(() => {
-      return result.current.length > 0;
+      "createdAt": "2023-06-26T00:41:39.283Z"
+    }];
+    global.fetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue(mockedData),
     });
+  
+    const { result } = renderHook(() => useGetAnPoll(1));
 
-    expect(result.current).toEqual(pollDataMock);
+    await act(async () => {
+      await new Promise(resolve => setTimeout(resolve, 0)); // 非同期の状態変更が完了するまで待つ
+    });
+  
+    expect(result.current).toEqual(mockedData);
   });
+
+  
+
 
   beforeEach(() => {
     jest.resetModules();
@@ -114,7 +123,6 @@ describe('PollResult', () => {
   });
 
   it('投票結果を正しく表示', () => {
-
     render(
       <RecoilRoot>
       <BrowserRouter>
@@ -122,19 +130,16 @@ describe('PollResult', () => {
       </BrowserRouter>
     </RecoilRoot>
     );
-
     expect(screen.getByText('たくさんのご投票ありがとうございました!!')).toBeInTheDocument();
     expect(screen.getByText('またのご参加お待ちしております!')).toBeInTheDocument();
     expect(screen.getByText('1票')).toBeInTheDocument();
   });
 
   it('投票結果がない場合', () => {
-
     jest.mock('../hooks/useGetAnPoll', () => ({
       ...jest.requireActual('../hooks/useGetAnPoll'),
       useGetAnPoll: jest.fn(() => []),
     }));
-
     render(
       <RecoilRoot>
         <BrowserRouter>
@@ -142,7 +147,8 @@ describe('PollResult', () => {
         </BrowserRouter>
       </RecoilRoot>
     );
-
     expect(screen.getByText('今回の投票結果はありませんでした。')).toBeInTheDocument();
   });
+
+  
 });
