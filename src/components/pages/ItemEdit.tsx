@@ -67,27 +67,29 @@ const ItemEdit: FC = memo(() => {
 
   // データ取得後、内容をstateにセット
   useEffect(() => {
-    console.log("useEffect")
-    const getResultItemData = GetAnItemData({itemId: itemId})
-    const itemData = getResultItemData?.itemData
-    const getSuccess = getResultItemData?.getSuccess
-    if(itemData) {
-      if(!getSuccess) {
-        return;
-      } else {
-        console.log(typeof itemData)
-      //   setGetItemData(itemData)
-      //   if (itemData) {      
-      //     setInputImages(
-      //       itemData ? itemData.images.map((image: {id: number, itemId: number, imagePath: string, createdAt: Date}) => new File([], image.imagePath)) : []
-      //     );
-      // }
-    }
-      // setItemName(itemData.itemName);
-      // setItemDescription(itemData.description);
-      // setItemCategory(itemData.itemCategory);
-      // setPresenceOrAbsence(itemData.intheOffice)
-    }
+    // useEffectの中でasyncを使うために、即時関数にした
+    (async () => {
+      const getResultItemData = await GetAnItemData({itemId: itemId})
+      const itemData = getResultItemData?.itemData
+      const getSuccess = getResultItemData?.getSuccess
+      if(itemData) {
+        if(!getSuccess) {
+          return;
+        } else {
+          console.log(typeof itemData)
+        //   setGetItemData(itemData)
+        //   if (itemData) {      
+        //     setInputImages(
+        //       itemData ? itemData.images.map((image: {id: number, itemId: number, imagePath: string, createdAt: Date}) => new File([], image.imagePath)) : []
+        //     );
+        // }
+      }
+        // setItemName(itemData.itemName);
+        // setItemDescription(itemData.description);
+        // setItemCategory(itemData.itemCategory);
+        // setPresenceOrAbsence(itemData.intheOffice)
+      }
+    })()
   }, [itemId]);
 
   // データ更新処理(確定ボタン)
