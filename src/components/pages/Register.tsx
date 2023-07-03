@@ -250,7 +250,5 @@ const Register: FC<Props> = memo((props) => {
 });
 
 export default Register;
-function acync() {
-  throw new Error("Function not implemented.");
-}
+
 

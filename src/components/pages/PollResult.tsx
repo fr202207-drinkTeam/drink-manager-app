@@ -43,9 +43,6 @@ const PollResult = memo(() => {
   const values = Object.values(pollCounts).map(Number);
   values.sort((a, b) => b - a);
 
-  console.log(pollCount,"pollCount")
-
-
   //questionnerに登録されているpolledItemsのidを取得
   useEffect(() => {
     if (polls.length > 0 && questionnaire && items.length > 0) {
@@ -53,9 +50,7 @@ const PollResult = memo(() => {
       const polllCountItems = items.filter((item: Items) => {
         return pollResult.includes(item.id);
       });
-      console.log(items,"items")
-      console.log(pollResult,"pollResult")
-      console.log(polllCountItems,"polllCountItems")
+
       polllCountItems.sort((a: Items, b: Items) => {
         const aCount = pollCounts[a.id];
         const bCount = pollCounts[b.id];

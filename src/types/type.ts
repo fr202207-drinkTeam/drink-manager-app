@@ -64,12 +64,9 @@ export type ItemImage = {
 export type Questionnaire = {
   id: number;
   name: string;
-  Polleditems: 
-    {
-      id: number;
-      itemId?: number;
-      questionnairId?: number;
-    }[];
+  Polleditems:{
+    itemId: number;
+}[];
   description: string;
   createdAt: Date;
   category: number;
@@ -110,7 +107,7 @@ export type StockHistory = {
   id: number;
   itemId: number;
   quantity: number;
-  day: string;
+  createdAt: string;
   incOrDec: boolean;
   stockAmount: number;
 };

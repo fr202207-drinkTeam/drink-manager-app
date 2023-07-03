@@ -4,7 +4,7 @@ import { Polls } from "../types/type";
 const useGetAnPoll = (id: number) => {
   const [polls, setPolls] = useState<Polls[]>([]);
 
- //poll取得
+ //投票idごとにpoll取得
  useEffect(() => {
   (async () => {
     try {
@@ -12,8 +12,7 @@ const useGetAnPoll = (id: number) => {
         `http://localhost:50000/pollsdata/${id}`
       );
       const data = await response.json();
-      setPolls(data);
-      console.log(data)
+        setPolls(data);
     } catch (error) {
       console.error(error);
     }

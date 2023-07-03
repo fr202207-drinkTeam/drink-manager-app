@@ -10,13 +10,12 @@ import {
   Select,
   Typography,
 } from "@mui/material";
-import { FC, memo, useEffect, useRef, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 import AdmTitleText from "../atoms/text/AdmTitleText";
 import { Box } from "@mui/system";
 import ModalWindow from "../organisms/ModalWindow";
 import { ActiveBorderButton, InactiveButton } from "../atoms/button/Button";
 import { NavigateFunction, Params, useNavigate, useParams } from "react-router";
-import useGetAnItem from "../../hooks/useGetAnItem";
 import { PrimaryInput, SecondaryInput } from "../atoms/input/Input";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import Cookies from "js-cookie";
@@ -68,7 +67,7 @@ const ItemEdit: FC = memo(() => {
   // データ取得後、内容をstateにセット
   useEffect(() => {
     const getItemFnc = async (): Promise<any> => {
-      const getResultItemData: Item = await GetAnItemData({itemId: itemId})
+      const getResultItemData = await GetAnItemData({itemId: itemId})
       console.log(getResultItemData);
     if(getResultItemData) {
       setGetItemData(getResultItemData)

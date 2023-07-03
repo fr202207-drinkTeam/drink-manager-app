@@ -1,8 +1,9 @@
 type Props = {
-  itemId: number;
-};
+  itemId: number
+}
 
-const GetAnItemData = async(props: Props) => {    
+const GetAnItemData = async(props: Props) => {  
+
     return await fetch(`http://localhost:50000/getItemData/${props.itemId}`, { method: "GET" })
       .then((res) => res.json())
       .then((data) => {
@@ -13,4 +14,5 @@ const GetAnItemData = async(props: Props) => {
       });
 };
 
-export default GetAnItemData;
+
+export default GetAnItemData
