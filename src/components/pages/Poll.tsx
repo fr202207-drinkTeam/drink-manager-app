@@ -65,9 +65,6 @@ const Poll = memo(() => {
       backgroundSize: {
         xs: "150px",
         sm: "200px",
-        md: "200px",
-        lg: "200px",
-        xl: "200px"
       },
       backgroundRepeat: "no-repeat",
       backgroundPosition: "-50px top",

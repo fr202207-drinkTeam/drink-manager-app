@@ -4,19 +4,17 @@ import React, { FC } from "react";
 type PollCategorySelectProps = {
   pollCategory: string;
   setPollCategory: React.Dispatch<React.SetStateAction<string>>;
-  categoryError?:string;
-  setCategoryError?: React.Dispatch<React.SetStateAction<string>>;
+  categoryError?:string|boolean;
 };
 
 const PollCategorySelect: FC<PollCategorySelectProps> = ({
   pollCategory,
   categoryError,
   setPollCategory,
-  setCategoryError,
 }) => {
   return( 
   <Box>
-     {categoryError && (
+     {!(categoryError==="") && (
             <Box sx={{ color: "red", fontSize: 15, pt: 2 }}>
               {categoryError}
             </Box>

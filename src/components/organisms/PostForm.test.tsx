@@ -21,7 +21,7 @@ afterAll(() => server.close());
 const itemData = [
   {
     id: 1,
-    name: "ブライトブレンドブライトブレンド",
+    itemName: "ブライトブレンドブライトブレンド",
     description:
       "ミディアムローストの豆をブレンドしたブライトブレンドは、キャラメル、ベリー、はちみつのバランスのとれたほんのり甘い香りが楽しめる一杯です。",
     image: ["/bright.png", "/item.png", "/item.png"],

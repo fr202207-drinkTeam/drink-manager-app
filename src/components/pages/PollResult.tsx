@@ -9,6 +9,7 @@ import PollTitleResult from "../molecules/poll/PollTitleResult";
 import useGetAnQuestionnaire from "../../hooks/useGetAnQuestionnaire";
 import useGetAllItems from "../../hooks/useGetAllItems";
 import useGetAnPoll from "../../hooks/useGetAnPoll";
+import { CountPolls } from "../../utils/CountPolls";
 
 const PollResult = memo(() => {
   const { id } = useParams();
@@ -18,20 +19,10 @@ const PollResult = memo(() => {
   const items: Items[] = useGetAllItems(trigger);
   const polls: Polls[] = useGetAnPoll(Number(id));
 
-  //投票結果集計
-  const pollCounts: any = {};
-  polls.forEach((item) => {
-    if (item.questionnaireId === Number(id)) {
-      if (pollCounts[item.result]) {
-        pollCounts[item.result]++;
-      } else {
-        pollCounts[item.result] = 1;
-      }
-    }
-  });
+  const pollOutcome=CountPolls(polls,Number(id))//集計結果
 
   //票の大きい商品順で並び替え
-  const sortedPolls = Object.entries(pollCounts).sort(
+  const sortedPolls = Object.entries(pollOutcome).sort(
     (a: any, b: any) => b[1] - a[1]
   );
   const result = sortedPolls.map((subArr) => {
@@ -40,7 +31,7 @@ const PollResult = memo(() => {
   const pollResult = result.map(Number);
 
   //value票の数を多い順に並び替え
-  const values = Object.values(pollCounts).map(Number);
+  const values = Object.values(pollOutcome).map(Number);
   values.sort((a, b) => b - a);
 
   //questionnerに登録されているpolledItemsのidを取得
@@ -52,8 +43,8 @@ const PollResult = memo(() => {
       });
 
       polllCountItems.sort((a: Items, b: Items) => {
-        const aCount = pollCounts[a.id];
-        const bCount = pollCounts[b.id];
+        const aCount = pollOutcome[a.id];
+        const bCount = pollOutcome[b.id];
         return bCount - aCount;
       });
       setPollCounts(polllCountItems);
@@ -65,7 +56,7 @@ const PollResult = memo(() => {
     <>
       <Paper>
         <PollTitleResult poll={questionnaire} />
-        {Object.keys(pollCounts).length >= 1 ?
+        {Object.keys(pollOutcome).length >= 1 ?
           <>
             <Box id="top" />
             <DottedMemo

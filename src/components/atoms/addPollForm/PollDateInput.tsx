@@ -10,12 +10,11 @@ type PollDateInputProps = {
   endPeriodDate: string;
   setStartPeriodDate: React.Dispatch<React.SetStateAction<string>>;
   setEndPeriodDate: React.Dispatch<React.SetStateAction<string>>;
-  dateError?: string;
-  setDateError?: React.Dispatch<React.SetStateAction<string>>;
+  dateError?: string|boolean;
 }
 
 const PollDateInput: FC<PollDateInputProps> = ({
-  setDateError, dateError, startPeriodDate, setStartPeriodDate, endPeriodDate, setEndPeriodDate, pollEditFlag
+ dateError, startPeriodDate, setStartPeriodDate, endPeriodDate, setEndPeriodDate, pollEditFlag
 }) => {
   const questionnaireData: Questionnaire[] = useGetQuestionnaire();
 
@@ -41,7 +40,7 @@ const PollDateInput: FC<PollDateInputProps> = ({
       >
         {!pollEditFlag &&
           <Box>
-            {dateError && (
+            {!(dateError==="") && (
               <Box style={{ color: "red", fontSize: 15 }}>{dateError}</Box>
             )}
             <Box sx={{

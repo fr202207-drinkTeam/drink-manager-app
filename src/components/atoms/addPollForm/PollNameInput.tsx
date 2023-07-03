@@ -5,21 +5,19 @@ import { SecondaryInput } from "../input/Input";
 type ValidarionProps = {
   pollName: string;
   setPollName:React.Dispatch<React.SetStateAction<string>>;
-  pollNameError:string;
-  setPollNameError: React.Dispatch<React.SetStateAction<string>>;
+  pollNameError:string|boolean;
 };
 
 const PollNameInput: FC<ValidarionProps> = ({
   pollName,
   setPollName,
   pollNameError,
-  setPollNameError
 }) => {
 
   return (
     <Box>
       <Box sx={{ mt: 3 }}>
-        {pollNameError && (
+        {!(pollNameError==="") && (
           <Box style={{ color: "red", fontSize: 15, marginBottom: 1 }}>
             {pollNameError}
           </Box>

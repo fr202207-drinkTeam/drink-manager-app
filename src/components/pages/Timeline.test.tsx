@@ -22,7 +22,7 @@ const server = setupServer(
       ctx.json([
         {
           id: 1,
-          name: "ブライトブレンドブライトブレンド",
+          itemName: "ブライトブレンドブライトブレンド",
           description:
             "ミディアムローストの豆をブレンドしたブライトブレンドは、キャラメル、ベリー、はちみつのバランスのとれたほんのり甘い香りが楽しめる一杯です。",
           image: ["/bright.png", "/item.png", "/item.png"],
@@ -35,7 +35,7 @@ const server = setupServer(
         },
         {
           id: 2,
-          name: "LAVAZZA CLASSICO",
+          itemName: "LAVAZZA CLASSICO",
           description:
             "しっかりとした珈琲感とドライフルーツの風味が特徴のミディアムローストコーヒー。バランスのとれたリッチな味わいがお好みの方へオススメです。",
           image: ["/crassico.png", "/item.png", "/coffee.png"],

@@ -1,6 +1,6 @@
 type QuestionnairProps = {
   name: string;
-  Polleditems:{
+  PolleditemsData:{
     itemId: number;
 }[];
   description: string;
