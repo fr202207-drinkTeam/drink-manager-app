@@ -1,39 +1,39 @@
-import { Dispatch, FC, SetStateAction, useState } from "react";
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Box, Grid } from "@mui/material";
-import { Items, StockHistory } from "../../../types/type";
+import type { Item, StockHistory } from "../../../types/type";
 import { StockInput } from "../../atoms/input/StockInput";
 
 type Props = {
-  itemData: Array<Items>;
-  inTheOfficeItemArr: Array<StockHistory>;
+  itemData: Item[] | undefined;
   inputValueArr: Array<number>;
   setInputValueArr: Dispatch<SetStateAction<number[]>>;
+  stockItems: StockHistory[];
+  setStockItems: Dispatch<SetStateAction<StockHistory[]>>;
   sxStyle?: any;
 };
 
 const StockCard: FC<Props> = (props) => {
   const {
     itemData,
-    inTheOfficeItemArr,
     inputValueArr,
     setInputValueArr,
+    stockItems,
+    setStockItems,
   } = props;
   const [inputStatusArr, setInputStatusArr] = useState<boolean[]>([]);
 
-  const testFunc = (drinkId: number) => {
-    if (inTheOfficeItemArr.length > 0) {
-      for (let i = 0; i < inTheOfficeItemArr.length; i++) {
-        if (inTheOfficeItemArr[i]?.itemId === drinkId) {
-          return inTheOfficeItemArr[i].stockAmount;
-        }
-      }
+  const stockAmountDisplayFnc: (stockHistory: StockHistory[]) => number = (stockHistory) => {
+    if(stockHistory.length > 0) {
+      const latestStockHistory = stockHistory[stockHistory.length - 1]
+    return latestStockHistory.stockAmount
+    } else {
+      return 0
     }
-    return 0;
-  };
+  }  
 
   return (
     <>
@@ -92,7 +92,7 @@ const StockCard: FC<Props> = (props) => {
                   <Typography sx={{ mx: 2, mb: 2, fontSize: {xs: "12px", sm: "12px", md: "14px", lg: "14px"} }}>
                     ※現在の在庫数は
                     <span style={{ fontWeight: "bold", alignItems: "center" }}>
-                      {testFunc(drink.id)}
+                      {stockAmountDisplayFnc(drink.stock)}
                     </span>
                     個です
                   </Typography>
@@ -102,6 +102,8 @@ const StockCard: FC<Props> = (props) => {
                     setInputStatusArr={setInputStatusArr}
                     inputValueArr={inputValueArr}
                     setInputValueArr={setInputValueArr}
+                    stockItems={stockItems}
+                    setStockItems={setStockItems}
                   />
                 </Card>
               </Grid>

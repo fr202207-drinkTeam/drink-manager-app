@@ -16,7 +16,6 @@ import { CircularProgress } from "@mui/material";
 import { Users } from "../../types/type";
 
 type Props = {
-  //投票から商品追加したかどうか
   pollFlag?: boolean;
   handleClose?: any;
   trigger?: boolean;

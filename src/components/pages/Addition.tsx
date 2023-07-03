@@ -7,56 +7,25 @@ import { StockHistory } from "../../types/type";
 import useGetItems from "../../hooks/useGetItems";
 import ModalWindow from "../organisms/ModalWindow";
 import StockCard from "../organisms/card/StockCard";
+import type { Item } from "../../types/type";
+import GetInTheOfficeItems from "../../utils/GetInTheOfficeItems";
+import PostStockHistory from "../../utils/PostStockHistory";
 
 const Consumption: FC = memo(() => {
   const navigate = useNavigate();
-  const { itemData, itemLoading, itemError } = useGetItems("?intheOffice=true");
   const [inputValueArr, setInputValueArr] = useState<number[]>([]);
   const [inputValueArrError, setInputValueArrError] = useState("");
+  const [inTheOfficeItems, setInTheOfficeItems] = useState<Item[]>()
+  const [stockItems, setStockItems] = useState<StockHistory[]>([])
 
   useEffect(() => {
-    const firstInputValueArr: number[] = [...Array(itemData.length)].map(
-      () => 0
-    );
-    setInputValueArr(firstInputValueArr);
-  }, [itemData]);
-
-  //オフィスに存在する商品のidのみが格納された配列
-  const [inTheOfficeItemIdArr, setInTheOfficeItemIdArr] = useState<
-    Array<number>
-  >([]);
-
-  useEffect(() => {
-    setInTheOfficeItemIdArr(itemData.map((item: any) => item.id));
-  }, [itemData]);
-
-  //オフィスに存在する商品情報が格納された配列 （現在在庫があるもののみ）
-  const [inTheOfficeItemArr, setInTheOfficeItemArr] = useState<
-    Array<StockHistory>
-  >([]);
-
-  useEffect(() => {
-    getStockAmount();
-  }, [inTheOfficeItemIdArr]);
-
-  //現在の在庫量を取得
-  const getStockAmount = async () => {
-    const promises = inTheOfficeItemIdArr?.map((test) => {
-      return axios
-        .get(
-          `http://localhost:8880/stockhistory?&itemId=${test}&_sort=day&_order=desc&_limit=1`
-        )
-        .then((res) => {
-          return res?.data[0];
-        })
-        .catch((error) => {
-          console.log(error);
-          return null;
-        });
-    });
-    const newArr = await Promise.all(promises);
-    setInTheOfficeItemArr(newArr);
-  };
+    const getItemsFnc = async() => {
+      const getItemInTheOffice = await GetInTheOfficeItems()
+    console.log(getItemInTheOffice)
+    setInTheOfficeItems(getItemInTheOffice)
+    }
+    getItemsFnc()
+  },[])
 
   const validateAddition = () => {
     const invalidValues = inputValueArr.filter((value) => value >= 999);
@@ -73,42 +42,80 @@ const Consumption: FC = memo(() => {
     return true;
   };
 
+  // useEffect(() => {
+  //   const firstInputValueArr: number[] = [...Array(itemData.length)].map(
+  //     () => 0
+  //   );
+  //   setInputValueArr(firstInputValueArr);
+  // }, [itemData]);
+
+  // //オフィスに存在する商品のidのみが格納された配列
+  // const [inTheOfficeItemIdArr, setInTheOfficeItemIdArr] = useState<
+  //   Array<number>
+  // >([]);
+
+  // useEffect(() => {
+  //   setInTheOfficeItemIdArr(itemData.map((item: any) => item.id));
+  // }, [itemData]);
+
+  // //オフィスに存在する商品情報が格納された配列 （現在在庫があるもののみ）
+  // const [inTheOfficeItemArr, setInTheOfficeItemArr] = useState<
+  //   Array<StockHistory>
+  // >([]);
+
+  // useEffect(() => {
+  //   getStockAmount();
+  // }, [inTheOfficeItemIdArr]);
+
+  // const onClickSubmit = async () => {
+  //   const isAdditionValid = validateAddition();
+  //   if (isAdditionValid) {
+  //     const now = new Date();
+  //     const dateString = now.toISOString();
+  //     try {
+  //       await Promise.all(
+  //         itemData.map(async (item, index) => {
+  //           // 0より大きい場合のみデータを送信
+  //           let newStockAmount;
+  //           if (inTheOfficeItemArr[index]) {
+  //             newStockAmount =
+  //               inTheOfficeItemArr[index].stockAmount + inputValueArr[index];
+  //           } else {
+  //             newStockAmount = inputValueArr[index];
+  //           }
+  //           if (inputValueArr[index] > 0) {
+  //             await axios.post("http://localhost:8880/stockhistory", {
+  //               itemId: item.id,
+  //               quantity: inputValueArr[index],
+  //               day: dateString,
+  //               incOrDec: true,
+  //               stockAmount: newStockAmount,
+  //             });
+  //           }
+  //         })
+  //       );
+
+  //       // 処理が全て完了した後に/adminhomeへ遷移
+  //       navigate("/adminhome");
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   } else {
+  //     setInputValueArrError("*入力内容の確認をしてください");
+  //   }
+  // };
+
+  const TestBtn = () => {
+    console.log(inTheOfficeItems)
+  }
+
   const onClickSubmit = async () => {
     const isAdditionValid = validateAddition();
-    if (isAdditionValid) {
-      const now = new Date();
-      const dateString = now.toISOString();
-      try {
-        await Promise.all(
-          itemData.map(async (item, index) => {
-            // 0より大きい場合のみデータを送信
-            let newStockAmount;
-            if (inTheOfficeItemArr[index]) {
-              newStockAmount =
-                inTheOfficeItemArr[index].stockAmount + inputValueArr[index];
-            } else {
-              newStockAmount = inputValueArr[index];
-            }
-            if (inputValueArr[index] > 0) {
-              await axios.post("http://localhost:8880/stockhistory", {
-                itemId: item.id,
-                quantity: inputValueArr[index],
-                day: dateString,
-                incOrDec: true,
-                stockAmount: newStockAmount,
-              });
-            }
-          })
-        );
 
-        // 処理が全て完了した後に/adminhomeへ遷移
-        navigate("/adminhome");
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-      setInputValueArrError("*入力内容の確認をしてください");
+    if (isAdditionValid) {
+      // const postDataResult = PostStockHistory(stockItems)
     }
+      
   };
 
   return (
@@ -126,19 +133,15 @@ const Consumption: FC = memo(() => {
       <Box id="top" />
       <Box sx={{ width: "100%"}}>
         <AdmTitleText>補充在庫入力</AdmTitleText>
-      {itemError ? (
-        <Alert severity="error" sx={{ marginTop: "30px", fontSize: "20px" }}>
-          <AlertTitle>Error</AlertTitle>
-          データが見つかりませんでした。
-        </Alert>
-      ) : itemLoading ? (
-        <CircularProgress sx={{ marginTop: "30px", marginBottom: "40px" }} />
-      ) : (
+        <button onClick={TestBtn}>テスト</button>
+
+        {inTheOfficeItems &&
         <StockCard
-          itemData={itemData}
-          inTheOfficeItemArr={inTheOfficeItemArr}
+          itemData={inTheOfficeItems}
           inputValueArr={inputValueArr}
           setInputValueArr={setInputValueArr}
+          stockItems={stockItems}
+          setStockItems={setStockItems}
           sxStyle={{
             maxWidth: {
               xs: "200px",
@@ -155,9 +158,7 @@ const Consumption: FC = memo(() => {
               xl: "295px"
             }, mb: 1
           }}
-        />
-      )}
-      <div style={{ display: "inline-flex" }}></div>
+        />}
       <ModalWindow
         title="送信します、よろしいですか？"
         content={""}

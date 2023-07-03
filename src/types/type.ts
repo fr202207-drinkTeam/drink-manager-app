@@ -50,6 +50,7 @@ export type Item = {
   purchaseLocation: string;
   images:ItemImage[]
   posts?:Post[]
+  stock:StockHistory[]
 };
 
 export type ItemImage = {

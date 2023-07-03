@@ -101,7 +101,7 @@ const ItemEdit: FC = memo(() => {
     });
 
     const data = {
-      itemId: Number(itemId),
+      id: Number(itemId),
       itemName: itemName,
       description: itemDescription,
       itemCategory: itemCategory,
@@ -109,6 +109,7 @@ const ItemEdit: FC = memo(() => {
       approval: true,
       author: loginUser.id,
       isDiscontinued: false,
+      // images: {create: imagePaths},
       images: imagePaths,
     };
 
@@ -116,7 +117,8 @@ const ItemEdit: FC = memo(() => {
 
     if (putItemResult) {
       setUpdating(false);
-      navigate("/adminhome");
+      // navigate("/adminhome");
+      console.log(data)
       } else {
         setUpdating(false);
         return
