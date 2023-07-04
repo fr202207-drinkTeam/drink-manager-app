@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Item } from "../types/type";
 
 type Props = {
   itemId: number;
@@ -7,7 +8,7 @@ type Props = {
 
 const useGetAnItem = (props: Props) => {
   const [itemData, setItemData] = useState<any>();
-  const [isComplete, setIsComplete] = useState(false);
+  const [isComplete, setIsComplete] = useState<boolean>(false);
   useEffect(() => {
     if (!props.itemId) return;
     fetch(`http://localhost:50000/getItemData/${props.itemId}`, { method: "GET" })

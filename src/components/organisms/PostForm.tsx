@@ -21,7 +21,8 @@ import axios, { AxiosError } from "axios";
 
 // 全商品データ、商品情報取得時エラー、ログインユーザー情報、投稿編集データ、投稿編集のset関数
 type Props = {
-  itemData: Items[];
+  // itemData: Items[];
+  itemData: any;
   itemError: boolean;
   loginUser: Users;
   editPostData: Post | null;

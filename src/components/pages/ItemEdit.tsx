@@ -10,13 +10,12 @@ import {
   Select,
   Typography,
 } from "@mui/material";
-import { FC, memo, useEffect, useRef, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 import AdmTitleText from "../atoms/text/AdmTitleText";
 import { Box } from "@mui/system";
 import ModalWindow from "../organisms/ModalWindow";
 import { ActiveBorderButton, InactiveButton } from "../atoms/button/Button";
 import { NavigateFunction, Params, useNavigate, useParams } from "react-router";
-import useGetAnItem from "../../hooks/useGetAnItem";
 import { PrimaryInput, SecondaryInput } from "../atoms/input/Input";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import Cookies from "js-cookie";
@@ -24,10 +23,11 @@ import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 import PreviewImage from "../molecules/PreviewImage";
 import previewImages from "../../utils/previewImages";
 import ImgPathConversion from "../../utils/ImgPathConversion";
-import type {Users} from "../../types/type"
+import type {Item, Users, ItemImage} from "../../types/type"
 import CheckForDuplicates from "../../utils/CheckForDuplicates";
 import PutItemData from "../../utils/PutItemData";
 import GetAnItemData from "../../utils/GetAnItemData";
+import ImgsDelete from "../../utils/ImgsDelete";
 
 const ItemEdit: FC = memo(() => {
   const navigate: NavigateFunction = useNavigate();
@@ -65,31 +65,29 @@ const ItemEdit: FC = memo(() => {
     }
   }
 
+  const TestFnc = async() => {
+    const DeleteExistingItemImages = await ImgsDelete(itemId)
+    console.log(DeleteExistingItemImages)
+  }
+
   // データ取得後、内容をstateにセット
   useEffect(() => {
-    // useEffectの中でasyncを使うために、即時関数にした
-    (async () => {
+    const getItemFnc = async (): Promise<any> => {
       const getResultItemData = await GetAnItemData({itemId: itemId})
-      const itemData = getResultItemData?.itemData
-      const getSuccess = getResultItemData?.getSuccess
-      if(itemData) {
-        if(!getSuccess) {
-          return;
-        } else {
-          console.log(typeof itemData)
-        //   setGetItemData(itemData)
-        //   if (itemData) {      
-        //     setInputImages(
-        //       itemData ? itemData.images.map((image: {id: number, itemId: number, imagePath: string, createdAt: Date}) => new File([], image.imagePath)) : []
-        //     );
-        // }
-      }
-        // setItemName(itemData.itemName);
-        // setItemDescription(itemData.description);
-        // setItemCategory(itemData.itemCategory);
-        // setPresenceOrAbsence(itemData.intheOffice)
-      }
-    })()
+      console.log(getResultItemData);
+    if(getResultItemData) {
+      setGetItemData(getResultItemData)
+      console.log(getResultItemData.images)
+      setItemName(getResultItemData.itemName)
+      setItemDescription(getResultItemData.description)
+      setItemCategory(getResultItemData.itemCategory)
+      setInputImages(
+        getResultItemData.images.map((image: ItemImage) => new File([], image.imagePath))
+            );
+      setLoading(false)
+    }
+    }
+    getItemFnc()
   }, [itemId]);
 
   // データ更新処理(確定ボタン)
@@ -107,8 +105,10 @@ const ItemEdit: FC = memo(() => {
       return { imagePath: image };
     });
 
+    const DeleteExistingItemImages = ImgsDelete(itemId)
+
     const data = {
-      itemId: Number(itemId),
+      id: Number(itemId),
       itemName: itemName,
       description: itemDescription,
       itemCategory: itemCategory,
@@ -116,6 +116,7 @@ const ItemEdit: FC = memo(() => {
       approval: true,
       author: loginUser.id,
       isDiscontinued: false,
+      // images: {create: imagePaths},
       images: imagePaths,
     };
 
@@ -123,34 +124,12 @@ const ItemEdit: FC = memo(() => {
 
     if (putItemResult) {
       setUpdating(false);
-      navigate("/adminhome");
+      // navigate("/adminhome");
+      console.log(data)
       } else {
         setUpdating(false);
         return
       }
-        
-      
-
-    // fetch(`http://localhost:8880/items/${itemId}`, {
-    //   method: "PUT",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     name: itemName,
-    //     description: itemDescription,
-    //     image: imagePaths,
-    //     itemCategory: itemCategory,
-    //     createdAt: new Date(),
-    //     intheOffice: presenceOrAbsence,
-    //     author: loginUser.id,
-    //     otherItem: false,
-    //     isDiscontinued: false
-    //   }),
-    // }).then(() => {
-    //   setUpdating(false);
-    //   navigate("/adminhome");
-    // });
   };
 
   return (
@@ -165,6 +144,7 @@ const ItemEdit: FC = memo(() => {
             <Paper sx={{ p: 5, width: {xs: "100%", sm: "100%", md: "100%", lg:"80%"}, m: "auto" }}>
           <Box id="top"/>
           <AdmTitleText>商品編集</AdmTitleText>
+          {/* <button onClick={TestFnc}>テスト</button> */}
           {updating ? (
             <div style={{ margin: "200px", textAlign: "center" }}>
               <p>更新中</p>
@@ -340,7 +320,7 @@ const ItemEdit: FC = memo(() => {
                 row
                 aria-labelledby="in-the-office"
                 name="in-the-office"
-                defaultValue="presence"
+                defaultValue="absence"
                 onChange={(e) => onChangeInTheOffice(e)}
                 sx={{mb: 5}}
                 >
@@ -488,7 +468,6 @@ const ItemEdit: FC = memo(() => {
           )}
         </Paper>
           )
-          
         ) :(
           <div>該当する商品がありません</div>
         )

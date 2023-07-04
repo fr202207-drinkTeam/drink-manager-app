@@ -35,6 +35,32 @@ export type Items = {
   isDiscontinued?: boolean;
 };
 
+export type Item = {
+  id: number;
+  itemName: string;
+  description: string;
+  itemCategory: number;
+  createdAt: Date ;
+  inTheOffice: boolean;
+  author: number;
+  pollItem?: boolean | null;
+  isDiscontinued: boolean;
+  approval: boolean;
+  manufacturer: string;
+  purchaseLocation: string;
+  images:ItemImage[]
+  posts?:Post[]
+  stock:StockHistory[]
+};
+
+export type ItemImage = {
+  id: string;
+  item: Item[];
+  itemId: number;
+  imagePath: string; 
+  createdAt: Date
+}
+
 export type Questionnaire = {
   id: number;
   name: string;

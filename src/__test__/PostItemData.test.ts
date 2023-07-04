@@ -1,19 +1,10 @@
 import PostItemData from "../utils/PostItemData";
+import "cross-fetch/polyfill"
+import { server } from "./../mocks/server"
+import { rest } from "msw"
 
-type Data = {
-  itemName: string;
-  description: string;
-  itemCategory: number;
-  inTheOffice: boolean;
-  approval: boolean;
-  author: number | null;
-  pollItem: boolean;
-  isDiscontinued: boolean;
-  images: { imagePath: string | unknown }[];
-};
-
-const data: Data = {
-  itemName: "jestテスト用商品データ",
+const data1 = {
+  itemName: "jest追加テスト用商品データ1",
   description: "説明",
   itemCategory: 1,
   inTheOffice: false,
@@ -28,10 +19,40 @@ const data: Data = {
   ],
 };
 
-describe("商品の追加登録テスト", () => {
-  test("商品追加が成功すること", async () => {
-    const result: Boolean = await PostItemData(data);
-    jest.spyOn(console, "error").mockImplementation();
-    expect(result).toBe(true);
-  });
+const data2 = {
+  itemName: "jest追加テスト用商品データ2",
+  description: "説明",
+  itemCategory: 1,
+  inTheOffice: false,
+  approval: true,
+  author: 1,
+  pollItem: false,
+  isDiscontinued: false,
+  images: [
+    { imagePath: "item/png" },
+    { imagePath: "item/png" },
+    { imagePath: "item/png" },
+  ],
+};
+
+describe("GetAnItemData", () => {
+  beforeAll(() => server.listen())
+
+  afterEach(() => server.resetHandlers())
+
+  afterAll(() => server.close())
+
+  test("trueが返ってくること", async () => {
+    expect(await PostItemData(data1)).toBe(true)
+  })
+
+  test("falseが返ってくること", async () => {
+    server.use(
+      rest.post("http://localhost:50000/additem", (req, res, ctx) => {
+        throw new Error()
+      })
+    )
+    expect(await PostItemData( data2 )).toBe(false)
+  })
+
 });

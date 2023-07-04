@@ -7,6 +7,8 @@ import axios from "axios";
 import { StockHistory } from "../../types/type";
 import useGetItems from "../../hooks/useGetItems";
 import ModalWindow from "../organisms/ModalWindow";
+import type { Item } from "../../types/type";
+import GetInTheOfficeItems from "../../utils/GetInTheOfficeItems";
 
 const Consumption: FC = memo(() => {
   const navigate = useNavigate();
@@ -14,6 +16,16 @@ const Consumption: FC = memo(() => {
   const [inputValueArr, setInputValueArr] = useState<number[]>([]);
   const [inputValueArrError, setInputValueArrError] = useState("");
   const [inputValueArrAllError, setInputValueArrAllError] = useState("");
+  const [inTheOfficeItems, setInTheOfficeItems] = useState<Item[]>()
+
+  useEffect(() => {
+    const getItemsFnc = async() => {
+      const getItemInTheOffice = await GetInTheOfficeItems()
+    console.log(getItemInTheOffice)
+    setInTheOfficeItems(getItemInTheOffice)
+    }
+    getItemsFnc()
+  },[])
 
   useEffect(() => {
     const firstInputValueArr: number[] = [...Array(itemData.length)].map(
@@ -145,28 +157,29 @@ const Consumption: FC = memo(() => {
         ) : itemLoading ? (
           <CircularProgress sx={{ marginTop: "30px", marginBottom: "40px" }} />
         ) : (
-          <StockCard
-            itemData={itemData}
-            inTheOfficeItemArr={inTheOfficeItemArr}
-            inputValueArr={inputValueArr}
-            setInputValueArr={setInputValueArr}
-            sxStyle={{
-            maxWidth: {
-              xs: "200px",
-              sm: "200px",
-              md: "300px",
-              lg: "300px",
-              xl: "300px"
-            },
-            minWidth: {
-              xs: "200px",
-              sm: "200px",
-              md: "250px",
-              lg: "250px",
-              xl: "295px"
-            }, mb: 1
-          }}
-          />
+          <></>
+          // <StockCard
+          //   itemData={inTheOfficeItems}
+          //   inTheOfficeItemArr={inTheOfficeItemArr}
+          //   inputValueArr={inputValueArr}
+          //   setInputValueArr={setInputValueArr}
+          //   sxStyle={{
+          //   maxWidth: {
+          //     xs: "200px",
+          //     sm: "200px",
+          //     md: "300px",
+          //     lg: "300px",
+          //     xl: "300px"
+          //   },
+          //   minWidth: {
+          //     xs: "200px",
+          //     sm: "200px",
+          //     md: "250px",
+          //     lg: "250px",
+          //     xl: "295px"
+          //   }, mb: 1
+          // }}
+          // />
         )}
         <div style={{ display: "inline-flex" }}></div>
         <ModalWindow

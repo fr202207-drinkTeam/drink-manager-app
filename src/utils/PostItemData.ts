@@ -26,9 +26,7 @@ const PostItemData = async (props: Props) => {
     })
     .catch((error) => {
       console.error("Error:", error);
-      if (error) {
-        success = true;
-      }
+      success = false
     });
 
     return success;
