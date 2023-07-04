@@ -4,6 +4,10 @@ type Props = {
 
 const GetAnItemData = async(props: Props) => {  
 
+  if(!props) {
+    return;
+  }
+  
     return await fetch(`http://localhost:50000/getItemData/${props.itemId}`, { method: "GET" })
       .then((res) => res.json())
       .then((data) => {

@@ -68,6 +68,7 @@ const AddItem: FC<Props> = memo(
       };
 
       const postItemResult = await PostItemData(data);
+      console.log(postItemResult)
 
       if (postItemResult) {
         if (pollFlag) {
@@ -75,7 +76,7 @@ const AddItem: FC<Props> = memo(
           handleClose();
           return;
         }
-        navigate("/adminhome");
+        // navigate("/adminhome");
       }
     };
 

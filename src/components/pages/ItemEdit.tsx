@@ -27,6 +27,7 @@ import type {Item, Users, ItemImage} from "../../types/type"
 import CheckForDuplicates from "../../utils/CheckForDuplicates";
 import PutItemData from "../../utils/PutItemData";
 import GetAnItemData from "../../utils/GetAnItemData";
+import ImgsDelete from "../../utils/ImgsDelete";
 
 const ItemEdit: FC = memo(() => {
   const navigate: NavigateFunction = useNavigate();
@@ -64,6 +65,11 @@ const ItemEdit: FC = memo(() => {
     }
   }
 
+  const TestFnc = async() => {
+    const DeleteExistingItemImages = await ImgsDelete(itemId)
+    console.log(DeleteExistingItemImages)
+  }
+
   // データ取得後、内容をstateにセット
   useEffect(() => {
     const getItemFnc = async (): Promise<any> => {
@@ -98,6 +104,8 @@ const ItemEdit: FC = memo(() => {
     const imagePaths = imagePath.map((image) => {
       return { imagePath: image };
     });
+
+    const DeleteExistingItemImages = ImgsDelete(itemId)
 
     const data = {
       id: Number(itemId),
@@ -136,6 +144,7 @@ const ItemEdit: FC = memo(() => {
             <Paper sx={{ p: 5, width: {xs: "100%", sm: "100%", md: "100%", lg:"80%"}, m: "auto" }}>
           <Box id="top"/>
           <AdmTitleText>商品編集</AdmTitleText>
+          {/* <button onClick={TestFnc}>テスト</button> */}
           {updating ? (
             <div style={{ margin: "200px", textAlign: "center" }}>
               <p>更新中</p>

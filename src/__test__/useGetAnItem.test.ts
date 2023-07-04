@@ -1,7 +1,7 @@
-import GetAnItemData from "../../utils/GetAnItemData";
-import "cross-fetch/polyfill";
-import { server } from "./../../mocks/server";
-import { rest } from "msw";
+import useGetAnItem from "../hooks/useGetAnItem";
+import "cross-fetch/polyfill"
+import { server } from "./../mocks/server"
+import { rest } from "msw"
 
 const mockItemId = 12345;
 const mockItemData = {
@@ -28,19 +28,19 @@ const mockItemData = {
 };
 
 describe("GetAnItemData", () => {
-  beforeAll(() => server.listen());
+  beforeAll(() => server.listen())
 
-  afterEach(() => server.resetHandlers());
+  afterEach(() => server.resetHandlers())
 
-  afterAll(() => server.close());
+  afterAll(() => server.close())
 
   test("正常にデータ取得ができること", async () => {
-    expect(await GetAnItemData({ itemId: mockItemId })).toStrictEqual(mockItemData);
+    expect(await useGetAnItem({ itemId: mockItemId })).toStrictEqual(mockItemData);
   });
 
   test("itemIdがnullの時、undefinedが返ってくること", async () => {
     expect(
-      await GetAnItemData(({ itemId: null } as unknown) as {
+      await useGetAnItem(({ itemId: null } as unknown) as {
         itemId: number;
       })
     ).toBe(undefined);
@@ -53,6 +53,7 @@ describe("GetAnItemData", () => {
       })
     );
 
-    expect(await GetAnItemData({ itemId: mockItemId })).toStrictEqual(undefined);
+    expect(await useGetAnItem({ itemId: mockItemId })).toStrictEqual(undefined);
   });
+
 });
