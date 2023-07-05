@@ -1,8 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Guide from "./Guide";
+import Guide from "../components/pages/Guide";
 import { BrowserRouter, MemoryRouter, Route, Routes } from "react-router-dom";
-import Contact from "./Contact";
+import Contact from "../components/pages/Contact";
+import "@testing-library/jest-dom/extend-expect";
 
 describe("Guide page", () => {
   it("Should render all elements correctly", () => {

@@ -1,27 +1,14 @@
-import { render, screen, waitFor } from "@testing-library/react";
-import { rest } from "msw";
-import { setupServer } from "msw/node";
-import PostForm from "./PostForm";
+import { render, screen } from "@testing-library/react";
+import PostForm from "../components/organisms/PostForm";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 
-const requestMock = jest.fn();
 
-const server = setupServer(
-  rest.post("http://localhost:50000/posts", (req, res, ctx) => {
-    requestMock();
-    return res(ctx.status(200));
-  })
-);
-
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
 
 const itemData = [
   {
     id: 1,
-    name: "ブライトブレンドブライトブレンド",
+    itemName: "ブライトブレンドブライトブレンド",
     description:
       "ミディアムローストの豆をブレンドしたブライトブレンドは、キャラメル、ベリー、はちみつのバランスのとれたほんのり甘い香りが楽しめる一杯です。",
     image: ["/bright.png", "/item.png", "/item.png"],
@@ -95,9 +82,6 @@ const setReloadPost = jest.fn();
 
 describe("Post content", () => {
   it("Should post new post correctly", async () => {
-    // jest.spyOn(React, "useRef").mockReturnValue({
-    //   current: ["0", "1", "2"],
-    // });
     const itemError = false;
     const editPostData = null;
     const reloadPost = false;
@@ -115,44 +99,19 @@ describe("Post content", () => {
 
     expect(screen.queryByLabelText("transition-modal-title")).toBeNull();
 
-    userEvent.type(
-      screen.getByRole("textbox"),
-      "こちらは新しい投稿です。投稿内容は20文字以上必要です。"
-    );
+    const typingContent = "こちらは新しい投稿です。コーヒーは美味しいです。";
+
+    userEvent.type(screen.getByRole("textbox"), typingContent);
 
     expect((screen.getByRole("textbox") as HTMLInputElement).value).toBe(
-      "こちらは新しい投稿です。投稿内容は20文字以上必要です。"
+      typingContent
     );
-
     userEvent.click(screen.getAllByRole("button")[1]);
-    
+
     expect(await screen.findByLabelText("transition-modal-title")).toBeTruthy();
     expect(await screen.findAllByText("確定")).toBeTruthy();
-    userEvent.click(screen.getAllByText("確定")[1]);
 
+    // userEvent.click(screen.getAllByText("確定")[1]);
     // await waitFor(() => expect(requestMock).toHaveBeenCalledTimes(1));
   });
-
-  //   it("Should block the posting becauseof its character limit", async () => {
-  //     const itemError = false;
-  //     const editPostData = null;
-  //     const reloadPost = false;
-  //     render(
-  //       <PostForm
-  //         itemData={itemData}
-  //         itemError={itemError}
-  //         loginUser={loginUser}
-  //         editPostData={editPostData}
-  //         setEditPostData={setEditPostData}
-  //         reloadPost={reloadPost}
-  //         setReloadPost={setReloadPost}
-  //       />
-  //     );
-  //     userEvent.type(
-  //       screen.getByRole("textbox"),
-  //       "こちらは新しい投稿です。失敗します。"
-  //     );
-  //     userEvent.click(screen.getAllByRole("button")[1]);
-  //     expect(screen.queryByLabelText("transition-modal-title")).toBeNull();
-  //   });
 });

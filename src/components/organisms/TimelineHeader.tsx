@@ -6,22 +6,51 @@ import {
   MenuItem,
   Paper,
   Select,
-  SelectChangeEvent,
   Typography,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { filterPostCategory, searchPost } from "../../utils/filterPost";
+import { Post } from "../../types/type";
+import FetchPostsButton from "../atoms/button/FetchPostsButton";
 
 // 投稿検索処理、投稿絞込み処理、投稿取得ボタン
 type Props = {
-  searchPost: (event: React.FormEvent<HTMLFormElement>) => void;
-  filterPosts: (event: SelectChangeEvent<string>) => void;
-  fetchPostsButton: JSX.Element;
+  setPostData: React.Dispatch<React.SetStateAction<Post[]>>;
+  noMoreData: boolean;
+  itemId: any;
+  setPostParamsNum: React.Dispatch<React.SetStateAction<number>>;
+  postParamsNum: number;
+  setPostSearch: React.Dispatch<React.SetStateAction<string>>;
+  postSearch: string;
+  setPostUserAdmin: React.Dispatch<React.SetStateAction<string>>;
+  postUserAdmin: string;
+  setPostParams: React.Dispatch<React.SetStateAction<string>>;
+  postParams: string;
+  setSearchError: React.Dispatch<React.SetStateAction<boolean>>;
   searchError: boolean;
+  setReloadPost: React.Dispatch<React.SetStateAction<boolean>>;
+  reloadPost: boolean;
 };
 
 // タイムラインヘッダー
 const TimelineHeader: FC<Props> = memo((props) => {
-  const { searchPost, filterPosts, fetchPostsButton, searchError } = props;
+  const {
+    setPostData,
+    noMoreData,
+    itemId,
+    setPostParamsNum,
+    postParamsNum,
+    setPostSearch,
+    postSearch,
+    setPostUserAdmin,
+    postUserAdmin,
+    setPostParams,
+    postParams,
+    setSearchError,
+    searchError,
+    setReloadPost,
+    reloadPost,
+  } = props;
 
   // 検索入力コンポーネント　レスポンシブ対応
   const SearchInput = (small: boolean) => (
@@ -38,7 +67,19 @@ const TimelineHeader: FC<Props> = memo((props) => {
     >
       <Paper
         component="form"
-        onSubmit={searchPost}
+        onSubmit={(event) => {
+          searchPost(
+            event,
+            setSearchError,
+            setPostData,
+            setPostParams,
+            setReloadPost,
+            postUserAdmin,
+            reloadPost,
+            setPostSearch,
+            postSearch
+          );
+        }}
         elevation={0}
         sx={[
           {
@@ -109,7 +150,15 @@ const TimelineHeader: FC<Props> = memo((props) => {
             fullWidth
             defaultValue="すべて"
             sx={{ border: "none", backgroundColor: "white", px: "10px" }}
-            onChange={filterPosts}
+            onChange={(event) =>
+              filterPostCategory(
+                event,
+                setPostData,
+                setPostParams,
+                postSearch,
+                setPostUserAdmin
+              )
+            }
           >
             <MenuItem value="すべて">すべて</MenuItem>
             <MenuItem value="投稿">投稿</MenuItem>
@@ -117,7 +166,20 @@ const TimelineHeader: FC<Props> = memo((props) => {
           </Select>
         </Grid>
         <Grid item xs={3} sm={1} sx={{ pt: { xs: "15px", sm: 0 } }}>
-          {fetchPostsButton}
+          <FetchPostsButton
+            isHeader={true}
+            setPostData={setPostData}
+            setReloadPost={setReloadPost}
+            reloadPost={reloadPost}
+            setPostParamsNum={setPostParamsNum}
+            postParamsNum={postParamsNum}
+            noMoreData={noMoreData}
+            itemId={itemId}
+            setPostParams={setPostParams}
+            postParams={postParams}
+            postUserAdmin={postUserAdmin}
+            postSearch={postSearch}
+          />
         </Grid>
       </Grid>
       {searchError && (

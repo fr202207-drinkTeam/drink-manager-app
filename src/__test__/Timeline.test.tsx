@@ -1,10 +1,12 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
-import Timeline from "./Timeline";
+import Timeline from "../components/pages/Timeline";
 import { RecoilRoot } from "recoil";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import "@testing-library/jest-dom/extend-expect";
+
 
 const apptheme = createTheme({
   typography: {
@@ -14,7 +16,7 @@ const apptheme = createTheme({
 
 const requestMock = jest.fn();
 
-const server = setupServer(
+const handlers = [
   rest.get("http://localhost:50000/items", (req, res, ctx) => {
     requestMock();
     return res(
@@ -22,7 +24,7 @@ const server = setupServer(
       ctx.json([
         {
           id: 1,
-          name: "ブライトブレンドブライトブレンド",
+          itemName: "ブライトブレンドブライトブレンド",
           description:
             "ミディアムローストの豆をブレンドしたブライトブレンドは、キャラメル、ベリー、はちみつのバランスのとれたほんのり甘い香りが楽しめる一杯です。",
           image: ["/bright.png", "/item.png", "/item.png"],
@@ -35,7 +37,7 @@ const server = setupServer(
         },
         {
           id: 2,
-          name: "LAVAZZA CLASSICO",
+          itemName: "LAVAZZA CLASSICO",
           description:
             "しっかりとした珈琲感とドライフルーツの風味が特徴のミディアムローストコーヒー。バランスのとれたリッチな味わいがお好みの方へオススメです。",
           image: ["/crassico.png", "/item.png", "/coffee.png"],
@@ -48,8 +50,14 @@ const server = setupServer(
         },
       ])
     );
-  })
-);
+  }),
+  rest.get("http://localhost:50000/posts", (req, res, ctx) => {
+    requestMock();
+    return res(ctx.status(200), ctx.json([{ hello: "hello" }]));
+  }),
+];
+
+const server = setupServer(...handlers);
 
 beforeAll(() => {
   server.listen();
@@ -57,18 +65,18 @@ beforeAll(() => {
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
-// describe("PostForm item information", () => {
-//   it("Should get item infomation", async () => {
-//     render(
-//       <RecoilRoot>
-//         <ThemeProvider theme={apptheme}>
-//           <BrowserRouter>
-//             <Timeline />
-//           </BrowserRouter>
-//         </ThemeProvider>
-//       </RecoilRoot>
-//     );
-//     expect(screen.getAllByText("タイムライン")[0]).toBeInTheDocument();
-//     await waitFor(() => expect(requestMock).toHaveBeenCalled());
-//   });
-// });
+describe("PostForm item information", () => {
+  it("Should get item infomation", async () => {
+    render(
+      <RecoilRoot>
+        <ThemeProvider theme={apptheme}>
+          <BrowserRouter>
+            <Timeline />
+          </BrowserRouter>
+        </ThemeProvider>
+      </RecoilRoot>
+    );
+    expect(screen.getAllByText("タイムライン")[0]).toBeInTheDocument();
+    await waitFor(() => expect(requestMock).toHaveBeenCalled());
+  });
+});

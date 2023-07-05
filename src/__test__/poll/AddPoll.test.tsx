@@ -175,4 +175,3 @@ describe('AddPoll', () => {
     expect(item2).toBeInTheDocument();
   });
 });
-
