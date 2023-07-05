@@ -1,6 +1,7 @@
 import { Box, TextField } from "@mui/material";
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { StockHistory } from "../../../types/type";
 
 type Props = {
   index: number;
@@ -8,6 +9,8 @@ type Props = {
   setInputStatusArr: Dispatch<SetStateAction<boolean[]>>;
   inputValueArr: Array<number>;
   setInputValueArr: Dispatch<SetStateAction<number[]>>;
+  stockItems: StockHistory[];
+  setStockItems: Dispatch<SetStateAction<StockHistory[]>>;
 };
 
 export const StockInput: FC<Props> = (props) => {
@@ -17,6 +20,8 @@ export const StockInput: FC<Props> = (props) => {
     setInputStatusArr,
     inputValueArr,
     setInputValueArr,
+    stockItems,
+    setStockItems,
   } = props;
   const location = useLocation();
   const [inputLabel, setInputLabel] = useState<string>("");
@@ -66,6 +71,7 @@ export const StockInput: FC<Props> = (props) => {
 
     if (!stringRegex.test(value)) {
       event.target.value = ""; // 入力値が半角数字ではない場合、値を空にする
+      let stockAnItemData = 
       setInputValueArr((prevInputValueArr) => {
         //入力フィールドの値更新
         const newState = [...prevInputValueArr];

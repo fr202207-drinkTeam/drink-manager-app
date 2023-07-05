@@ -3276,7 +3276,14 @@
       "id": 6
     }
   ],
-  "likes": [],
+  "likes": [
+    {
+      "postId": 64,
+      "userId": 1,
+      "time": "2023-06-28T09:14:10.987Z",
+      "id": 1
+    }
+  ],
   "stockhistory": [
     {
       "id": 1,
