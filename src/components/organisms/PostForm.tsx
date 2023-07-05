@@ -64,6 +64,9 @@ const PostForm: FC<Props> = memo((props) => {
 
   // TODO 投稿送信処理
   const sendPost = async () => {
+    if (!postForm.current[0] || !postForm.current[2]) {
+      setPostError("エラーが発生しました、再読み込みしてください。");
+    }
     await sendPostData(
       postForm.current[0].value,
       postForm.current[2].value,
@@ -72,20 +75,17 @@ const PostForm: FC<Props> = memo((props) => {
       setPostError,
       setEditPostData,
       editPostData
-    )
-    // TODO エラーハンドリングなおす
+    );
+
     if (postError) {
-      console.log("error")
       return;
     }
-    // postForm.current.reset();
-    // setSelectedItemId(0);
-    // setInputImages([]);
-    // setReloadPost(!reloadPost);
+    
+    postForm.current.reset();
+    setSelectedItemId(0);
+    setInputImages([]);
+    setReloadPost(!reloadPost);
   };
-
-  console.log(postError)
-
 
   return (
     <>

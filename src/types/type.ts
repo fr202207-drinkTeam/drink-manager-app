@@ -10,18 +10,6 @@ export type Users = {
   polledOther?: Boolean | null;
 };
 
-// export type Items = {
-//   id: number;
-//   name: string;
-//   description: string;
-//   image: string[];
-//   itemCategory?: number | null;
-//   createdAt?: Date | null;
-//   intheOffice: boolean;
-//   author?: string | null;
-//   otherItem?: boolean | null;
-// };
-
 export type Items = {
   id: number;
   itemName: string;
@@ -38,9 +26,9 @@ export type Items = {
 export type Questionnaire = {
   id: number;
   name: string;
-  Polleditems:{
+  Polleditems: {
     itemId: number;
-}[];
+  }[];
   description: string;
   createdAt: Date;
   category: number;
@@ -61,8 +49,10 @@ export type Polls = {
 export type Post = {
   id: number;
   userId: number;
+  user: { firstName: string; lastName: string; isAdmin: boolean };
   content: string;
   itemId: number;
+  item: Items;
   postImages: PostImage[];
   createdAt: Date;
   updatedAt: Date;
@@ -72,7 +62,7 @@ export type PostImage = {
   id: number;
   path: string;
   postId: number;
-}
+};
 
 export type Comment = {
   id: number;

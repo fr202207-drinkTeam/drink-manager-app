@@ -30,12 +30,7 @@ const sendPostData = async (
       postImages: imagePaths,
       // updatedAt: new Date(),
     };
-
-    // fetch(`http://localhost:8880/posts/${editPostData.id}`, {
-    //   method: "PATCH",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(editedComment),
-    // })
+    
     axios
       .patch(`http://localhost:50000/posts/${editPostData.id}`, editedPost)
       .then(() => {
@@ -44,11 +39,12 @@ const sendPostData = async (
       })
       .catch((error: AxiosError) => {
         console.log(error.response?.data);
-        setPostError("保存に失敗しました。");
+        setPostError("保存に失敗しました。お問い合わせをお願いいたします。");
       });
 
     return;
   }
+  
   // 新規投稿の場合
   const newPost = {
     userId,
@@ -58,14 +54,14 @@ const sendPostData = async (
   };
 
   axios
-    .post("http://localhost:0000/posts", newPost)
+    .post("http://localhost:50000/posts", newPost)
     .then((res) => {
       console.log(res.data);
       setPostError(null);
     })
     .catch((error: AxiosError) => {
       console.log(error.response?.data);
-      setPostError("保存に失敗しました。");
+      setPostError("保存に失敗しました。お問い合わせをお願いいたします。");
     });
 };
 

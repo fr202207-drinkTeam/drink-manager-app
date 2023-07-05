@@ -1,19 +1,22 @@
 import { useState, useEffect} from "react";
 import { Post } from "../types/type";
+import axios from "axios";
 
 // 投稿データ取得hooks
 const useGetPosts = (
-  params: string
+  params: string,
+  reload: boolean
 ) => {
   const [fetchPostData, setfetchPostData] = useState<Post[] | null>(null);
   const [postLoading, setPostLoading] = useState<boolean>(false);
   const [postError, setPostError] = useState<boolean>(false);
 
   useEffect(() => {
+  console.log("params", params)
     setPostLoading(true);
     // データ取得
-    fetch(`http://localhost:50000/posts${params}`, { method: "GET" })
-      .then((res) => res.json())
+    axios.get(`http://localhost:50000/posts${params}`)
+      .then((res) => res.data)
       .then((data) => {
         // データがある場合は通常通りデータをセット
         setfetchPostData(data);
@@ -24,7 +27,7 @@ const useGetPosts = (
         setPostError(true);
         setPostLoading(false);
       });
-  }, [params]);
+  }, [params, reload]);
 
   return { fetchPostData, postLoading, postError };
 };

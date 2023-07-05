@@ -1,7 +1,6 @@
 import { FC, memo, useEffect, useState } from "react";
 import {
   Comment as CommentType,
-  Items,
   Like,
   Post,
   PostImage,
@@ -19,7 +18,6 @@ import {
   useTheme,
 } from "@mui/material";
 import Comment from "./Comment";
-import parse from "html-react-parser";
 import Likes from "../molecules/Likes";
 import { EditNote } from "@mui/icons-material";
 import MenuButtons from "../molecules/MenuButtons";
@@ -46,12 +44,6 @@ const PostData: FC<Props> = memo((props) => {
     setReloadPost,
   } = props;
 
-  // それぞれの投稿のユーザー情報格納
-  const [userData, setUserData] = useState<Users | null>(null);
-
-  // 商品名の格納
-  const [itemData, setItemData] = useState<Items | null>(null);
-
   // コメントデータの格納
   const [commentData, setCommentData] = useState<CommentType[]>([]);
 
@@ -62,31 +54,6 @@ const PostData: FC<Props> = memo((props) => {
   const [reloadComment, setReloadComment] = useState<boolean>(false);
 
   useEffect(() => {
-    // 投稿のユーザー情報取得
-    fetch(`http://localhost:8880/users/${postData.userId}`, { method: "GET" })
-      .then((res) => res.json())
-      .then((data) => {
-        setUserData(data);
-      })
-      .catch((error) => {
-        console.log("Error:", error);
-      });
-    // 投稿の商品名取得
-    if (+postData.itemId !== 0) {
-      fetch(`http://localhost:8880/items/${postData.itemId}`, {
-        method: "GET",
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setItemData(data);
-        })
-        .catch((error) => {
-          console.log("Error:", error);
-        });
-    } else {
-      setItemData(null);
-    }
-
     // 投稿のコメント取得
     fetch(`http://localhost:8880/comments?postId=${postData.id}`, {
       method: "GET",
@@ -100,24 +67,13 @@ const PostData: FC<Props> = memo((props) => {
       });
   }, [postData, reloadComment]);
 
-  // 投稿内容の装飾
-  let content = postData.content
-    .replace("/nameS/", "<span style='display:none;'>")
-    .replace("/nameE/", "</span>");
-  if (postData.itemId) {
-    content = postData.content
-      .replace("/itemS/", "<span style='display:none;'>")
-      .replace("/itemE/", "</span>")
-      .replace("/nameS/", "<span style='display:none;'>")
-      .replace("/nameE/", "</span>");
-  }
-
   // 投稿編集処理
   const editPost = () => {
     setMenu(false);
     setEditPostData!(postData);
     return;
   };
+  
   // 投稿削除処理
   const deletePost = () => {
     // 投稿削除
@@ -222,15 +178,15 @@ const PostData: FC<Props> = memo((props) => {
             <Box sx={{ display: { xs: "block", sm: "flex" } }}>
               <Box sx={{ mt: "2px" }}>
                 {/* ユーザーが管理者かどうかでそれぞれの投稿にタグ付け */}
-                {userData && userData.isAdmin && PostTag(true)}
-                {userData && !userData.isAdmin && PostTag(false)}
+                {postData.user.isAdmin && PostTag(true)}
+                {!postData.user.isAdmin && PostTag(false)}
               </Box>
               <Typography
                 variant="body1"
                 sx={{ fontWeight: "bolder", color: "blue" }}
               >
                 {/* ユーザー情報取得次第、名前を表示 */}
-                {userData && `${userData.firstName} ${userData.lastName}`}
+                {`${postData.user.firstName} ${postData.user.lastName}`}
               </Typography>
               <Box sx={{ alignItems: "flex-end", mx: { xs: 0, sm: 2 } }}>
                 <Typography variant="caption">
@@ -240,7 +196,7 @@ const PostData: FC<Props> = memo((props) => {
             </Box>
           </Box>
           {/* ログインユーザーの投稿の場合、メニュー画面を表示 */}
-          {userData && loginUser.id === userData.id && !menu && isComment && (
+          {loginUser.id === postData.userId && !menu && (
             <Grid>
               <IconButton
                 aria-label={`menuIcon${postData.id}`}
@@ -265,11 +221,11 @@ const PostData: FC<Props> = memo((props) => {
         </Box>
 
         <Box>
-          <Typography variant="body1">{parse(content)}</Typography>
-          {itemData && (
-            <Link to={`/home/search/${itemData.id}`}>
+          <Typography variant="body1">{postData.content}</Typography>
+          {postData && (
+            <Link to={`/home/search/${postData.itemId}`}>
               <Typography variant="body1" sx={{ color: "blue" }}>
-                # {itemData.itemName}
+                # {postData.item.itemName}
               </Typography>
             </Link>
           )}

@@ -1,10 +1,12 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
-import Timeline from "./Timeline";
+import Timeline from "../components/pages/Timeline";
 import { RecoilRoot } from "recoil";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import "@testing-library/jest-dom/extend-expect";
+
 
 const apptheme = createTheme({
   typography: {
@@ -14,7 +16,7 @@ const apptheme = createTheme({
 
 const requestMock = jest.fn();
 
-const server = setupServer(
+const handlers = [
   rest.get("http://localhost:50000/items", (req, res, ctx) => {
     requestMock();
     return res(
@@ -48,8 +50,14 @@ const server = setupServer(
         },
       ])
     );
-  })
-);
+  }),
+  rest.get("http://localhost:50000/posts", (req, res, ctx) => {
+    requestMock();
+    return res(ctx.status(200), ctx.json([{ hello: "hello" }]));
+  }),
+];
+
+const server = setupServer(...handlers);
 
 beforeAll(() => {
   server.listen();

@@ -1,12 +1,5 @@
 import { FC, memo, useEffect, useRef, useState } from "react";
-import {
-  Box,
-  CircularProgress,
-  IconButton,
-  Paper,
-  SelectChangeEvent,
-} from "@mui/material";
-import { CachedOutlined } from "@mui/icons-material";
+import { Box, CircularProgress, Paper } from "@mui/material";
 import PostForm from "../organisms/PostForm";
 import PostData from "../organisms/PostData ";
 import { Post } from "../../types/type";
@@ -15,7 +8,8 @@ import TimelineHeader from "../organisms/TimelineHeader";
 import useGetItems from "../../hooks/useGetItems";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation } from "react-router";
+import FetchPostsButton from "../atoms/button/FetchPostsButton";
 
 type Props = {};
 
@@ -28,7 +22,7 @@ const Timeline: FC<Props> = memo((props) => {
   const { itemData, itemError } = useGetItems();
   // 投稿データ取得時のクエリパラメータ要素
   // 投稿数
-  const [postParamsNum, setpostParamsNum] = useState<number>(3);
+  const [postParamsNum, setPostParamsNum] = useState<number>(3);
   // 投稿かお知らせかの判別
   const [postUserAdmin, setPostUserAdmin] = useState<string>("");
   // 検索内容
@@ -54,13 +48,13 @@ const Timeline: FC<Props> = memo((props) => {
   const [searchError, setSearchError] = useState<boolean>(false);
 
   // 取得した投稿データ、パラメータが更新されるたびに投稿データ取得
-  const { fetchPostData, postLoading } = useGetPosts(postParams);
+  const { fetchPostData, postLoading } = useGetPosts(postParams, reloadPost);
 
   // 商品詳細画面から遷移した場合、その商品のいいね数の一番多い投稿を表示
   const itemId = useRef<number>(0);
 
   const location = useLocation();
-  const navigate = useNavigate();
+
   useEffect(() => {
     (async () => {
       const itemInfo = location.state;
@@ -115,16 +109,7 @@ const Timeline: FC<Props> = memo((props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // 各クエリパラメータ要素のstateが変わるたびに新しいパラメータをセット
-  useEffect(() => {
-    if (location.state && location.state.itemId !== 0) {
-      return;
-    }
-    setPostParams(
-      `?${postUserAdmin}&${postSearch}&quantity=${postParamsNum}&reload=${reloadPost}`
-    );
-  }, [location.state, postParamsNum, postSearch, postUserAdmin, reloadPost]);
-
+  console.log("postParams", postParams)
   // 新しく取得した投稿データと既に取得していたデータをまとめる
   useEffect(() => {
     if (!fetchPostData) {
@@ -157,111 +142,24 @@ const Timeline: FC<Props> = memo((props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchPostData]);
 
-  // データ取得ボタン
-  const FetchPostsButton = ({
-    isHeaderButton = false,
-  }: {
-    isHeaderButton?: boolean;
-  }) => {
-    // データ取得処理
-    const fetchPost = (
-      event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    ) => {
-      // ヘッダーのボタンの場合は投稿3件取得
-      if (isHeaderButton) {
-        setPostData([]);
-        setReloadPost(!reloadPost);
-        setpostParamsNum(0);
-      }
-      // 画面下のボタンの場合は現在の表示に追加で3件取得Ï
-      else {
-        if (noMoreData) {
-          return;
-        }
-        if (itemId.current !== 0) {
-          setReloadPost(!reloadPost);
-          navigate(location.state, {});
-          setPostData([]);
-          itemId.current = 0;
-          return;
-        }
-        setpostParamsNum(postParamsNum + 3);
-      }
-    };
-    return (
-      <Box display="flex" justifyContent="center">
-        <IconButton
-          onClick={fetchPost}
-          sx={{
-            background: "#89c3eb",
-            color: "white",
-            borderRadius: "none",
-          }}
-        >
-          <CachedOutlined />
-        </IconButton>
-      </Box>
-    );
-  };
-
-  // 投稿の絞込み
-  const filterPosts = (event: SelectChangeEvent<string>) => {
-    setPostData([]);
-    const selectedRange = event.target.value;
-
-    switch (selectedRange) {
-      case "すべて":
-        setpostParamsNum(0);
-        setPostUserAdmin("category=all");
-        break;
-      case "投稿":
-        setpostParamsNum(0);
-        setPostUserAdmin("category=user");
-        break;
-      case "お知らせ":
-        setpostParamsNum(0);
-        setPostUserAdmin("category=admin");
-        break;
-    }
-  };
-
-  // 投稿の検索
-  const searchPost = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setSearchError(false);
-    if (
-      !(event.target instanceof HTMLFormElement) ||
-      !(event.target[0] instanceof HTMLInputElement)
-    ) {
-      return;
-    }
-    if (event.target[0].value.length > 20) {
-      setSearchError(true);
-      return;
-    }
-    setPostData([]);
-    setpostParamsNum(0);
-    setPostSearch(`search=${event.target[0].value}`);
-    setReloadPost(!reloadPost);
-  };
-
   return (
     <Paper sx={{ p: "20px", background: "#eae5e3" }}>
-      {/* TODO fetchテスト */}
-      <button
-        onClick={() => {
-          fetch("http://localhost:50000/items")
-            .then((res) => res.json())
-            .then((data) => console.log(data));
-        }}
-      >
-        テスト
-      </button>
       <TimelineHeader
-        searchPost={searchPost}
-        filterPosts={filterPosts}
-        fetchPostsButton={<FetchPostsButton isHeaderButton={true} />}
+        setPostData={setPostData}
+        noMoreData={noMoreData}
+        itemId={itemId}
+        setPostParamsNum={setPostParamsNum}
+        postParamsNum={postParamsNum}
+        setPostSearch={setPostSearch}
+        postSearch={postSearch}
+        setPostUserAdmin={setPostUserAdmin}
+        postUserAdmin={postUserAdmin}
+        setPostParams={setPostParams}
+        postParams={postParams}
+        setSearchError={setSearchError}
         searchError={searchError}
+        setReloadPost={setReloadPost}
+        reloadPost={reloadPost}
       />
       <Box id="top" />
       <Box
@@ -288,7 +186,6 @@ const Timeline: FC<Props> = memo((props) => {
           </Box>
         )}
         {/* データが存在する場合 */}
-
         {postData.map((postData: Post) => (
           <PostData
             key={postData.id}
@@ -308,7 +205,20 @@ const Timeline: FC<Props> = memo((props) => {
         {/* 追加ロードボタン */}
         {!postLoading && (
           <Box sx={{ mt: "20px" }}>
-            <FetchPostsButton />
+            <FetchPostsButton
+              isHeader={false}
+              setPostData={setPostData}
+              setReloadPost={setReloadPost}
+              reloadPost={reloadPost}
+              setPostParamsNum={setPostParamsNum}
+              postParamsNum={postParamsNum}
+              noMoreData={noMoreData}
+              itemId={itemId}
+              setPostParams={setPostParams}
+              postParams={postParams}
+              postUserAdmin={postUserAdmin}
+              postSearch={postSearch}
+            />
           </Box>
         )}
       </Box>
