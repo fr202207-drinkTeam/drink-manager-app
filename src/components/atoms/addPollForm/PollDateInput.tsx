@@ -1,8 +1,6 @@
 import { Box } from '@mui/material'
 import React, { FC } from 'react'
 import { PrimaryDateInput } from '../input/dateInput'
-import { Questionnaire } from '../../../types/type';
-import useGetQuestionnaire from '../../../hooks/useGetQuestionnaire';
 
 type PollDateInputProps = {
   pollEditFlag?: boolean;
@@ -16,8 +14,6 @@ type PollDateInputProps = {
 const PollDateInput: FC<PollDateInputProps> = ({
  dateError, startPeriodDate, setStartPeriodDate, endPeriodDate, setEndPeriodDate, pollEditFlag
 }) => {
-  const questionnaireData: Questionnaire[] = useGetQuestionnaire();
-
   // yyyy-mm-dd 形式の文字列を作成（今日）
   const today = new Date().toISOString().split("T")[0];
 
@@ -35,7 +31,8 @@ const PollDateInput: FC<PollDateInputProps> = ({
           border: pollEditFlag?"":"solid 1px #C4C4C4",
           display: "inline-block",
           borderRadius: "5px",
-          mt: 2,
+          mt: 4,
+          p:1
         }}
       >
         {!pollEditFlag &&
@@ -54,38 +51,6 @@ const PollDateInput: FC<PollDateInputProps> = ({
             }}>
               ※各投票の開催期間が被らないように１ヶ月単位で設定してください
             </Box>
-            <Box sx={{ mb: 1, fontWeight: "bold", ml: 1 }}>最近登録した投票</Box>
-            {questionnaireData.map((data) => (
-              <Box key={data.id} sx={{ display: "flex", flexWrap: "wrap", ml: 1 }}>
-                <Box sx={{
-                  fontSize: {
-                    xs: "14px",
-                    sm: "14px",
-                    md: "16px",
-                    lg: "18px",
-                    xl: "18px"
-                  }, borderBottom: 1
-                }}>
-                  ・{data.name}{" "}
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                      fontSize: {
-                        xs: "12px",
-                        sm: "12px",
-                        md: "16px",
-                        lg: "18px",
-                        xl: "18px"
-                      },
-                    }}
-                  >
-                    期間:{data.startDate.toLocaleDateString()}~
-                    {data.endDate.toLocaleDateString()}
-                  </Box>{" "}
-                </Box>
-              </Box>
-            ))}
           </Box>
         }
         <Box sx={{ display: "flex", alignItems: "center", m: 1, mt: 3 }}>

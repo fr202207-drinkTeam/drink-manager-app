@@ -6,9 +6,9 @@ import DottedMemo from "../atoms/memo/DottedMemo";
 import ItemCard from "../organisms/card/ItemCard";
 import { Items, Polls, Questionnaire } from "../../types/type";
 import PollTitleResult from "../molecules/poll/PollTitleResult";
-import useGetAnQuestionnaire from "../../hooks/useGetAnQuestionnaire";
+import useGetAnQuestionnaire from "../../hooks/poll/useGetAnQuestionnaire";
 import useGetAllItems from "../../hooks/useGetAllItems";
-import useGetAnPoll from "../../hooks/useGetAnPoll";
+import useGetAnPoll from "../../hooks/poll/useGetAnPoll";
 import { CountPolls } from "../../utils/CountPolls";
 
 const PollResult = memo(() => {
@@ -20,6 +20,7 @@ const PollResult = memo(() => {
   const polls: Polls[] = useGetAnPoll(Number(id));
 
   const pollOutcome=CountPolls(polls,Number(id))//集計結果
+  console.log(pollOutcome)
 
   //票の大きい商品順で並び替え
   const sortedPolls = Object.entries(pollOutcome).sort(

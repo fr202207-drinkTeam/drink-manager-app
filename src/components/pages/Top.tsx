@@ -22,6 +22,8 @@ import useGetPosts from "../../hooks/useGetPosts";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 import Slider from "../atoms/slider/Slider";
+import { a } from "msw/lib/glossary-de6278a9";
+import axios from "axios";
 type Props = {};
 
 const Top: FC<Props> = memo((props) => {
@@ -33,11 +35,9 @@ const Top: FC<Props> = memo((props) => {
   const [editPostData, setEditPostData] = useState<Post | null>(null);
 
   useEffect(() => {
-    fetch(
-      `http://localhost:8880/posts?_sort=createdAt&_order=desc&_start=0&_end=3`,
-      { method: "GET" }
-    )
-      .then((res) => res.json())
+    axios
+      .get("http://localhost:50000/posts?quantity=3")
+      .then((res) => res.data)
       .then((data) => {
         setPostData(data);
       })
@@ -98,7 +98,7 @@ const Top: FC<Props> = memo((props) => {
             sxStyle={{
               width: { xs: "60%", sm: "45%", md: "35%" },
               height: "auto",
-              fontSize: {xs: "20px", sm: "23px"},
+              fontSize: { xs: "20px", sm: "23px" },
               my: "50px",
             }}
           >
@@ -114,7 +114,7 @@ const Top: FC<Props> = memo((props) => {
             sxStyle={{
               width: { xs: "60%", sm: "45%", md: "35%" },
               height: "auto",
-              fontSize: {xs: "20px", sm: "23px"},
+              fontSize: { xs: "20px", sm: "23px" },
               margin: "50px",
             }}
           >
@@ -149,7 +149,7 @@ const Top: FC<Props> = memo((props) => {
         </Card>
         {postData.length > 0 ? (
           <Paper sx={{ p: "20px", background: "#eae5e3", mt: "50px" }}>
-            <Box sx={{ overflowY: "scroll", height: "500px", px: "20px" }}>
+            <Box sx={{ overflowY: "scroll", height: "auto", px: "20px" }}>
               <>
                 {postData.map((postData: Post) => (
                   <PostData
@@ -177,7 +177,7 @@ const Top: FC<Props> = memo((props) => {
             sxStyle={{
               width: { xs: "60%", sm: "45%", md: "35%" },
               height: "auto",
-              fontSize: {xs: "20px", sm: "23px"},
+              fontSize: { xs: "20px", sm: "23px" },
               margin: "50px",
             }}
           >

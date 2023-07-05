@@ -3,16 +3,14 @@ import { Box, Paper } from "@mui/material";
 import { Items, Polls, Questionnaire } from "../../types/type";
 import PollTitle from "../molecules/poll/PollTitle";
 import PollCard from "../organisms/card/PollCard";
-import useGetPollCategoryItem from "../../hooks/useGetPollCategoryItem";
-import useGetPollLatestTitle from "../../hooks/useGetPollLatestTitle";
+import useGetPollCategoryItem from "../../hooks/poll/useGetPollCategoryItem";
+import useGetPollLatestTitle from "../../hooks/poll/useGetQuestionnaireCategoryData";
 import PollDetail from "../molecules/poll/PollDetail";
 import PollAgenda from "../molecules/poll/PollAgenda";
-import useGetPollCategoryData from "../../hooks/useGetPollCategoryData";
+import useGetPollCategoryData from "../../hooks/poll/useGetPollCategoryData";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
 import PollComplateTitle from "../molecules/poll/PollComplateTitle";
-
-export const findById = (recipeList: Questionnaire[], id: number) => recipeList.find((questionnaire: Questionnaire) => questionnaire.id === id)
 
 const Poll = memo(() => {
   //当月（開催中）のアンケートだけ表示。それ以外は非表示

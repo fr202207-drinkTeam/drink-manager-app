@@ -10,18 +10,6 @@ export type Users = {
   polledOther?: Boolean | null;
 };
 
-// export type Items = {
-//   id: number;
-//   name: string;
-//   description: string;
-//   image: string[];
-//   itemCategory?: number | null;
-//   createdAt?: Date | null;
-//   intheOffice: boolean;
-//   author?: string | null;
-//   otherItem?: boolean | null;
-// };
-
 export type Items = {
   id: number;
   itemName: string;
@@ -35,12 +23,38 @@ export type Items = {
   isDiscontinued?: boolean;
 };
 
+export type Item = {
+  id: number;
+  itemName: string;
+  description: string;
+  itemCategory: number;
+  createdAt: Date ;
+  inTheOffice: boolean;
+  author: number;
+  pollItem?: boolean | null;
+  isDiscontinued: boolean;
+  approval: boolean;
+  manufacturer: string;
+  purchaseLocation: string;
+  images:ItemImage[]
+  posts?:Post[]
+  stock:StockHistory[]
+};
+
+export type ItemImage = {
+  id: string;
+  item: Item[];
+  itemId: number;
+  imagePath: string; 
+  createdAt: Date
+}
+
 export type Questionnaire = {
   id: number;
   name: string;
-  Polleditems:{
+  Polleditems: {
     itemId: number;
-}[];
+  }[];
   description: string;
   createdAt: Date;
   category: number;
@@ -61,11 +75,19 @@ export type Polls = {
 export type Post = {
   id: number;
   userId: number;
+  user: { firstName: string; lastName: string; isAdmin: boolean };
   content: string;
   itemId: number;
-  postImage: string[];
+  item: Items;
+  postImages: PostImage[];
   createdAt: Date;
   updatedAt: Date;
+};
+
+export type PostImage = {
+  id: number;
+  path: string;
+  postId: number;
 };
 
 export type Comment = {

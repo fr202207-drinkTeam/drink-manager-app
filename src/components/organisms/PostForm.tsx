@@ -14,14 +14,14 @@ import {
 import React, { FC, memo, useEffect, useRef, useState } from "react";
 import PreviewImage from "../molecules/PreviewImage";
 import previewImages from "../../utils/previewImages";
-import ImgPathConversion from "../../utils/ImgPathConversion";
 import { Items, Post, Users } from "../../types/type";
 import ModalWindow from "./ModalWindow";
-import axios, { AxiosError } from "axios";
+import sendPostData from "../../utils/sendPostData";
 
 // 全商品データ、商品情報取得時エラー、ログインユーザー情報、投稿編集データ、投稿編集のset関数
 type Props = {
-  itemData: Items[];
+  // itemData: Items[];
+  itemData: any;
   itemError: boolean;
   loginUser: Users;
   editPostData: Post | null;
@@ -43,7 +43,7 @@ const PostForm: FC<Props> = memo((props) => {
   // 入力した画像ファイル格納
   const [inputImages, setInputImages] = useState<File[]>([]);
   // 投稿内容のバリデーションチェック
-  const [postError, setPostError] = useState<boolean>(false);
+  const [postError, setPostError] = useState<string | null>(null);
   // 投稿フォームのref
   const postForm = useRef<any>(null);
   // selectで選択した商品のitemId
@@ -54,97 +54,38 @@ const PostForm: FC<Props> = memo((props) => {
     if (!editPostData) {
       return;
     }
-    postForm.current![0].value = editPostData.content
-      .replace(/\/itemS.*/, "")
-      .replace(/\/nameS.*/, "");
+    postForm.current[0].value = editPostData.content;
     setSelectedItemId(editPostData.itemId);
-
-    setInputImages(editPostData.postImage.map((image) => new File([], image)));
-
-    postForm.current![0].focus();
+    setInputImages(
+      editPostData.postImages.map((image) => new File([], image.path))
+    );
+    postForm.current[0].focus();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editPostData]);
 
   // TODO 投稿送信処理
-  const postPostData = async () => {
+  const sendPost = async () => {
+    if (!postForm.current[0] || !postForm.current[2]) {
+      setPostError("エラーが発生しました、再読み込みしてください。");
+    }
+    await sendPostData(
+      postForm.current[0].value,
+      postForm.current[2].value,
+      inputImages,
+      loginUser.id,
+      setPostError,
+      setEditPostData,
+      editPostData
+    );
 
-    // 投稿のバリデーションチェック
-    if (
-      postForm.current![0].value.length < 20 ||
-      postForm.current![0].value.length > 256
-    ) {
-      setPostError(true);
+    if (postError) {
       return;
     }
-
-    // 選択した商品のid
-    const itemId = postForm.current![2].value;
-
-    // 投稿のアイテム情報取得
-    const item = itemData.find((item: Items) => item.id === parseInt(itemId));
-    // 投稿内容の装飾
-    let hashtagItem = "";
-    if (item) {
-      hashtagItem = `/itemS/${item.itemName}/itemE/`;
-    }
-    const userName = `/nameS/${loginUser.firstName} ${loginUser.lastName}/nameE/`;
-
-    // 入力した投稿内容
-    const content = postForm.current![0].value + hashtagItem + userName;
-    // 画像ファイルをfirebaseUrlに変換
-    const imagePaths = await ImgPathConversion({ imgFiles: inputImages });
-
-    // 投稿編集の場合
-    if (editPostData) {
-      const editedPost = {
-        userId: loginUser.id,
-        content: content,
-        itemId: parseInt(itemId),
-        postImages: imagePaths,
-        // updatedAt: new Date(),
-      };
-
-      // fetch(`http://localhost:8880/posts/${editPostData.id}`, {
-      //   method: "PATCH",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(editedComment),
-      // })
-      axios
-        .patch(`http://localhost:50000/posts/${editPostData.id}`, editedPost)
-        .then(() => {
-          setPostError(false);
-          setEditPostData(null);
-          setReloadPost(!reloadPost);
-          postForm.current.reset();
-          setSelectedItemId(0);
-          setInputImages([]);
-        });
-
-      return;
-    }
-    // 新規投稿の場合
-    const newPost = {
-      userId: loginUser.id,
-      content: content,
-      itemId: parseInt(itemId),
-      postImages: imagePaths,
-      // createdAt: new Date(),
-      // updatedAt: new Date(),
-    };
-
-    axios
-      .post("http://localhost:50000/posts", newPost)
-      .then((res) => {
-        console.log(res.data);
-        setPostError(false);
-        setReloadPost(!reloadPost);
-        postForm.current.reset();
-        setSelectedItemId(0);
-        setInputImages([]);
-      })
-      .catch((error: AxiosError) => {
-        console.log(error.response?.data);
-      });
+    
+    postForm.current.reset();
+    setSelectedItemId(0);
+    setInputImages([]);
+    setReloadPost(!reloadPost);
   };
 
   return (
@@ -155,7 +96,7 @@ const PostForm: FC<Props> = memo((props) => {
           variant="body1"
           sx={{ backgroundColor: "pink", mt: "10px", borderRadius: "3px" }}
         >
-          投稿内容は20文字以上255文字以内で入力してください
+          {postError}
         </Typography>
       )}
       <Paper
@@ -284,7 +225,7 @@ const PostForm: FC<Props> = memo((props) => {
                 openButtonSxStyle={{ my: "3px" }}
                 completeButtonColor="blue"
                 completeButtonName="確定"
-                completeAction={postPostData}
+                completeAction={sendPost}
                 cancelButtonColor="gray"
               />
             </Stack>

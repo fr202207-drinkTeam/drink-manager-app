@@ -16,7 +16,6 @@ import { CircularProgress } from "@mui/material";
 import { Users } from "../../types/type";
 
 type Props = {
-  //投票から商品追加したかどうか
   pollFlag?: boolean;
   handleClose?: any;
   trigger?: boolean;
@@ -69,6 +68,7 @@ const AddItem: FC<Props> = memo(
       };
 
       const postItemResult = await PostItemData(data);
+      console.log(postItemResult)
 
       if (postItemResult) {
         if (pollFlag) {
@@ -76,7 +76,7 @@ const AddItem: FC<Props> = memo(
           handleClose();
           return;
         }
-        navigate("/adminhome");
+        // navigate("/adminhome");
       }
     };
 

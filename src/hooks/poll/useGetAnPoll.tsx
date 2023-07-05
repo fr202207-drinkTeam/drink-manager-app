@@ -1,5 +1,5 @@
 import  { useEffect, useState } from "react";
-import { Polls } from "../types/type";
+import { Polls } from "../../types/type";
 
 const useGetAnPoll = (id: number) => {
   const [polls, setPolls] = useState<Polls[]>([]);

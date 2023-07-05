@@ -1,14 +1,8 @@
 import  { useEffect, useState } from "react";
-import { Polls } from "../types/type";
-import Cookies from "js-cookie";
-import { useLoginUserFetch } from "./useLoginUserFetch";
+import { Polls } from "../../types/type";
 
 const useGetPollCategoryData = (id: number) => {
   const [pollData, setPollData] = useState<Polls[]>([]);
-
-  //login
-  const authId = Cookies.get("authId")!;
-  const loginUser = useLoginUserFetch({ authId: authId });
 
   useEffect(() => {
     (async () => {
@@ -20,7 +14,7 @@ const useGetPollCategoryData = (id: number) => {
         console.error(error);
       }
     })();
-  }, [id, loginUser.id]);
+  }, [id]);
 
   return pollData;
 };

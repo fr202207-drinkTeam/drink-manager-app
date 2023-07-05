@@ -15,7 +15,7 @@ import PollDateInput from "../atoms/addPollForm/PollDateInput";
 import AddItem from "./AddItem";
 import useGetAllItems from "../../hooks/useGetAllItems";
 import ModalWindow from "../organisms/ModalWindow";
-import useGetPollCategoryPeriod from "../../hooks/useGetPollCategoryPeriod";
+import useGetPollCategoryPeriod from "../../hooks/poll/useGetPollCategoryPeriod";
 import PollItemCategorySelect from "../atoms/addPollForm/PollItemCategorySelect";
 import PostQuestionnair from "../../utils/PostQuestionnaire";
 import { validateCategory, validateDate, validateDescription, validatePollName, validateSelectedItems } from "../../utils/AddPollValidation";
