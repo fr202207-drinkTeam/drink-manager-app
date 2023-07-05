@@ -30,7 +30,7 @@ const PollResultFiltering = () => {
   useEffect(() => {
     //startdateが超えていたら
     (async () => {
-      const response = await fetch(`http://localhost:8880/questionnaire`);
+      const response = await fetch(`http://localhost:50000/questionnairesperiod/2`);
       const data = await response.json();
       setPollTitle(data);
     })();

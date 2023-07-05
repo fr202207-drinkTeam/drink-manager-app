@@ -5,3 +5,4 @@ export const handlers = [
     return res(ctx.status(200), ctx.json({ props1: "hoge", props2: "huga" }))
   }),
 ]
+

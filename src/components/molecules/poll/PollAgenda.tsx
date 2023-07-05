@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { ActiveBeigeButton } from '../../atoms/button/Button'
 import { useNavigate } from 'react-router-dom'
 import { Questionnaire } from '../../../types/type'
-import useGetQuestionnaire from '../../../hooks/useGetQuestionnaire'
+import useGetAllQuestionnaire from '../../../hooks/poll/useGetAllQuestionnaire'
 
 type PollAgendaProps = {
   pollTitle: Questionnaire[]
@@ -12,7 +12,7 @@ type PollAgendaProps = {
 const PollAgenda: FC<PollAgendaProps> = ({ pollTitle }) => {
   const navigate = useNavigate()
   const theme = useTheme();
-  const pollData: Questionnaire[] = useGetQuestionnaire()
+  const pollData: Questionnaire[] = useGetAllQuestionnaire()
   const now = new Date();
   now.setHours(0, 0, 0, 0);
   return (

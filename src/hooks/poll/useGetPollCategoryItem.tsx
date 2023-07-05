@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Items, Questionnaire } from "../types/type";
+import { Items, Questionnaire } from "../../types/type";
+
 
 const useGetPollCategoryItem = (id: number) => {
   const [items, setItems] = useState<Items[]>([]);
@@ -27,10 +28,8 @@ const useGetPollCategoryItem = (id: number) => {
           endDate.setHours(0, 0, 0, 0);
           const startDate = new Date(question.startDate);
           startDate.setHours(0, 0, 0, 0);
-          const isValidPeriod = startDate < now && endDate >= now;
           return {
             ...question,
-            isValidPeriod: isValidPeriod,
             startDate,
             endDate,
           };
@@ -43,7 +42,6 @@ const useGetPollCategoryItem = (id: number) => {
         });
         //
         const sortedData = filteredData.sort((a: { endDate: { getTime: () => number; }; }, b: { endDate: { getTime: () => number; }; }) => b.endDate.getTime() - a.endDate.getTime());
-        
         const pollitemID = sortedData[0]?.Polleditems?.map(
           (poll: any) => {
             return poll.itemId;
@@ -63,3 +61,6 @@ const useGetPollCategoryItem = (id: number) => {
 };
 
 export default useGetPollCategoryItem;
+
+
+

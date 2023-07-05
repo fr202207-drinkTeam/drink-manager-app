@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { memo, useEffect, useRef, useState } from "react";
+import { memo,useState } from "react";
 import AdmTitleText from "../atoms/text/AdmTitleText";
-import { Backdrop, Box, Fade, Modal, Paper, Toolbar } from "@mui/material";
+import { Backdrop, Box, Fade, Modal, Paper } from "@mui/material";
 import { Items, Questionnaire } from "../../types/type";
 import AddPollCard from "../organisms/card/AddPollCard";
-import { ActiveBorderButton, ActiveDarkBlueButton, } from "../atoms/button/Button";
+import { ActiveDarkBlueButton, } from "../atoms/button/Button";
 import Cookies from "js-cookie";
 import { useLoginUserFetch } from "../../hooks/useLoginUserFetch";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import PollNameInput from "../atoms/addPollForm/PollNameInput";
 import PollDescriptionInput from "../atoms/addPollForm/PollDescriptionInput";
 import PollCategorySelect from "../atoms/addPollForm/PollCategorySelect";
@@ -15,9 +15,10 @@ import PollDateInput from "../atoms/addPollForm/PollDateInput";
 import AddItem from "./AddItem";
 import useGetAllItems from "../../hooks/useGetAllItems";
 import ModalWindow from "../organisms/ModalWindow";
-import useGetPollCategoryPeriod from "../../hooks/useGetPollCategoryPeriod";
+import useGetPollCategoryPeriod from "../../hooks/poll/useGetPollCategoryPeriod";
 import PollItemCategorySelect from "../atoms/addPollForm/PollItemCategorySelect";
 import PostQuestionnair from "../../utils/PostQuestionnaire";
+import { validateCategory, validateDate, validateDescription, validatePollName, validateSelectedItems } from "../../utils/AddPollValidation";
 
 const style = {
   position: "absolute" as "absolute",
@@ -38,6 +39,7 @@ const AddPoll = memo(() => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  //hooks
   const [startPeriodDate, setStartPeriodDate] = useState("");
   const [endPeriodDate, setEndPeriodDate] = useState("");
   const [pollCategory, setPollCategory] = useState("投票種別を選択してください");
@@ -47,13 +49,13 @@ const AddPoll = memo(() => {
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [trigger, setTrigger] = useState(false);
   //バリデーション
-  const [pollNameError, setPollNameError] = useState("");
-  const [descriptionError, setDescriptionError] = useState("");
-  const [categoryError, setCategoryError] = useState("");
-  const [categoryItemError, setCategoryItemError] = useState("");
-  const [dateError, setDateError] = useState("");
-  const [selectedItemsError, setSelectedItemsError] = useState("");
-  const [allError, setAllError] = useState("");
+  const [pollNameError, setPollNameError] = useState<string>("");
+  const [descriptionError, setDescriptionError] = useState<string>("");
+  const [categoryError, setCategoryError] = useState<string>("");
+  const [categoryItemError, setCategoryItemError] = useState<string>("");//検索
+  const [dateError, setDateError] = useState<string>("");
+  const [selectedItemsError, setSelectedItemsError] = useState<string>("");
+  const [allError, setAllError] = useState<string>("");
   //hooks
   const popularQuestionnaireData: Questionnaire[] = useGetPollCategoryPeriod(1);
   const othersQuestionnaireData: Questionnaire[] = useGetPollCategoryPeriod(2);
@@ -61,13 +63,13 @@ const AddPoll = memo(() => {
   //login
   const authId = Cookies.get("authId")!;
   const loginUser = useLoginUserFetch({ authId: authId });
-  const isFirstRender = useRef(true);
   const navigate = useNavigate();
 
   //廃盤になっていない商品のみ表示
   const isExistItems = items.filter((item) => {
     return item.isDiscontinued === false
   })
+  //投票期間(人気投票)
   const isPopularOverlapping = popularQuestionnaireData.some(question => {
     const popularQuestionStartDate = new Date(question.startDate);
     const popularQuestionEndDate = new Date(question.endDate);
@@ -76,6 +78,7 @@ const AddPoll = memo(() => {
     // 選択された期間で人気投票が重複している場合はtrueを返す
     return popularInputStartDate <= popularQuestionEndDate && popularInputEndDate >= popularQuestionStartDate;
   });
+  //投票期間（その他投票）
   const isOthersOverlapping = othersQuestionnaireData.some(question => {
     const othersQuestionStartDate = new Date(question.startDate);
     const othersQuestionEndDate = new Date(question.endDate);
@@ -90,109 +93,27 @@ const AddPoll = memo(() => {
   const endDate = new Date(endPeriodDate);
   const timeDifference = endDate.getTime() - startDate.getTime();
 
-  //バリデーション
-  //投票名
-  const validatePollName = () => {
-    if (!pollName) {
-      setPollNameError("投票名を入力してください");
-      return false;
-    }
-    if (pollName.length < 5) {
-      setPollNameError("5文字以上の入力が必要です");
-      return false;
-    }
-    setPollNameError("");
-    return true;
-  };
-  //投票詳細
-  const validateDescription = () => {
-    if (!pollDescription) {
-      setDescriptionError("投票詳細を入力してください");
-      return false;
-    }
-    if (pollDescription.length < 5) {
-      setDescriptionError("*5文字以上の入力が必要です");
-      return false;
-    }
-    setDescriptionError("");
-    return true;
-  };
-  //投票期間
-  const validateDate = () => {
+  console.log(timeDifference,oneMonthInMilliseconds)
 
-    if (timeDifference > oneMonthInMilliseconds) {
-      setDateError("投票期間は1ヶ月以内で設定してください。");
-      return false;
-    }
-    if (!startPeriodDate || !endPeriodDate) {
-      setDateError("投票期間を入れてください");
-      return false;
-    }
-    if (startPeriodDate >= endPeriodDate) {
-      setDateError("投票期間が正しくありません。再度確認してください。");
-      return false;
-    }
-    if (isPopularOverlapping && isOthersOverlapping) {
-      setDateError("投票期間が被っています。投票期間を再度確認してください。");
-      return false;
-    }
-    setDateError("");
-    return true;
-  };
-  //投票カテゴリー
-  const validateCategory = () => {
-    if (pollCategory === "投票種別を選択してください") {
-      setCategoryError("投票種別を選択してください");
-      return false;
-    }
-    if (isPopularOverlapping && pollCategory === "1") {
-      setCategoryError("人気投票が同一期間で重複するため登録できません");
-      return false;
-    }
-    if (isOthersOverlapping && pollCategory === "2") {
-      setCategoryError("その他投票が同一期間で重複するため登録できません");
-      return false;
-    }
-    setCategoryError("");
-    return true;
-  };
-  ///投票選択商品
-  const validateSelectedItems = () => {
-    if (selectedItems.length === 0) {
-      setSelectedItemsError("投票に追加する商品を選択してください");
-      return false;
-    }
-    if (selectedItems.length >= 15) {
-      setSelectedItemsError("投票に追加できる商品は15件までです");
-      return false;
-    }
-    if (selectedItems.length === 1) {
-      setSelectedItemsError("投票商品が1件の状態では登録できません");
-      return false;
-    }
-    setSelectedItemsError("");
-    return true;
-  };
   //アンケート情報登録
   const onClickAddPollData: () => Promise<void> = async () => {
-    const isNameValid = validatePollName();
-    const isDescriptionValid = validateDescription();
-    const isCategoryValid = validateCategory();
-    const isDateValid = validateDate();
-    const isSelectedItemsValid = validateSelectedItems();
+    const isNameValid = validatePollName(pollName)
+    setPollNameError(isNameValid)
+    const isDescriptionValid = validateDescription(pollDescription)
+    setDescriptionError(isDescriptionValid)
+    const isCategoryValid = validateCategory(pollCategory, isPopularOverlapping, isOthersOverlapping)
+    setCategoryError(isCategoryValid)
+    const isDateValid = validateDate(timeDifference, oneMonthInMilliseconds, startPeriodDate, endPeriodDate, isPopularOverlapping, isOthersOverlapping)
+    setDateError(isDateValid)
+    const isSelectedItemsValid = validateSelectedItems(selectedItems)
+    setSelectedItemsError(isSelectedItemsValid)
     if (
-      isNameValid &&
-      isDescriptionValid &&
-      isCategoryValid &&
-      isDateValid &&
-      isSelectedItemsValid
+      isNameValid==="" &&
+      isDescriptionValid==="" &&
+      isCategoryValid==="" &&
+      isDateValid==="" &&
+      isSelectedItemsValid===""
     ) {
-      const polledItemIds = selectedItems.map((item) => {
-        return { itemId: item };
-      });
-      if (isFirstRender.current) {
-        isFirstRender.current = false;
-      }
       const data = {
         name: pollName,
         description: pollDescription,
@@ -200,7 +121,7 @@ const AddPoll = memo(() => {
         createdAt: new Date(),
         startDate: new Date(startPeriodDate),
         endDate: new Date(endPeriodDate),
-        Polleditems: polledItemIds,
+        PolleditemsData: [{ itemId: 1 }],
         author: loginUser.id,
       }
       const PostQuestionnairData = await PostQuestionnair(data)
@@ -256,14 +177,14 @@ const AddPoll = memo(() => {
             </Box>
           </Fade>
         </Modal>
-        <PollNameInput pollName={pollName} setPollName={setPollName} pollNameError={pollNameError} setPollNameError={setPollNameError} />
-        <PollDescriptionInput pollDescription={pollDescription} setPollDescription={setPollDescription} descriptionError={descriptionError} setDescriptionError={setDescriptionError} />
-        <PollCategorySelect pollCategory={pollCategory} setPollCategory={setPollCategory} categoryError={categoryError} setCategoryError={setCategoryError} />
-        <PollDateInput startPeriodDate={startPeriodDate} endPeriodDate={endPeriodDate} setStartPeriodDate={setStartPeriodDate} setEndPeriodDate={setEndPeriodDate} dateError={dateError} setDateError={setDateError} />
-        <PollItemCategorySelect pollItemCategory={pollItemCategory} setPollItemCategory={setPollItemCategory} categoryItemError={categoryItemError} setCategoryItemError={setCategoryItemError} />
+        <PollNameInput pollName={pollName} setPollName={setPollName} pollNameError={pollNameError} />
+        <PollDescriptionInput pollDescription={pollDescription} setPollDescription={setPollDescription} descriptionError={descriptionError} />
+        <PollCategorySelect pollCategory={pollCategory} setPollCategory={setPollCategory} categoryError={categoryError} />
+        <PollDateInput startPeriodDate={startPeriodDate} endPeriodDate={endPeriodDate} setStartPeriodDate={setStartPeriodDate} setEndPeriodDate={setEndPeriodDate} dateError={dateError} />
+        <PollItemCategorySelect pollItemCategory={pollItemCategory} setPollItemCategory={setPollItemCategory}/>
         <Box sx={{ m: "auto" }}>
-          {selectedItemsError && (
-            <Box sx={{ color: "red", fontSize: 15, mt: 3 }}>
+          {!(selectedItemsError==="") && (
+            <Box sx={{ color: "red", fontSize: 15, mt: 3,textAlign:"left" }}>
               {selectedItemsError}
             </Box>
           )}

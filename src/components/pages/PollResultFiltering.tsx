@@ -19,39 +19,26 @@ const PollResultFiltering = () => {
     setEndPeriodDate(e.target.value);
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const now = new Date();
-
   useEffect(() => {
     //startdateが超えていたら
     (async () => {
-      const response = await fetch(`http://localhost:50000/questionnaires`);
+      const response = await fetch(`http://localhost:50000/questionnairesfiltering`);
       const data = await response.json();
       const period = data.map((question: Questionnaire) => {
         const endDate = new Date(question.endDate);
         const startDate = new Date(question.startDate);
-        const isValidPeriod = endDate < now;
         return {
           ...question,
-          isValidPeriod: isValidPeriod,
           endDate: endDate,
           startDate: startDate,
         };
       });
-      const validPeriodData = period.filter((question: any) => {
-        return question.isValidPeriod;
-      });
       if (startPeriodDate !== "" && endPeriodDate !== "") {
-        const periodData = validPeriodData.filter((date: Questionnaire) => {
-          return (
-            date.startDate >= new Date(startPeriodDate) &&
-            date.endDate <= new Date(endPeriodDate)
-          );
-        });
-        setPollTitle(periodData);
+        setPollTitle(period);
       }
     })();
-  }, [startPeriodDate, endPeriodDate, now]);
+  }, [startPeriodDate, endPeriodDate]);
+  
   return (
     <Paper sx={{ pb: 3 }}>
       <Box

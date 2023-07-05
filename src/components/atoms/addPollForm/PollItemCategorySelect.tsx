@@ -5,24 +5,15 @@ import { ActiveBlueButton, ActiveDarkBlueButton } from "../button/Button";
 type PollCategorySelectProps = {
   pollItemCategory: string;
   setPollItemCategory: React.Dispatch<React.SetStateAction<string>>;
-  categoryItemError:string;
-  setCategoryItemError: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const PollItemCategorySelect: FC<PollCategorySelectProps> = ({
   pollItemCategory,
-  categoryItemError,
   setPollItemCategory,
 }) => {
   return( 
   <Box sx={{display:"flex",justifyContent: "flex-end",alignItems:"center",px:1}}>
     <Box>
-
-     {categoryItemError && (
-            <Box sx={{ color: "red", fontSize: 15, pt: 2 }}>
-              {categoryItemError}
-            </Box>
-          )}
           <Select
             onChange={(e: SelectChangeEvent) => setPollItemCategory(e.target.value)}
             value={pollItemCategory}

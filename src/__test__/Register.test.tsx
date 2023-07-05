@@ -33,7 +33,6 @@ describe('Registerコンポーネント', () => {
         </BrowserRouter>
       </RecoilRoot>
     );
-
     const registerButton = screen.getByText('登録');
     expect(registerButton).toBeDisabled();
   });
@@ -46,7 +45,6 @@ describe('Registerコンポーネント', () => {
         </BrowserRouter>
       </RecoilRoot>
     );
-
     const userIdInput = screen.getByLabelText('社員ID*');
     const firstNameInput = screen.getByLabelText('名 *');
     const lastNameInput = screen.getByLabelText('姓 *');
@@ -64,6 +62,7 @@ describe('Registerコンポーネント', () => {
 
     expect(registerButton).toBeEnabled();
   });
+
   test('会員登録できること', async() => {
     render(
       <RecoilRoot>

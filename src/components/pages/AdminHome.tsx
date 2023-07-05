@@ -232,7 +232,7 @@ const AdminHome: FC<Props> = memo((props) => {
                   </Box>
                 </Link>
 
-                <Link to="/adminhome/addpoll">
+                <Link to="/adminhome/polleditfiltering">
                   <Box
                     sx={{
                       width: { xs: "100px", sm: "100px", md: 150, lg: 150 },

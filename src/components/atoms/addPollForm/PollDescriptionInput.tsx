@@ -5,19 +5,17 @@ import { PrimaryInput } from "../input/Input";
 type PollDescriptionInputProps = {
   pollDescription: string;
   setPollDescription: React.Dispatch<React.SetStateAction<string>>;
-  descriptionError: string;
-  setDescriptionError: React.Dispatch<React.SetStateAction<string>>;
+  descriptionError: string|boolean;
 };
 
 const PollDescriptionInput: FC<PollDescriptionInputProps> = ({
   pollDescription,
-  setDescriptionError,
   setPollDescription,
   descriptionError,
 }) => {
   return (
     <Box>
-      {descriptionError && (
+      {!(descriptionError==="") && (
         <Box style={{ color: "red", fontSize: 15 }}>{descriptionError}</Box>
       )}
       <PrimaryInput
